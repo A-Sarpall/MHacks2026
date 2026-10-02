@@ -1,127 +1,174 @@
-import { useCallback, useEffect, useRef } from "react";
-import { CameraPreview } from "./components/CameraPreview";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  CameraView,
+  type CameraViewHandle,
+  type CaptureTarget,
+} from "./components/CameraView";
 import { TileBar } from "./components/TileBar";
 import { CoreWords } from "./components/CoreWords";
 import { Candidates } from "./components/Candidates";
 import { StatusBar } from "./components/StatusBar";
-import { initDetector, detectObjects, isDetectorReady } from "./lib/detect";
-import { getVideoElement } from "./lib/capture";
-import { mockComposer } from "./lib/compose";
+import { initDetector } from "./lib/detect";
+import { initClassifier } from "./lib/classify";
+import { identifyLocal, identifyWithClaude } from "./lib/identify";
+import { hasClaude } from "./lib/claude";
+import { claudeComposer, composeMock } from "./lib/compose";
 import { speakNow, playBackchannel } from "./lib/speak";
 import { startInputListening, stopInputListening } from "./lib/input";
 import { useCueStore, nextBackchannel } from "./lib/store";
-import type { CoreWord } from "./lib/types";
+import type { CoreWord, InputAction } from "./lib/types";
 
 export default function App() {
   const { state, dispatch } = useCueStore();
-  const composingRef = useRef(false);
+  const cameraRef = useRef<CameraViewHandle>(null);
+  const composeSeq = useRef(0);
+  const [modelError, setModelError] = useState("");
+  const [trackCount, setTrackCount] = useState(0);
+  const [mirror, setMirror] = useState(true);
+  const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
 
-  // Initialize MediaPipe detector on mount
-  useEffect(() => {
-    initDetector().catch(console.error);
+  // Brief "Identified: X" banner over the camera
+  const showToast = useCallback((text: string) => {
+    setToast({ text, key: Date.now() });
   }, []);
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 2500);
+    return () => clearTimeout(t);
+  }, [toast]);
 
-  // Handle input actions (keyboard simulating ring)
-  const handleInput = useCallback(
-    async (action: "click" | "double" | "hold") => {
-      if (action === "click") {
-        // Capture + detect
-        if (!isDetectorReady()) return;
-        const video = getVideoElement();
-        if (!video) return;
+  // Load both models up front; the detector gates the "ready" state, the
+  // classifier only improves identification.
+  useEffect(() => {
+    initClassifier().catch((err) =>
+      console.warn("[classify] failed to load, using detector labels", err)
+    );
+    initDetector()
+      .then(() => dispatch({ type: "SET_STATUS", status: "idle" }))
+      .catch((err) => {
+        console.error("[detect]", err);
+        setModelError(
+          "Could not load the object detection model. Check your internet connection and reload."
+        );
+      });
+  }, [dispatch]);
 
-        dispatch({ type: "SET_STATUS", status: "detecting" });
-        const detections = detectObjects(video);
-        dispatch({ type: "SET_DETECTIONS", detections });
+  const handleCapture = useCallback(
+    async (target: CaptureTarget) => {
+      const { capture, crop } = identifyLocal(
+        target.video,
+        target.box,
+        target.detected
+      );
+      dispatch({ type: "ADD_CAPTURE", capture });
+      showToast(
+        `Identified: ${capture.label}` +
+          (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
+      );
+      if (!hasClaude()) return;
+
+      dispatch({ type: "SET_STATUS", status: "identifying" });
+      try {
+        const hints = [capture.label, ...capture.alternatives.map((a) => a.label)];
+        const label = await identifyWithClaude(crop, hints);
+        const patch = label
+          ? {
+              label,
+              confidence: 0,
+              source: "claude" as const,
+              alternatives: [
+                { label: capture.label, score: capture.confidence, source: capture.source === "manual" ? "classifier" as const : capture.source },
+                ...capture.alternatives,
+              ].filter((a) => a.label !== label),
+            }
+          : {};
+        dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { ...patch, refining: false } });
+        if (label && label !== capture.label) showToast(`Claude says: ${label}`);
+      } catch (err) {
+        console.warn("[identify] Claude vision failed", err);
+        dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { refining: false } });
+      } finally {
         dispatch({ type: "SET_STATUS", status: "idle" });
-      }
-
-      if (action === "double") {
-        const bc = nextBackchannel();
-        playBackchannel(bc);
-      }
-
-      if (action === "hold") {
-        // Queue the first candidate if available
-        if (state.candidates.length > 0) {
-          dispatch({
-            type: "QUEUE_SENTENCE",
-            sentence: state.candidates[0],
-          });
-        }
       }
     },
-    [state.candidates, dispatch]
+    [dispatch, showToast]
   );
-
-  // Wire keyboard input
-  useEffect(() => {
-    startInputListening(handleInput);
-    return () => stopInputListening();
-  }, [handleInput]);
-
-  // Auto-compose when tiles + core words change
-  useEffect(() => {
-    if (
-      state.selectedTiles.length === 0 &&
-      state.selectedCoreWords.length === 0
-    )
-      return;
-    if (composingRef.current) return;
-
-    composingRef.current = true;
-    dispatch({ type: "SET_STATUS", status: "composing" });
-
-    mockComposer
-      .compose({
-        tiles: state.selectedTiles,
-        coreWords: state.selectedCoreWords,
-      })
-      .then((candidates) => {
-        dispatch({ type: "SET_CANDIDATES", candidates });
-        dispatch({ type: "SET_STATUS", status: "idle" });
-      })
-      .finally(() => {
-        composingRef.current = false;
-      });
-  }, [state.selectedTiles, state.selectedCoreWords, dispatch]);
 
   const handleSpeak = useCallback(
     async (sentence: string) => {
       dispatch({ type: "SET_STATUS", status: "speaking" });
-      await speakNow(sentence);
+      try {
+        await speakNow(sentence);
+      } catch (err) {
+        console.warn("[speak]", err);
+      }
       dispatch({ type: "SET_STATUS", status: "idle" });
     },
     [dispatch]
   );
 
-  const handleQueue = useCallback(
-    (sentence: string) => {
-      dispatch({ type: "QUEUE_SENTENCE", sentence });
+  // Keyboard (simulating the ring)
+  const handleInput = useCallback(
+    (action: InputAction) => {
+      if (action === "click") {
+        const target = cameraRef.current?.captureFocused();
+        if (target) void handleCapture(target);
+      }
+      if (action === "double") {
+        playBackchannel(nextBackchannel());
+      }
+      if (action === "hold" && state.candidates.length > 0) {
+        dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
+      }
     },
-    [dispatch]
+    [state.candidates, dispatch, handleCapture]
   );
+
+  useEffect(() => {
+    startInputListening(handleInput);
+    return () => stopInputListening();
+  }, [handleInput]);
+
+  // Compose sentences whenever the selection changes (needs a core word)
+  const selectedLabels = state.captures
+    .filter((c) => state.selectedTileIds.includes(c.id))
+    .map((c) => c.label);
+  const selectionKey = `${selectedLabels.join("|")}#${state.selectedCoreWords.join("|")}`;
+
+  useEffect(() => {
+    if (state.selectedCoreWords.length === 0) return;
+    const seq = ++composeSeq.current;
+    const input = { tiles: selectedLabels, coreWords: state.selectedCoreWords };
+    // Instant template sentences; Claude's replace them when they arrive.
+    dispatch({ type: "SET_CANDIDATES", candidates: composeMock(input) });
+    if (!hasClaude()) return;
+    dispatch({ type: "SET_STATUS", status: "composing" });
+    claudeComposer
+      .compose(input)
+      .then((candidates) => {
+        if (seq === composeSeq.current)
+          dispatch({ type: "SET_CANDIDATES", candidates });
+      })
+      .catch((err) => console.warn("[compose] Claude failed, keeping templates", err))
+      .finally(() => {
+        if (seq === composeSeq.current)
+          dispatch({ type: "SET_STATUS", status: "idle" });
+      });
+    // selectionKey captures selectedLabels + core words
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectionKey, dispatch]);
 
   const handleSpeakQueue = useCallback(async () => {
     if (!state.queuedSentence) return;
-    dispatch({ type: "SET_STATUS", status: "speaking" });
-    await speakNow(state.queuedSentence);
+    const sentence = state.queuedSentence;
     dispatch({ type: "CLEAR_QUEUE" });
-  }, [state.queuedSentence, dispatch]);
-
-  const handleClearQueue = useCallback(() => {
-    dispatch({ type: "CLEAR_QUEUE" });
-  }, [dispatch]);
-
-  const handleCameraReady = useCallback(() => {
-    // Camera is streaming
-  }, []);
+    await handleSpeak(sentence);
+  }, [state.queuedSentence, dispatch, handleSpeak]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200 px-6 py-3">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           <h1 className="text-xl font-bold text-gray-900">
             Cue
             <span className="ml-2 text-sm font-normal text-gray-400">
@@ -131,34 +178,78 @@ export default function App() {
           <StatusBar
             status={state.status}
             queuedSentence={state.queuedSentence}
-            onClearQueue={handleClearQueue}
+            onClearQueue={() => dispatch({ type: "CLEAR_QUEUE" })}
             onSpeakQueue={handleSpeakQueue}
           />
         </div>
       </header>
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
-        {/* Camera */}
-        <section className="flex justify-center">
-          <CameraPreview onReady={handleCameraReady} />
+      <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
+        {modelError && (
+          <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
+            {modelError}
+          </div>
+        )}
+
+        <section className="flex flex-col items-center gap-2">
+          <div className="relative w-full max-w-2xl">
+            <CameraView
+              ref={cameraRef}
+              onCapture={(t) => void handleCapture(t)}
+              onTrackCount={setTrackCount}
+              mirror={mirror}
+            />
+            {toast && (
+              <div
+                key={toast.key}
+                data-testid="toast"
+                className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/75 text-white text-lg font-semibold shadow-lg pointer-events-none capitalize"
+              >
+                {toast.text}
+              </div>
+            )}
+            <button
+              onClick={(e) => {
+                setMirror((m) => !m);
+                e.currentTarget.blur();
+              }}
+              className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/50 text-white text-xs hover:bg-black/70"
+              title="Flip the preview (turn off if the camera faces away from you)"
+            >
+              Mirror: {mirror ? "on" : "off"}
+            </button>
+          </div>
+          <div className="text-xs text-gray-400" data-testid="track-info">
+            {state.status === "loading"
+              ? "Loading detection model…"
+              : `Tracking ${trackCount} object${trackCount === 1 ? "" : "s"}`}
+            {" · "}
+            {hasClaude() ? "Claude identification on" : "on-device identification (add VITE_ANTHROPIC_API_KEY for Claude)"}
+          </div>
         </section>
 
-        {/* Detected Object Tiles */}
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="text-xs text-gray-400 mb-2 text-center uppercase tracking-wider">
-            Objects
+          <div className="text-xs text-gray-400 mb-3 text-center uppercase tracking-wider">
+            Captured objects
           </div>
           <TileBar
-            detections={state.detections}
-            selectedTiles={state.selectedTiles}
-            onToggle={(label) => dispatch({ type: "TOGGLE_TILE", label })}
+            captures={state.captures}
+            selectedTileIds={state.selectedTileIds}
+            onToggle={(id) => dispatch({ type: "TOGGLE_TILE", id })}
+            onRename={(id, label) =>
+              dispatch({
+                type: "UPDATE_CAPTURE",
+                id,
+                patch: { label, source: "manual", confidence: 0, refining: false },
+              })
+            }
+            onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
           />
         </section>
 
-        {/* Core Words */}
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-xs text-gray-400 mb-2 text-center uppercase tracking-wider">
-            Core Words
+            Core words
           </div>
           <CoreWords
             selectedCoreWords={state.selectedCoreWords}
@@ -168,19 +259,15 @@ export default function App() {
           />
         </section>
 
-        {/* Candidate Sentences */}
         <section>
           <Candidates
             candidates={state.candidates}
             onSpeak={handleSpeak}
-            onQueue={handleQueue}
+            onQueue={(sentence) => dispatch({ type: "QUEUE_SENTENCE", sentence })}
           />
         </section>
 
-        {/* Clear button */}
-        {(state.selectedTiles.length > 0 ||
-          state.selectedCoreWords.length > 0 ||
-          state.detections.length > 0) && (
+        {(state.captures.length > 0 || state.selectedCoreWords.length > 0) && (
           <div className="flex justify-center">
             <button
               onClick={() => dispatch({ type: "CLEAR_ALL" })}

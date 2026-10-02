@@ -1,56 +1,38 @@
+// Keyboard simulation of the ring's single button:
+//   Space = click (capture + identify), D = double-click (backchannel),
+//   H = hold (queue sentence). A ring client can call the same handler later.
 import type { InputAction } from "./types";
 
 type InputHandler = (action: InputAction) => void;
 
 let handler: InputHandler | null = null;
-let holdTimer: ReturnType<typeof setTimeout> | null = null;
-let lastKeyDown = 0;
-const HOLD_MS = 800;
+
+const KEYS: Record<string, InputAction> = {
+  Space: "click",
+  KeyD: "double",
+  KeyH: "hold",
+};
+
+function isTyping(target: EventTarget | null): boolean {
+  return (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    (target instanceof HTMLElement && target.isContentEditable)
+  );
+}
 
 function onKeyDown(e: KeyboardEvent): void {
-  if (!handler) return;
+  const action = KEYS[e.code];
+  if (!handler || !action) return;
+  if (e.ctrlKey || e.metaKey || e.altKey || isTyping(e.target)) return;
+  e.preventDefault();
   if (e.repeat) return;
-  // Ignore if user is typing in an input
-  if (
-    e.target instanceof HTMLInputElement ||
-    e.target instanceof HTMLTextAreaElement
-  )
-    return;
-
-  if (e.code === "Space") {
-    e.preventDefault();
-    const now = Date.now();
-    // Start hold detection
-    holdTimer = setTimeout(() => {
-      handler?.("hold");
-      holdTimer = null;
-    }, HOLD_MS);
-    lastKeyDown = now;
-  }
-
-  if (e.code === "KeyD") {
-    e.preventDefault();
-    handler("double");
-  }
-
-  if (e.code === "KeyH") {
-    e.preventDefault();
-    handler("hold");
-  }
+  handler(action);
 }
 
 function onKeyUp(e: KeyboardEvent): void {
-  if (!handler) return;
-  if (e.code === "Space") {
-    if (holdTimer) {
-      clearTimeout(holdTimer);
-      holdTimer = null;
-      const elapsed = Date.now() - lastKeyDown;
-      if (elapsed < HOLD_MS) {
-        handler("click");
-      }
-    }
-  }
+  // Stop a focused button from also being "clicked" by the space bar
+  if (e.code === "Space" && !isTyping(e.target)) e.preventDefault();
 }
 
 export function startInputListening(h: InputHandler): void {
@@ -63,8 +45,4 @@ export function stopInputListening(): void {
   handler = null;
   window.removeEventListener("keydown", onKeyDown);
   window.removeEventListener("keyup", onKeyUp);
-  if (holdTimer) {
-    clearTimeout(holdTimer);
-    holdTimer = null;
-  }
 }

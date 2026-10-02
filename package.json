@@ -4,12 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/copy-wasm.mjs && node scripts/fetch-models.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/copy-wasm.mjs && node scripts/fetch-models.mjs",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
     "@mediapipe/tasks-vision": "^1.0.1",
     "@tailwindcss/vite": "^4.3.3",
     "react": "^19.2.8",

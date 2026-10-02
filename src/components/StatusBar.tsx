@@ -8,8 +8,9 @@ interface Props {
 }
 
 const STATUS_DISPLAY: Record<CueStatus, { label: string; color: string }> = {
+  loading: { label: "Loading models...", color: "bg-gray-200 text-gray-500 animate-pulse" },
   idle: { label: "Ready", color: "bg-gray-200 text-gray-600" },
-  detecting: { label: "Detecting...", color: "bg-blue-200 text-blue-700" },
+  identifying: { label: "Identifying...", color: "bg-blue-200 text-blue-700" },
   composing: { label: "Composing...", color: "bg-purple-200 text-purple-700" },
   speaking: { label: "Speaking", color: "bg-green-200 text-green-700" },
   queued: { label: "Queued", color: "bg-amber-200 text-amber-700" },
@@ -52,7 +53,7 @@ export function StatusBar({
       )}
 
       <div className="text-xs text-gray-400">
-        Space: detect | D: backchannel | H: queue
+        Click/Space: identify · D: backchannel · H: queue
       </div>
     </div>
   );
