@@ -24,6 +24,8 @@ export interface CameraViewHandle {
 interface Props {
   onCapture: (target: CaptureTarget) => void;
   onTrackCount?: (count: number) => void;
+  onDevices?: (devices: MediaDeviceInfo[]) => void;
+  deviceId?: string;
   mirror?: boolean;
 }
 
@@ -59,7 +61,10 @@ function pickCentral(tracks: TrackedObject[], vw: number, vh: number) {
 type CamState = "starting" | "live" | "error";
 
 export const CameraView = forwardRef<CameraViewHandle, Props>(
-  function CameraView({ onCapture, onTrackCount, mirror = true }, ref) {
+  function CameraView(
+    { onCapture, onTrackCount, onDevices, deviceId, mirror = true },
+    ref
+  ) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const tracksRef = useRef<TrackedObject[]>([]);
@@ -69,15 +74,25 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     onTrackCountRef.current = onTrackCount;
     const [camState, setCamState] = useState<CamState>("starting");
     const [camError, setCamError] = useState("");
+    // Match the box to the camera's real aspect ratio so overlay/click
+    // coordinates line up (laptop cams may be 4:3 or 16:9)
+    const [aspect, setAspect] = useState("4 / 3");
+    const onDevicesRef = useRef(onDevices);
+    onDevicesRef.current = onDevices;
 
     // Start camera; clean up the stream on unmount (StrictMode mounts twice)
     useEffect(() => {
       let stream: MediaStream | null = null;
       let cancelled = false;
+      setCamState("starting");
       (async () => {
         try {
           const s = await navigator.mediaDevices.getUserMedia({
-            video: { width: { ideal: 640 }, height: { ideal: 480 } },
+            video: {
+              width: { ideal: 640 },
+              height: { ideal: 480 },
+              ...(deviceId ? { deviceId: { exact: deviceId } } : {}),
+            },
             audio: false,
           });
           if (cancelled) {
@@ -88,7 +103,12 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
           const video = videoRef.current!;
           video.srcObject = s;
           await video.play();
-          if (!cancelled) setCamState("live");
+          if (cancelled) return;
+          setAspect(`${video.videoWidth} / ${video.videoHeight}`);
+          setCamState("live");
+          // Labels are only available after permission is granted
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          onDevicesRef.current?.(devices.filter((d) => d.kind === "videoinput"));
         } catch (err) {
           if (cancelled) return;
           console.error("[camera]", err);
@@ -107,7 +127,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
         cancelled = true;
         stream?.getTracks().forEach((t) => t.stop());
       };
-    }, []);
+    }, [deviceId]);
 
     // Map a canvas-pixel point to (unmirrored) video coordinates
     const toVideo = (clientX: number, clientY: number) => {
@@ -229,7 +249,9 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     };
 
     return (
-      <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-900 shadow-lg select-none">
+      <div
+        style={{ aspectRatio: aspect }}
+        className="relative w-full rounded-2xl overflow-hidden bg-gray-900 shadow-lg select-none">
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-contain"

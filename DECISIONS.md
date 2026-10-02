@@ -81,3 +81,24 @@ Zero dependencies, zero cost, works offline. Voice quality is secondary for a pr
 **Implication**
 
 speak.ts should abstract TTS behind an interface so ElevenLabs can replace SpeechSynthesis at the hackathon.
+
+---
+
+### 2026-10-02 — Two-stage vision: track with the detector, identify with a classifier
+
+**Decision**
+
+Run the COCO object detector continuously for live tracking boxes; on click/Space, crop the box and run an ImageNet classifier (plus optional Claude vision) to name it.
+
+**Reason**
+
+COCO's 80 classes are good for finding objects in real time but too coarse to name them ("bottle" vs "water bottle"). The classifier is far more specific and only needs to run once per capture. Claude vision, when a key is present, handles anything neither model knows.
+
+**Alternatives considered**
+
+- Detector labels only — too coarse
+- Claude vision only — needs network and a key, ~1s latency, no live boxes
+
+**Implication**
+
+The detector picks *where*, the classifier/Claude decide *what*. Users can rename a tile from the alternatives list when the models disagree.

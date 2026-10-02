@@ -25,6 +25,11 @@ export default function App() {
   const [modelError, setModelError] = useState("");
   const [trackCount, setTrackCount] = useState(0);
   const [mirror, setMirror] = useState(true);
+  const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
+  const [cameraId, setCameraId] = useState<string | undefined>(undefined);
+  const [sayName, setSayName] = useState(false);
+  const sayNameRef = useRef(sayName);
+  sayNameRef.current = sayName;
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
 
   // Brief "Identified: X" banner over the camera
@@ -65,6 +70,7 @@ export default function App() {
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
       );
+      if (sayNameRef.current && !hasClaude()) speakNow(capture.label).catch(() => {});
       if (!hasClaude()) return;
 
       dispatch({ type: "SET_STATUS", status: "identifying" });
@@ -84,6 +90,7 @@ export default function App() {
           : {};
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { ...patch, refining: false } });
         if (label && label !== capture.label) showToast(`Claude says: ${label}`);
+        if (sayNameRef.current) speakNow(label ?? capture.label).catch(() => {});
       } catch (err) {
         console.warn("[identify] Claude vision failed", err);
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { refining: false } });
@@ -198,6 +205,8 @@ export default function App() {
               onCapture={(t) => void handleCapture(t)}
               onTrackCount={setTrackCount}
               mirror={mirror}
+              deviceId={cameraId}
+              onDevices={setCameras}
             />
             {toast && (
               <div
@@ -219,12 +228,44 @@ export default function App() {
               Mirror: {mirror ? "on" : "off"}
             </button>
           </div>
-          <div className="text-xs text-gray-400" data-testid="track-info">
-            {state.status === "loading"
-              ? "Loading detection model…"
-              : `Tracking ${trackCount} object${trackCount === 1 ? "" : "s"}`}
-            {" · "}
-            {hasClaude() ? "Claude identification on" : "on-device identification (add VITE_ANTHROPIC_API_KEY for Claude)"}
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500">
+            <span data-testid="track-info">
+              {state.status === "loading"
+                ? "Loading detection model…"
+                : `Tracking ${trackCount} object${trackCount === 1 ? "" : "s"}`}
+              {" · "}
+              {hasClaude()
+                ? "Claude identification on"
+                : "on-device identification (set VITE_ANTHROPIC_API_KEY for Claude)"}
+            </span>
+            <label className="flex items-center gap-1 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={sayName}
+                onChange={(e) => {
+                  setSayName(e.target.checked);
+                  e.target.blur();
+                }}
+              />
+              Say name on capture
+            </label>
+            {cameras.length > 1 && (
+              <select
+                value={cameraId ?? ""}
+                onChange={(e) => {
+                  setCameraId(e.target.value || undefined);
+                  e.target.blur();
+                }}
+                className="border border-gray-200 rounded px-1 py-0.5 bg-white"
+              >
+                <option value="">Default camera</option>
+                {cameras.map((c, i) => (
+                  <option key={c.deviceId} value={c.deviceId}>
+                    {c.label || `Camera ${i + 1}`}
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
         </section>
 

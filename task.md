@@ -10,7 +10,7 @@ To validate the interaction model before the hackathon. A working prototype prov
 
 ## Current state
 
-Empty project. Template files only. No code, no dependencies, no UI.
+Core loop working (see .agent/state.md). Session 2 added live tracking + click-to-identify.
 
 ## Required behavior
 
@@ -45,15 +45,16 @@ Empty project. Template files only. No code, no dependencies, no UI.
 
 ## Acceptance criteria
 
-- [ ] Webcam preview renders in browser
-- [ ] Space key triggers frame capture and MediaPipe detection
-- [ ] Detected objects appear as clickable tiles
-- [ ] Core-word buttons render and are clickable
-- [ ] Selecting tile + core word produces candidate sentences
-- [ ] Tapping a candidate speaks it via SpeechSynthesis
-- [ ] D key plays a backchannel audio clip
-- [ ] Status indicator reflects current state
-- [ ] No TypeScript errors, app builds cleanly
+- [x] Webcam preview renders in browser
+- [x] Live tracking boxes over the webcam (added: user goal)
+- [x] Click a box / Space captures + identifies the object
+- [x] Captured objects appear as clickable tiles (with thumbnails)
+- [x] Core-word buttons render and are clickable
+- [x] Selecting tile + core word produces candidate sentences
+- [x] Tapping a candidate speaks it via SpeechSynthesis (calls verified in code; audio needs a real browser)
+- [x] D key plays a backchannel
+- [x] Status indicator reflects current state
+- [x] No TypeScript errors, app builds cleanly
 
 ## Verification
 
