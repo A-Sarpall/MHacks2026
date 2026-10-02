@@ -54,6 +54,7 @@ Core loop working (see .agent/state.md). Session 2 added live tracking + click-t
 - [x] Tapping a candidate speaks it via SpeechSynthesis (calls verified in code; audio needs a real browser)
 - [x] D key plays a backchannel
 - [x] Status indicator reflects current state
+- [x] (stretch) Queued sentence auto-spoken at partner pause — energy VAD, opt-in toggle
 - [x] No TypeScript errors, app builds cleanly
 
 ## Verification

@@ -16,6 +16,7 @@ import { claudeComposer, composeMock } from "./lib/compose";
 import { speakNow, playBackchannel } from "./lib/speak";
 import { startInputListening, stopInputListening } from "./lib/input";
 import { useCueStore, nextBackchannel } from "./lib/store";
+import { startPauseDetector } from "./lib/listen";
 import type { CoreWord, InputAction } from "./lib/types";
 
 export default function App() {
@@ -28,6 +29,8 @@ export default function App() {
   const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
   const [cameraId, setCameraId] = useState<string | undefined>(undefined);
   const [sayName, setSayName] = useState(false);
+  const [autoPause, setAutoPause] = useState(false);
+  const [listening, setListening] = useState(false);
   const sayNameRef = useRef(sayName);
   sayNameRef.current = sayName;
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
@@ -172,6 +175,34 @@ export default function App() {
     await handleSpeak(sentence);
   }, [state.queuedSentence, dispatch, handleSpeak]);
 
+  // Speak the queued sentence automatically at the partner's next pause
+  const speakQueueRef = useRef(handleSpeakQueue);
+  speakQueueRef.current = handleSpeakQueue;
+  const hasQueue = state.queuedSentence !== null;
+  useEffect(() => {
+    if (!autoPause || !hasQueue) return;
+    let detector: { stop(): void } | null = null;
+    let cancelled = false;
+    startPauseDetector(() => void speakQueueRef.current())
+      .then((d) => {
+        if (cancelled) d.stop();
+        else {
+          detector = d;
+          setListening(true);
+        }
+      })
+      .catch((err) => {
+        console.warn("[listen] mic unavailable", err);
+        showToast("Microphone unavailable for pause detection");
+        setAutoPause(false);
+      });
+    return () => {
+      cancelled = true;
+      detector?.stop();
+      setListening(false);
+    };
+  }, [autoPause, hasQueue, showToast]);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b border-gray-200 px-6 py-3">
@@ -187,6 +218,7 @@ export default function App() {
             queuedSentence={state.queuedSentence}
             onClearQueue={() => dispatch({ type: "CLEAR_QUEUE" })}
             onSpeakQueue={handleSpeakQueue}
+            listening={listening}
           />
         </div>
       </header>
@@ -248,6 +280,20 @@ export default function App() {
                 }}
               />
               Say name on capture
+            </label>
+            <label
+              className="flex items-center gap-1 cursor-pointer"
+              title="Uses the microphone to wait for your partner to pause, then speaks the queued sentence"
+            >
+              <input
+                type="checkbox"
+                checked={autoPause}
+                onChange={(e) => {
+                  setAutoPause(e.target.checked);
+                  e.target.blur();
+                }}
+              />
+              Auto-speak queue at pause (mic)
             </label>
             {cameras.length > 1 && (
               <select

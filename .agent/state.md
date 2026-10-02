@@ -2,35 +2,30 @@
 
 ## Objective
 
-Working demo: live webcam object tracking (boxes overlaid) -> click a box (or Space) to capture + identify the object -> captured object becomes a tile -> core word -> sentences -> speech.
+Working demo: live webcam object tracking -> click a box (or Space) to capture + identify -> tile -> core word -> sentences -> speech.
 
-## Plan (session 2)
+## Status: demo-ready (branch claude/dazzling-bohr-oazch0)
 
-1. [x] Local MediaPipe wasm (copied from node_modules into public/, pinned version) — jsdelivr `@latest` can mismatch the npm package
-2. [x] Live tracking: ObjectDetector VIDEO mode in rAF loop + IoU tracker (stable ids, smoothing) + canvas overlay
-3. [x] Click-to-identify: crop box -> ImageClassifier (EfficientNet-Lite0, ImageNet 1000) + detector label; optional Claude vision if VITE_ANTHROPIC_API_KEY
-4. [x] Captured objects become tiles with thumbnails, auto-selected
-5. [x] Claude composer when key present, mock fallback
-6. [x] Verify in headless Chromium with injected test image stream
-7. [ ] Update README / state, commit, push
+Done:
+- Local wasm + downloaded models (scripts/, run by predev/prebuild), CDN fallback
+- Live tracking: detector VIDEO mode + IoU tracker + canvas overlay, adaptive throttle
+- Click/Space capture -> crop -> ImageNet classifier (CPU) -> tile with thumbnail + rename alternatives; optional Claude Haiku vision
+- Template sentences instantly, Claude composer replaces them when key set
+- Toast "Identified: X", mirror toggle, camera picker, say-name toggle, auto-speak-at-pause (energy VAD)
+- README / knowledge / DECISIONS updated
 
-## Completed (session 1)
+## Verified (headless Chromium, fake webcam from still images dog.jpg / fruits.jpg, 4:3 and 16:9)
 
-- Vite + React 19 + TS + Tailwind 4 skeleton; snapshot detection on Space; mock composer; SpeechSynthesis; D/H keys
+- Tracking boxes, Space capture, click capture, empty-space click, dedupe, toast, sentences, speak returns to Ready
+- Invalid Claude key -> graceful on-device fallback
+- Pause detector fires 0.7s after synthetic speech ends (sandbox mic itself unavailable)
+- Fresh clone: npm install && npm run build downloads models and builds
 
-## Active assumptions
+## Not verified here
 
-- Models load from storage.googleapis.com (reachable); jsdelivr is blocked in the agent sandbox but fine for user
-- Chrome is the target browser
+- Real webcam, real audio output, real Claude responses (no key in sandbox), GPU drivers on user's machine
 
-## Verified facts (headless Chromium + canvas-stream fake webcam)
+## Next ideas
 
-- int8 EfficientDet on GPU delegate -> 0 detections; float16 model on GPU works -> using float16
-- int8 EfficientNet classifier on GPU throws "Unsupported input tensor type: Float32" -> classifier runs on CPU
-- Tracking, click-to-identify, Space capture, toast, tiles, composer all observed working (dog.jpg, fruits.jpg)
-- Invalid Claude key: identification + sentences fall back to on-device results
-- MediaPipe posts telemetry to odml.pa.googleapis.com (harmless failures in sandbox)
-
-## Next action
-
-Docs (README/knowledge), commit, then polish: speak-on-capture option, VAD/auto-speak queue (stretch).
+- Partner transcription (Web Speech API) -> partnerContext
+- Silero VAD, ElevenLabs, ring client

@@ -5,6 +5,7 @@ interface Props {
   queuedSentence: string | null;
   onClearQueue: () => void;
   onSpeakQueue: () => void;
+  listening?: boolean;
 }
 
 const STATUS_DISPLAY: Record<CueStatus, { label: string; color: string }> = {
@@ -21,6 +22,7 @@ export function StatusBar({
   queuedSentence,
   onClearQueue,
   onSpeakQueue,
+  listening = false,
 }: Props) {
   const display = STATUS_DISPLAY[status];
 
@@ -37,6 +39,11 @@ export function StatusBar({
           <span className="text-amber-700 italic truncate max-w-xs">
             "{queuedSentence}"
           </span>
+          {listening && (
+            <span className="text-xs text-amber-600 animate-pulse">
+              waiting for a pause…
+            </span>
+          )}
           <button
             onClick={onSpeakQueue}
             className="px-2 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 text-xs font-medium"

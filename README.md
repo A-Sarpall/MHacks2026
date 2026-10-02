@@ -23,7 +23,7 @@ Open **Chrome** at http://localhost:5173 and allow camera access.
 | D | Instant backchannel (cycles yes / no / haha / mm-hmm / wait / wow / okay / thanks) |
 | H | Queue the first candidate sentence |
 
-Extras under the camera: **Say name on capture** (speaks the identified name), a camera picker (when you have more than one), and a **Mirror** toggle (turn off if the camera faces away from you).
+Extras under the camera: **Say name on capture** (speaks the identified name), **Auto-speak queue at pause** (listens on the mic and speaks the queued sentence when your partner stops talking for ~0.7 s), a camera picker (when you have more than one), and a **Mirror** toggle (turn off if the camera faces away from you).
 
 ### Optional: Claude
 
@@ -67,6 +67,7 @@ Sentence ─► SpeechSynthesis
 | `src/lib/claude.ts` | Lazy Anthropic SDK client (only when a key is set) |
 | `src/lib/compose.ts` | Template sentences + Claude composer (`Composer` interface) |
 | `src/lib/speak.ts` | SpeechSynthesis + backchannels (`TTSEngine` interface) |
+| `src/lib/listen.ts` | Energy-based pause detector for auto-speaking the queue |
 | `src/lib/input.ts` | Keyboard → ring actions (swap for a ring client later) |
 | `src/lib/store.ts` | useReducer state |
 | `scripts/` | `copy-wasm.mjs`, `fetch-models.mjs` (run automatically before dev/build) |
@@ -75,5 +76,5 @@ Sentence ─► SpeechSynthesis
 
 1. **Ring hardware** — call the `input.ts` handler with `click` / `double` / `hold` from a WebSocket/BLE client
 2. **ElevenLabs TTS** — implement `TTSEngine` in `speak.ts`
-3. **VAD pause detection** — trigger the queued sentence on partner pause
+3. **Better VAD** — swap the energy detector in `listen.ts` for vad-web/Silero
 4. **Partner transcription** — feed Web Speech API text into `ComposeInput.partnerContext`

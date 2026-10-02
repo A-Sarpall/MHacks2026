@@ -161,6 +161,8 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       const tracker = new Tracker();
       let raf = 0;
       let lastCount = -1;
+      let lastDetect = 0;
+      let lastCost = 0;
 
       const loop = () => {
         raf = requestAnimationFrame(loop);
@@ -172,12 +174,17 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
           canvas.height = video.videoHeight;
         }
 
-        if (isDetectorReady()) {
+        // Adaptive throttle: wait at least as long as the last inference took,
+        // so slow (CPU) inference never uses more than ~half the main thread.
+        const now = performance.now();
+        if (isDetectorReady() && now - lastDetect >= lastCost) {
           try {
             tracksRef.current = tracker.update(detectFrame(video));
           } catch (err) {
             console.error("[detect]", err);
           }
+          lastDetect = now;
+          lastCost = performance.now() - now;
         }
         const tracks = tracksRef.current;
         if (tracks.length !== lastCount) {
