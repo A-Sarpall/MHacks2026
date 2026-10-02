@@ -1,26 +1,30 @@
 import { useReducer, type Dispatch } from "react";
 import type {
+  CapturedObject,
   CueState,
   CueStatus,
-  Detection,
   CoreWord,
   Backchannel,
 } from "./types";
 import { BACKCHANNELS } from "./types";
 
+const MAX_TILES = 8;
+
 const initialState: CueState = {
-  status: "idle",
-  detections: [],
-  selectedTiles: [],
+  status: "loading",
+  captures: [],
+  selectedTileIds: [],
   selectedCoreWords: [],
   candidates: [],
   queuedSentence: null,
 };
 
-type Action =
+export type Action =
   | { type: "SET_STATUS"; status: CueStatus }
-  | { type: "SET_DETECTIONS"; detections: Detection[] }
-  | { type: "TOGGLE_TILE"; label: string }
+  | { type: "ADD_CAPTURE"; capture: CapturedObject }
+  | { type: "UPDATE_CAPTURE"; id: string; patch: Partial<CapturedObject> }
+  | { type: "REMOVE_CAPTURE"; id: string }
+  | { type: "TOGGLE_TILE"; id: string }
   | { type: "TOGGLE_CORE_WORD"; word: CoreWord }
   | { type: "SET_CANDIDATES"; candidates: string[] }
   | { type: "QUEUE_SENTENCE"; sentence: string }
@@ -31,30 +35,57 @@ function reducer(state: CueState, action: Action): CueState {
   switch (action.type) {
     case "SET_STATUS":
       return { ...state, status: action.status };
-    case "SET_DETECTIONS":
+    case "ADD_CAPTURE": {
+      // Newest first; the new capture becomes the (only) selected tile so a
+      // single core-word tap is enough to get sentences.
+      // Re-capturing something with the same name replaces the old tile.
+      const captures = [
+        action.capture,
+        ...state.captures.filter((c) => c.label !== action.capture.label),
+      ].slice(0, MAX_TILES);
       return {
         ...state,
-        detections: action.detections,
-        selectedTiles: [],
+        captures,
+        selectedTileIds: [action.capture.id],
+        candidates: [],
+      };
+    }
+    case "UPDATE_CAPTURE": {
+      const changesLabel = action.patch.label !== undefined;
+      return {
+        ...state,
+        captures: state.captures.map((c) =>
+          c.id === action.id ? { ...c, ...action.patch } : c
+        ),
+        candidates:
+          changesLabel && state.selectedTileIds.includes(action.id)
+            ? []
+            : state.candidates,
+      };
+    }
+    case "REMOVE_CAPTURE":
+      return {
+        ...state,
+        captures: state.captures.filter((c) => c.id !== action.id),
+        selectedTileIds: state.selectedTileIds.filter((id) => id !== action.id),
         candidates: [],
       };
     case "TOGGLE_TILE": {
-      const has = state.selectedTiles.includes(action.label);
+      const has = state.selectedTileIds.includes(action.id);
       return {
         ...state,
-        selectedTiles: has
-          ? state.selectedTiles.filter((t) => t !== action.label)
-          : [...state.selectedTiles, action.label],
+        selectedTileIds: has
+          ? state.selectedTileIds.filter((t) => t !== action.id)
+          : [...state.selectedTileIds, action.id],
         candidates: [],
       };
     }
     case "TOGGLE_CORE_WORD": {
+      // One core word at a time keeps sentences predictable
       const has = state.selectedCoreWords.includes(action.word);
       return {
         ...state,
-        selectedCoreWords: has
-          ? state.selectedCoreWords.filter((w) => w !== action.word)
-          : [...state.selectedCoreWords, action.word],
+        selectedCoreWords: has ? [] : [action.word],
         candidates: [],
       };
     }
@@ -65,7 +96,7 @@ function reducer(state: CueState, action: Action): CueState {
     case "CLEAR_QUEUE":
       return { ...state, queuedSentence: null, status: "idle" };
     case "CLEAR_ALL":
-      return initialState;
+      return { ...initialState, status: state.status === "loading" ? "loading" : "idle" };
     default:
       return state;
   }

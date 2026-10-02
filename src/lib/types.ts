@@ -1,21 +1,59 @@
 export type InputAction = "click" | "double" | "hold";
 
-export interface Detection {
+// Pixel box in video-frame coordinates (unmirrored)
+export interface Box {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+// One detector output for one frame
+export interface RawDetection {
+  label: string;
+  score: number;
+  box: Box;
+}
+
+// A detection followed across frames by the tracker
+export interface TrackedObject {
+  id: number;
+  label: string;
+  score: number;
+  box: Box;
+  hits: number;
+  misses: number;
+}
+
+export interface LabelGuess {
+  label: string;
+  score: number;
+  source: "detector" | "classifier" | "claude";
+}
+
+// An object the user captured and identified; shown as a tile
+export interface CapturedObject {
+  id: string;
   label: string;
   confidence: number;
+  source: LabelGuess["source"] | "manual";
+  alternatives: LabelGuess[];
+  thumbnail: string; // data URL of the crop
+  refining: boolean; // waiting on Claude vision
 }
 
 export type CueStatus =
+  | "loading"
   | "idle"
-  | "detecting"
+  | "identifying"
   | "composing"
   | "speaking"
   | "queued";
 
 export interface CueState {
   status: CueStatus;
-  detections: Detection[];
-  selectedTiles: string[];
+  captures: CapturedObject[];
+  selectedTileIds: string[];
   selectedCoreWords: string[];
   candidates: string[];
   queuedSentence: string | null;

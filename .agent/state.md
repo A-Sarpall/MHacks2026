@@ -2,45 +2,30 @@
 
 ## Objective
 
-Build working Cue prototype — camera-based AAC with keyboard-simulated ring input.
+Working demo: live webcam object tracking -> click a box (or Space) to capture + identify -> tile -> core word -> sentences -> speech.
 
-## Completed
+## Status: demo-ready (branch claude/dazzling-bohr-oazch0)
 
-- Vite + React 19 + TypeScript + Tailwind 4 scaffolded and building
-- Core module structure: `src/lib/` (capture, detect, compose, speak, input, store, types)
-- UI components: `src/components/` (CameraPreview, TileBar, CoreWords, Candidates, StatusBar)
-- App.tsx wires everything together
-- Keyboard input: Space (capture/detect), D (backchannel), H (queue)
-- MediaPipe Object Detector integration (EfficientDet-Lite, COCO 80, GPU delegate)
-- Mock sentence composer (template-based, clean Composer interface for LLM swap)
-- Browser SpeechSynthesis for TTS (clean TTSEngine interface for ElevenLabs swap)
-- Backchannel cycling via D key
-- State management via useReducer (no external deps)
-- Build passes with zero errors
+Done:
+- Local wasm + downloaded models (scripts/, run by predev/prebuild), CDN fallback
+- Live tracking: detector VIDEO mode + IoU tracker + canvas overlay, adaptive throttle
+- Click/Space capture -> crop -> ImageNet classifier (CPU) -> tile with thumbnail + rename alternatives; optional Claude Haiku vision
+- Template sentences instantly, Claude composer replaces them when key set
+- Toast "Identified: X", mirror toggle, camera picker, say-name toggle, auto-speak-at-pause (energy VAD)
+- README / knowledge / DECISIONS updated
 
-## What works end-to-end
+## Verified (headless Chromium, fake webcam from still images dog.jpg / fruits.jpg, 4:3 and 16:9)
 
-1. Camera preview renders via getUserMedia
-2. Space -> captures frame from video element -> MediaPipe detects objects -> tiles appear
-3. Tap tile to select -> tap core word -> mock composer generates 3 candidate sentences
-4. Tap candidate -> SpeechSynthesis speaks it
-5. D key -> cycles through backchannels and speaks them
-6. H key -> queues first candidate (manual speak-now button in StatusBar)
-7. Status indicator tracks state transitions
+- Tracking boxes, Space capture, click capture, empty-space click, dedupe, toast, sentences, speak returns to Ready
+- Invalid Claude key -> graceful on-device fallback
+- Pause detector fires 0.7s after synthetic speech ends (sandbox mic itself unavailable)
+- Fresh clone: npm install && npm run build downloads models and builds
 
-## Not yet implemented
+## Not verified here
 
-- Real LLM composer (Claude Haiku API call) — interface is ready, needs implementation
-- VAD pause detection (vad-web/Silero) — queue exists but auto-trigger on pause is missing
-- Partner speech transcription (Web Speech API listening) — listen.ts not wired into UI
-- ElevenLabs TTS — TTSEngine interface is ready, needs implementation
+- Real webcam, real audio output, real Claude responses (no key in sandbox), GPU drivers on user's machine
 
-## Active assumptions
+## Next ideas
 
-- MediaPipe WASM loads from jsdelivr CDN (requires internet for first load)
-- SpeechSynthesis availability varies by browser; Chrome is the target
-- Mock composer is sufficient for validating the interaction flow
-
-## Next action
-
-Test the prototype manually in Chrome: `npm run dev`, verify the full flow works with a real webcam.
+- Partner transcription (Web Speech API) -> partnerContext
+- Silero VAD, ElevenLabs, ring client

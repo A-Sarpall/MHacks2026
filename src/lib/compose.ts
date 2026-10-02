@@ -1,15 +1,7 @@
 // Sentence composition: tiles + core words -> candidate sentences.
-// Mock implementation with templates. Replace with real LLM call at hackathon.
-
-const VERB_MAP: Record<string, string> = {
-  want: "want",
-  no: "don't want",
-  more: "want more",
-  go: "want to go to",
-  help: "need help with",
-  yes: "would like",
-  question: "have a question about",
-};
+// Template implementation always works offline; App shows it instantly and
+// swaps in the Claude composer's sentences when VITE_ANTHROPIC_API_KEY is set.
+import { getClaude, CLAUDE_MODEL, textOf } from "./claude";
 
 export interface ComposeInput {
   tiles: string[];
@@ -17,45 +9,90 @@ export interface ComposeInput {
   partnerContext?: string;
 }
 
+// Template sentences per core word. `the` = "the cup" (or "that" with no
+// object), `a` = "a cup", `bare` = "cup".
+type Forms = { the: string; a: string; bare: string; more: string };
+const TEMPLATES: Record<string, (f: Forms) => string[]> = {
+  want: (f) => [`Can I have ${f.a}?`, `I want ${f.the}.`, `${cap(f.bare)}, please.`],
+  no: (f) => [`No, I don't want ${f.the}.`, `Not ${f.the}, thanks.`, `Please take ${f.the} away.`],
+  more: (f) => [`Can I have more ${f.more}?`, `More ${f.more}, please.`, `I'd like some more.`],
+  go: (f) => [`Let's go to ${f.the}.`, `I want to go to ${f.the}.`, `Can we go now?`],
+  help: (f) => [`Can you help me with ${f.the}?`, `I need help with ${f.the}.`, `Help, please.`],
+  yes: (f) => [`Yes, ${f.the}, please.`, `Yes, I'd like ${f.the}.`, `Yes!`],
+  question: (f) => [`What is ${f.the}?`, `Whose is ${f.the}?`, `Can I ask about ${f.the}?`],
+};
+
+function cap(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function anOrA(word: string): string {
+  // Rough English rule: vowel sound, except "uni-", "use-", "eu-", "one"
+  return /^(uni|use|usu|eu|one)/i.test(word) || !/^[aeiou]/i.test(word)
+    ? "a"
+    : "an";
+}
+
+function joinList(items: string[]): string {
+  return items.length > 1
+    ? `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`
+    : (items[0] ?? "");
+}
+
 export function composeMock(input: ComposeInput): string[] {
   const { tiles, coreWords } = input;
   if (tiles.length === 0 && coreWords.length === 0) return [];
 
-  const noun = tiles[0] ?? "that";
-  const verb = coreWords[0] ? VERB_MAP[coreWords[0]] ?? coreWords[0] : "want";
-  const article = /^[aeiou]/i.test(noun) ? "an" : "a";
+  const bare = tiles.length ? joinList(tiles) : "that";
+  const forms: Forms = tiles.length
+    ? {
+        bare,
+        more: bare,
+        the: `the ${bare}`,
+        a: tiles.length > 1 ? `the ${bare}` : `${anOrA(bare)} ${bare}`,
+      }
+    : { bare, more: "of that", the: "that", a: "that" };
 
-  const candidates: string[] = [];
-
-  // Candidate 1: natural sentence
-  if (coreWords[0] === "question") {
-    candidates.push(`What is that ${noun}?`);
-  } else if (coreWords[0] === "go") {
-    candidates.push(`I ${verb} the ${noun}.`);
-  } else {
-    candidates.push(`Can I have ${article} ${noun}?`);
-  }
-
-  // Candidate 2: literal minimal
-  candidates.push(`I ${verb} ${noun}.`);
-
-  // Candidate 3: polite variant
-  if (coreWords[0] === "no") {
-    candidates.push(`No ${noun}, thank you.`);
-  } else if (coreWords[0] === "help") {
-    candidates.push(`Could you help me with the ${noun}?`);
-  } else {
-    candidates.push(`${noun.charAt(0).toUpperCase() + noun.slice(1)}, please.`);
-  }
-
-  return candidates;
+  const template = TEMPLATES[coreWords[0] ?? "want"] ?? TEMPLATES.want;
+  return [...new Set(template(forms))];
 }
 
-// Interface for real LLM implementation
 export interface Composer {
   compose(input: ComposeInput): Promise<string[]>;
 }
 
 export const mockComposer: Composer = {
   compose: async (input) => composeMock(input),
+};
+
+export const claudeComposer: Composer = {
+  async compose(input) {
+    const client = await getClaude();
+    const message = await client.messages.create({
+      model: CLAUDE_MODEL,
+      max_tokens: 200,
+      system:
+        "You write short spoken sentences for an AAC (augmentative and alternative communication) user. " +
+        "Given objects they pointed at and core words they chose, write exactly 3 different natural first-person sentences they might want to say aloud. " +
+        "Keep each under 12 words. Output one sentence per line, nothing else.",
+      messages: [
+        {
+          role: "user",
+          content:
+            `Objects: ${input.tiles.join(", ") || "(none)"}\n` +
+            `Core words: ${input.coreWords.join(", ") || "(none)"}` +
+            (input.partnerContext
+              ? `\nPartner just said: ${input.partnerContext}`
+              : ""),
+        },
+      ],
+    });
+    const lines = textOf(message)
+      .split("\n")
+      .map((l) => l.replace(/^\s*(\d+[.)]|[-*•])\s*/, "").trim())
+      .filter(Boolean)
+      .slice(0, 3);
+    if (lines.length === 0) throw new Error("Empty composer response");
+    return lines;
+  },
 };

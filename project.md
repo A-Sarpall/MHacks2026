@@ -26,13 +26,13 @@ prototype
 One browser tab runs everything. No backend server.
 
 1. **Capture**: Laptop webcam (simulates ring camera) provides frames via getUserMedia
-2. **Detect**: MediaPipe Object Detector (EfficientDet-Lite, COCO 80 classes) runs in-browser on captured frames, returns top-3 object labels
+2. **Track + identify**: MediaPipe Object Detector (EfficientDet-Lite0, COCO 80) tracks objects live; clicking one crops it and runs MediaPipe Image Classifier (EfficientNet-Lite0, ImageNet 1000), optionally refined by Claude vision
 3. **Compose**: Selected object tiles + core words + partner transcript sent to LLM API (Claude Haiku), returns 2-3 candidate sentences
-4. **Listen**: Web Speech API captures partner's speech as context. VAD (vad-web / Silero) detects conversation pauses
+4. **Listen**: energy-based VAD detects partner pauses (Silero later); Web Speech transcription is future work
 5. **Speak**: Browser SpeechSynthesis API for TTS output. Pre-rendered backchannel audio clips for instant reactions
 6. **UI**: Tile bar (detected objects), core-word buttons, candidate sentences, speak/queue controls
 
-Data flow: Webcam frame -> MediaPipe -> object tiles -> user taps core word -> LLM generates sentences -> user picks one -> TTS speaks it (now or at next pause)
+Data flow: Webcam -> live tracking -> click -> identify -> object tiles -> user taps core word -> LLM generates sentences -> user picks one -> TTS speaks it (now or at next pause)
 
 ## Important directories
 

@@ -9,14 +9,21 @@ export function speakNow(text: string): Promise<void> {
     utterance.rate = 0.95;
     utterance.pitch = 1.0;
     currentUtterance = utterance;
-    utterance.onend = () => {
-      currentUtterance = null;
-      resolve();
+    // Some systems never fire onend (no voices installed) — don't hang the UI
+    const safety = setTimeout(
+      () => finish(),
+      3000 + text.split(/\s+/).length * 600
+    );
+    const finish = (err?: unknown) => {
+      clearTimeout(safety);
+      if (currentUtterance === utterance) currentUtterance = null;
+      if (err) reject(err);
+      else resolve();
     };
-    utterance.onerror = (e) => {
-      currentUtterance = null;
-      reject(e);
-    };
+    utterance.onend = () => finish();
+    utterance.onerror = (e) =>
+      // "interrupted"/"canceled" just mean another utterance took over
+      e.error === "interrupted" || e.error === "canceled" ? finish() : finish(e);
     window.speechSynthesis.speak(utterance);
   });
 }
