@@ -22,6 +22,7 @@ import { RUNG_TEXT, nameTarget, withAlternatives, type NamedOption } from "./vis
 import { RING_HINTS, commandFor, type RingMode } from "./vision/input/mappings";
 import { SourceSettings } from "./components/SourceSettings";
 import { Calibration, type CalibrationHandle } from "./components/Calibration";
+import { PersonalObjects, type PersonalObjectsHandle } from "./components/PersonalObjects";
 import {
   isStillSource,
   loadSourceSettings,
@@ -69,6 +70,10 @@ export default function App() {
   const calibratingRef = useRef(calibrating);
   calibratingRef.current = calibrating;
   const calibRef = useRef<CalibrationHandle>(null);
+  const [teaching, setTeaching] = useState(false);
+  const teachingRef = useRef(teaching);
+  teachingRef.current = teaching;
+  const teachRef = useRef<PersonalObjectsHandle>(null);
   const feedbackRef = useRef<(kind: FeedbackKind) => void>(() => {});
   const [scan, setScan] = useState<{ options: NamedOption[]; index: number; level: number } | null>(null);
   const scanRef = useRef(scan);
@@ -115,13 +120,14 @@ export default function App() {
 
   const commitCapture = useCallback(
     async (capture: CapturedObject, crop: HTMLCanvasElement) => {
-      dispatch({ type: "ADD_CAPTURE", capture });
+      const refine = hasClaude() && capture.source !== "personal";
+      dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
       );
-      if (sayNameRef.current && !hasClaude()) speakNow(capture.label).catch(() => {});
-      if (!hasClaude()) return;
+      if (sayNameRef.current && !refine) speakNow(capture.label).catch(() => {});
+      if (!refine) return;
 
       dispatch({ type: "SET_STATUS", status: "identifying" });
       try {
@@ -266,6 +272,12 @@ export default function App() {
         if (action === "click") calibRef.current?.press();
         if (action === "double") calibRef.current?.undo();
         if (action === "hold") calibRef.current?.save();
+        return;
+      }
+      if (teachingRef.current) {
+        if (action === "click") teachRef.current?.press();
+        if (action === "double") teachRef.current?.undo();
+        if (action === "hold") teachRef.current?.save();
         return;
       }
       const mode = ringMode();
@@ -552,7 +564,24 @@ export default function App() {
             buttonStatus={ringStatus}
             calibration={calibration}
             onCalibrate={() => setCalibrating(true)}
+            onPersonal={() => setTeaching(true)}
           />
+          {teaching && (
+            <PersonalObjects
+              ref={teachRef}
+              ready={siglip.status === "ready"}
+              capture={async () => {
+                const t = await cameraRef.current?.capture();
+                cameraRef.current?.unfreeze();
+                return t ?? null;
+              }}
+              onSaved={(obj) => {
+                feedbackRef.current("select");
+                showToast(`Learned: ${obj.name}`);
+              }}
+              onClose={() => setTeaching(false)}
+            />
+          )}
           {calibrating && (
             <Calibration
               ref={calibRef}

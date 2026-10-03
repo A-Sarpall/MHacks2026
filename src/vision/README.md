@@ -74,6 +74,12 @@ Every crop is named by **SigLIP 2** (`onnx-community/siglip2-base-patch16-224-ON
 - **Fallback:** if SigLIP isn't loaded or fails, the old EfficientNet/ImageNet classifier is used, cleaned by `core/imagenetMap.ts`: place/scene labels are dropped and over-specific ones mapped to everyday words (tabby → cat, quilt → blanket, notebook → laptop, dog breeds → dog). Claude refinement still runs on top when a key is set.
 - **Speed (headless Chrome, M-series Mac):** ~0.1 s per press on WebGPU (0.2 s when it widens), 0.3–0.9 s on WASM with cross-origin isolation (`vite.config.ts` sets COOP/COEP so WASM can use threads; ~3× faster than without).
 
+## Personal objects (`personal.ts`, `core/personalMatch.ts`)
+
+A caregiver can teach Cue a specific object ("Mom's mug"): "Teach objects…" in the Camera & ring panel. Take 3–5 photos (ring click / Space = photo, double / D = undo, hold / H = save), type a name, save. Each photo stores two SigLIP 2 image embeddings: the centre crop and the smallest detected box under the aim point. Objects live in IndexedDB (`cue-personal` → `objects`: id, name, embeddings, thumbnail, createdAt, model) with an in-memory cache and change events; the same screen lists, renames and deletes them. Objects taught with a different model are kept but not matched.
+
+At capture, every crop's embedding is compared with the taught objects first (cosine, nearest photo per object). A match needs cosine ≥ 0.85 and a lead of ≥ 0.02 over the next taught object (placeholders until the eval tunes them); its confidence is mapped to 0.6–1, so it is committed without the scanner, labelled with the taught name (source `personal`, tile says "taught"), and the vocabulary's top 3 become the "fix the name" chips. Claude refinement is skipped for taught names so it can't overwrite them. The console logs `[personal]` with the nearest cosine for each crop.
+
 ## Ring button mappings (`input/mappings.ts`)
 
 One table, so it's easy to change:
