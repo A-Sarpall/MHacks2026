@@ -84,6 +84,10 @@ export class WebSocketSource implements FrameSource {
     this.status_.set("idle");
   }
 
+  feedback(kind: string): void {
+    this.link.send(JSON.stringify({ type: "feedback", kind }));
+  }
+
   async capture(): Promise<ImageBitmap> {
     const [first, ...rest] = await this.captureBurst(1);
     rest.forEach((f) => f.close());

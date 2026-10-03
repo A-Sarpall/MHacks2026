@@ -20,6 +20,7 @@ import {
   type ButtonKind,
   type SourceSettings as Settings,
 } from "../vision/settings";
+import type { StoredCalibration } from "../vision/calibration";
 
 interface Props {
   settings: Settings;
@@ -27,11 +28,21 @@ interface Props {
   source: FrameSource | null;
   status: StatusInfo | null;
   buttonStatus: StatusInfo | null;
+  calibration: StoredCalibration | null;
+  onCalibrate: () => void;
 }
 
 const blur = (e: { currentTarget: HTMLElement }) => e.currentTarget.blur();
 
-export function SourceSettings({ settings, onChange, source, status, buttonStatus }: Props) {
+export function SourceSettings({
+  settings,
+  onChange,
+  source,
+  status,
+  buttonStatus,
+  calibration,
+  onCalibrate,
+}: Props) {
   const [open, setOpen] = useState(false);
   const [pairError, setPairError] = useState("");
   const o = orientationFor(settings);
@@ -334,6 +345,86 @@ export function SourceSettings({ settings, onChange, source, status, buttonStatu
               Reset
             </button>
           </div>
+          <span>Aim</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={(e) => {
+                onCalibrate();
+                blur(e);
+              }}
+              className="px-2 py-0.5 rounded border border-gray-200 hover:bg-gray-50"
+              data-testid="calibrate"
+            >
+              Calibrate aim…
+            </button>
+            <span className="text-gray-400">
+              {calibration
+                ? `${Math.round(calibration.offset.dx * 100)}% right, ${Math.round(calibration.offset.dy * 100)}% down`
+                : "not calibrated (centre)"}
+            </span>
+            <label className="flex items-center gap-1">
+              zone
+              <select
+                value={settings.zoneFrac}
+                onChange={(e) => {
+                  onChange({ ...settings, zoneFrac: Number(e.target.value) });
+                  blur(e);
+                }}
+                className="border border-gray-200 rounded px-1 py-0.5 bg-white"
+              >
+                {[0.3, 0.4, 0.5, 0.6, 0.7].map((z) => (
+                  <option key={z} value={z}>
+                    {Math.round(z * z * 100)}% of frame
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="flex items-center gap-1">
+              choices
+              <select
+                value={settings.maxCandidates}
+                onChange={(e) => {
+                  onChange({ ...settings, maxCandidates: Number(e.target.value) });
+                  blur(e);
+                }}
+                className="border border-gray-200 rounded px-1 py-0.5 bg-white"
+              >
+                {[1, 2, 3, 4, 5, 6].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <span>Feedback</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="flex items-center gap-1 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={settings.onTargetCue}
+                onChange={(e) => {
+                  onChange({ ...settings, onTargetCue: e.target.checked });
+                  blur(e);
+                }}
+              />
+              “On target” cue (live camera only)
+            </label>
+            <label className="flex items-center gap-1 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={settings.beep}
+                onChange={(e) => {
+                  onChange({ ...settings, beep: e.target.checked });
+                  blur(e);
+                }}
+              />
+              Beep/vibrate on this device
+            </label>
+            <span className="text-gray-400">The ring buzzes “got it” after each picture if it supports feedback.</span>
+          </div>
+
           <span />
           <span className="text-gray-400">
             Orientation is saved per camera source and hand, and is applied before recognition so

@@ -15,6 +15,10 @@ export interface SourceSettings {
   discard: number;
   delayMs: number;
   sim: BurstSimulation;
+  zoneFrac: number;
+  maxCandidates: number;
+  onTargetCue: boolean;
+  beep: boolean;
   orientations: Partial<Record<string, Orientation>>;
 }
 
@@ -36,6 +40,10 @@ export const DEFAULT_SETTINGS: SourceSettings = {
   discard: 1,
   delayMs: 0,
   sim: { wakeFrames: 0, wakeMs: 0, frameMs: 0, shake: 0 },
+  zoneFrac: 0.5,
+  maxCandidates: 4,
+  onTargetCue: true,
+  beep: false,
   orientations: {},
 };
 
@@ -107,6 +115,14 @@ export function parseQuery(search: string, base: SourceSettings): SourceSettings
   const simShake = q.get("simshake");
   if (simShake !== null && Number.isFinite(Number(simShake))) sim.shake = Math.max(0, Math.min(8, Number(simShake)));
   s.sim = sim;
+  const zone = Number(q.get("zone"));
+  if (q.get("zone") !== null && zone >= 0.1 && zone <= 1) s.zoneFrac = zone;
+  const n = intParam(q, "n", 1, 8);
+  if (n !== null) s.maxCandidates = n;
+  const onTarget = q.get("ontarget");
+  if (onTarget !== null) s.onTargetCue = onTarget === "1" || onTarget === "true";
+  const beep = q.get("beep");
+  if (beep !== null) s.beep = beep === "1" || beep === "true";
   const button = q.get("button");
   if (button === "none" || button === "ws" || button === "ble") s.buttonKind = button;
   const buttonUrl = q.get("buttonUrl");

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   CameraView,
   type CameraViewHandle,
@@ -18,12 +18,16 @@ import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import type { CoreWord, InputAction } from "./lib/types";
 import { SourceSettings } from "./components/SourceSettings";
+import { Calibration, type CalibrationHandle } from "./components/Calibration";
 import {
   isStillSource,
   loadSourceSettings,
   orientationFor,
+  orientationKey,
   saveSourceSettings,
 } from "./vision/settings";
+import { clearCalibration, loadCalibration, saveCalibration } from "./vision/calibration";
+import type { FeedbackKind } from "./vision/input/types";
 import { useButtonInputs, useFrameSource } from "./vision/useVisionIO";
 
 export default function App() {
@@ -45,6 +49,18 @@ export default function App() {
   useEffect(() => saveSourceSettings(sourceSettings), [sourceSettings]);
   const { source, status: sourceStatus } = useFrameSource(sourceSettings, cameraId);
   useEffect(() => setMirror(source.kind === "webcam"), [source.kind]);
+  const calibKey = orientationKey(sourceSettings.kind, sourceSettings.hand);
+  const [calibration, setCalibration] = useState(() => loadCalibration(calibKey));
+  useEffect(() => setCalibration(loadCalibration(calibKey)), [calibKey]);
+  const aim = useMemo(
+    () => ({ zoneFrac: sourceSettings.zoneFrac, offset: calibration?.offset ?? { dx: 0, dy: 0 } }),
+    [sourceSettings.zoneFrac, calibration]
+  );
+  const [calibrating, setCalibrating] = useState(false);
+  const calibratingRef = useRef(calibrating);
+  calibratingRef.current = calibrating;
+  const calibRef = useRef<CalibrationHandle>(null);
+  const feedbackRef = useRef<(kind: FeedbackKind) => void>(() => {});
 
   // Brief "Identified: X" banner over the camera
   const showToast = useCallback((text: string) => {
@@ -74,6 +90,7 @@ export default function App() {
 
   const handleCapture = useCallback(
     async (target: CaptureTarget) => {
+      feedbackRef.current("captured");
       if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
       if (target.streamPick) console.info("[capture] stream", JSON.stringify(target.streamPick));
       const { capture, crop } = identifyFromImage(
@@ -133,6 +150,12 @@ export default function App() {
   // Keyboard (simulating the ring)
   const handleInput = useCallback(
     (action: InputAction) => {
+      if (calibratingRef.current) {
+        if (action === "click") calibRef.current?.press();
+        if (action === "double") calibRef.current?.undo();
+        if (action === "hold") calibRef.current?.save();
+        return;
+      }
       if (action === "click") {
         cameraRef.current
           ?.capture()
@@ -141,6 +164,7 @@ export default function App() {
           })
           .catch((err: unknown) => {
             console.warn("[capture]", err);
+            feedbackRef.current("error");
             showToast(String((err as Error)?.message ?? "Could not take a picture"));
           });
       }
@@ -154,7 +178,14 @@ export default function App() {
     [state.candidates, dispatch, handleCapture, showToast]
   );
 
-  const { ringStatus } = useButtonInputs(sourceSettings, handleInput, false);
+  const { hub, ringStatus } = useButtonInputs(sourceSettings, handleInput, sourceSettings.beep);
+  feedbackRef.current = (kind) => {
+    hub.feedback(kind);
+    const sameLink =
+      sourceSettings.buttonKind === source.kind &&
+      (source.kind === "ble" || (sourceSettings.buttonUrl || sourceSettings.wsUrl) === sourceSettings.wsUrl);
+    if (!sameLink) source.feedback?.(kind);
+  };
 
   // Compose sentences whenever the selection changes (needs a core word)
   const selectedLabels = state.captures
@@ -261,6 +292,10 @@ export default function App() {
               burst={isStillSource(sourceSettings) ? sourceSettings.burst : 1}
               discard={sourceSettings.discard}
               delayMs={sourceSettings.delayMs}
+              aim={aim}
+              maxCandidates={sourceSettings.maxCandidates}
+              onTargetCue={sourceSettings.onTargetCue}
+              onOnTarget={() => feedbackRef.current("on-target")}
             />
             {toast && (
               <div
@@ -341,7 +376,33 @@ export default function App() {
             source={source}
             status={sourceStatus}
             buttonStatus={ringStatus}
+            calibration={calibration}
+            onCalibrate={() => setCalibrating(true)}
           />
+          {calibrating && (
+            <Calibration
+              ref={calibRef}
+              title={`${source.label}, ${sourceSettings.hand} hand`}
+              current={calibration}
+              capture={async () => {
+                const t = await cameraRef.current?.capture();
+                cameraRef.current?.unfreeze();
+                return t?.image ?? null;
+              }}
+              onSave={(cal) => {
+                saveCalibration(calibKey, cal);
+                setCalibration(cal);
+                setCalibrating(false);
+                feedbackRef.current("select");
+                showToast("Aim calibrated");
+              }}
+              onReset={() => {
+                clearCalibration(calibKey);
+                setCalibration(null);
+              }}
+              onClose={() => setCalibrating(false)}
+            />
+          )}
         </section>
 
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">

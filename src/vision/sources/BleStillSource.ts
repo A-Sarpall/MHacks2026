@@ -14,6 +14,7 @@ import {
   ringBle,
   type BleLink,
 } from "./bleLink";
+import { FEEDBACK_CODES, type FeedbackKind } from "../input/types";
 
 export class JpegAssembler {
   private buf: Uint8Array | null = null;
@@ -116,6 +117,11 @@ export class BleStillSource implements FrameSource {
     this.held = false;
     this.sink = null;
     this.status_.set("idle");
+  }
+
+  feedback(kind: string): void {
+    const code = FEEDBACK_CODES[kind as FeedbackKind];
+    if (code) void this.link.write(RING_BLE.feedback, [code]);
   }
 
   pair(): Promise<void> {

@@ -24,6 +24,7 @@ export interface FrameSource {
   capture?(): Promise<ImageBitmap>;
   captureBurst?(count: number): Promise<ImageBitmap[]>;
   pair?(): Promise<void>;
+  feedback?(kind: string): void;
   status(): StatusInfo;
   onStatus(cb: (info: StatusInfo) => void): () => void;
 }

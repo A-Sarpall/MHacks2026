@@ -146,3 +146,24 @@ Pressing the ring's button shakes the hand and blurs the picture. A few frames a
 Burst size trades blur robustness for latency over Bluetooth; the eval harness should measure both before the default is fixed. The ring's camera is off until the press, so still mode is the primary path: the first frame of each burst is discarded by default (wake-up frames are often dark), an optional delay lets the hand settle, and nothing assumes frames from before the press.
 
 In stream mode (webcam, the development and demo path) the same sharpness score picks the best of the last ~10 frames from before the press (skipping the final 50 ms), minus a penalty for target motion. Scoring happens only at press time; measured frame rate and press-to-tile latency are unchanged from `main` (57 fps, ~60–115 ms in headless Chrome).
+
+---
+
+### 2026-10-03 — Aim point, calibration per source and hand, ranked candidates
+
+**Decision**
+
+Candidates are ranked around a calibrated aim point instead of the frame centre: smallest box containing the aim point first, then by distance, at most N (default 4), plus a crop around the aim point when no box covers it. Calibration (3–5 presses at an on-screen colour target, or tapping the object) is stored per source and per hand. The live "on target" cue is optional and stream-only; every capture sends "got it" feedback.
+
+**Reason**
+
+The camera is offset from the fingertip and the offset differs per hand and per mounting. In still mode there is no live preview to correct aim, so calibration has to carry it. The smallest-box rule picks the held apple over the person holding it. Offering a short ranked list fits "a few good choices beats one confident wrong answer".
+
+**Alternatives considered**
+
+- Largest/most central box (the previous `pickCentral`) — picks the person instead of what they hold
+- Only on-target feedback, no calibration — impossible in still mode, where the camera is off until the press
+
+**Implication**
+
+`pickCentral` in `CameraView` was replaced by the ranking. Scanning (Phase 3) walks `CaptureTarget.candidates`.

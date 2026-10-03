@@ -20,6 +20,17 @@ import {
 } from "../vision/sources";
 import { rankFrames, sharpness } from "../vision/core/sharpness";
 import { FrameBuffer, SpeedMeter } from "../vision/core/frameBuffer";
+import {
+  DEFAULT_AIM,
+  OnTargetDetector,
+  aimPoint,
+  aimZone,
+  contains as containsPoint,
+  rankCandidates,
+  type AimConfig,
+  type Candidate,
+  type Point,
+} from "../vision/core/aim";
 
 export interface CaptureTarget {
   video?: HTMLVideoElement;
@@ -29,6 +40,8 @@ export interface CaptureTarget {
   alternates?: HTMLCanvasElement[];
   burst?: BurstInfo;
   streamPick?: StreamPickInfo;
+  candidates?: Candidate[];
+  aim?: Point;
 }
 
 export interface StreamPickInfo {
@@ -68,6 +81,10 @@ interface Props {
   discard?: number;
   delayMs?: number;
   freezeMs?: number;
+  aim?: AimConfig;
+  maxCandidates?: number;
+  onTargetCue?: boolean;
+  onOnTarget?: () => void;
 }
 
 const COLORS = ["#3b82f6", "#22c55e", "#f97316", "#a855f7", "#ec4899", "#14b8a6"];
@@ -81,25 +98,6 @@ function colorFor(id: number): string {
 
 function contains(b: Box, x: number, y: number): boolean {
   return x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h;
-}
-
-// Prefer big objects close to the centre of the frame
-function pickCentral(tracks: TrackedObject[], vw: number, vh: number) {
-  let best: TrackedObject | null = null;
-  let bestScore = -Infinity;
-  const diag = Math.hypot(vw, vh);
-  for (const t of tracks) {
-    const cx = t.box.x + t.box.w / 2;
-    const cy = t.box.y + t.box.h / 2;
-    const dist = Math.hypot(cx - vw / 2, cy - vh / 2) / diag;
-    const area = (t.box.w * t.box.h) / (vw * vh);
-    const score = -dist * 2 + Math.sqrt(area) + t.score * 0.3;
-    if (score > bestScore) {
-      best = t;
-      bestScore = score;
-    }
-  }
-  return best;
 }
 
 function snapshot(frame: ImageBitmap): HTMLCanvasElement {
@@ -163,6 +161,10 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       discard = 0,
       delayMs = 0,
       freezeMs = 1500,
+      aim = DEFAULT_AIM,
+      maxCandidates = 4,
+      onTargetCue = true,
+      onOnTarget,
     },
     ref
   ) {
@@ -176,6 +178,10 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     const tracksRef = useRef<TrackedObject[]>([]);
     const hoverRef = useRef<{ x: number; y: number } | null>(null);
     const flashRef = useRef<{ box: Box; until: number } | null>(null);
+    const onTargetRef = useRef(false);
+    const onOnTargetRef = useRef(onOnTarget);
+    onOnTargetRef.current = onOnTarget;
+    const frozenCandidatesRef = useRef<Candidate[] | null>(null);
     const orientationRef = useRef(orientation);
     orientationRef.current = orientation;
     const onTrackCountRef = useRef(onTrackCount);
@@ -262,19 +268,27 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       return { x: mirror ? size.w - px : px, y: py };
     };
 
-    const focused = (): TrackedObject | null => {
+    const rankFor = (tracks: TrackedObject[], w: number, h: number) =>
+      rankCandidates(tracks, w, h, aimPoint(w, h, aim.offset), { maxCandidates, aimCropFrac: 0.4 });
+
+    const hovered = (): TrackedObject | null => {
+      const hover = hoverRef.current;
+      if (!hover) return null;
+      return (
+        tracksRef.current
+          .filter((t) => contains(t.box, hover.x, hover.y))
+          .sort((a, b) => a.box.w * a.box.h - b.box.w * b.box.h)[0] ?? null
+      );
+    };
+
+    const aimed = (): TrackedObject | null => {
       const size = frameSize();
       if (!size) return null;
-      const tracks = tracksRef.current;
-      const hover = hoverRef.current;
-      if (hover) {
-        const under = tracks
-          .filter((t) => contains(t.box, hover.x, hover.y))
-          .sort((a, b) => a.box.w * a.box.h - b.box.w * b.box.h)[0];
-        if (under) return under;
-      }
-      return pickCentral(tracks, size.w, size.h);
+      const top = rankFor(tracksRef.current, size.w, size.h)[0];
+      return top?.kind === "detection" ? tracksRef.current.find((t) => t.id === top.trackId) ?? null : null;
     };
+
+    const focused = (): TrackedObject | null => hovered() ?? aimed();
 
     const paintFrame = (bmp: ImageBitmap | HTMLCanvasElement) => {
       const fc = frameCanvasRef.current;
@@ -295,6 +309,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     // Detection + drawing loop
     useEffect(() => {
       const tracker = new Tracker();
+      const onTarget = new OnTargetDetector();
       let raf = 0;
       let lastCount = -1;
       let lastDetect = 0;
@@ -309,6 +324,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
         const frozen = frozenRef.current;
         if (frozen && performance.now() > frozen.until) {
           frozenRef.current = null;
+          frozenCandidatesRef.current = null;
           dirtyRef.current = true;
         }
 
@@ -321,14 +337,22 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
           if (isDetectorReady() && now - lastDetect >= lastCost) {
             try {
               tracksRef.current = tracker.update(detectImageFrame(frame.bitmap));
-              const f = focused();
+              const f = aimed();
               const { width: w, height: h } = frame.bitmap;
-              speedRef.current.update(
+              const speed = speedRef.current.update(
                 f?.id ?? null,
                 f ? { x: f.box.x + f.box.w / 2, y: f.box.y + f.box.h / 2 } : null,
                 frame.time,
                 Math.hypot(w, h)
               );
+              if (onTargetCue) {
+                const inZone = f !== null && containsPoint(f.box, aimPoint(w, h, aim.offset));
+                const r = onTarget.update(f && { id: f.id, hits: f.hits, inZone }, speed, frame.time);
+                onTargetRef.current = r.onTarget;
+                if (r.fired) onOnTargetRef.current?.();
+              } else {
+                onTargetRef.current = false;
+              }
             } catch (err) {
               console.error("[detect]", err);
             }
@@ -342,21 +366,26 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
           onTrackCountRef.current?.(tracks.length);
         }
 
-        if (canvas.width > 0) draw(canvas, tracks, focused(), flashRef.current, mirror);
+        if (canvas.width > 0) {
+          const w = canvas.width;
+          const h = canvas.height;
+          draw(canvas, tracks, focused(), flashRef.current, mirror, {
+            zone: aimZone(w, h, aim),
+            point: aimPoint(w, h, aim.offset),
+            onTarget: stream && onTargetCue && onTargetRef.current && !frozenRef.current,
+            candidates: frozenCandidatesRef.current,
+          });
+        }
       };
       raf = requestAnimationFrame(loop);
       return () => cancelAnimationFrame(raf);
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [source, stream, mirror]);
+    }, [source, stream, mirror, aim.zoneFrac, aim.offset.dx, aim.offset.dy, maxCandidates, onTargetCue]);
 
     const flash = (box: Box) => {
       flashRef.current = { box, until: performance.now() + 350 };
     };
 
-    const centreBox = (w: number, h: number, frac: number): Box => {
-      const size = Math.min(w, h) * frac;
-      return { x: (w - size) / 2, y: (h - size) / 2, w: size, h: size };
-    };
 
     const captureFocused = (): CaptureTarget | null => (stream ? captureBest() : null);
 
@@ -386,15 +415,37 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     };
 
     const captureFrom = (image: HTMLCanvasElement): CaptureTarget => {
-      const t = focused();
-      if (t) {
-        flash(t.box);
-        return { image, box: { ...t.box }, detected: { label: t.label, score: t.score } };
+      const w = image.width;
+      const h = image.height;
+      const point = aimPoint(w, h, aim.offset);
+      let candidates = rankFor(tracksRef.current, w, h);
+      const hover = hovered();
+      if (hover) {
+        const key = `det-${hover.id}`;
+        const picked = candidates.find((c) => c.key === key) ?? {
+          key,
+          kind: "detection" as const,
+          box: { ...hover.box },
+          label: hover.label,
+          score: hover.score,
+          trackId: hover.id,
+          containsAim: false,
+          distance: 0,
+        };
+        candidates = [picked, ...candidates.filter((c) => c.key !== key)].slice(0, maxCandidates);
       }
-      // Nothing tracked: identify the centre of the frame
-      const box = centreBox(image.width, image.height, 0.6);
-      flash(box);
-      return { image, box };
+      frozenCandidatesRef.current = candidates;
+      const top = candidates[0];
+      flash(top.box);
+      return {
+        image,
+        box: { ...top.box },
+        ...(top.kind === "detection" && top.label
+          ? { detected: { label: top.label, score: top.score ?? 0 } }
+          : {}),
+        candidates,
+        aim: point,
+      };
     };
 
     const captureCurrent = (): CaptureTarget | null => {
@@ -414,7 +465,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
         const ranked = rankFrames(
           shot.frames.map((r) => {
             const item = orientFrame(r, orientationRef.current);
-            return { item, sharpness: sharpness(item) };
+            return { item, sharpness: sharpness(item, aimZone(item.width, item.height, aim)) };
           })
         );
         const up = ranked[0].item;
@@ -433,6 +484,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
         tracksRef.current = isDetectorReady()
           ? detectImageFrame(up).map((d, i) => ({ ...d, id: i + 1, hits: 1, misses: 0 }))
           : [];
+        frozenRef.current = { image: snapshot(up), until: Number.POSITIVE_INFINITY };
         hoverRef.current = null;
         const target = captureCurrent();
         return target && { ...target, alternates, burst: info };
@@ -446,6 +498,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       capture: () => (stream ? Promise.resolve(captureFocused()) : captureStill()),
       unfreeze: () => {
         frozenRef.current = null;
+        frozenCandidatesRef.current = null;
         dirtyRef.current = true;
       },
     }));
@@ -541,12 +594,20 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
   }
 );
 
+interface AimOverlay {
+  zone: Box;
+  point: Point;
+  onTarget: boolean;
+  candidates: Candidate[] | null;
+}
+
 function draw(
   canvas: HTMLCanvasElement,
   tracks: TrackedObject[],
   focus: TrackedObject | null,
   flash: { box: Box; until: number } | null,
-  mirror: boolean
+  mirror: boolean,
+  overlay: AimOverlay
 ) {
   const ctx = canvas.getContext("2d")!;
   const W = canvas.width;
@@ -555,6 +616,31 @@ function draw(
   const fontSize = Math.max(14, Math.round(W / 40));
   ctx.font = `600 ${fontSize}px system-ui, sans-serif`;
   ctx.textBaseline = "top";
+
+  const zone = overlay.zone;
+  ctx.lineWidth = overlay.onTarget ? 4 : 1.5;
+  ctx.strokeStyle = overlay.onTarget ? "#22c55e" : "rgba(255,255,255,0.7)";
+  ctx.setLineDash(overlay.onTarget ? [] : [6, 6]);
+  ctx.strokeRect(fx(zone), zone.y, zone.w, zone.h);
+  ctx.setLineDash([]);
+  const px = mirror ? W - overlay.point.x : overlay.point.x;
+  const arm = Math.max(10, W / 30);
+  ctx.beginPath();
+  ctx.moveTo(px - arm, overlay.point.y);
+  ctx.lineTo(px + arm, overlay.point.y);
+  ctx.moveTo(px, overlay.point.y - arm);
+  ctx.lineTo(px, overlay.point.y + arm);
+  ctx.lineWidth = 5;
+  ctx.strokeStyle = "rgba(0,0,0,0.5)";
+  ctx.stroke();
+  ctx.lineWidth = 2.5;
+  ctx.strokeStyle = overlay.onTarget ? "#22c55e" : "#fff";
+  ctx.stroke();
+
+  const rank = new Map<number, number>();
+  overlay.candidates?.forEach((c, i) => {
+    if (c.trackId !== undefined) rank.set(c.trackId, i + 1);
+  });
 
   for (const t of tracks) {
     const isFocus = focus?.id === t.id;
@@ -572,7 +658,8 @@ function draw(
       ctx.fillRect(x, y, w, h);
     }
 
-    const text = `${t.label} ${Math.round(t.score * 100)}%`;
+    const n = rank.get(t.id);
+    const text = `${n ? `${n}. ` : ""}${t.label} ${Math.round(t.score * 100)}%`;
     const tw = ctx.measureText(text).width + 12;
     const th = fontSize + 8;
     const ty = y - th >= 0 ? y - th : y;
@@ -580,6 +667,18 @@ function draw(
     ctx.fillRect(x, ty, tw, th);
     ctx.fillStyle = "#fff";
     ctx.fillText(text, x + 6, ty + 4);
+  }
+
+  const aimCand = overlay.candidates?.find((c) => c.kind === "aim");
+  if (aimCand) {
+    const i = overlay.candidates!.indexOf(aimCand) + 1;
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#facc15";
+    ctx.setLineDash([4, 4]);
+    ctx.strokeRect(fx(aimCand.box), aimCand.box.y, aimCand.box.w, aimCand.box.h);
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#facc15";
+    ctx.fillText(`${i}. here`, fx(aimCand.box) + 6, aimCand.box.y + 4);
   }
 
   if (flash && performance.now() < flash.until) {
