@@ -32,3 +32,12 @@
 - Headless Chromium: `--proxy-server=https=<proxy host:port>` so http://127.0.0.1 is not proxied (Playwright's `proxy` option adds `<-loopback>`)
 - Fake webcam: override `navigator.mediaDevices.getUserMedia` to return `canvas.captureStream()` of a still image
 - Fetch models with `NODE_USE_ENV_PROXY=1`
+
+## SigLIP 2 in Transformers.js 4.3 (verified 2026-10-03)
+
+- `onnx-community/siglip2-base-patch16-224-ONNX` has separate `vision_model_*.onnx` / `text_model_*.onnx`; load with `SiglipVisionModel` / `SiglipTextModel`, use `pooler_output`
+- Text must be tokenized with `padding: "max_length", max_length: 64` (Gemma tokenizer)
+- logit_scale = 4.724453 (exp ≈ 112.7), logit_bias = −16.7717 (read from google/siglip2-base-patch16-224 safetensors header)
+- **`vision_model_quantized`/`q8` is broken** (cat image → "purse"); `q4f16` ≈ `fp16` in accuracy; text `q8` ≈ text `fp16`
+- Transformers.js defaults ORT wasm to jsDelivr; set `env.backends.onnx.wasm.wasmPaths` to local `ort-wasm-simd-threaded.asyncify.{mjs,wasm}` for offline
+- WebGPU works in headless Chrome on macOS; WASM is ~3× faster with COOP/COEP (cross-origin isolated → threads)

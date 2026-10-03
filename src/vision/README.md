@@ -64,6 +64,16 @@ For now Cue assumes the user points straight at the object: the aim point is the
 
 Whole-frame detection keeps running (stream) or runs on the still, and supplies the level 1–2 boxes. If the best answer is confident and came from the centre/wide/covering box, it becomes a tile directly (other answers become the "fix the name" chips). Otherwise the choices go to the **scanner** instead of guessing. Confidence is judged only on the pointed-at crops, and the choices are ordered by how likely they are to be what the user pointed at, not by how confident the name is: centre / covering-box / wide crops first (most confident of those leading), then other objects nearest the centre first. Choices with the same name are merged, and at most N are shown ("choices", default 4). If the object under the centre is tiny (< 1 % of the frame), a "Move closer" hint is shown; there's no special handling for far objects yet.
 
+## Naming model: SigLIP 2 + daily-living vocabulary
+
+Every crop is named by **SigLIP 2** (`onnx-community/siglip2-base-patch16-224-ONNX`, 4-bit `q4f16` vision model, 55 MB) zero-shot against **`src/data/vocabulary.ts`** — 637 everyday and AAC labels in 18 categories (people & body, food, kitchen, bathroom, health & medical incl. pill organizer / walker / hearing aid / glasses case, clothes, personal items, furniture, electronics, cleaning, tools, office, leisure, outdoors). Labels are the words a user would say; an optional prompt clarifies them ("remote" → "a TV remote control"). The same label may appear twice with different prompts ("fish" the animal and the food); the best one wins. Places and scenes ("restaurant") are deliberately not in it.
+
+- **Text side, precomputed:** `npm run embed-vocab` encodes every label with 4 prompt templates (averaged) using the text model (283 MB, only on the developer's machine, ~30 s) and writes `public/vocab/siglip2-base-224.{bin,json}` (float16, ~1 MB, committed). Re-run it after editing the vocabulary; the app warns in the console if they're out of sync.
+- **Image side, in the browser:** `siglip.worker.ts` runs in a Web Worker, WebGPU first, WASM fallback (`?siglip=wasm` to force, `?siglip=off` to disable). Model, config and ONNX runtime are served from `public/` (`npm run dev` downloads/copies them), so after the first run nothing is fetched from the internet. Load progress shows under the camera.
+- **Scores:** `confidence` is a softmax over the vocabulary with SigLIP 2's learned scale (e^4.72 ≈ 113); top 3 become the name + "fix the name" chips. When unsure, the scanner also offers the next SigLIP guesses for the pointed-at crop, so even an object outside the vocabulary gets real choices.
+- **Fallback:** if SigLIP isn't loaded or fails, the old EfficientNet/ImageNet classifier is used, cleaned by `core/imagenetMap.ts`: place/scene labels are dropped and over-specific ones mapped to everyday words (tabby → cat, quilt → blanket, notebook → laptop, dog breeds → dog). Claude refinement still runs on top when a key is set.
+- **Speed (headless Chrome, M-series Mac):** ~0.1 s per press on WebGPU (0.2 s when it widens), 0.3–0.9 s on WASM with cross-origin isolation (`vite.config.ts` sets COOP/COEP so WASM can use threads; ~3× faster than without).
+
 ## Ring button mappings (`input/mappings.ts`)
 
 One table, so it's easy to change:

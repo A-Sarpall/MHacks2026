@@ -12,6 +12,8 @@ const SOURCE_NAME: Record<CapturedObject["source"], string> = {
   detector: "detector",
   classifier: "classifier",
   claude: "Claude",
+  vocab: "on-device",
+  personal: "taught",
   manual: "you",
 };
 

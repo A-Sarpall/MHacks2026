@@ -32,6 +32,7 @@ import {
 import { clearCalibration, loadCalibration, saveCalibration } from "./vision/calibration";
 import type { FeedbackKind } from "./vision/input/types";
 import { useButtonInputs, useFrameSource } from "./vision/useVisionIO";
+import { initSiglip, onSiglipState, type SiglipState } from "./vision/siglip";
 
 const REVIEW_MS = 4000;
 
@@ -92,9 +93,13 @@ export default function App() {
     return () => clearTimeout(t);
   }, [toast]);
 
+  const [siglip, setSiglip] = useState<SiglipState>({ status: "idle", progress: 0 });
+  useEffect(() => onSiglipState(setSiglip), []);
+
   // Load both models up front; the detector gates the "ready" state, the
   // classifier only improves identification.
   useEffect(() => {
+    initSiglip().catch((err) => console.warn("[siglip] not available, using the fallback classifier", err));
     initClassifier().catch((err) =>
       console.warn("[classify] failed to load, using detector labels", err)
     );
@@ -165,15 +170,16 @@ export default function App() {
       reviewRef.current = null;
       cameraRef.current
         ?.capture()
-        .then((target) => {
+        .then(async (target) => {
           if (!target) return;
           feedbackRef.current("captured");
+          dispatch({ type: "SET_STATUS", status: "identifying" });
           if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
           if (target.streamPick) console.info("[capture] stream", JSON.stringify(target.streamPick));
-          const res = nameTarget(target, {
+          const res = await nameTarget(target, {
             startLevel: level,
             maxOptions: settingsRef.current.maxCandidates,
-          });
+          }).finally(() => dispatch({ type: "SET_STATUS", status: "idle" }));
           console.info(
             "[naming]",
             JSON.stringify({
@@ -199,7 +205,7 @@ export default function App() {
           showToast(String((err as Error)?.message ?? "Could not take a picture"));
         });
     },
-    [commitCapture, endScan, showToast]
+    [commitCapture, endScan, showToast, dispatch]
   );
 
   const chooseScan = useCallback(
@@ -460,6 +466,15 @@ export default function App() {
               {hasClaude()
                 ? "Claude identification on"
                 : "on-device identification (set VITE_ANTHROPIC_API_KEY for Claude)"}
+            </span>
+            <span data-testid="siglip-status" className={siglip.status === "error" ? "text-amber-600" : ""}>
+              {siglip.status === "loading"
+                ? `Downloading recognition model ${Math.round(siglip.progress * 100)}%…`
+                : siglip.status === "ready"
+                  ? `Everyday-object names on (${siglip.device === "webgpu" ? "GPU" : "CPU"})`
+                  : siglip.status === "error"
+                    ? "Basic names only (recognition model unavailable)"
+                    : ""}
             </span>
             <label className="flex items-center gap-1 cursor-pointer">
               <input

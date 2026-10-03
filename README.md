@@ -9,7 +9,7 @@ npm install
 npm run dev        # copies MediaPipe wasm + downloads models into public/ on first run
 ```
 
-Open **Chrome** at http://localhost:5173 and allow camera access.
+Open **Chrome** at http://localhost:5173 and allow camera access. The first run also downloads the 55 MB SigLIP 2 recognition model into `public/models` (progress shows under the camera); after that everything works offline.
 
 1. **Track** — the webcam shows live boxes around objects it recognises (80 COCO classes: cup, bottle, phone, laptop, book, banana, chair, person…). The focused object (hovered, or nearest the centre) has a solid box.
 2. **Capture + identify** — **click a box** (or press **Space** to grab the focused one). The crop is identified with a finer 1000-class classifier (e.g. "coffee mug", "water bottle", "remote control") and appears as a tile with a thumbnail. Clicking empty space identifies whatever is under the cursor.
@@ -71,6 +71,7 @@ Sentence ─► SpeechSynthesis
 | `src/lib/speak.ts` | SpeechSynthesis + backchannels (`TTSEngine` interface) |
 | `src/lib/listen.ts` | Energy-based pause detector for auto-speaking the queue |
 | `src/lib/input.ts` | Keyboard → ring actions (wrapped by `KeyboardInput` in `src/vision/input`) |
+| `src/data/vocabulary.ts` | 637 everyday/AAC labels SigLIP chooses from (re-run `npm run embed-vocab` after editing) |
 | `src/vision/` | Camera sources (webcam, Wi-Fi, Bluetooth, files), ring button inputs, orientation, burst capture — see [src/vision/README.md](src/vision/README.md) |
 | `src/components/SourceSettings.tsx` | "Camera & ring" panel: source, photos per press, button, hand, rotation/flip |
 | `src/lib/store.ts` | useReducer state |

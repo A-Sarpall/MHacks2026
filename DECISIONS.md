@@ -188,3 +188,25 @@ Predictable, fast behaviour for the common case (one crop, ~50 ms on a laptop), 
 **Implication**
 
 `lowConfidence` and the "tiny" area are placeholders until the eval harness measures them. Mouse clicks still name the clicked box directly.
+
+---
+
+### 2026-10-03 — SigLIP 2 zero-shot naming over a curated everyday vocabulary
+
+**Decision**
+
+Name crops with SigLIP 2 base (224 px, ONNX via Transformers.js) against a hand-curated 637-label daily-living/AAC vocabulary (`src/data/vocabulary.ts`, built from the LVIS, Open Images and Objects365 class lists filtered to household items, plus AAC items they lack). Label text embeddings are precomputed at build time and committed (~1 MB); only the 55 MB `q4f16` vision model runs in the browser, in a Web Worker, WebGPU first with WASM fallback. The EfficientNet/ImageNet classifier stays as the last fallback, with place labels removed and breed-level labels mapped to everyday words.
+
+**Reason**
+
+ImageNet labels fit AAC badly ("restaurant", "tabby", "quilt"). A vocabulary we write only contains words a user would want spoken. Precomputing text embeddings avoids a 283 MB text-model download in the browser. On the 22 in-vocabulary placeholder photos (aim-point crop), fp16 got 16/22 top-1 and 21/22 top-3; `q4f16` 15/22 and 21/22 at a third of the size. The `q8`/int8 vision export is badly degraded (it ranks "purse" above "cat"), so it is not used.
+
+**Alternatives considered**
+
+- `Xenova/siglip-base-patch16-224` (SigLIP 1) — SigLIP 2 has a working ONNX export for Transformers.js and is the stronger model
+- Computing text embeddings in the browser and caching in IndexedDB — 283 MB first-run download; agreed to precompute instead
+- fp16 vision model — marginally better but 186 MB
+
+**Implication**
+
+`vite.config.ts` sends COOP/COEP (`credentialless`) headers so WASM inference can use threads (~3× faster on CPU). WebGPU and WASM give noticeably different scores on some images (e.g. "mug" vs "travel mug"), so the eval should report both. The confidence threshold must be re-tuned for SigLIP scores in Phase 7.

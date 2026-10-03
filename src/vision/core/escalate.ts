@@ -13,6 +13,7 @@ export interface NamingConfig {
   wideFrac: number;
   lowConfidence: number;
   tinyAreaFrac: number;
+  widePenalty: number;
 }
 
 export const DEFAULT_NAMING: NamingConfig = {
@@ -20,7 +21,12 @@ export const DEFAULT_NAMING: NamingConfig = {
   wideFrac: 0.65,
   lowConfidence: 0.35,
   tinyAreaFrac: 0.01,
+  widePenalty: 0.1,
 };
+
+export function pointingScore(score: number, kind: AttemptKind, cfg: NamingConfig = DEFAULT_NAMING): number {
+  return kind === "wide" ? score - cfg.widePenalty : score;
+}
 
 export function cropLadder(
   w: number,
@@ -52,27 +58,28 @@ export interface Escalation<R> {
   levelReached: number;
 }
 
-export function escalate<R>(
+export async function escalate<R>(
   ladder: Rung[][],
-  name: (rung: Rung) => R,
-  scoreOf: (r: R) => number,
+  nameLevel: (rungs: Rung[]) => Promise<R[]>,
+  scoreOf: (r: R, rung: Rung) => number,
   threshold: number,
   startLevel = 0,
   maxLevel = ladder.length - 1
-): Escalation<R> {
+): Promise<Escalation<R>> {
   const attempts: Attempt<R>[] = [];
   const top = ladder.length - 1;
-  const run = (l: number) => {
-    for (const rung of ladder[l]) {
-      const result = name(rung);
-      attempts.push({ ...rung, level: l, result, score: scoreOf(result) });
-    }
+  const run = async (l: number) => {
+    if (ladder[l].length === 0) return;
+    const results = await nameLevel(ladder[l]);
+    ladder[l].forEach((rung, i) => {
+      attempts.push({ ...rung, level: l, result: results[i], score: scoreOf(results[i], rung) });
+    });
   };
   let level = Math.min(Math.max(0, startLevel), top);
-  for (let l = 0; l <= level; l++) run(l);
+  for (let l = 0; l <= level; l++) await run(l);
   while (level < Math.min(maxLevel, top) && bestScore(attempts) < threshold) {
     level++;
-    run(level);
+    await run(level);
   }
   const sorted = [...attempts].sort((a, b) => b.score - a.score);
   return {

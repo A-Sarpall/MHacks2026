@@ -32,35 +32,39 @@ describe("crop ladder", () => {
 
 describe("escalation", () => {
   const ladder = cropLadder(W, H, aim, scene);
-  const namer = (scores: Partial<Record<Rung["kind"], number>>, perLabel: Record<string, number> = {}) => (r: Rung) =>
+  const one = (scores: Partial<Record<Rung["kind"], number>>, perLabel: Record<string, number> = {}) => (r: Rung) =>
     r.candidate?.label && perLabel[r.candidate.label] !== undefined ? perLabel[r.candidate.label] : scores[r.kind] ?? 0;
+  const namer =
+    (scores: Partial<Record<Rung["kind"], number>>, perLabel: Record<string, number> = {}) =>
+    async (rungs: Rung[]) =>
+      rungs.map(one(scores, perLabel));
   const id = (n: number) => n;
 
-  it("stops at the centre crop when it is confident", () => {
+  it("stops at the centre crop when it is confident", async () => {
     const calls: string[] = [];
-    const r = escalate(ladder, (rung) => (calls.push(rung.kind), namer({ centre: 0.9 })(rung)), id, 0.35);
+    const r = await escalate(ladder, async (rungs) => rungs.map((rung) => (calls.push(rung.kind), one({ centre: 0.9 })(rung))), id, 0.35);
     expect(calls).toEqual(["centre"]);
     expect(r.low).toBe(false);
     expect(r.best.kind).toBe("centre");
   });
 
-  it("widens only when the centre crop is unsure", () => {
-    const r = escalate(ladder, namer({ centre: 0.2, wide: 0.5, box: 0.3 }), id, 0.35);
+  it("widens only when the centre crop is unsure", async () => {
+    const r = await escalate(ladder, namer({ centre: 0.2, wide: 0.5, box: 0.3 }), id, 0.35);
     expect(r.levelReached).toBe(1);
     expect(r.best.kind).toBe("wide");
     expect(r.attempts.map((a) => a.kind)).toEqual(["wide", "box", "centre"]);
   });
 
-  it("names the other objects and reports low confidence when nothing is sure", () => {
-    const r = escalate(ladder, namer({ centre: 0.1, wide: 0.1, box: 0.1 }, { person: 0.2, chair: 0.05 }), id, 0.35);
+  it("names the other objects and reports low confidence when nothing is sure", async () => {
+    const r = await escalate(ladder, namer({ centre: 0.1, wide: 0.1, box: 0.1 }, { person: 0.2, chair: 0.05 }), id, 0.35);
     expect(r.levelReached).toBe(2);
     expect(r.low).toBe(true);
     expect(r.attempts).toHaveLength(5);
   });
 
-  it("starts wider on a retake", () => {
+  it("starts wider on a retake", async () => {
     const calls: string[] = [];
-    escalate(ladder, (rung) => (calls.push(rung.kind), 0.9), id, 0.35, 1);
+    await escalate(ladder, async (rungs) => rungs.map((rung) => (calls.push(rung.kind), 0.9)), id, 0.35, 1);
     expect(calls).toEqual(["centre", "box", "wide"]);
   });
 });
@@ -78,12 +82,25 @@ describe("move closer", () => {
 });
 
 describe("choice order", () => {
-  it("puts the pointed-at crops first even when another object is named more confidently", () => {
+  it("puts the pointed-at crops first even when another object is named more confidently", async () => {
     const ladder = cropLadder(W, H, aim, scene);
     const scores: Record<string, number> = { centre: 0.25, box: 0.2, wide: 0.3, person: 0.9, chair: 0.6 };
-    const r = escalate(ladder, (rung) => scores[rung.candidate?.label === "apple" ? "box" : rung.candidate?.label ?? rung.kind], (n) => n, 0.35);
+    const r = await escalate(
+      ladder,
+      async (rungs) => rungs.map((rung) => scores[rung.candidate?.label === "apple" ? "box" : rung.candidate?.label ?? rung.kind]),
+      (n) => n,
+      0.35
+    );
     const { pointed, ordered } = orderForPointing(r.attempts);
     expect(ordered.map((a) => a.candidate?.label ?? a.kind)).toEqual(["wide", "centre", "apple", "person", "chair"]);
     expect(pointed[0].score).toBeLessThan(0.35);
+  });
+});
+
+describe("wide crop penalty", () => {
+  it("ranks the wide crop below the centre crop unless it is clearly more confident", async () => {
+    const { pointingScore } = await import("./escalate");
+    expect(pointingScore(0.3, "wide")).toBeLessThan(pointingScore(0.25, "centre"));
+    expect(pointingScore(0.5, "wide")).toBeGreaterThan(pointingScore(0.25, "centre"));
   });
 });
