@@ -1,7 +1,13 @@
 import { identifyFromImage } from "../lib/identify";
 import type { Box, CapturedObject, LabelGuess } from "../lib/types";
 import { everydayLabel } from "./core/imagenetMap";
-import { matchPersonal, nearestPersonal, personalConfidence } from "./core/personalMatch";
+import {
+  matchPersonal,
+  nearestPersonal,
+  personalConfidence,
+  type PersonalEntry,
+  type PersonalMatchConfig,
+} from "./core/personalMatch";
 import { loadPersonal, personalEntries } from "./personal";
 import { embedImages, isSiglipReady, vocabIndex } from "./siglip";
 
@@ -19,6 +25,8 @@ export interface NamedCrop {
 export interface NamerOptions {
   boost?: (label: string) => number;
   topK?: number;
+  personal?: PersonalEntry[];
+  personalCfg?: PersonalMatchConfig;
 }
 
 function dedupe(guesses: LabelGuess[]): LabelGuess[] {
@@ -74,18 +82,18 @@ export async function nameCrops(
     console.warn("[namer] SigLIP failed, using the fallback classifier", err);
     return local;
   }
-  await loadPersonal();
-  const personal = personalEntries();
+  if (!opts.personal) await loadPersonal();
+  const personal = opts.personal ?? personalEntries();
   return local.map((l, i) => {
     const top = vocab.top(vectors[i], opts.topK ?? 3, opts.boost);
     const vocabGuesses: LabelGuess[] = top.map((t) => ({ label: t.label, score: t.prob, source: "vocab" as const }));
-    const hit = personal.length > 0 ? matchPersonal(vectors[i], personal) : null;
+    const hit = personal.length > 0 ? matchPersonal(vectors[i], personal, opts.personalCfg) : null;
     if (personal.length > 0) {
       const near = nearestPersonal(vectors[i], personal)[0];
       console.info("[personal]", JSON.stringify({ nearest: near?.name, cos: near && +near.cos.toFixed(3), runnerUp: near && +near.runnerUp.toFixed(3), match: hit?.name ?? null }));
     }
     if (hit) {
-      const confidence = personalConfidence(hit);
+      const confidence = personalConfidence(hit, opts.personalCfg);
       return {
         crop: l.crop,
         embedding: vectors[i],

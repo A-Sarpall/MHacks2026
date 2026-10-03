@@ -11,7 +11,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run",
-    "embed-vocab": "node scripts/embed-vocab.mjs"
+    "embed-vocab": "node scripts/embed-vocab.mjs",
+    "eval": "node scripts/copy-wasm.mjs && node scripts/fetch-models.mjs && node scripts/eval.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",
