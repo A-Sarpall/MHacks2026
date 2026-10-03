@@ -144,3 +144,5 @@ Pressing the ring's button shakes the hand and blurs the picture. A few frames a
 **Implication**
 
 Burst size trades blur robustness for latency over Bluetooth; the eval harness should measure both before the default is fixed. The ring's camera is off until the press, so still mode is the primary path: the first frame of each burst is discarded by default (wake-up frames are often dark), an optional delay lets the hand settle, and nothing assumes frames from before the press.
+
+In stream mode (webcam, the development and demo path) the same sharpness score picks the best of the last ~10 frames from before the press (skipping the final 50 ms), minus a penalty for target motion. Scoring happens only at press time; measured frame rate and press-to-tile latency are unchanged from `main` (57 fps, ~60–115 ms in headless Chrome).

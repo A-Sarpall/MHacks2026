@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { detectImageFrame, isDetectorReady } from "../lib/detect";
-import { Tracker } from "../lib/tracker";
+import { Tracker, iou } from "../lib/tracker";
 import type { Box, TrackedObject } from "../lib/types";
 import {
   IDENTITY,
@@ -19,6 +19,7 @@ import {
   type StatusInfo,
 } from "../vision/sources";
 import { rankFrames, sharpness } from "../vision/core/sharpness";
+import { FrameBuffer, SpeedMeter } from "../vision/core/frameBuffer";
 
 export interface CaptureTarget {
   video?: HTMLVideoElement;
@@ -27,6 +28,14 @@ export interface CaptureTarget {
   detected?: { label: string; score: number };
   alternates?: HTMLCanvasElement[];
   burst?: BurstInfo;
+  streamPick?: StreamPickInfo;
+}
+
+export interface StreamPickInfo {
+  ageMs: number;
+  candidates: number;
+  sharpness: number;
+  buffered: number;
 }
 
 export interface BurstInfo {
@@ -43,6 +52,7 @@ export interface CameraViewHandle {
   // the centre of the frame — the "pointed at" object). Used by Space.
   captureFocused(): CaptureTarget | null;
   capture(): Promise<CaptureTarget | null>;
+  unfreeze(): void;
 }
 
 interface Props {
@@ -57,11 +67,13 @@ interface Props {
   burst?: number;
   discard?: number;
   delayMs?: number;
+  freezeMs?: number;
 }
 
 const COLORS = ["#3b82f6", "#22c55e", "#f97316", "#a855f7", "#ec4899", "#14b8a6"];
 const STILL_TIMEOUT_MS = 10_000;
 const KEEP_FRAMES = 3;
+const BUFFER_FRAMES = 10;
 
 function colorFor(id: number): string {
   return COLORS[id % COLORS.length];
@@ -101,6 +113,31 @@ function snapshot(frame: ImageBitmap): HTMLCanvasElement {
 interface Frame {
   bitmap: ImageBitmap;
   time: number;
+  owned: boolean;
+}
+
+function matchTracks(
+  detections: { label: string; score: number; box: Box }[],
+  tracks: TrackedObject[]
+): TrackedObject[] {
+  return detections.map((d, i) => {
+    let best: TrackedObject | null = null;
+    let bestIou = 0.3;
+    for (const t of tracks) {
+      const v = iou(t.box, d.box);
+      if (v > bestIou) {
+        best = t;
+        bestIou = v;
+      }
+    }
+    return {
+      ...d,
+      id: best?.id ?? 10_000 + i,
+      label: best?.label ?? d.label,
+      hits: 1,
+      misses: 0,
+    };
+  });
 }
 
 const STATUS_TEXT: Record<StatusInfo["status"], string> = {
@@ -125,12 +162,16 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       burst = 1,
       discard = 0,
       delayMs = 0,
+      freezeMs = 1500,
     },
     ref
   ) {
     const frameCanvasRef = useRef<HTMLCanvasElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const frameRef = useRef<Frame | null>(null);
+    const bufferRef = useRef(new FrameBuffer(BUFFER_FRAMES));
+    const speedRef = useRef(new SpeedMeter());
+    const frozenRef = useRef<{ image: HTMLCanvasElement; until: number } | null>(null);
     const dirtyRef = useRef(false);
     const tracksRef = useRef<TrackedObject[]>([]);
     const hoverRef = useRef<{ x: number; y: number } | null>(null);
@@ -178,20 +219,32 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       return source.onStatus(update);
     }, [source]);
 
+    const setFrame = (f: Frame | null) => {
+      const prev = frameRef.current;
+      if (prev?.owned && prev.bitmap !== f?.bitmap) prev.bitmap.close();
+      frameRef.current = f;
+    };
+
     useEffect(() => {
-      frameRef.current?.bitmap.close();
-      frameRef.current = null;
+      const buffer = bufferRef.current;
+      setFrame(null);
+      buffer.clear();
+      frozenRef.current = null;
       tracksRef.current = [];
       hasFrameRef.current = false;
       setHasFrame(false);
       if (!source?.onFrame) return;
       source.onFrame((bmp, time) => {
         const up = orientFrame(bmp, orientationRef.current);
-        frameRef.current?.bitmap.close();
-        frameRef.current = { bitmap: up, time };
+        setFrame({ bitmap: up, time, owned: false });
+        buffer.push(up, time, speedRef.current.current());
         dirtyRef.current = true;
       });
-      return () => source.onFrame?.(null);
+      return () => {
+        source.onFrame?.(null);
+        setFrame(null);
+        buffer.clear();
+      };
     }, [source]);
 
     const frameSize = () => {
@@ -223,7 +276,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       return pickCentral(tracks, size.w, size.h);
     };
 
-    const paintFrame = (bmp: ImageBitmap) => {
+    const paintFrame = (bmp: ImageBitmap | HTMLCanvasElement) => {
       const fc = frameCanvasRef.current;
       const canvas = canvasRef.current;
       if (!fc || !canvas) return;
@@ -253,7 +306,13 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
         const frame = frameRef.current;
         if (!canvas) return;
 
-        if (stream && frame && dirtyRef.current) {
+        const frozen = frozenRef.current;
+        if (frozen && performance.now() > frozen.until) {
+          frozenRef.current = null;
+          dirtyRef.current = true;
+        }
+
+        if (stream && frame && dirtyRef.current && !frozenRef.current) {
           dirtyRef.current = false;
           paintFrame(frame.bitmap);
           // Adaptive throttle: wait at least as long as the last inference took,
@@ -262,6 +321,14 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
           if (isDetectorReady() && now - lastDetect >= lastCost) {
             try {
               tracksRef.current = tracker.update(detectImageFrame(frame.bitmap));
+              const f = focused();
+              const { width: w, height: h } = frame.bitmap;
+              speedRef.current.update(
+                f?.id ?? null,
+                f ? { x: f.box.x + f.box.w / 2, y: f.box.y + f.box.h / 2 } : null,
+                frame.time,
+                Math.hypot(w, h)
+              );
             } catch (err) {
               console.error("[detect]", err);
             }
@@ -291,12 +358,34 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       return { x: (w - size) / 2, y: (h - size) / 2, w: size, h: size };
     };
 
-    const captureFocused = (): CaptureTarget | null => (stream ? captureCurrent() : null);
+    const captureFocused = (): CaptureTarget | null => (stream ? captureBest() : null);
 
-    const captureCurrent = (): CaptureTarget | null => {
-      const frame = frameRef.current;
-      if (!frame) return null;
-      const image = snapshot(frame.bitmap);
+    const captureBest = (): CaptureTarget | null => {
+      const press = performance.now();
+      const buffer = bufferRef.current;
+      const sel = buffer.select(press);
+      if (!sel) return captureCurrent();
+      const chosen = sel.frame.image;
+      const image = snapshot(chosen);
+      if (isDetectorReady()) {
+        const fresh = matchTracks(detectImageFrame(chosen), tracksRef.current);
+        if (fresh.length > 0) tracksRef.current = fresh;
+      }
+      frozenRef.current = { image, until: press + freezeMs };
+      paintFrame(image);
+      const target = captureFrom(image);
+      return {
+        ...target,
+        streamPick: {
+          ageMs: sel.ageMs,
+          candidates: sel.candidates,
+          sharpness: sel.frame.sharpness ?? 0,
+          buffered: buffer.size(),
+        },
+      };
+    };
+
+    const captureFrom = (image: HTMLCanvasElement): CaptureTarget => {
       const t = focused();
       if (t) {
         flash(t.box);
@@ -306,6 +395,11 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       const box = centreBox(image.width, image.height, 0.6);
       flash(box);
       return { image, box };
+    };
+
+    const captureCurrent = (): CaptureTarget | null => {
+      const frame = frameRef.current;
+      return frame ? captureFrom(snapshot(frame.bitmap)) : null;
     };
 
     const captureStill = async (): Promise<CaptureTarget | null> => {
@@ -334,8 +428,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
           ms: performance.now() - t0,
           sharpness: ranked.map((r) => r.sharpness),
         };
-        frameRef.current?.bitmap.close();
-        frameRef.current = { bitmap: up, time: performance.now() };
+        setFrame({ bitmap: up, time: performance.now(), owned: true });
         paintFrame(up);
         tracksRef.current = isDetectorReady()
           ? detectImageFrame(up).map((d, i) => ({ ...d, id: i + 1, hits: 1, misses: 0 }))
@@ -351,6 +444,10 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     useImperativeHandle(ref, () => ({
       captureFocused,
       capture: () => (stream ? Promise.resolve(captureFocused()) : captureStill()),
+      unfreeze: () => {
+        frozenRef.current = null;
+        dirtyRef.current = true;
+      },
     }));
 
     const handleClick = (e: React.MouseEvent) => {

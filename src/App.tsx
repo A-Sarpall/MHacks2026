@@ -75,6 +75,7 @@ export default function App() {
   const handleCapture = useCallback(
     async (target: CaptureTarget) => {
       if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
+      if (target.streamPick) console.info("[capture] stream", JSON.stringify(target.streamPick));
       const { capture, crop } = identifyFromImage(
         target.image,
         target.box,

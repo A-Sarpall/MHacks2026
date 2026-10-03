@@ -48,6 +48,10 @@ In still mode one press can return several JPEGs (taken in quick succession, or 
 
 `FileSource` can simulate a ring burst from one still image: `?source=file&simwake=1&simwakems=300&simframems=150&simshake=2` adds 1 dark/off-color wake frame, 300 ms camera wake-up, 150 ms per photo transfer, and press shake (blur strongest right after the press, then settling: `SHAKE_PATTERN`). The same fields are in the panel when "Image files" is selected.
 
+### Stream mode: frame buffer (webcam / dev path)
+
+Stream sources keep the last 10 upright frames in `core/frameBuffer.ts` with their timestamp and the target's speed (from the tracker: how fast the focused box moved, in frame diagonals per second). On a button press, frames from the last 50 ms are skipped (the press itself shakes the camera), the rest are scored with the same sharpness measure as still bursts, minus a motion penalty (`score = sharpness / max − 0.5 × min(1, speed / 0.5)`), and the best one is used. Sharpness is computed only at press time, so the detection loop pays nothing for it. The view freezes on the chosen frame (1.5 s for now; Phase 3's scanner will control it), detection is re-run on that frame so the boxes match it, and evicted bitmaps are closed. Mouse clicks still use the frame on screen.
+
 ### Choosing a source
 
 One place: `settings.ts`. The "Camera & ring" panel under the camera saves to localStorage; URL parameters override it:
