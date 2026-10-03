@@ -167,3 +167,24 @@ The camera is offset from the fingertip and the offset differs per hand and per 
 **Implication**
 
 `pickCentral` in `CameraView` was replaced by the ranking. Scanning (Phase 3) walks `CaptureTarget.candidates`.
+
+---
+
+### 2026-10-03 — Name the centre first; widen or offer choices only when unsure
+
+**Decision**
+
+Assume for now that the user points straight at the object: aim point = frame centre (calibration optional, off by default). Each press names a tight centre crop first; only if confidence is low (or the user double-presses within 4 s to retake) does it widen to the covering detected box and a larger centre crop, and then to the other detected objects. A different object is never picked automatically: low-confidence results and other-object answers go to a single-switch scanner (click next, hold choose, double retake). Tiny objects under the centre get a "Move closer" hint; far-object handling is deferred.
+
+**Reason**
+
+Predictable, fast behaviour for the common case (one crop, ~50 ms on a laptop), with choices instead of a confident wrong word when unsure. Ring mappings only change while a result or choices are on screen, and all of them live in one table (`src/vision/input/mappings.ts`).
+
+**Alternatives considered**
+
+- Always show ranked candidates — slower and more work for the user when the centre is already clear
+- Auto-picking the most confident object anywhere in the frame — names things the user didn't point at
+
+**Implication**
+
+`lowConfidence` and the "tiny" area are placeholders until the eval harness measures them. Mouse clicks still name the clicked box directly.

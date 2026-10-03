@@ -52,11 +52,36 @@ In still mode one press can return several JPEGs (taken in quick succession, or 
 
 Stream sources keep the last 10 upright frames in `core/frameBuffer.ts` with their timestamp and the target's speed (from the tracker: how fast the focused box moved, in frame diagonals per second). On a button press, frames from the last 50 ms are skipped (the press itself shakes the camera), the rest are scored with the same sharpness measure as still bursts, minus a motion penalty (`score = sharpness / max − 0.5 × min(1, speed / 0.5)`), and the best one is used. Sharpness is computed only at press time, so the detection loop pays nothing for it. The view freezes on the chosen frame (1.5 s for now; Phase 3's scanner will control it), detection is re-run on that frame so the boxes match it, and evicted bitmaps are closed. Mouse clicks still use the frame on screen.
 
+## Naming: centre first, widen only when unsure (`core/escalate.ts`, `naming.ts`)
+
+For now Cue assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence`, placeholder 0.35 until the eval tunes it):
+
+| Level | Crops | When |
+|---|---|---|
+| 0 | tight centre crop (35 % of the short side) | always |
+| 1 | the smallest detected box covering the centre + a wider centre crop (65 %) | centre crop unsure, or the user retakes |
+| 2 | every other detected object | still unsure, or a second retake |
+
+Whole-frame detection keeps running (stream) or runs on the still, and supplies the level 1–2 boxes. If the best answer is confident and came from the centre/wide/covering box, it becomes a tile directly (other answers become the "fix the name" chips). Otherwise — or whenever the best answer is a *different* object — the choices go to the **scanner** instead of guessing. If the object under the centre is tiny (< 1 % of the frame), a "Move closer" hint is shown; there's no special handling for far objects yet.
+
+## Ring button mappings (`input/mappings.ts`)
+
+One table, so it's easy to change:
+
+| Mode | click | double | hold |
+|---|---|---|---|
+| normal | take picture | quick reply (backchannel) | queue sentence |
+| review (4 s after a result) | take picture | **retake one level wider** | queue sentence |
+| scanning | next choice | retake one level wider | choose |
+| autoscan (choices advance every X s) | choose | retake | cancel |
+
+Scanner options: "Say each choice aloud" (uses `speak.ts`) and "Auto-scan every X s" (`?speakhl=1`, `?autoscan=1&scansec=2`). The highlighted choice is shown large under the camera; everything else on the frozen frame is dimmed. Mouse clicks on a box skip all of this and name that box directly.
+
 ## Aim zone, calibration and candidates (`core/aim.ts`)
 
 The ring's camera sits off the fingertip, so "where the user points" is rarely the exact frame centre. Everything is relative to an **aim point** = frame centre + a calibration offset, and an **aim zone** around it (default half the width × half the height = 25 % of the frame, "zone" in the panel, `?zone=0.5`).
 
-- **Calibration** ("Calibrate aim…" in the panel): point the ring at the pink on-screen target (or any object) and press 3–5 times. The target is found automatically by colour (`core/marker.ts`); if it isn't visible, the user taps where the object is in the picture. The average offset and its spread are stored in localStorage **per source and per hand** (`cue.vision.calibration.v1`, keys like `ble:left`). During calibration the ring button means click = take picture, double = undo, hold = save. In still mode this is what does the aiming work.
+- **Calibration** ("Calibrate aim…" in the panel; only applied when "use it" is ticked): point the ring at the pink on-screen target (or any object) and press 3–5 times. The target is found automatically by colour (`core/marker.ts`); if it isn't visible, the user taps where the object is in the picture. The average offset and its spread are stored in localStorage **per source and per hand** (`cue.vision.calibration.v1`, keys like `ble:left`). During calibration the ring button means click = take picture, double = undo, hold = save. In still mode this is what does the aiming work.
 - **Ranking** on the chosen frame: the smallest box containing the aim point first (an apple held in front of a person beats the person), then other boxes containing it by size, then the rest by distance from the aim point; at most N (default 4, "choices", `?n=4`). If no box contains the aim point, a crop around it ("here") is added — first if every box is more than 8 % of the diagonal away (the user is probably pointing at something the detector doesn't know), last otherwise. No boxes at all → just that crop. The list is on `CaptureTarget.candidates` for the scanner.
 - **On-target cue** (stream mode only, optional, "“On target” cue", `?ontarget=0` to disable): when the top candidate covers the aim point, has been tracked for 3+ detections and the target is moving slower than 0.25 diagonals/s for 300 ms, the zone turns green and `on-target` feedback fires once per object.
 - **"Got it"**: every successful capture sends `captured` feedback (ring buzz/beep on sources that support it, browser beep/vibrate if "Beep/vibrate on this device" is on); failures send `error`.
@@ -79,6 +104,8 @@ One place: `settings.ts`. The "Camera & ring" panel under the camera saves to lo
 &rotate=0|90|180|270&flip=1    orientation override for this source + hand
 &zone=0.1..1&n=1..8            aim zone size (fraction of width/height), max candidates
 &ontarget=0|1&beep=0|1         on-target cue (stream only), local beep/vibrate
+&calib=0|1                     apply the saved calibration offset (default off: aim at the centre)
+&speakhl=1&autoscan=1&scansec=2   scanner options
 ```
 
 ### Orientation

@@ -85,6 +85,7 @@ interface Props {
   maxCandidates?: number;
   onTargetCue?: boolean;
   onOnTarget?: () => void;
+  highlight?: Box | null;
 }
 
 const COLORS = ["#3b82f6", "#22c55e", "#f97316", "#a855f7", "#ec4899", "#14b8a6"];
@@ -165,6 +166,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       maxCandidates = 4,
       onTargetCue = true,
       onOnTarget,
+      highlight = null,
     },
     ref
   ) {
@@ -179,6 +181,8 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     const hoverRef = useRef<{ x: number; y: number } | null>(null);
     const flashRef = useRef<{ box: Box; until: number } | null>(null);
     const onTargetRef = useRef(false);
+    const highlightRef = useRef(highlight);
+    highlightRef.current = highlight;
     const onOnTargetRef = useRef(onOnTarget);
     onOnTargetRef.current = onOnTarget;
     const frozenCandidatesRef = useRef<Candidate[] | null>(null);
@@ -374,6 +378,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
             point: aimPoint(w, h, aim.offset),
             onTarget: stream && onTargetCue && onTargetRef.current && !frozenRef.current,
             candidates: frozenCandidatesRef.current,
+            highlight: highlightRef.current,
           });
         }
       };
@@ -599,6 +604,7 @@ interface AimOverlay {
   point: Point;
   onTarget: boolean;
   candidates: Candidate[] | null;
+  highlight: Box | null;
 }
 
 function draw(
@@ -679,6 +685,19 @@ function draw(
     ctx.setLineDash([]);
     ctx.fillStyle = "#facc15";
     ctx.fillText(`${i}. here`, fx(aimCand.box) + 6, aimCand.box.y + 4);
+  }
+
+  if (overlay.highlight) {
+    const hb = overlay.highlight;
+    ctx.beginPath();
+    ctx.rect(0, 0, W, canvas.height);
+    ctx.rect(fx(hb), hb.y, hb.w, hb.h);
+    ctx.fillStyle = "rgba(0,0,0,0.6)";
+    ctx.fill("evenodd");
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "#3b82f6";
+    ctx.setLineDash([]);
+    ctx.strokeRect(fx(hb), hb.y, hb.w, hb.h);
   }
 
   if (flash && performance.now() < flash.until) {

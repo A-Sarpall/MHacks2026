@@ -357,10 +357,22 @@ export function SourceSettings({
             >
               Calibrate aim…
             </button>
+            <label className="flex items-center gap-1 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={settings.useCalibration}
+                onChange={(e) => {
+                  onChange({ ...settings, useCalibration: e.target.checked });
+                  blur(e);
+                }}
+              />
+              use it
+            </label>
             <span className="text-gray-400">
               {calibration
                 ? `${Math.round(calibration.offset.dx * 100)}% right, ${Math.round(calibration.offset.dy * 100)}% down`
-                : "not calibrated (centre)"}
+                : "not calibrated"}
+              {settings.useCalibration ? "" : " · aiming at the centre"}
             </span>
             <label className="flex items-center gap-1">
               zone
@@ -396,6 +408,38 @@ export function SourceSettings({
                 ))}
               </select>
             </label>
+          </div>
+
+          <span>Choosing</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="flex items-center gap-1 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={settings.speakOnHighlight}
+                onChange={(e) => {
+                  onChange({ ...settings, speakOnHighlight: e.target.checked });
+                  blur(e);
+                }}
+              />
+              Say each choice aloud
+            </label>
+            <label className="flex items-center gap-1 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={settings.autoScan}
+                onChange={(e) => {
+                  onChange({ ...settings, autoScan: e.target.checked });
+                  blur(e);
+                }}
+              />
+              Auto-scan every
+            </label>
+            <NumberField
+              value={settings.autoScanSec}
+              max={10}
+              onChange={(autoScanSec) => onChange({ ...settings, autoScanSec: Math.max(0.5, autoScanSec) })}
+            />
+            <span className="text-gray-400">s (then one click chooses)</span>
           </div>
 
           <span>Feedback</span>

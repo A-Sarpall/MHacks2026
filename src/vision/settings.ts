@@ -19,6 +19,10 @@ export interface SourceSettings {
   maxCandidates: number;
   onTargetCue: boolean;
   beep: boolean;
+  useCalibration: boolean;
+  speakOnHighlight: boolean;
+  autoScan: boolean;
+  autoScanSec: number;
   orientations: Partial<Record<string, Orientation>>;
 }
 
@@ -44,6 +48,10 @@ export const DEFAULT_SETTINGS: SourceSettings = {
   maxCandidates: 4,
   onTargetCue: true,
   beep: false,
+  useCalibration: false,
+  speakOnHighlight: false,
+  autoScan: false,
+  autoScanSec: 2,
   orientations: {},
 };
 
@@ -123,6 +131,14 @@ export function parseQuery(search: string, base: SourceSettings): SourceSettings
   if (onTarget !== null) s.onTargetCue = onTarget === "1" || onTarget === "true";
   const beep = q.get("beep");
   if (beep !== null) s.beep = beep === "1" || beep === "true";
+  const calib = q.get("calib");
+  if (calib !== null) s.useCalibration = calib === "1" || calib === "true";
+  const speakHl = q.get("speakhl");
+  if (speakHl !== null) s.speakOnHighlight = speakHl === "1" || speakHl === "true";
+  const autoscan = q.get("autoscan");
+  if (autoscan !== null) s.autoScan = autoscan === "1" || autoscan === "true";
+  const scanSec = Number(q.get("scansec"));
+  if (q.get("scansec") !== null && scanSec >= 0.5 && scanSec <= 10) s.autoScanSec = scanSec;
   const button = q.get("button");
   if (button === "none" || button === "ws" || button === "ble") s.buttonKind = button;
   const buttonUrl = q.get("buttonUrl");

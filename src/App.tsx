@@ -16,7 +16,10 @@ import { claudeComposer, composeMock } from "./lib/compose";
 import { speakNow, playBackchannel } from "./lib/speak";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
-import type { CoreWord, InputAction } from "./lib/types";
+import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
+import { Scanner } from "./components/Scanner";
+import { RUNG_TEXT, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
+import { RING_HINTS, commandFor, type RingMode } from "./vision/input/mappings";
 import { SourceSettings } from "./components/SourceSettings";
 import { Calibration, type CalibrationHandle } from "./components/Calibration";
 import {
@@ -29,6 +32,8 @@ import {
 import { clearCalibration, loadCalibration, saveCalibration } from "./vision/calibration";
 import type { FeedbackKind } from "./vision/input/types";
 import { useButtonInputs, useFrameSource } from "./vision/useVisionIO";
+
+const REVIEW_MS = 4000;
 
 export default function App() {
   const { state, dispatch } = useCueStore();
@@ -53,14 +58,29 @@ export default function App() {
   const [calibration, setCalibration] = useState(() => loadCalibration(calibKey));
   useEffect(() => setCalibration(loadCalibration(calibKey)), [calibKey]);
   const aim = useMemo(
-    () => ({ zoneFrac: sourceSettings.zoneFrac, offset: calibration?.offset ?? { dx: 0, dy: 0 } }),
-    [sourceSettings.zoneFrac, calibration]
+    () => ({
+      zoneFrac: sourceSettings.zoneFrac,
+      offset: (sourceSettings.useCalibration && calibration?.offset) || { dx: 0, dy: 0 },
+    }),
+    [sourceSettings.zoneFrac, sourceSettings.useCalibration, calibration]
   );
   const [calibrating, setCalibrating] = useState(false);
   const calibratingRef = useRef(calibrating);
   calibratingRef.current = calibrating;
   const calibRef = useRef<CalibrationHandle>(null);
   const feedbackRef = useRef<(kind: FeedbackKind) => void>(() => {});
+  const [scan, setScan] = useState<{ options: NamedOption[]; index: number; level: number } | null>(null);
+  const scanRef = useRef(scan);
+  scanRef.current = scan;
+  const reviewRef = useRef<{ until: number; level: number } | null>(null);
+  const [hint, setHint] = useState<{ text: string; key: number } | null>(null);
+  useEffect(() => {
+    if (!hint) return;
+    const t = setTimeout(() => setHint(null), 3000);
+    return () => clearTimeout(t);
+  }, [hint]);
+  const settingsRef = useRef(sourceSettings);
+  settingsRef.current = sourceSettings;
 
   // Brief "Identified: X" banner over the camera
   const showToast = useCallback((text: string) => {
@@ -88,16 +108,8 @@ export default function App() {
       });
   }, [dispatch]);
 
-  const handleCapture = useCallback(
-    async (target: CaptureTarget) => {
-      feedbackRef.current("captured");
-      if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
-      if (target.streamPick) console.info("[capture] stream", JSON.stringify(target.streamPick));
-      const { capture, crop } = identifyFromImage(
-        target.image,
-        target.box,
-        target.detected
-      );
+  const commitCapture = useCallback(
+    async (capture: CapturedObject, crop: HTMLCanvasElement) => {
       dispatch({ type: "ADD_CAPTURE", capture });
       showToast(
         `Identified: ${capture.label}` +
@@ -134,6 +146,87 @@ export default function App() {
     [dispatch, showToast]
   );
 
+  const handleCapture = useCallback(
+    async (target: CaptureTarget) => {
+      feedbackRef.current("captured");
+      const { capture, crop } = identifyFromImage(target.image, target.box, target.detected);
+      await commitCapture(capture, crop);
+    },
+    [commitCapture]
+  );
+
+  const endScan = useCallback((unfreezeAfterMs = 0) => {
+    setScan(null);
+    setTimeout(() => cameraRef.current?.unfreeze(), unfreezeAfterMs);
+  }, []);
+
+  const ringCapture = useCallback(
+    (level: number) => {
+      reviewRef.current = null;
+      cameraRef.current
+        ?.capture()
+        .then((target) => {
+          if (!target) return;
+          feedbackRef.current("captured");
+          if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
+          if (target.streamPick) console.info("[capture] stream", JSON.stringify(target.streamPick));
+          const res = nameTarget(target, {
+            startLevel: level,
+            maxOptions: settingsRef.current.maxCandidates,
+          });
+          console.info(
+            "[naming]",
+            JSON.stringify({
+              level: res.level,
+              low: res.low,
+              ms: Math.round(res.ms),
+              tooSmall: res.tooSmall,
+              options: res.options.map((o) => [o.label, Math.round(o.score * 100), o.rung.kind]),
+            })
+          );
+          if (res.tooSmall) setHint({ text: "Move closer", key: Date.now() });
+          if (!res.low || res.options.length === 1) {
+            void commitCapture(withAlternatives(res.best, res.options), res.best.crop);
+            reviewRef.current = { until: performance.now() + REVIEW_MS, level: res.level };
+            endScan(900);
+            return;
+          }
+          setScan({ options: res.options, index: 0, level: res.level });
+        })
+        .catch((err: unknown) => {
+          console.warn("[capture]", err);
+          feedbackRef.current("error");
+          showToast(String((err as Error)?.message ?? "Could not take a picture"));
+        });
+    },
+    [commitCapture, endScan, showToast]
+  );
+
+  const chooseScan = useCallback(
+    (index?: number) => {
+      const s = scanRef.current;
+      if (!s) return;
+      const chosen = s.options[index ?? s.index];
+      feedbackRef.current("select");
+      void commitCapture(withAlternatives(chosen, s.options), chosen.crop);
+      endScan(600);
+    },
+    [commitCapture, endScan]
+  );
+
+  const moveScan = useCallback((delta: number) => {
+    setScan((s) => s && { ...s, index: (s.index + delta + s.options.length) % s.options.length });
+  }, []);
+
+  const retake = useCallback(
+    (fromLevel: number) => {
+      setScan(null);
+      cameraRef.current?.unfreeze();
+      ringCapture(Math.min(2, fromLevel + 1));
+    },
+    [ringCapture]
+  );
+
   const handleSpeak = useCallback(
     async (sentence: string) => {
       dispatch({ type: "SET_STATUS", status: "speaking" });
@@ -147,6 +240,12 @@ export default function App() {
     [dispatch]
   );
 
+  const ringMode = (): RingMode => {
+    if (scanRef.current) return settingsRef.current.autoScan ? "autoscan" : "scanning";
+    const review = reviewRef.current;
+    return review && performance.now() < review.until ? "review" : "normal";
+  };
+
   // Keyboard (simulating the ring)
   const handleInput = useCallback(
     (action: InputAction) => {
@@ -156,27 +255,51 @@ export default function App() {
         if (action === "hold") calibRef.current?.save();
         return;
       }
-      if (action === "click") {
-        cameraRef.current
-          ?.capture()
-          .then((target) => {
-            if (target) void handleCapture(target);
-          })
-          .catch((err: unknown) => {
-            console.warn("[capture]", err);
-            feedbackRef.current("error");
-            showToast(String((err as Error)?.message ?? "Could not take a picture"));
-          });
-      }
-      if (action === "double") {
-        playBackchannel(nextBackchannel());
-      }
-      if (action === "hold" && state.candidates.length > 0) {
-        dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
+      const mode = ringMode();
+      switch (commandFor(mode, action)) {
+        case "capture":
+          ringCapture(0);
+          break;
+        case "backchannel":
+          playBackchannel(nextBackchannel());
+          break;
+        case "queue":
+          if (state.candidates.length > 0) {
+            dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
+          }
+          break;
+        case "next":
+          moveScan(1);
+          break;
+        case "select":
+          chooseScan();
+          break;
+        case "retake":
+          retake(scanRef.current?.level ?? reviewRef.current?.level ?? 0);
+          break;
+        case "cancel":
+          endScan();
+          break;
       }
     },
-    [state.candidates, dispatch, handleCapture, showToast]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan]
   );
+
+  const scanIndex = scan?.index ?? -1;
+  const scanLabel = scan?.options[scan.index]?.label;
+  useEffect(() => {
+    if (scanIndex < 0) return;
+    feedbackRef.current("highlight");
+    if (sourceSettings.speakOnHighlight && scanLabel) speakNow(scanLabel).catch(() => {});
+  }, [scanIndex, scanLabel, scan?.options, sourceSettings.speakOnHighlight]);
+
+  const scanning = scan !== null;
+  useEffect(() => {
+    if (!scanning || !sourceSettings.autoScan) return;
+    const t = setInterval(() => moveScan(1), sourceSettings.autoScanSec * 1000);
+    return () => clearInterval(t);
+  }, [scanning, sourceSettings.autoScan, sourceSettings.autoScanSec, moveScan]);
 
   const { hub, ringStatus } = useButtonInputs(sourceSettings, handleInput, sourceSettings.beep);
   feedbackRef.current = (kind) => {
@@ -296,7 +419,18 @@ export default function App() {
               maxCandidates={sourceSettings.maxCandidates}
               onTargetCue={sourceSettings.onTargetCue}
               onOnTarget={() => feedbackRef.current("on-target")}
+              freezeMs={Number.POSITIVE_INFINITY}
+              highlight={scan ? scan.options[scan.index]?.rung.box ?? null : null}
             />
+            {hint && (
+              <div
+                key={hint.key}
+                data-testid="hint"
+                className="absolute bottom-12 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-amber-400 text-black text-lg font-semibold shadow-lg pointer-events-none"
+              >
+                {hint.text}
+              </div>
+            )}
             {toast && (
               <div
                 key={toast.key}
@@ -370,6 +504,24 @@ export default function App() {
               </select>
             )}
           </div>
+          {scan && (
+            <Scanner
+              options={scan.options.map((o) => ({
+                key: o.key,
+                label: o.label,
+                thumbnail: o.capture.thumbnail,
+                detail: `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
+              }))}
+              index={scan.index}
+              hint={RING_HINTS[sourceSettings.autoScan ? "autoscan" : "scanning"]}
+              autoScanSec={sourceSettings.autoScan ? sourceSettings.autoScanSec : null}
+              onPick={(i) => setScan((s) => s && { ...s, index: i })}
+              onSelect={() => chooseScan()}
+              onNext={() => moveScan(1)}
+              onRetake={() => retake(scan.level)}
+              onCancel={() => endScan()}
+            />
+          )}
           <SourceSettings
             settings={sourceSettings}
             onChange={setSourceSettings}
