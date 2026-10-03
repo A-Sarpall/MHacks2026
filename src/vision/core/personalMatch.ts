@@ -22,8 +22,8 @@ export interface PersonalMatchConfig {
 }
 
 export const DEFAULT_PERSONAL: PersonalMatchConfig = {
-  threshold: 0.85,
-  margin: 0.02,
+  threshold: 0.92,
+  margin: 0.04,
   minConfidence: 0.6,
 };
 

@@ -3,6 +3,8 @@ import { rankCandidates } from "./aim";
 import { DEFAULT_PERSONAL, matchPersonal, nearestPersonal, personalConfidence, teachBoxes, type PersonalEntry } from "./personalMatch";
 import { normalize } from "./vocabIndex";
 
+const CFG = { threshold: 0.85, margin: 0.02, minConfidence: 0.6 };
+
 const vec = (...xs: number[]) => normalize(new Float32Array(xs));
 
 const withCos = (c: number) => vec(c, Math.sqrt(1 - c * c), 0);
@@ -20,8 +22,10 @@ describe("personal objects", () => {
   });
 
   it("matches above the threshold", () => {
-    expect(matchPersonal(withCos(0.9), [mug, keys])?.name).toBe("Mom's mug");
-    expect(matchPersonal(withCos(0.8), [mug, keys])).toBeNull();
+    expect(matchPersonal(withCos(0.9), [mug, keys], CFG)?.name).toBe("Mom's mug");
+    expect(matchPersonal(withCos(0.8), [mug, keys], CFG)).toBeNull();
+    expect(matchPersonal(withCos(0.9), [mug, keys])).toBeNull();
+    expect(matchPersonal(withCos(0.95), [mug, keys])?.name).toBe("Mom's mug");
   });
 
   it("matches a single taught object without a runner-up", () => {
@@ -30,7 +34,7 @@ describe("personal objects", () => {
 
   it("refuses when two taught objects look alike", () => {
     const cup: PersonalEntry = { id: "cup", name: "blue cup", embeddings: [vec(1, 0.01, 0)] };
-    expect(matchPersonal(vec(1, 0.005, 0), [mug, cup])).toBeNull();
+    expect(matchPersonal(vec(1, 0.005, 0), [mug, cup], CFG)).toBeNull();
     expect(matchPersonal(vec(1, 0.005, 0), [mug, cup], { ...DEFAULT_PERSONAL, margin: 0 })).not.toBeNull();
   });
 
@@ -43,10 +47,11 @@ describe("personal objects", () => {
 
   it("maps a match to at least the minimum confidence", () => {
     const hit = (cos: number) => ({ id: "x", name: "x", cos, runnerUp: 0 });
-    expect(personalConfidence(hit(0.85))).toBeCloseTo(0.6);
-    expect(personalConfidence(hit(1))).toBeCloseTo(1);
-    expect(personalConfidence(hit(0.925))).toBeCloseTo(0.8);
-    expect(personalConfidence(hit(0.5))).toBeCloseTo(0.6);
+    expect(personalConfidence(hit(0.85), CFG)).toBeCloseTo(0.6);
+    expect(personalConfidence(hit(1), CFG)).toBeCloseTo(1);
+    expect(personalConfidence(hit(0.925), CFG)).toBeCloseTo(0.8);
+    expect(personalConfidence(hit(0.5), CFG)).toBeCloseTo(0.6);
+    expect(personalConfidence(hit(DEFAULT_PERSONAL.threshold))).toBeCloseTo(DEFAULT_PERSONAL.minConfidence);
   });
 });
 
