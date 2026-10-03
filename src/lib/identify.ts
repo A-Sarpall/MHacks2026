@@ -13,8 +13,17 @@ const TRUST_DETECTOR = new Set(["person"]);
 let counter = 0;
 
 export function cropBox(video: HTMLVideoElement, box: Box): HTMLCanvasElement {
-  const vw = video.videoWidth;
-  const vh = video.videoHeight;
+  return cropImage(video, video.videoWidth, video.videoHeight, box);
+}
+
+export type FrameImage = HTMLCanvasElement | ImageBitmap | OffscreenCanvas;
+
+export function cropImage(
+  video: CanvasImageSource,
+  vw: number,
+  vh: number,
+  box: Box
+): HTMLCanvasElement {
   const padX = box.w * PAD;
   const padY = box.h * PAD;
   const x = Math.max(0, Math.floor(box.x - padX));
@@ -53,7 +62,21 @@ export function identifyLocal(
   box: Box,
   detected?: { label: string; score: number }
 ): { capture: CapturedObject; crop: HTMLCanvasElement } {
-  const crop = cropBox(video, box);
+  return identifyCrop(cropBox(video, box), detected);
+}
+
+export function identifyFromImage(
+  image: FrameImage,
+  box: Box,
+  detected?: { label: string; score: number }
+): { capture: CapturedObject; crop: HTMLCanvasElement } {
+  return identifyCrop(cropImage(image, image.width, image.height, box), detected);
+}
+
+function identifyCrop(
+  crop: HTMLCanvasElement,
+  detected?: { label: string; score: number }
+): { capture: CapturedObject; crop: HTMLCanvasElement } {
   const classes: LabelGuess[] = isClassifierReady()
     ? classify(crop).map((c) => ({ ...c, source: "classifier" as const }))
     : [];

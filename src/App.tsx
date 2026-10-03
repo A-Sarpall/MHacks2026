@@ -10,14 +10,21 @@ import { Candidates } from "./components/Candidates";
 import { StatusBar } from "./components/StatusBar";
 import { initDetector } from "./lib/detect";
 import { initClassifier } from "./lib/classify";
-import { identifyLocal, identifyWithClaude } from "./lib/identify";
+import { identifyFromImage, identifyWithClaude } from "./lib/identify";
 import { hasClaude } from "./lib/claude";
 import { claudeComposer, composeMock } from "./lib/compose";
 import { speakNow, playBackchannel } from "./lib/speak";
-import { startInputListening, stopInputListening } from "./lib/input";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import type { CoreWord, InputAction } from "./lib/types";
+import { SourceSettings } from "./components/SourceSettings";
+import {
+  isStillSource,
+  loadSourceSettings,
+  orientationFor,
+  saveSourceSettings,
+} from "./vision/settings";
+import { useButtonInputs, useFrameSource } from "./vision/useVisionIO";
 
 export default function App() {
   const { state, dispatch } = useCueStore();
@@ -34,6 +41,10 @@ export default function App() {
   const sayNameRef = useRef(sayName);
   sayNameRef.current = sayName;
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
+  const [sourceSettings, setSourceSettings] = useState(loadSourceSettings);
+  useEffect(() => saveSourceSettings(sourceSettings), [sourceSettings]);
+  const { source, status: sourceStatus } = useFrameSource(sourceSettings, cameraId);
+  useEffect(() => setMirror(source.kind === "webcam"), [source.kind]);
 
   // Brief "Identified: X" banner over the camera
   const showToast = useCallback((text: string) => {
@@ -63,8 +74,9 @@ export default function App() {
 
   const handleCapture = useCallback(
     async (target: CaptureTarget) => {
-      const { capture, crop } = identifyLocal(
-        target.video,
+      if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
+      const { capture, crop } = identifyFromImage(
+        target.image,
         target.box,
         target.detected
       );
@@ -121,8 +133,15 @@ export default function App() {
   const handleInput = useCallback(
     (action: InputAction) => {
       if (action === "click") {
-        const target = cameraRef.current?.captureFocused();
-        if (target) void handleCapture(target);
+        cameraRef.current
+          ?.capture()
+          .then((target) => {
+            if (target) void handleCapture(target);
+          })
+          .catch((err: unknown) => {
+            console.warn("[capture]", err);
+            showToast(String((err as Error)?.message ?? "Could not take a picture"));
+          });
       }
       if (action === "double") {
         playBackchannel(nextBackchannel());
@@ -131,13 +150,10 @@ export default function App() {
         dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
       }
     },
-    [state.candidates, dispatch, handleCapture]
+    [state.candidates, dispatch, handleCapture, showToast]
   );
 
-  useEffect(() => {
-    startInputListening(handleInput);
-    return () => stopInputListening();
-  }, [handleInput]);
+  const { ringStatus } = useButtonInputs(sourceSettings, handleInput, false);
 
   // Compose sentences whenever the selection changes (needs a core word)
   const selectedLabels = state.captures
@@ -239,6 +255,9 @@ export default function App() {
               mirror={mirror}
               deviceId={cameraId}
               onDevices={setCameras}
+              source={source}
+              orientation={orientationFor(sourceSettings)}
+              burst={isStillSource(sourceSettings) ? sourceSettings.burst : 1}
             />
             {toast && (
               <div
@@ -295,7 +314,7 @@ export default function App() {
               />
               Auto-speak queue at pause (mic)
             </label>
-            {cameras.length > 1 && (
+            {source.kind === "webcam" && cameras.length > 1 && (
               <select
                 value={cameraId ?? ""}
                 onChange={(e) => {
@@ -313,6 +332,13 @@ export default function App() {
               </select>
             )}
           </div>
+          <SourceSettings
+            settings={sourceSettings}
+            onChange={setSourceSettings}
+            source={source}
+            status={sourceStatus}
+            buttonStatus={ringStatus}
+          />
         </section>
 
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">

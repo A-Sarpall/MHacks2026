@@ -23,6 +23,8 @@ Open **Chrome** at http://localhost:5173 and allow camera access.
 | D | Instant backchannel (cycles yes / no / haha / mm-hmm / wait / wow / okay / thanks) |
 | H | Queue the first candidate sentence |
 
+Under the camera, **Camera & ring** picks the camera source (webcam, Wi-Fi ring, Bluetooth ring, image files), photos per press, the ring button connection, hand, and rotation/flip. URL parameters work too, e.g. `?source=ws&url=ws://192.168.4.1:81/&mode=still`. Run `npm test` for unit tests.
+
 Extras under the camera: **Say name on capture** (speaks the identified name), **Auto-speak queue at pause** (listens on the mic and speaks the queued sentence when your partner stops talking for ~0.7 s), a camera picker (when you have more than one), and a **Mirror** toggle (turn off if the camera faces away from you).
 
 ### Optional: Claude
@@ -68,13 +70,15 @@ Sentence ─► SpeechSynthesis
 | `src/lib/compose.ts` | Template sentences + Claude composer (`Composer` interface) |
 | `src/lib/speak.ts` | SpeechSynthesis + backchannels (`TTSEngine` interface) |
 | `src/lib/listen.ts` | Energy-based pause detector for auto-speaking the queue |
-| `src/lib/input.ts` | Keyboard → ring actions (swap for a ring client later) |
+| `src/lib/input.ts` | Keyboard → ring actions (wrapped by `KeyboardInput` in `src/vision/input`) |
+| `src/vision/` | Camera sources (webcam, Wi-Fi, Bluetooth, files), ring button inputs, orientation, burst capture — see [src/vision/README.md](src/vision/README.md) |
+| `src/components/SourceSettings.tsx` | "Camera & ring" panel: source, photos per press, button, hand, rotation/flip |
 | `src/lib/store.ts` | useReducer state |
-| `scripts/` | `copy-wasm.mjs`, `fetch-models.mjs` (run automatically before dev/build) |
+| `scripts/` | `copy-wasm.mjs`, `fetch-models.mjs` (run automatically before dev/build), `mock-ring.mjs` (fake Wi-Fi ring for testing) |
 
 ## Extension points
 
-1. **Ring hardware** — call the `input.ts` handler with `click` / `double` / `hold` from a WebSocket/BLE client
+1. **Ring hardware** — implement `FrameSource` / `ButtonInput` in `src/vision/` (see "Adding new hardware" in [src/vision/README.md](src/vision/README.md)); Wi-Fi and Bluetooth versions exist with placeholder protocols
 2. **ElevenLabs TTS** — implement `TTSEngine` in `speak.ts`
 3. **Better VAD** — swap the energy detector in `listen.ts` for vad-web/Silero
 4. **Partner transcription** — feed Web Speech API text into `ComposeInput.partnerContext`

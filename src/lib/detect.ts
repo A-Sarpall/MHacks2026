@@ -39,11 +39,18 @@ export function isDetectorReady(): boolean {
 // Run detection on the current video frame. Timestamps must strictly increase.
 export function detectFrame(video: HTMLVideoElement): RawDetection[] {
   if (!detector || video.readyState < 2 || video.videoWidth === 0) return [];
+  return detectImageFrame(video);
+}
+
+export type DetectInput = HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas;
+
+export function detectImageFrame(image: DetectInput): RawDetection[] {
+  if (!detector) return [];
   let ts = performance.now();
   if (ts <= lastTimestamp) ts = lastTimestamp + 1;
   lastTimestamp = ts;
 
-  const result = detector.detectForVideo(video, ts);
+  const result = detector.detectForVideo(image, ts);
   const out: RawDetection[] = [];
   for (const det of result.detections) {
     const cat = det.categories?.[0];

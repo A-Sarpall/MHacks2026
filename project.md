@@ -64,7 +64,7 @@ Never put secret values here.
 ## Stable constraints
 
 - Everything runs in the browser. No backend server, no Python, no FastAPI.
-- Webcam only. No ESP32 ring hardware in this prototype.
+- Webcam by default. Ring cameras/buttons plug in through `src/vision/` (`FrameSource`, `ButtonInput`); firmware protocols are placeholders until the hardware exists.
 - Keyboard shortcuts simulate ring: Space = click (capture + detect), D = double-click (backchannel), H = hold (queue to pause).
 - Browser SpeechSynthesis for TTS (not ElevenLabs -- no API dependency for prototype).
 - MediaPipe runs client-side. No server-side ML.
@@ -72,7 +72,7 @@ Never put secret values here.
 
 ## Explicit non-goals
 
-- Ring hardware integration (ESP32S3 firmware, WebSocket, BLE)
+- Ring firmware (the browser side of WebSocket/BLE exists in `src/vision/`)
 - ElevenLabs TTS integration
 - Photon private messaging
 - Partner display (second window)

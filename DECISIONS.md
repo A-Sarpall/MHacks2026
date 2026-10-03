@@ -102,3 +102,45 @@ COCO's 80 classes are good for finding objects in real time but too coarse to na
 **Implication**
 
 The detector picks *where*, the classifier/Claude decide *what*. Users can rename a tile from the alternatives list when the models disagree.
+
+---
+
+### 2026-10-03 — Camera and ring button behind interfaces (`src/vision/`)
+
+**Decision**
+
+All camera input goes through `FrameSource` (webcam, WebSocket, Bluetooth still, files) and all button input through `ButtonInput` (keyboard, WebSocket, Bluetooth). Source, burst size and orientation are chosen in one place (`src/vision/settings.ts`, settings panel or `?source=`). Frames are rotated/flipped to upright before detection, so recognition never knows which hardware produced them.
+
+**Reason**
+
+The ring's camera and radio are still undecided (Wi-Fi board vs. Bluetooth, stream vs. one picture per press). Swapping hardware should be one new file, not a rewrite. Orientation must be fixed before detection because the ring can be worn on either hand at any rotation.
+
+**Alternatives considered**
+
+- Keep `getUserMedia` inside `CameraView` and special-case the ring later — every new board would touch the UI and detection loop
+- Rotate only the display — detector and classifier would still see sideways images
+
+**Implication**
+
+`CaptureTarget` now carries an upright `image` canvas (`video` is optional), and still-mode sources work with no live preview. Bluetooth UUIDs and the WebSocket message format are placeholders documented in `src/vision/README.md`.
+
+---
+
+### 2026-10-03 — Still-mode bursts, sharpest frame wins
+
+**Decision**
+
+A still-mode press may return several JPEGs (`captureBurst`, default 3). The sharpest (variance of the Laplacian on a small grayscale copy) is named; the next two are kept for merging names. Transfers end on count, an end-of-burst marker, an adaptive idle gap, or a total timeout, and partial bursts are used.
+
+**Reason**
+
+Pressing the ring's button shakes the hand and blurs the picture. A few frames around the press almost always include a sharp one. Single-image firmware still works through the `capture()` fallback.
+
+**Alternatives considered**
+
+- One picture per press — simplest, but the blurriest moment is exactly when the button goes down
+- Always waiting for the full burst — over Bluetooth that can take several seconds
+
+**Implication**
+
+Burst size trades blur robustness for latency over Bluetooth; the eval harness should measure both before the default is fixed.
