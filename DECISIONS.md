@@ -143,4 +143,4 @@ Pressing the ring's button shakes the hand and blurs the picture. A few frames a
 
 **Implication**
 
-Burst size trades blur robustness for latency over Bluetooth; the eval harness should measure both before the default is fixed.
+Burst size trades blur robustness for latency over Bluetooth; the eval harness should measure both before the default is fixed. The ring's camera is off until the press, so still mode is the primary path: the first frame of each burst is discarded by default (wake-up frames are often dark), an optional delay lets the hand settle, and nothing assumes frames from before the press.

@@ -3,7 +3,7 @@ import type { InputAction } from "../lib/types";
 import { InputHub, browserFeedback } from "./input/hub";
 import { BleButtonInput, KeyboardInput, WsButtonInput } from "./input/inputs";
 import type { ButtonInput } from "./input/types";
-import { createSource } from "./sources";
+import { FileSource, createSource } from "./sources";
 import type { StatusInfo } from "./sources/types";
 import type { SourceSettings } from "./settings";
 
@@ -14,6 +14,9 @@ export function useFrameSource(settings: SourceSettings, deviceId?: string) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [kind, wsUrl, wsMode, deviceId]
   );
+  useEffect(() => {
+    if (source instanceof FileSource) source.setSimulation(settings.sim);
+  }, [source, settings.sim]);
   const [status, setStatus] = useState<StatusInfo>(source.status());
   useEffect(() => {
     setStatus(source.status());

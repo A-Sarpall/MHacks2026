@@ -258,6 +258,8 @@ export default function App() {
               source={source}
               orientation={orientationFor(sourceSettings)}
               burst={isStillSource(sourceSettings) ? sourceSettings.burst : 1}
+              discard={sourceSettings.discard}
+              delayMs={sourceSettings.delayMs}
             />
             {toast && (
               <div

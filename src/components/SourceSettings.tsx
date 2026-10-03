@@ -10,6 +10,8 @@ import { ringBle } from "../vision/sources/bleLink";
 import { FileSource } from "../vision/sources/FileSource";
 import {
   MAX_BURST,
+  MAX_DELAY_MS,
+  MAX_DISCARD,
   SOURCE_KINDS,
   defaultOrientation,
   isStillSource,
@@ -149,6 +151,77 @@ export function SourceSettings({ settings, onChange, source, status, buttonStatu
                   The sharpest is used. More photos help with shaky hands but take longer over Bluetooth.
                 </span>
               </div>
+              <label htmlFor="discard">Skip first photos</label>
+              <div className="flex items-center gap-2">
+                <select
+                  id="discard"
+                  value={settings.discard}
+                  onChange={(e) => {
+                    onChange({ ...settings, discard: Number(e.target.value) });
+                    blur(e);
+                  }}
+                  className="border border-gray-200 rounded px-1 py-0.5 bg-white"
+                >
+                  {Array.from({ length: MAX_DISCARD + 1 }, (_, i) => i).map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </select>
+                <span className="text-gray-400">
+                  Small cameras often give dark or off-color pictures right after waking up.
+                </span>
+              </div>
+              <label htmlFor="delay">Wait after press</label>
+              <div className="flex items-center gap-2">
+                <NumberField
+                  id="delay"
+                  value={settings.delayMs}
+                  max={MAX_DELAY_MS}
+                  onChange={(delayMs) => onChange({ ...settings, delayMs })}
+                />
+                <span className="text-gray-400">ms, lets the hand settle before the photos are taken</span>
+              </div>
+            </>
+          )}
+
+          {settings.kind === "file" && (
+            <>
+              <span>Simulate ring</span>
+              <div className="flex flex-wrap items-center gap-3">
+                <label className="flex items-center gap-1">
+                  wake frames
+                  <NumberField
+                    value={settings.sim.wakeFrames}
+                    max={MAX_DISCARD}
+                    onChange={(wakeFrames) => onChange({ ...settings, sim: { ...settings.sim, wakeFrames } })}
+                  />
+                </label>
+                <label className="flex items-center gap-1">
+                  wake ms
+                  <NumberField
+                    value={settings.sim.wakeMs}
+                    max={MAX_DELAY_MS}
+                    onChange={(wakeMs) => onChange({ ...settings, sim: { ...settings.sim, wakeMs } })}
+                  />
+                </label>
+                <label className="flex items-center gap-1">
+                  ms per photo
+                  <NumberField
+                    value={settings.sim.frameMs}
+                    max={MAX_DELAY_MS}
+                    onChange={(frameMs) => onChange({ ...settings, sim: { ...settings.sim, frameMs } })}
+                  />
+                </label>
+                <label className="flex items-center gap-1">
+                  shake
+                  <NumberField
+                    value={settings.sim.shake}
+                    max={8}
+                    onChange={(shake) => onChange({ ...settings, sim: { ...settings.sim, shake } })}
+                  />
+                </label>
+              </div>
             </>
           )}
 
@@ -269,5 +342,35 @@ export function SourceSettings({ settings, onChange, source, status, buttonStatu
         </div>
       )}
     </div>
+  );
+}
+
+function NumberField({
+  id,
+  value,
+  max,
+  onChange,
+}: {
+  id?: string;
+  value: number;
+  max: number;
+  onChange: (n: number) => void;
+}) {
+  return (
+    <input
+      id={id}
+      type="number"
+      min={0}
+      max={max}
+      defaultValue={value}
+      onBlur={(e) => {
+        const n = Number(e.target.value);
+        if (Number.isFinite(n)) onChange(Math.max(0, Math.min(max, n)));
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") e.currentTarget.blur();
+      }}
+      className="w-16 border border-gray-200 rounded px-1 py-0.5"
+    />
   );
 }

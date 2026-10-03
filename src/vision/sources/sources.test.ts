@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { CaptureTimeoutError, collectBurst } from "./types";
+import { CaptureTimeoutError, captureFrames, collectBurst, type FrameSource } from "./types";
 import { applyMatrix, orientMatrix, orientedSize, ROTATIONS, type Orientation } from "./orient";
 import { JpegAssembler } from "./BleStillSource";
 import { BLE_PKT_DATA, BLE_PKT_START } from "./bleLink";
@@ -134,6 +134,63 @@ describe("burst collection", () => {
     const p = collectBurst({ count: 3, timeoutMs: 1000, gapMs: 500 }, () => () => {});
     vi.advanceTimersByTime(1001);
     await expect(p).rejects.toBeInstanceOf(CaptureTimeoutError);
+    vi.useRealTimers();
+  });
+});
+
+describe("still capture options", () => {
+  const frame = (n: number) => ({ n, closed: false, close() { this.closed = true; } });
+  type Fake = ReturnType<typeof frame>;
+  const source = (burst: boolean, made: Fake[]): FrameSource => ({
+    kind: "file",
+    label: "fake",
+    mode: "still",
+    start: async () => {},
+    stop: () => {},
+    status: () => ({ status: "live" }),
+    onStatus: () => () => {},
+    capture: async () => {
+      const f = frame(0);
+      made.push(f);
+      return f as unknown as ImageBitmap;
+    },
+    ...(burst
+      ? {
+          captureBurst: async (count: number) =>
+            Array.from({ length: count }, (_, i) => {
+              const f = frame(i);
+              made.push(f);
+              return f as unknown as ImageBitmap;
+            }),
+        }
+      : {}),
+  });
+
+  it("asks for extra frames and drops the wake-up ones", async () => {
+    const made: Fake[] = [];
+    const r = await captureFrames(source(true, made), { count: 3, discard: 1, delayMs: 0 });
+    expect(made).toHaveLength(4);
+    expect(r.discarded).toBe(1);
+    expect((r.frames as unknown as Fake[]).map((f) => f.n)).toEqual([1, 2, 3]);
+    expect(made[0].closed).toBe(true);
+  });
+
+  it("never discards the only frame from single-image hardware", async () => {
+    const made: Fake[] = [];
+    const r = await captureFrames(source(false, made), { count: 3, discard: 1, delayMs: 0 });
+    expect(r.frames).toHaveLength(1);
+    expect(r.discarded).toBe(0);
+  });
+
+  it("waits for the capture delay before asking", async () => {
+    vi.useFakeTimers();
+    const made: Fake[] = [];
+    const p = captureFrames(source(true, made), { count: 1, discard: 0, delayMs: 250 });
+    await vi.advanceTimersByTimeAsync(200);
+    expect(made).toHaveLength(0);
+    await vi.advanceTimersByTimeAsync(60);
+    await p;
+    expect(made).toHaveLength(1);
     vi.useRealTimers();
   });
 });

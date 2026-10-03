@@ -128,8 +128,28 @@ export function collectBurst<T = ImageBitmap>(
   });
 }
 
-export async function captureFrames(source: FrameSource, count: number): Promise<ImageBitmap[]> {
-  if (count > 1 && source.captureBurst) return source.captureBurst(count);
-  if (source.capture) return [await source.capture()];
-  throw new Error(`${source.label} cannot take pictures on demand`);
+export interface StillCapture {
+  count: number;
+  discard: number;
+  delayMs: number;
+}
+
+export interface StillResult {
+  frames: ImageBitmap[];
+  received: number;
+  discarded: number;
+}
+
+export const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+export async function captureFrames(source: FrameSource, opts: StillCapture): Promise<StillResult> {
+  if (opts.delayMs > 0) await sleep(opts.delayMs);
+  const want = Math.max(1, opts.count) + Math.max(0, opts.discard);
+  let frames: ImageBitmap[];
+  if (want > 1 && source.captureBurst) frames = await source.captureBurst(want);
+  else if (source.capture) frames = [await source.capture()];
+  else throw new Error(`${source.label} cannot take pictures on demand`);
+  const discarded = Math.min(Math.max(0, opts.discard), frames.length - 1);
+  frames.slice(0, discarded).forEach((f) => f.close());
+  return { frames: frames.slice(discarded), received: frames.length, discarded };
 }

@@ -32,6 +32,8 @@ export interface CaptureTarget {
 export interface BurstInfo {
   requested: number;
   received: number;
+  discarded: number;
+  delayMs: number;
   ms: number;
   sharpness: number[];
 }
@@ -53,6 +55,8 @@ interface Props {
   orientation?: Orientation;
   onStatus?: (info: StatusInfo) => void;
   burst?: number;
+  discard?: number;
+  delayMs?: number;
 }
 
 const COLORS = ["#3b82f6", "#22c55e", "#f97316", "#a855f7", "#ec4899", "#14b8a6"];
@@ -119,6 +123,8 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       orientation = IDENTITY,
       onStatus,
       burst = 1,
+      discard = 0,
+      delayMs = 0,
     },
     ref
   ) {
@@ -307,9 +313,12 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       setBusy(true);
       try {
         const t0 = performance.now();
-        const raw = await withTimeout(captureFrames(source, burst), STILL_TIMEOUT_MS);
+        const shot = await withTimeout(
+          captureFrames(source, { count: burst, discard, delayMs }),
+          STILL_TIMEOUT_MS + delayMs
+        );
         const ranked = rankFrames(
-          raw.map((r) => {
+          shot.frames.map((r) => {
             const item = orientFrame(r, orientationRef.current);
             return { item, sharpness: sharpness(item) };
           })
@@ -319,7 +328,9 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
         ranked.slice(1).forEach((r) => r.item.close());
         const info: BurstInfo = {
           requested: burst,
-          received: ranked.length,
+          received: shot.received,
+          discarded: shot.discarded,
+          delayMs,
           ms: performance.now() - t0,
           sharpness: ranked.map((r) => r.sharpness),
         };

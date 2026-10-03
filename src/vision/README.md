@@ -24,7 +24,9 @@ Every camera implements `FrameSource` (`sources/types.ts`):
 | `status()` / `onStatus(cb)` | `idle / connecting / live / reconnecting / error` plus a message for the user. |
 | `pair()` | Optional; for sources that need a click to connect (Bluetooth). |
 
-Callers use `captureFrames(source, n)`, which uses `captureBurst` when the source has it and falls back to a single `capture()` otherwise, so single-image hardware keeps working.
+Callers use `captureFrames(source, { count, discard, delayMs })`. It waits `delayMs` after the press (lets the hand settle), asks for `count + discard` pictures, and drops the first `discard` (small camera modules often return dark or off-color frames right after waking). It uses `captureBurst` when the source has it and falls back to a single `capture()` otherwise; it never discards the last remaining frame, so single-image hardware keeps working.
+
+The real ring keeps its camera off until the button is pressed, so **still mode is the primary path**; the webcam stream is for development and demos. Nothing in still mode assumes frames exist from before the press.
 
 | Source | File | Notes |
 |---|---|---|
@@ -42,7 +44,9 @@ In still mode one press can return several JPEGs (taken in quick succession, or 
 - no new image for `max(gap, 1.5 × slowest gap so far)` (600 ms Wi-Fi, 1.5 s Bluetooth), which covers firmware that ignores the count;
 - the total timeout (5 s Wi-Fi, 8 s Bluetooth). A partial burst is used; zero images is reported to the user as an error.
 
-"Photos per press" (1–5, default 3, `?burst=N`) trades blur robustness against capture-to-name latency, which the eval harness measures.
+"Photos per press" (1–5, default 3, `?burst=N`) trades blur robustness against capture-to-name latency, which the eval harness measures. "Skip first photos" (0–3, default 1, `?discard=N`) and "Wait after press" (0–3000 ms, default 0, `?delay=MS`) are next to it in the panel.
+
+`FileSource` can simulate a ring burst from one still image: `?source=file&simwake=1&simwakems=300&simframems=150&simshake=2` adds 1 dark/off-color wake frame, 300 ms camera wake-up, 150 ms per photo transfer, and press shake (blur strongest right after the press, then settling: `SHAKE_PATTERN`). The same fields are in the panel when "Image files" is selected.
 
 ### Choosing a source
 
@@ -53,6 +57,9 @@ One place: `settings.ts`. The "Camera & ring" panel under the camera saves to lo
 &url=ws://192.168.4.1:81/     WebSocket camera URL
 &mode=stream|still             WebSocket frame mode
 &burst=1..5                    photos per press (still mode)
+&discard=0..3                  drop the first N photos of each burst (default 1)
+&delay=0..3000                 ms to wait after the press before capturing
+&simwake=N&simwakems=MS&simframems=MS&simshake=X   file-source ring simulation
 &button=none|ws|ble            ring button connection (keyboard always works)
 &buttonUrl=ws://...            if the button uses a different socket than the camera
 &hand=right|left

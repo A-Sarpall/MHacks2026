@@ -1,5 +1,6 @@
 import { HAND_PRESETS, IDENTITY, ROTATIONS, type Hand, type Orientation, type Rotation } from "./sources/orient";
 import type { SourceKind, SourceMode } from "./sources/types";
+import type { BurstSimulation } from "./sources/FileSource";
 
 export type ButtonKind = "none" | "ws" | "ble";
 
@@ -11,6 +12,9 @@ export interface SourceSettings {
   buttonUrl: string;
   hand: Hand;
   burst: number;
+  discard: number;
+  delayMs: number;
+  sim: BurstSimulation;
   orientations: Partial<Record<string, Orientation>>;
 }
 
@@ -29,12 +33,24 @@ export const DEFAULT_SETTINGS: SourceSettings = {
   buttonUrl: "",
   hand: "right",
   burst: 3,
+  discard: 1,
+  delayMs: 0,
+  sim: { wakeFrames: 0, wakeMs: 0, frameMs: 0, shake: 0 },
   orientations: {},
 };
 
 const KEY = "cue.vision.source.v1";
 
 export const MAX_BURST = 5;
+export const MAX_DISCARD = 3;
+export const MAX_DELAY_MS = 3000;
+
+function intParam(q: URLSearchParams, name: string, min: number, max: number): number | null {
+  const raw = q.get(name);
+  if (raw === null) return null;
+  const n = Number(raw);
+  return Number.isInteger(n) && n >= min && n <= max ? n : null;
+}
 
 export function isStillSource(s: SourceSettings): boolean {
   return s.kind === "ble" || s.kind === "file" || (s.kind === "ws" && s.wsMode === "still");
@@ -77,6 +93,20 @@ export function parseQuery(search: string, base: SourceSettings): SourceSettings
   if (hand === "left" || hand === "right") s.hand = hand;
   const burst = Number(q.get("burst"));
   if (Number.isInteger(burst) && burst >= 1 && burst <= MAX_BURST) s.burst = burst;
+  const discard = intParam(q, "discard", 0, MAX_DISCARD);
+  if (discard !== null) s.discard = discard;
+  const delay = intParam(q, "delay", 0, MAX_DELAY_MS);
+  if (delay !== null) s.delayMs = delay;
+  const sim = { ...s.sim };
+  const simWake = intParam(q, "simwake", 0, MAX_DISCARD);
+  if (simWake !== null) sim.wakeFrames = simWake;
+  const simWakeMs = intParam(q, "simwakems", 0, MAX_DELAY_MS);
+  if (simWakeMs !== null) sim.wakeMs = simWakeMs;
+  const simFrameMs = intParam(q, "simframems", 0, MAX_DELAY_MS);
+  if (simFrameMs !== null) sim.frameMs = simFrameMs;
+  const simShake = q.get("simshake");
+  if (simShake !== null && Number.isFinite(Number(simShake))) sim.shake = Math.max(0, Math.min(8, Number(simShake)));
+  s.sim = sim;
   const button = q.get("button");
   if (button === "none" || button === "ws" || button === "ble") s.buttonKind = button;
   const buttonUrl = q.get("buttonUrl");
@@ -101,7 +131,7 @@ export function loadSourceSettings(search = window.location.search): SourceSetti
   } catch {
     stored = {};
   }
-  return parseQuery(search, { ...DEFAULT_SETTINGS, ...stored });
+  return parseQuery(search, { ...DEFAULT_SETTINGS, ...stored, sim: { ...DEFAULT_SETTINGS.sim, ...stored.sim } });
 }
 
 export function saveSourceSettings(s: SourceSettings): void {

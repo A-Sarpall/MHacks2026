@@ -22,6 +22,6 @@ export function createSource(s: SourceSettings, opts: { deviceId?: string } = {}
     case "ble":
       return new BleStillSource();
     case "file":
-      return new FileSource();
+      return new FileSource([], s.sim);
   }
 }
