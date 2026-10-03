@@ -6,6 +6,7 @@ import {
   escalate,
   orderForPointing,
   pointingScore,
+  worthShowing,
   tooSmall,
   type NamingConfig,
   type Rung,
@@ -34,6 +35,7 @@ export interface NamingResult {
   low: boolean;
   level: number;
   tooSmall: boolean;
+  empty: boolean;
   ms: number;
 }
 
@@ -117,9 +119,14 @@ export async function nameTarget(
         ...options.filter((o) => o.rung !== lead && o.rung.kind === "candidate"),
       ]
     : options;
+  const shown = low
+    ? ranked.filter((o) => worthShowing(o.score, o.rung.kind, o.rung.candidate?.score, cfg))
+    : ranked;
+  const final = shown.length > 0 ? shown : ranked;
   return {
-    best: ranked[0],
-    options: ranked.slice(0, max),
+    best: final[0],
+    options: final.slice(0, max),
+    empty: shown.length === 0,
     low,
     level: esc.levelReached,
     tooSmall: tooSmall(candidates, w, h, cfg),

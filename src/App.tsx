@@ -187,11 +187,18 @@ export default function App() {
               low: res.low,
               ms: Math.round(res.ms),
               tooSmall: res.tooSmall,
+              empty: res.empty,
               options: res.options.map((o) => [o.label, Math.round(o.score * 100), o.rung.kind]),
             })
           );
           if (res.tooSmall) setHint({ text: "Move closer", key: Date.now() });
-          if (!res.low || res.options.length === 1) {
+          if (res.empty) {
+            feedbackRef.current("error");
+            setHint({ text: "Not sure what that is. Try again or move closer", key: Date.now() });
+            endScan();
+            return;
+          }
+          if (!res.low) {
             void commitCapture(withAlternatives(res.best, res.options), res.best.crop);
             reviewRef.current = { until: performance.now() + REVIEW_MS, level: res.level };
             endScan(900);

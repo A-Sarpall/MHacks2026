@@ -14,6 +14,8 @@ export interface NamingConfig {
   lowConfidence: number;
   tinyAreaFrac: number;
   widePenalty: number;
+  minShow: number;
+  minDetector: number;
 }
 
 export const DEFAULT_NAMING: NamingConfig = {
@@ -22,7 +24,19 @@ export const DEFAULT_NAMING: NamingConfig = {
   lowConfidence: 0.35,
   tinyAreaFrac: 0.01,
   widePenalty: 0.1,
+  minShow: 0.12,
+  minDetector: 0.5,
 };
+
+export function worthShowing(
+  score: number,
+  kind: AttemptKind,
+  detectorScore: number | undefined,
+  cfg: NamingConfig = DEFAULT_NAMING
+): boolean {
+  if (score >= cfg.minShow) return true;
+  return kind === "candidate" && (detectorScore ?? 0) >= cfg.minDetector;
+}
 
 export function pointingScore(score: number, kind: AttemptKind, cfg: NamingConfig = DEFAULT_NAMING): number {
   return kind === "wide" ? score - cfg.widePenalty : score;

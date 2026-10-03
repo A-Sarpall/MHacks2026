@@ -97,6 +97,16 @@ describe("choice order", () => {
   });
 });
 
+describe("minimum score to show a guess", () => {
+  it("hides near-random guesses but keeps confidently detected objects", async () => {
+    const { worthShowing } = await import("./escalate");
+    expect(worthShowing(0.07, "centre", undefined)).toBe(false);
+    expect(worthShowing(0.2, "centre", undefined)).toBe(true);
+    expect(worthShowing(0.05, "candidate", 0.7)).toBe(true);
+    expect(worthShowing(0.05, "candidate", 0.3)).toBe(false);
+  });
+});
+
 describe("wide crop penalty", () => {
   it("ranks the wide crop below the centre crop unless it is clearly more confident", async () => {
     const { pointingScore } = await import("./escalate");
