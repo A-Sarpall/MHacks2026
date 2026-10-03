@@ -92,3 +92,11 @@ export function tooSmall(candidates: Candidate[], w: number, h: number, cfg: Nam
   if (!top) return false;
   return (top.box.w * top.box.h) / (w * h) < cfg.tinyAreaFrac;
 }
+
+export function orderForPointing<R>(attempts: Attempt<R>[]): { pointed: Attempt<R>[]; ordered: Attempt<R>[] } {
+  const pointed = attempts.filter((a) => a.kind !== "candidate").sort((a, b) => b.score - a.score);
+  const others = attempts
+    .filter((a) => a.kind === "candidate")
+    .sort((a, b) => (a.candidate?.distance ?? 0) - (b.candidate?.distance ?? 0));
+  return { pointed, ordered: [...pointed, ...others] };
+}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cropLadder, escalate, tooSmall, type Rung } from "./escalate";
+import { cropLadder, escalate, orderForPointing, tooSmall, type Rung } from "./escalate";
 import { rankCandidates, type Detection } from "./aim";
 
 const W = 640;
@@ -74,5 +74,16 @@ describe("move closer", () => {
 
   it("does not flag when nothing is detected at the aim point", () => {
     expect(tooSmall(rankCandidates([], W, H, aim), W, H)).toBe(false);
+  });
+});
+
+describe("choice order", () => {
+  it("puts the pointed-at crops first even when another object is named more confidently", () => {
+    const ladder = cropLadder(W, H, aim, scene);
+    const scores: Record<string, number> = { centre: 0.25, box: 0.2, wide: 0.3, person: 0.9, chair: 0.6 };
+    const r = escalate(ladder, (rung) => scores[rung.candidate?.label === "apple" ? "box" : rung.candidate?.label ?? rung.kind], (n) => n, 0.35);
+    const { pointed, ordered } = orderForPointing(r.attempts);
+    expect(ordered.map((a) => a.candidate?.label ?? a.kind)).toEqual(["wide", "centre", "apple", "person", "chair"]);
+    expect(pointed[0].score).toBeLessThan(0.35);
   });
 });

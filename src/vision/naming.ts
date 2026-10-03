@@ -1,7 +1,7 @@
 import { identifyFromImage } from "../lib/identify";
 import type { CapturedObject, LabelGuess } from "../lib/types";
 import { aimPoint, type Candidate, type Point } from "./core/aim";
-import { DEFAULT_NAMING, cropLadder, escalate, tooSmall, type NamingConfig, type Rung } from "./core/escalate";
+import { DEFAULT_NAMING, cropLadder, escalate, orderForPointing, tooSmall, type NamingConfig, type Rung } from "./core/escalate";
 
 export interface NamingInput {
   image: HTMLCanvasElement;
@@ -56,9 +56,10 @@ export function nameTarget(
     cfg.lowConfidence,
     opts.startLevel ?? 0
   );
+  const { pointed, ordered } = orderForPointing(esc.attempts);
   const seen = new Set<string>();
   const options: NamedOption[] = [];
-  for (const a of esc.attempts) {
+  for (const a of ordered) {
     const label = a.result.capture.label;
     if (seen.has(label)) continue;
     seen.add(label);
@@ -75,7 +76,7 @@ export function nameTarget(
   return {
     best: options[0],
     options: options.slice(0, max),
-    low: esc.low || options[0].rung.kind === "candidate",
+    low: (pointed[0]?.score ?? 0) < cfg.lowConfidence,
     level: esc.levelReached,
     tooSmall: tooSmall(candidates, w, h, cfg),
     ms: performance.now() - t0,

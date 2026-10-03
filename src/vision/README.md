@@ -62,7 +62,7 @@ For now Cue assumes the user points straight at the object: the aim point is the
 | 1 | the smallest detected box covering the centre + a wider centre crop (65 %) | centre crop unsure, or the user retakes |
 | 2 | every other detected object | still unsure, or a second retake |
 
-Whole-frame detection keeps running (stream) or runs on the still, and supplies the level 1–2 boxes. If the best answer is confident and came from the centre/wide/covering box, it becomes a tile directly (other answers become the "fix the name" chips). Otherwise — or whenever the best answer is a *different* object — the choices go to the **scanner** instead of guessing. If the object under the centre is tiny (< 1 % of the frame), a "Move closer" hint is shown; there's no special handling for far objects yet.
+Whole-frame detection keeps running (stream) or runs on the still, and supplies the level 1–2 boxes. If the best answer is confident and came from the centre/wide/covering box, it becomes a tile directly (other answers become the "fix the name" chips). Otherwise the choices go to the **scanner** instead of guessing. Confidence is judged only on the pointed-at crops, and the choices are ordered by how likely they are to be what the user pointed at, not by how confident the name is: centre / covering-box / wide crops first (most confident of those leading), then other objects nearest the centre first. Choices with the same name are merged, and at most N are shown ("choices", default 4). If the object under the centre is tiny (< 1 % of the frame), a "Move closer" hint is shown; there's no special handling for far objects yet.
 
 ## Ring button mappings (`input/mappings.ts`)
 
