@@ -80,6 +80,18 @@ A caregiver can teach Cue a specific object ("Mom's mug"): "Teach objects…" in
 
 At capture, every crop's embedding is compared with the taught objects first (cosine, nearest photo per object). A match needs cosine ≥ 0.85 and a lead of ≥ 0.02 over the next taught object (placeholders until the eval tunes them); its confidence is mapped to 0.6–1, so it is committed without the scanner, labelled with the taught name (source `personal`, tile says "taught"), and the vocabulary's top 3 become the "fix the name" chips. Claude refinement is skipped for taught names so it can't overwrite them. The console logs `[personal]` with the nearest cosine for each crop.
 
+## Unsure answers: Claude fallback (`naming.ts` → `askClaude`)
+
+When the pointed-at crops are below `lowConfidence`, the result is marked low and the scanner opens with the on-device choices as before. If a Claude key is set, the lead crop is also sent to the existing Haiku vision path (`identifyWithClaude`, 6 s timeout) with the on-device guesses as hints; its free-form name is inserted right after the highlighted choice (so the highlight doesn't jump) and shown as "Claude's guess". If nothing on-device was worth showing, Cue asks Claude first and offers its answer for confirmation (hold = yes, double = retake) before falling back to "Not sure what that is". Choices confirmed in the scanner are not re-named by Claude afterwards; confident on-device names still get the existing Claude refinement.
+
+## Selection history (`history.ts`, `core/history.ts`)
+
+Every tile the user ends up with is logged in localStorage (`cue.vision.history.v1`, last 2000): label, source (`personal` / `vocab` / `fallback` = Claude or the old classifier / `manual`), timestamp, and time of day (morning 5–12, afternoon 12–17, evening 17–22, night). No images. A later Claude refinement or a "fix the name" correction updates the same entry instead of adding a new one.
+
+The log nudges the vocabulary ranking: each pick weighs `0.5^(age / 14 days)`, ×1.5 if it was made at the same time of day; a label's boost is `0.006 × (1 − e^(−weight / 3))` in cosine units (one recent pick ≈ 0.002, so it only reorders near-ties). The boost changes the order only; the confidence shown and used for "unsure" stays the model's own. Personal objects aren't boosted.
+
+For other services (e.g. a future caregiver agent): `historyLog()`, `historySummary({ since })` (per label: count, last time, counts by source and time of day), `onHistoryChange(cb)`, `clearHistory()`.
+
 ## Ring button mappings (`input/mappings.ts`)
 
 One table, so it's easy to change:

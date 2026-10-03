@@ -18,7 +18,8 @@ import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
 import { Scanner } from "./components/Scanner";
-import { RUNG_TEXT, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
+import { RUNG_TEXT, askClaude, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
+import { correctSelection, historyBoost, recordSelection } from "./vision/history";
 import { RING_HINTS, commandFor, type RingMode } from "./vision/input/mappings";
 import { SourceSettings } from "./components/SourceSettings";
 import { Calibration, type CalibrationHandle } from "./components/Calibration";
@@ -77,6 +78,7 @@ export default function App() {
   const feedbackRef = useRef<(kind: FeedbackKind) => void>(() => {});
   const [scan, setScan] = useState<{ options: NamedOption[]; index: number; level: number } | null>(null);
   const scanRef = useRef(scan);
+  const scanSeq = useRef(0);
   scanRef.current = scan;
   const reviewRef = useRef<{ until: number; level: number } | null>(null);
   const [hint, setHint] = useState<{ text: string; key: number } | null>(null);
@@ -119,8 +121,9 @@ export default function App() {
   }, [dispatch]);
 
   const commitCapture = useCallback(
-    async (capture: CapturedObject, crop: HTMLCanvasElement) => {
-      const refine = hasClaude() && capture.source !== "personal";
+    async (capture: CapturedObject, crop: HTMLCanvasElement, confirmed = false) => {
+      recordSelection({ id: capture.id, label: capture.label, source: capture.source });
+      const refine = hasClaude() && !confirmed && capture.source !== "personal" && capture.source !== "claude";
       dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
       showToast(
         `Identified: ${capture.label}` +
@@ -145,6 +148,7 @@ export default function App() {
             }
           : {};
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { ...patch, refining: false } });
+        if (label) correctSelection(capture.id, label, "claude");
         if (label && label !== capture.label) showToast(`Claude says: ${label}`);
         if (sayNameRef.current) speakNow(label ?? capture.label).catch(() => {});
       } catch (err) {
@@ -167,6 +171,7 @@ export default function App() {
   );
 
   const endScan = useCallback((unfreezeAfterMs = 0) => {
+    scanSeq.current++;
     setScan(null);
     setTimeout(() => cameraRef.current?.unfreeze(), unfreezeAfterMs);
   }, []);
@@ -185,6 +190,7 @@ export default function App() {
           const res = await nameTarget(target, {
             startLevel: level,
             maxOptions: settingsRef.current.maxCandidates,
+            namer: { boost: historyBoost() },
           }).finally(() => dispatch({ type: "SET_STATUS", status: "idle" }));
           console.info(
             "[naming]",
@@ -198,6 +204,21 @@ export default function App() {
             })
           );
           if (res.tooSmall) setHint({ text: "Move closer", key: Date.now() });
+          const seq = ++scanSeq.current;
+          if (res.empty && hasClaude()) {
+            setHint({ text: "Not sure. Asking Claude…", key: Date.now() });
+            dispatch({ type: "SET_STATUS", status: "identifying" });
+            const guess = await askClaude(res.best, res.options).finally(() =>
+              dispatch({ type: "SET_STATUS", status: "idle" })
+            );
+            if (seq !== scanSeq.current) return;
+            console.info("[naming] fallback", JSON.stringify({ claude: guess?.label ?? null }));
+            if (guess) {
+              setHint(null);
+              setScan({ options: [guess], index: 0, level: res.level });
+              return;
+            }
+          }
           if (res.empty) {
             feedbackRef.current("error");
             setHint({ text: "Not sure what that is. Try again or move closer", key: Date.now() });
@@ -211,6 +232,16 @@ export default function App() {
             return;
           }
           setScan({ options: res.options, index: 0, level: res.level });
+          if (!hasClaude()) return;
+          const guess = await askClaude(res.best, res.options);
+          console.info("[naming] fallback", JSON.stringify({ claude: guess?.label ?? null }));
+          if (!guess || seq !== scanSeq.current) return;
+          setScan((s) => {
+            if (!s || s.options.some((o) => o.label.toLowerCase() === guess.label.toLowerCase())) return s;
+            const options = [...s.options];
+            options.splice(s.index + 1, 0, guess);
+            return { ...s, options };
+          });
         })
         .catch((err: unknown) => {
           console.warn("[capture]", err);
@@ -227,7 +258,7 @@ export default function App() {
       if (!s) return;
       const chosen = s.options[index ?? s.index];
       feedbackRef.current("select");
-      void commitCapture(withAlternatives(chosen, s.options), chosen.crop);
+      void commitCapture(withAlternatives(chosen, s.options), chosen.crop, true);
       endScan(600);
     },
     [commitCapture, endScan]
@@ -544,7 +575,10 @@ export default function App() {
                 key: o.key,
                 label: o.label,
                 thumbnail: o.capture.thumbnail,
-                detail: `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
+                detail:
+                  o.capture.source === "claude"
+                    ? `Claude's guess · ${RUNG_TEXT[o.rung.kind]}`
+                    : `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
               }))}
               index={scan.index}
               hint={RING_HINTS[sourceSettings.autoScan ? "autoscan" : "scanning"]}
@@ -616,13 +650,14 @@ export default function App() {
             captures={state.captures}
             selectedTileIds={state.selectedTileIds}
             onToggle={(id) => dispatch({ type: "TOGGLE_TILE", id })}
-            onRename={(id, label) =>
+            onRename={(id, label) => {
+              correctSelection(id, label, "manual");
               dispatch({
                 type: "UPDATE_CAPTURE",
                 id,
                 patch: { label, source: "manual", confidence: 0, refining: false },
-              })
-            }
+              });
+            }}
             onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
           />
         </section>
