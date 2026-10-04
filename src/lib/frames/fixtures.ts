@@ -28,4 +28,10 @@ export const FRAME_FIXTURES: FrameInput[] = [
   input("f6", "pills", "health", "health & medical", ["need", "I need"], ["pill bottle"]),
   input("f7", "Mom's mug", "general", null, ["need", "I need"], ["mug", "cup"]),
   input("f8", "chair", "general", "furniture & home", ["feeling", "I feel"], ["stool"]),
+  input("f9", "pill bottle", "health", "health & medical", ["help", "Help"], ["pills"]),
+  input("f10", "keys", "general", "personal items", ["question", "Question"], ["key ring"]),
+  input("f11", "water", "drinks", "drinks", ["dont-want", "I don't want"], ["glass"]),
+  input("f12", "book", "general", "office & reading", ["tell", "Tell"], ["notebook"]),
+  input("f13", "peanut butter", "food", "food & meals", ["need", "I need"], ["jam"]),
+  input("f14", "coffee table", "general", "furniture & home", ["feeling", "I feel"], ["table"]),
 ];

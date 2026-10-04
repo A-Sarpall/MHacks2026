@@ -65,3 +65,9 @@
 - Package `@photon-ai/cli` (run via npx). `projects create --name X --platforms imessage [--json]` -> `{id, name, env}`; `projects secret <id> --json` -> `{id, projectSecret}`; `spectrum users add --first-name --last-name --email --phone [--invite]` (all four required non-interactively); `spectrum users ls --json` includes `assignedPhoneNumber`.
 - Free-plan send needs the target registered as a user AND (in our test) an inbound text from them to the assigned line seen by the connected hub; then `POST /messages/send` -> `{"sent":true,"mode":"photon"}`. A real text arrived on the phone.
 - Hub env: `SPECTRUM_PROJECT_ID`, `SPECTRUM_PROJECT_SECRET` in server/.env.local; never print the secret.
+
+## SigLIP 2 zero-shot object *state* (measured 2026-10-04 on test-images/, q4f16 vision + q8 text, Node CPU)
+
+- Coarse situation phrases separate well: "a mug held in a hand" 66% on held-mug-01 vs 0.2% on mug-01; "a toothbrush with toothpaste on it" 88%; "a phone in a case" 52% (top); "a person sitting in a chair" 0.3% on the empty chair; "pills spilled on a table" 0.3% on the closed bottle.
+- Fine states do NOT separate at 224 px: the empty mug scored "full of coffee" (8.4%) above "empty" (4.5%); "banana with brown spots" ranked 5th (2.7%) on visibly spotted bananas; phone "screen on" vs "dark screen" tied (29% vs 31%); pill bottle open/closed/empty all within 22-39%.
+- One crop embeds in 82-101 ms (Node, CPU). Conclusion: do not build word choices on empty/full, open/closed, clean/dirty or on/off cues from SigLIP; label + category from the namer are the reliable signal (see src/lib/frames/model.ts).

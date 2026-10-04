@@ -61,3 +61,11 @@ npx vitest run src/lib/frames
 ```
 
 `frames.test.ts` runs `modelFrame` over the fixtures in `fixtures.ts` and fails on any invalid frame. In the app, `?frames=model` uses only your provider (no fallback) and `?frames=profile` only the built-in one; the default tries yours first. The console logs `[frames] {"provider":…}` for each frame shown and `[frames] model frame rejected: …` when validation fails.
+
+## How the model provider works
+
+`modelFrame` is deterministic and offline. It never looks at the pixels: it uses what the vision pipeline decided (`object.label`, `alternatives`, `category`, `group`) plus the intent.
+
+1. The intent picks the sentence skeleton: need, don't want and tell are `I [action] the X [detail]`; help is `Can you [action] the X [detail]?`; question is `Can I [action] the X [when]?` for things you consume or use and `Is the X [state] [detail]?` for things you check; feeling is `I feel [feeling] [context]`.
+2. The group picks the word banks, refined by the label: drinks distinguish containers ("will drink from", "fill") from liquids ("will drink", "pour"); medicine is "my pills"; plurals get "Are"; a few objects (chair, table, bed, keys, book, glasses, remote, toothbrush, phone, shoes) have their own actions. A personal or unknown label ("Mom's mug") borrows the group of its first known alternative.
+3. Each slot offers up to 6 options, capped by `rules.maxOptions` (`App.tsx` passes 4 today), and the longest combination is trimmed to `maxWords` before the frame is validated. Optional slots end with "nothing" and pre-select it.

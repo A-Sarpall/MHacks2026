@@ -55,3 +55,9 @@ Not verified: real Claude label reading, ElevenLabs/Photon with keys, Agentverse
 ## Scope change (2026-10-04)
 
 FinchNode, medication/clinic modes, pain report and the Fetch.ai agents removed; "I need help" (say aloud / text a contact) replaces the pain panel. The FinchNode sections above are history.
+
+## Sentence frames: model provider (2026-10-04)
+
+`src/lib/frames/model.ts` is a deterministic on-device lexicon engine (no network, no model call): intent picks the skeleton (I [action] the X [detail]; Can you [action] the X [detail]?; Can I [action] the X [when]? or Is/Are the X [state] [detail]?; I feel [feeling] [context]), the namer's group/category/label pick the word banks (container vs liquid for drinks, "my" for medicine, plural copula, label overrides for chair/table/bed/keys/book/glasses/remote/toothbrush/phone/shoes), and the alternatives resolve the group for personal or unknown labels. Options are 4-6 per slot capped by `rules.maxOptions` (App.tsx still passes 4) and trimmed to the 8-word limit before `validateFrame`.
+Verified: `npx vitest run src/lib/frames` (22 tests), `npm test`, `tsc -b`, oxlint, build; browser check with `?demo=` and `?frames=model`.
+Decided against: hosted Claude frames (team wants vision-only input) and SigLIP state cues (measured unreliable, see knowledge.md).
