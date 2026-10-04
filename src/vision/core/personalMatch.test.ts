@@ -11,6 +11,7 @@ const withCos = (c: number) => vec(c, Math.sqrt(1 - c * c), 0);
 
 const mug: PersonalEntry = { id: "mug", name: "Mom's mug", embeddings: [vec(0, 0, 1), vec(1, 0, 0)] };
 const keys: PersonalEntry = { id: "keys", name: "my keys", embeddings: [vec(0, 1, 0)] };
+const phone: PersonalEntry = { id: "phone", name: "Maya's phone", embeddings: [vec(0.7, 0.7, 0.1)], contactId: "c_maya123" };
 
 describe("personal objects", () => {
   it("scores each object by its closest photo", () => {
@@ -43,6 +44,24 @@ describe("personal objects", () => {
     const old: PersonalEntry = { id: "o", name: "old model", embeddings: [new Float32Array([1, 0])] };
     expect(nearestPersonal(vec(1, 0, 0), [empty, old])).toEqual([]);
     expect(matchPersonal(vec(1, 0, 0), [])).toBeNull();
+  });
+
+  it("carries contactId through from the entry to the hit", () => {
+    const hit = matchPersonal(normalize(new Float32Array([0.7, 0.7, 0.1])), [phone], CFG);
+    expect(hit).not.toBeNull();
+    expect(hit!.contactId).toBe("c_maya123");
+  });
+
+  it("nearestPersonal includes contactId", () => {
+    const hits = nearestPersonal(normalize(new Float32Array([0.7, 0.7, 0.1])), [phone, mug]);
+    expect(hits[0].contactId).toBe("c_maya123");
+    expect(hits[1].contactId).toBeUndefined();
+  });
+
+  it("omits contactId for objects without one", () => {
+    const hit = matchPersonal(vec(1, 0, 0), [mug], CFG);
+    expect(hit).not.toBeNull();
+    expect(hit!.contactId).toBeUndefined();
   });
 
   it("maps a match to at least the minimum confidence", () => {

@@ -672,6 +672,18 @@ export default function App() {
                 {toast.text}
               </div>
             )}
+            {sourceSettings.kind === "ws" && (
+              <button
+                onClick={(e) => {
+                  setSourceSettings((s) => ({ ...s, wsMode: s.wsMode === "stream" ? "still" : "stream" }));
+                  e.currentTarget.blur();
+                }}
+                className="absolute bottom-2 left-2 px-2 py-1 rounded bg-black/50 text-white text-xs hover:bg-black/70"
+                title="Stream = live preview with tracking; Still = one photo per press"
+              >
+                {sourceSettings.wsMode === "stream" ? "Live" : "Still"}
+              </button>
+            )}
             <button
               onClick={(e) => {
                 setMirror((m) => !m);
