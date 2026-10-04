@@ -13,3 +13,29 @@
     animation: none !important;
   }
 }
+
+:root {
+  --tap: 4rem;
+}
+
+@media (max-height: 920px) {
+  :root {
+    --tap: 3.25rem;
+  }
+}
+
+@media (max-height: 700px) {
+  :root {
+    --tap: 2.75rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .hide-when-short {
+    display: none;
+  }
+  .small-when-short {
+    font-size: 0.875rem;
+    line-height: 1.15rem;
+  }
+}

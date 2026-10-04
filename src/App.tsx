@@ -104,6 +104,28 @@ export default function App() {
     }
   }, [overstimulated]);
   const [peopleOpen, setPeopleOpen] = useState(false);
+  const [objectsOpen, setObjectsOpen] = useState(false);
+  const demoDoneRef = useRef(false);
+  useEffect(() => {
+    const demo = new URLSearchParams(window.location.search).get("demo");
+    if (!demo || demoDoneRef.current) return;
+    demoDoneRef.current = true;
+    const c = document.createElement("canvas");
+    c.width = 160;
+    c.height = 120;
+    const ctx = c.getContext("2d")!;
+    ctx.fillStyle = "#c7d2fe";
+    ctx.fillRect(0, 0, 160, 120);
+    ctx.fillStyle = "#1e1b4b";
+    ctx.font = "bold 28px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(demo, 80, 70);
+    dispatch({
+      type: "ADD_CAPTURE",
+      capture: { id: "demo", label: demo, confidence: 0.9, source: "vocab", alternatives: [], thumbnail: c.toDataURL("image/png"), refining: false },
+    });
+    dispatch({ type: "TOGGLE_INTENT", intent: "need" });
+  }, [dispatch]);
   const coalesceRef = useRef(new RepeatCoalescer());
   const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [setupView, setSetupView] = useState(() => {
@@ -490,15 +512,15 @@ export default function App() {
         return true;
       }
       case "sentences": {
-        const n = candidatesRef.current.length + (f.canBuild ? 1 : 0);
+        const offset = f.canBuild ? 1 : 0;
+        const n = candidatesRef.current.length + offset;
         if (command === "next") setSentenceIndex(cycle(f.sentenceIndex, n));
         else if (command === "select") {
           const i = f.sentenceIndex ?? 0;
-          if (i < candidatesRef.current.length) {
-            const sentence = candidatesRef.current[i];
-            void sayRef.current(sentence);
-          } else if (f.canBuild) {
-            startBuildRef.current();
+          if (f.canBuild && i === 0) startBuildRef.current();
+          else {
+            const sentence = candidatesRef.current[i - offset];
+            if (sentence) void sayRef.current(sentence);
           }
         } else if (command === "back") {
           setSentenceIndex(null);
@@ -514,7 +536,7 @@ export default function App() {
         } else if (command === "back") {
           setBuild(null);
           setBuildIndex(null);
-          setSentenceIndex(candidatesRef.current.length);
+          setSentenceIndex(0);
         } else return false;
         return true;
       }
@@ -750,7 +772,7 @@ export default function App() {
     setBuild({ step: "verb", verb: null, ending: "none" });
     setBuildIndex(intentId ? mostUsedIndex(intentId, buildVerbs) : 0);
   };
-  const buildSentenceText = build?.verb ? buildSentence(build.verb, selectedLabels[0] ?? "", build.ending) : `I … the ${selectedLabels[0] ?? ""}`;
+  const builder: BuildState = build ?? { step: "verb", verb: null, ending: "none" };
   const sayBuilt = () => {
     if (!build?.verb || !intentId) return;
     const sentence = buildSentence(build.verb, selectedLabels[0], build.ending);
@@ -776,17 +798,236 @@ export default function App() {
   const startBuildRef = useRef(startBuild);
   startBuildRef.current = startBuild;
 
-  return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <header className="bg-white border-b border-gray-200 px-6 py-3">
-        <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
-          <h1 className="text-xl font-bold text-gray-900">
-            Qu
-            <span className="ml-2 text-sm font-normal text-gray-400">
-              prototype
-            </span>
-          </h1>
-          <div className="flex items-center gap-3">
+  const latest = state.captures.find((c) => state.selectedTileIds.includes(c.id)) ?? state.captures[0] ?? null;
+  const compactCamera = !setupView && latest !== null && !scan;
+
+  const cameraBlock = (
+    <div className={`relative ${setupView ? "w-full max-w-2xl" : overstimulated ? "w-full max-w-[160px]" : compactCamera ? "w-28 sm:w-36 shrink-0" : "w-full max-w-md"}`} data-testid="camera-strip">
+      <CameraView
+        ref={cameraRef}
+        onCapture={(t) => void handleCapture(t)}
+        onTrackCount={setTrackCount}
+        mirror={mirror}
+        deviceId={cameraId}
+        onDevices={setCameras}
+        source={source}
+        orientation={orientationFor(sourceSettings)}
+        burst={isStillSource(sourceSettings) ? sourceSettings.burst : 1}
+        discard={sourceSettings.discard}
+        delayMs={sourceSettings.delayMs}
+        aim={aim}
+        maxCandidates={sourceSettings.maxCandidates}
+        onTargetCue={sourceSettings.onTargetCue}
+        onOnTarget={() => feedbackRef.current("on-target")}
+        freezeMs={Number.POSITIVE_INFINITY}
+        highlight={scan ? scan.options[scan.index]?.rung.box ?? null : null}
+      />
+      {hint && !compactCamera && (
+        <div
+          key={hint.key}
+          data-testid="hint"
+          onClick={() => setHint(null)}
+          role="status"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-amber-400 text-black text-lg font-semibold shadow-lg cursor-pointer"
+        >
+          {hint.text}
+        </div>
+      )}
+      {toast && !compactCamera && (
+        <div
+          key={toast.key}
+          data-testid="toast"
+          onClick={() => setToast(null)}
+          role="status"
+          className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/75 text-white text-lg font-semibold shadow-lg cursor-pointer"
+        >
+          {toast.text}
+        </div>
+      )}
+      {setupView && (
+        <button
+          onClick={(e) => {
+            setMirror((m) => !m);
+            e.currentTarget.blur();
+          }}
+          className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/50 text-white text-xs hover:bg-black/70"
+          title="Flip the preview (turn off if the camera faces away from you)"
+        >
+          Mirror: {mirror ? "on" : "off"}
+        </button>
+      )}
+    </div>
+  );
+
+  const statusRow = setupView && (
+    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500">
+      <span data-testid="track-info">
+        {state.status === "loading" ? "Loading detection model…" : `Tracking ${trackCount} object${trackCount === 1 ? "" : "s"}`}
+        {" · "}
+        {hasClaude() ? "Claude identification on" : "on-device identification (set VITE_ANTHROPIC_API_KEY for Claude)"}
+      </span>
+      <span data-testid="siglip-status" className={siglip.status === "error" ? "text-amber-600" : ""}>
+        {siglip.status === "loading"
+          ? `Downloading recognition model ${Math.round(siglip.progress * 100)}%…`
+          : siglip.status === "ready"
+            ? `Everyday-object names on (${siglip.device === "webgpu" ? "GPU" : "CPU"})`
+            : siglip.status === "error"
+              ? "Basic names only (recognition model unavailable)"
+              : ""}
+      </span>
+      <label className="flex items-center gap-1 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={sayName}
+          onChange={(e) => {
+            setSayName(e.target.checked);
+            e.target.blur();
+          }}
+        />
+        Say name on capture
+      </label>
+      <label className="flex items-center gap-1 cursor-pointer" title="Uses the microphone to wait for your partner to pause, then speaks the queued sentence">
+        <input
+          type="checkbox"
+          checked={autoPause}
+          onChange={(e) => {
+            setAutoPause(e.target.checked);
+            e.target.blur();
+          }}
+        />
+        Auto-speak queue at pause (mic)
+      </label>
+      {source.kind === "webcam" && cameras.length > 1 && (
+        <select
+          value={cameraId ?? ""}
+          onChange={(e) => {
+            setCameraId(e.target.value || undefined);
+            e.target.blur();
+          }}
+          className="border border-gray-200 rounded px-1 py-0.5 bg-white"
+        >
+          <option value="">Default camera</option>
+          {cameras.map((c, i) => (
+            <option key={c.deviceId} value={c.deviceId}>
+              {c.label || `Camera ${i + 1}`}
+            </option>
+          ))}
+        </select>
+      )}
+    </div>
+  );
+
+  const scannerBlock = scan && (
+    <Scanner
+      options={scan.options.map((o) => ({
+        key: o.key,
+        label: o.label,
+        thumbnail: o.capture.thumbnail,
+        detail:
+          o.capture.source === "claude"
+            ? `Claude's guess · ${RUNG_TEXT[o.rung.kind]}`
+            : o.key === "broad"
+              ? `${Math.round(o.score * 100)}% sure it's some kind of ${o.label} · ${RUNG_TEXT[o.rung.kind]}`
+              : `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
+      }))}
+      index={scan.index}
+      hint={RING_HINTS[sourceSettings.autoScan ? "autoscan" : "scanning"]}
+      autoScanSec={sourceSettings.autoScan ? sourceSettings.autoScanSec : null}
+      onPick={(i) => setScan((s) => s && { ...s, index: i })}
+      onSelect={() => chooseScan()}
+      onNext={() => moveScan(1)}
+      onRetake={() => retake(scan.level)}
+      onCancel={() => endScan()}
+    />
+  );
+
+  const transientBlocks = (
+    <>
+      {overstimulated && (
+        <div className="w-full flex items-center justify-between gap-3 rounded-2xl border-2 border-red-400 bg-red-50 px-4 py-3">
+          <div className="text-xl sm:text-2xl font-bold text-red-900" data-testid="overstimulated-status">
+            {ACTIVE_PROFILE.overstimulated.badge}
+          </div>
+          <button
+            onClick={() => setOverstimulated(false)}
+            className="min-h-11 px-4 py-2 rounded-xl border-2 border-red-400 bg-white text-base font-semibold text-red-900"
+            data-testid="clear-status"
+          >
+            {ACTIVE_PROFILE.overstimulated.clear}
+          </button>
+        </div>
+      )}
+      {helpOpen && <HelpPanel contacts={pm.contacts} onSay={() => void handleSpeak(HELP_ALOUD)} onText={textHelp} onClose={() => setHelpOpen(false)} />}
+      <IncomingCard pm={pm} />
+    </>
+  );
+
+  const outputBlock = pm.target ? <PrivateBar pm={pm} /> : <ContactPicker pm={pm} />;
+
+  const quickBlock = <QuickPhrases phrases={ACTIVE_PROFILE.quickPhrases} highlight={quickIndex} onPick={handleQuickPhrase} />;
+
+  const tileBar = (
+    <TileBar
+      captures={state.captures}
+      selectedTileIds={state.selectedTileIds}
+      onToggle={(id) => dispatch({ type: "TOGGLE_TILE", id })}
+      onRename={(id, label) => {
+        correctSelection(id, label, "manual");
+        dispatch({ type: "UPDATE_CAPTURE", id, patch: { label, source: "manual", confidence: 0, refining: false } });
+      }}
+      onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
+    />
+  );
+
+  const intentsBlock = !overstimulated && (
+    <IntentButtons
+      intents={ACTIVE_PROFILE.intents}
+      selected={state.selectedCoreWords[0] ?? null}
+      highlight={intentIndex}
+      onToggle={(intent) => {
+        setIntentIndex(null);
+        setSentenceIndex(null);
+        setBuild(null);
+        setBuildIndex(null);
+        dispatch({ type: "TOGGLE_INTENT", intent: intent.id });
+      }}
+    />
+  );
+
+  const builderBlock = !overstimulated && canBuild && (
+    <BuildSentence
+      object={selectedLabels[0]}
+      verbs={buildVerbs}
+      endings={ACTIVE_PROFILE.endings}
+      state={builder}
+      highlight={build ? buildIndex : null}
+      stripHighlighted={sentenceIndex === 0 && build === null}
+      actionLabel={pm.targets.length > 0 ? `Send to ${pm.targets.map((c) => c.name).join(", ")}` : "Say it"}
+      onVerb={(verb) => {
+        setBuild({ step: "ending", verb, ending: builder.ending });
+        setBuildIndex(0);
+      }}
+      onEnding={(ending) => {
+        if (builder.verb) finishBuild(ending);
+        else setBuild({ ...builder, ending });
+      }}
+      onSay={sayBuilt}
+      onOpen={() => (build ? setBuild(null) : startBuild())}
+    />
+  );
+
+  const sentencesBlock = !overstimulated && (
+    <Candidates candidates={state.candidates} onSpeak={(s) => void say(s)} highlight={sentenceIndex === null ? null : sentenceIndex - (canBuild ? 1 : 0)} />
+  );
+
+  const header = (
+    <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-2 shrink-0">
+      <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
+        <h1 className="text-xl font-bold text-gray-900">
+          Qu
+          <span className="ml-2 text-sm font-normal text-gray-400 hidden sm:inline">prototype</span>
+        </h1>
+        <div className="flex items-center gap-2 flex-wrap justify-end">
           <button
             onClick={(e) => {
               setSetupView((v) => !v);
@@ -799,26 +1040,21 @@ export default function App() {
             {setupView ? "Back to Qu" : "Setup"}
           </button>
           {setupView && (
-          <button
-            onClick={(e) => {
-              setPeopleOpen(true);
-              e.currentTarget.blur();
-            }}
-            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
-            data-testid="people-open"
-          >
-            People
-          </button>
-          )}
-          {setupView && (
-          <>
-          <button
-            onClick={() => setHelpOpen(true)}
-            className="px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-sm font-semibold text-red-700 hover:bg-red-100"
-          >
-            I need help
-          </button>
-          </>
+            <>
+              <button
+                onClick={(e) => {
+                  setPeopleOpen(true);
+                  e.currentTarget.blur();
+                }}
+                className="min-h-11 px-4 rounded-xl border-2 border-gray-300 text-base font-semibold text-gray-800 hover:bg-gray-100"
+                data-testid="people-open"
+              >
+                People
+              </button>
+              <button onClick={() => setHelpOpen(true)} className="min-h-11 px-4 rounded-xl border-2 border-red-300 bg-red-50 text-base font-semibold text-red-700 hover:bg-red-100">
+                I need help
+              </button>
+            </>
           )}
           <button
             onClick={(e) => {
@@ -840,350 +1076,13 @@ export default function App() {
             onSpeakQueue={handleSpeakQueue}
             listening={listening}
           />
-          </div>
         </div>
-      </header>
+      </div>
+    </header>
+  );
 
-      <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
-        {modelError && (
-          <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
-            {modelError}
-          </div>
-        )}
-
-        <section className="flex flex-col items-center gap-2">
-          <div className={`relative w-full ${setupView ? "max-w-2xl" : overstimulated ? "max-w-[160px]" : "max-w-md"}`}>
-            <CameraView
-              ref={cameraRef}
-              onCapture={(t) => void handleCapture(t)}
-              onTrackCount={setTrackCount}
-              mirror={mirror}
-              deviceId={cameraId}
-              onDevices={setCameras}
-              source={source}
-              orientation={orientationFor(sourceSettings)}
-              burst={isStillSource(sourceSettings) ? sourceSettings.burst : 1}
-              discard={sourceSettings.discard}
-              delayMs={sourceSettings.delayMs}
-              aim={aim}
-              maxCandidates={sourceSettings.maxCandidates}
-              onTargetCue={sourceSettings.onTargetCue}
-              onOnTarget={() => feedbackRef.current("on-target")}
-              freezeMs={Number.POSITIVE_INFINITY}
-              highlight={scan ? scan.options[scan.index]?.rung.box ?? null : null}
-            />
-            {hint && (
-              <div
-                key={hint.key}
-                data-testid="hint"
-                onClick={() => setHint(null)}
-                role="status"
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-amber-400 text-black text-lg font-semibold shadow-lg cursor-pointer"
-              >
-                {hint.text}
-              </div>
-            )}
-            {toast && (
-              <div
-                key={toast.key}
-                data-testid="toast"
-                onClick={() => setToast(null)}
-                role="status"
-                className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/75 text-white text-lg font-semibold shadow-lg cursor-pointer"
-              >
-                {toast.text}
-              </div>
-            )}
-            {setupView && (
-            <button
-              onClick={(e) => {
-                setMirror((m) => !m);
-                e.currentTarget.blur();
-              }}
-              className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/50 text-white text-xs hover:bg-black/70"
-              title="Flip the preview (turn off if the camera faces away from you)"
-            >
-              Mirror: {mirror ? "on" : "off"}
-            </button>
-            )}
-          </div>
-          {setupView && (
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500">
-            <span data-testid="track-info">
-              {state.status === "loading"
-                ? "Loading detection model…"
-                : `Tracking ${trackCount} object${trackCount === 1 ? "" : "s"}`}
-              {" · "}
-              {hasClaude()
-                ? "Claude identification on"
-                : "on-device identification (set VITE_ANTHROPIC_API_KEY for Claude)"}
-            </span>
-            <span data-testid="siglip-status" className={siglip.status === "error" ? "text-amber-600" : ""}>
-              {siglip.status === "loading"
-                ? `Downloading recognition model ${Math.round(siglip.progress * 100)}%…`
-                : siglip.status === "ready"
-                  ? `Everyday-object names on (${siglip.device === "webgpu" ? "GPU" : "CPU"})`
-                  : siglip.status === "error"
-                    ? "Basic names only (recognition model unavailable)"
-                    : ""}
-            </span>
-            <label className="flex items-center gap-1 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={sayName}
-                onChange={(e) => {
-                  setSayName(e.target.checked);
-                  e.target.blur();
-                }}
-              />
-              Say name on capture
-            </label>
-            <label
-              className="flex items-center gap-1 cursor-pointer"
-              title="Uses the microphone to wait for your partner to pause, then speaks the queued sentence"
-            >
-              <input
-                type="checkbox"
-                checked={autoPause}
-                onChange={(e) => {
-                  setAutoPause(e.target.checked);
-                  e.target.blur();
-                }}
-              />
-              Auto-speak queue at pause (mic)
-            </label>
-            {source.kind === "webcam" && cameras.length > 1 && (
-              <select
-                value={cameraId ?? ""}
-                onChange={(e) => {
-                  setCameraId(e.target.value || undefined);
-                  e.target.blur();
-                }}
-                className="border border-gray-200 rounded px-1 py-0.5 bg-white"
-              >
-                <option value="">Default camera</option>
-                {cameras.map((c, i) => (
-                  <option key={c.deviceId} value={c.deviceId}>
-                    {c.label || `Camera ${i + 1}`}
-                  </option>
-                ))}
-              </select>
-            )}
-          </div>
-          )}
-          {scan && (
-            <Scanner
-              options={scan.options.map((o) => ({
-                key: o.key,
-                label: o.label,
-                thumbnail: o.capture.thumbnail,
-                detail:
-                  o.capture.source === "claude"
-                    ? `Claude's guess · ${RUNG_TEXT[o.rung.kind]}`
-                    : o.key === "broad"
-                      ? `${Math.round(o.score * 100)}% sure it's some kind of ${o.label} · ${RUNG_TEXT[o.rung.kind]}`
-                      : `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
-              }))}
-              index={scan.index}
-              hint={RING_HINTS[sourceSettings.autoScan ? "autoscan" : "scanning"]}
-              autoScanSec={sourceSettings.autoScan ? sourceSettings.autoScanSec : null}
-              onPick={(i) => setScan((s) => s && { ...s, index: i })}
-              onSelect={() => chooseScan()}
-              onNext={() => moveScan(1)}
-              onRetake={() => retake(scan.level)}
-              onCancel={() => endScan()}
-            />
-          )}
-          {overstimulated && (
-            <div className="w-full max-w-2xl flex items-center justify-between gap-3 rounded-2xl border-2 border-red-400 bg-red-50 px-5 py-4">
-              <div className="text-2xl font-bold text-red-900" data-testid="overstimulated-status">
-                {ACTIVE_PROFILE.overstimulated.badge}
-              </div>
-              <button
-                onClick={() => setOverstimulated(false)}
-                className="min-h-11 px-4 py-2 rounded-xl border-2 border-red-400 bg-white text-base font-semibold text-red-900"
-                data-testid="clear-status"
-              >
-                {ACTIVE_PROFILE.overstimulated.clear}
-              </button>
-            </div>
-          )}
-          {helpOpen && (
-            <HelpPanel
-              contacts={pm.contacts}
-              onSay={() => void handleSpeak(HELP_ALOUD)}
-              onText={textHelp}
-              onClose={() => setHelpOpen(false)}
-            />
-          )}
-          {pm.target ? <PrivateBar pm={pm} /> : <ContactPicker pm={pm} />}
-          <IncomingCard pm={pm} />
-          {setupView && (
-          <SourceSettings
-            settings={sourceSettings}
-            onChange={setSourceSettings}
-            source={source}
-            status={sourceStatus}
-            buttonStatus={ringStatus}
-            calibration={calibration}
-            onCalibrate={() => setCalibrating(true)}
-            onPersonal={() => setTeaching(true)}
-          />
-          )}
-          {setupView && teaching && (
-            <PersonalObjects
-              ref={teachRef}
-              ready={siglip.status === "ready"}
-              capture={async () => {
-                const t = await cameraRef.current?.capture();
-                cameraRef.current?.unfreeze();
-                return t ?? null;
-              }}
-              onSaved={(obj) => {
-                feedbackRef.current("select");
-                showToast(`Learned: ${obj.name}`);
-              }}
-              onClose={() => setTeaching(false)}
-            />
-          )}
-          {setupView && calibrating && (
-            <Calibration
-              ref={calibRef}
-              title={`${source.label}, ${sourceSettings.hand} hand`}
-              current={calibration}
-              capture={async () => {
-                const t = await cameraRef.current?.capture();
-                cameraRef.current?.unfreeze();
-                return t?.image ?? null;
-              }}
-              onSave={(cal) => {
-                saveCalibration(calibKey, cal);
-                setCalibration(cal);
-                setCalibrating(false);
-                feedbackRef.current("select");
-                showToast("Aim calibrated");
-              }}
-              onReset={() => {
-                clearCalibration(calibKey);
-                setCalibration(null);
-              }}
-              onClose={() => setCalibrating(false)}
-            />
-          )}
-        </section>
-
-        <QuickPhrases phrases={ACTIVE_PROFILE.quickPhrases} highlight={quickIndex} onPick={handleQuickPhrase} />
-        <div className="text-base text-blue-900 text-center" data-testid="ring-hint">
-          {RING_HINTS[currentMode]}
-        </div>
-        <SpokenBanner
-          spoken={lastSpoken}
-          overstimulated={false}
-          badge={ACTIVE_PROFILE.overstimulated.badge}
-          clearLabel={ACTIVE_PROFILE.overstimulated.clear}
-          onClearStatus={() => setOverstimulated(false)}
-        />
-        {!overstimulated && (
-        <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="text-xs text-gray-400 mb-3 text-center uppercase tracking-wider">
-            Captured objects
-          </div>
-          <TileBar
-            captures={state.captures}
-            selectedTileIds={state.selectedTileIds}
-            onToggle={(id) => dispatch({ type: "TOGGLE_TILE", id })}
-            onRename={(id, label) => {
-              correctSelection(id, label, "manual");
-              dispatch({
-                type: "UPDATE_CAPTURE",
-                id,
-                patch: { label, source: "manual", confidence: 0, refining: false },
-              });
-            }}
-            onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
-          />
-        </section>
-        )}
-
-        {!overstimulated && (
-        <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <div className="text-xs text-gray-400 mb-2 text-center uppercase tracking-wider">
-            What do you want to say?
-          </div>
-          <IntentButtons
-            intents={ACTIVE_PROFILE.intents}
-            selected={state.selectedCoreWords[0] ?? null}
-            highlight={intentIndex}
-            onToggle={(intent) => {
-              setIntentIndex(null);
-              dispatch({ type: "TOGGLE_INTENT", intent: intent.id });
-            }}
-          />
-        </section>
-        )}
-
-        {!overstimulated && (
-        <section>
-          <Candidates
-            candidates={state.candidates}
-            onSpeak={(s) => void say(s)}
-            highlight={sentenceIndex}
-          />
-          {canBuild && !build && (
-            <div className="w-full max-w-lg mx-auto mt-2">
-              <button
-                onClick={(e) => {
-                  startBuild();
-                  e.currentTarget.blur();
-                }}
-                className={`w-full px-4 py-3 bg-white border-2 border-dashed border-gray-400 rounded-xl text-left text-lg text-gray-800 ${
-                  sentenceIndex === state.candidates.length ? "outline outline-4 outline-blue-600 outline-offset-1" : ""
-                }`}
-                data-testid="build-open"
-              >
-                Build my own: I … the {selectedLabels[0]}
-              </button>
-            </div>
-          )}
-          {canBuild && build && (
-            <div className="mt-2">
-              <BuildSentence
-                object={selectedLabels[0]}
-                verbs={buildVerbs}
-                endings={ACTIVE_PROFILE.endings}
-                state={build}
-                highlight={buildIndex}
-                sentence={buildSentenceText}
-                actionLabel={pm.targets.length > 0 ? `Send to ${pm.targets.map((c) => c.name).join(", ")}` : "Say it"}
-                onVerb={(verb) => {
-                  setBuild((b) => ({ step: "ending", verb, ending: b?.ending ?? "none" }));
-                  setBuildIndex(0);
-                }}
-                onEnding={(ending) => setBuild((b) => (b ? { ...b, ending } : b))}
-                onSay={sayBuilt}
-                onBack={() => {
-                  setBuildIndex(null);
-                  setBuild(null);
-                  setSentenceIndex(state.candidates.length);
-                }}
-              />
-            </div>
-          )}
-        </section>
-        )}
-
-        {setupView && (state.captures.length > 0 || state.selectedCoreWords.length > 0) && (
-          <div className="flex justify-center">
-            <button
-              onClick={() => dispatch({ type: "CLEAR_ALL" })}
-              className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              Clear all
-            </button>
-          </div>
-        )}
-
-      </main>
+  const drawers = (
+    <>
       {peopleOpen && (
         <div className="fixed inset-0 z-40 flex justify-end bg-black/30" onClick={() => setPeopleOpen(false)} data-testid="people-drawer">
           <aside className="h-full w-full max-w-md bg-white shadow-xl p-4 overflow-y-auto flex flex-col gap-4" onClick={(e) => e.stopPropagation()}>
@@ -1197,6 +1096,180 @@ export default function App() {
           </aside>
         </div>
       )}
+      {objectsOpen && (
+        <div className="fixed inset-0 z-40 flex justify-end bg-black/30" onClick={() => setObjectsOpen(false)} data-testid="objects-drawer">
+          <aside className="h-full w-full max-w-md bg-white shadow-xl p-4 overflow-y-auto flex flex-col gap-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold">Captured objects</h2>
+              <button onClick={() => setObjectsOpen(false)} className="min-h-11 px-4 rounded-xl border-2 border-gray-300 text-base font-semibold">
+                Close
+              </button>
+            </div>
+            {tileBar}
+            <button
+              onClick={() => {
+                dispatch({ type: "CLEAR_ALL" });
+                setObjectsOpen(false);
+              }}
+              className="min-h-11 px-4 rounded-xl border-2 border-gray-300 text-base font-semibold text-gray-800 self-start"
+            >
+              Clear all
+            </button>
+          </aside>
+        </div>
+      )}
+    </>
+  );
+
+  if (setupView) {
+    return (
+      <div className="h-dvh bg-gray-50 flex flex-col overflow-hidden" style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}>
+        {header}
+        <main className="flex-1 min-h-0 overflow-y-auto max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
+          {modelError && <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">{modelError}</div>}
+          <section className="flex flex-col items-center gap-2">
+            {cameraBlock}
+            {statusRow}
+            {scannerBlock}
+            {transientBlocks}
+            {outputBlock}
+            <SourceSettings
+              settings={sourceSettings}
+              onChange={setSourceSettings}
+              source={source}
+              status={sourceStatus}
+              buttonStatus={ringStatus}
+              calibration={calibration}
+              onCalibrate={() => setCalibrating(true)}
+              onPersonal={() => setTeaching(true)}
+            />
+            {teaching && (
+              <PersonalObjects
+                ref={teachRef}
+                ready={siglip.status === "ready"}
+                capture={async () => {
+                  const t = await cameraRef.current?.capture();
+                  cameraRef.current?.unfreeze();
+                  return t ?? null;
+                }}
+                onSaved={(obj) => {
+                  feedbackRef.current("select");
+                  showToast(`Learned: ${obj.name}`);
+                }}
+                onClose={() => setTeaching(false)}
+              />
+            )}
+            {calibrating && (
+              <Calibration
+                ref={calibRef}
+                title={`${source.label}, ${sourceSettings.hand} hand`}
+                current={calibration}
+                capture={async () => {
+                  const t = await cameraRef.current?.capture();
+                  cameraRef.current?.unfreeze();
+                  return t?.image ?? null;
+                }}
+                onSave={(cal) => {
+                  saveCalibration(calibKey, cal);
+                  setCalibration(cal);
+                  setCalibrating(false);
+                  feedbackRef.current("select");
+                  showToast("Aim calibrated");
+                }}
+                onReset={() => {
+                  clearCalibration(calibKey);
+                  setCalibration(null);
+                }}
+                onClose={() => setCalibrating(false)}
+              />
+            )}
+          </section>
+          {quickBlock}
+          <div className="text-base text-blue-900 text-center" data-testid="ring-hint">
+            {RING_HINTS[currentMode]}
+          </div>
+          <SpokenBanner spoken={lastSpoken} overstimulated={false} badge={ACTIVE_PROFILE.overstimulated.badge} clearLabel={ACTIVE_PROFILE.overstimulated.clear} onClearStatus={() => setOverstimulated(false)} />
+          <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <div className="text-xs text-gray-400 mb-3 text-center uppercase tracking-wider">Captured objects</div>
+            {tileBar}
+          </section>
+          <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <div className="text-xs text-gray-400 mb-2 text-center uppercase tracking-wider">What do you want to say?</div>
+            {intentsBlock}
+          </section>
+          <section className="flex flex-col gap-2">
+            {builderBlock}
+            {sentencesBlock}
+          </section>
+          {(state.captures.length > 0 || state.selectedCoreWords.length > 0) && (
+            <div className="flex justify-center">
+              <button onClick={() => dispatch({ type: "CLEAR_ALL" })} className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg">
+                Clear all
+              </button>
+            </div>
+          )}
+        </main>
+        {drawers}
+      </div>
+    );
+  }
+
+  return (
+    <div className="h-dvh bg-gray-50 flex flex-col overflow-hidden" style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}>
+      {header}
+      <main className="flex-1 min-h-0 overflow-hidden max-w-6xl mx-auto w-full px-3 sm:px-4 py-2 flex flex-col gap-2 lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-4" data-testid="user-main">
+        <section className="flex flex-col gap-2 min-h-0 lg:overflow-y-auto">
+          {modelError && <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-3 py-2 text-sm">{modelError}</div>}
+          {compactCamera ? (
+            <div className="flex items-stretch gap-2 w-full">
+              {cameraBlock}
+              <button
+                onClick={(e) => {
+                  setObjectsOpen(true);
+                  e.currentTarget.blur();
+                }}
+                className="flex items-center gap-2 min-h-11 px-2 rounded-xl border-2 border-gray-300 bg-white text-left shrink-0 max-w-[45%]"
+                data-testid="object-thumb"
+                aria-label={`Captured: ${latest.label}. Open captured objects`}
+              >
+                {latest.thumbnail && <img src={latest.thumbnail} alt="" className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg" />}
+                <span className="text-base sm:text-lg font-semibold text-gray-900 capitalize truncate">{latest.label}</span>
+              </button>
+              <div className="flex-1 min-w-0 flex flex-col justify-center" aria-live="polite">
+                <div className="text-xs uppercase tracking-wider text-gray-500">Said</div>
+                <div className="text-lg sm:text-xl font-bold text-gray-900 leading-tight line-clamp-2" data-testid="spoken-text">
+                  {lastSpoken ?? "—"}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center gap-2">
+              {cameraBlock}
+              {lastSpoken && (
+                <div className="w-full rounded-2xl border-2 border-gray-300 bg-white px-4 py-2" aria-live="polite">
+                  <div className="text-xs uppercase tracking-wider text-gray-500">Said</div>
+                  <div className="text-xl font-bold text-gray-900 leading-tight" data-testid="spoken-text">
+                    {lastSpoken}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+          {scannerBlock}
+          {transientBlocks}
+          {outputBlock}
+          {quickBlock}
+          <div className="hidden md:block text-sm text-blue-900 text-center" data-testid="ring-hint">
+            {RING_HINTS[currentMode]}
+          </div>
+        </section>
+        <section className="flex flex-col gap-2 min-h-0 flex-1">
+          {intentsBlock}
+          {builderBlock}
+          <div className="flex-1 min-h-0 flex flex-col">{sentencesBlock}</div>
+        </section>
+      </main>
+      {drawers}
     </div>
   );
 }

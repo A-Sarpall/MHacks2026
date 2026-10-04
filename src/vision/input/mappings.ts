@@ -49,8 +49,8 @@ export const RING_HINTS: Record<RingMode, string> = {
   help: "Space (click): say it aloud · H (hold): text the selected people · D (double): close",
   quick: "Space (click): next phrase · H (hold): say it · D (double): close",
   intents: "Space (click): next · H (hold): choose · D (double): back",
-  sentences: "Space (click): next sentence · H (hold): say it · D (double): back to intents",
-  verbs: "Space (click): next word · H (hold): choose · D (double): back to sentences",
+  sentences: "Space (click): next · H (hold): choose · D (double): back to intents",
+  verbs: "Space (click): next word · H (hold): choose · D (double): back",
   endings: "Space (click): next ending · H (hold): say it · D (double): back to words",
 };
 
