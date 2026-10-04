@@ -39,7 +39,7 @@ import type { CapturedObject, InputAction } from "./lib/types";
 import { Scanner } from "./components/Scanner";
 import { RUNG_TEXT, askClaude, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
 import { correctSelection, historyBoost, recordSelection } from "./vision/history";
-import { RING_HINTS, commandFor, type RingMode } from "./vision/input/mappings";
+import { RING_HINTS, commandFor, type RingCommand, type RingMode } from "./vision/input/mappings";
 import { SourceSettings } from "./components/SourceSettings";
 import { Calibration, type CalibrationHandle } from "./components/Calibration";
 import { PersonalObjects, type PersonalObjectsHandle } from "./components/PersonalObjects";
@@ -84,6 +84,8 @@ export default function App() {
   const [intentIndex, setIntentIndex] = useState<number | null>(null);
   const [build, setBuild] = useState<BuildState | null>(null);
   const [buildIndex, setBuildIndex] = useState<number | null>(null);
+  const [sentenceIndex, setSentenceIndex] = useState<number | null>(null);
+  const flowRef = useRef({ quickIndex: null as number | null, intentIndex: null as number | null, sentenceIndex: null as number | null, build: null as BuildState | null, buildIndex: null as number | null, canBuild: false, buildVerbs: [] as string[] });
   const [painLevel, setPainLevel] = useState(5);
   const painRef = useRef({ open: painOpen, level: painLevel });
   painRef.current = { open: painOpen, level: painLevel };
@@ -199,6 +201,10 @@ export default function App() {
       // A medicine is read by the hub's label check instead (it renames the tile on a match)
       const refine = hasClaude() && !confirmed && !isMed && capture.source !== "personal" && capture.source !== "claude";
       dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
+      setQuickIndex(null);
+      setSentenceIndex(null);
+      setBuild(null);
+      setIntentIndex(0);
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
@@ -417,9 +423,88 @@ export default function App() {
 
   const ringMode = (): RingMode => {
     if (scanRef.current) return settingsRef.current.autoScan ? "autoscan" : "scanning";
+    const f = flowRef.current;
+    if (f.build) return f.build.step === "verb" ? "verbs" : "endings";
+    if (f.sentenceIndex !== null) return "sentences";
+    if (f.intentIndex !== null) return "intents";
+    if (f.quickIndex !== null) return "quick";
     if (pmRef.current.fresh) return "message";
     const review = reviewRef.current;
     return review && performance.now() < review.until ? "review" : "normal";
+  };
+
+  const flowStep = (mode: RingMode, command: RingCommand): boolean => {
+    const f = flowRef.current;
+    const cycle = (i: number | null, n: number, d = 1) => (n > 0 ? (((i ?? 0) + d) % n + n) % n : 0);
+    switch (mode) {
+      case "quick": {
+        const phrases = ACTIVE_PROFILE.quickPhrases;
+        if (command === "next") setQuickIndex(cycle(f.quickIndex, phrases.length));
+        else if (command === "select") handleQuickPhrase(phrases[f.quickIndex ?? 0]);
+        else if (command === "back") setQuickIndex(null);
+        else return false;
+        return true;
+      }
+      case "intents": {
+        const intents = ACTIVE_PROFILE.intents;
+        if (command === "next") setIntentIndex(cycle(f.intentIndex, intents.length));
+        else if (command === "select") {
+          const intent = intents[f.intentIndex ?? 0];
+          if (intent.needsObject && selectedTileIdsRef.current.length === 0) {
+            feedbackRef.current("error");
+            return true;
+          }
+          dispatch({ type: "TOGGLE_INTENT", intent: intent.id });
+          setIntentIndex(null);
+          setSentenceIndex(0);
+        } else if (command === "back") setIntentIndex(null);
+        else return false;
+        return true;
+      }
+      case "sentences": {
+        const n = candidatesRef.current.length + (f.canBuild ? 1 : 0);
+        if (command === "next") setSentenceIndex(cycle(f.sentenceIndex, n));
+        else if (command === "select") {
+          const i = f.sentenceIndex ?? 0;
+          if (i < candidatesRef.current.length) {
+            const sentence = candidatesRef.current[i];
+            if (pmRef.current.target) void sendPrivately(sentence);
+            else void handleSpeakRef.current(sentence);
+          } else if (f.canBuild) {
+            setBuild({ step: "verb", verb: null });
+            setBuildIndex(0);
+          }
+        } else if (command === "back") {
+          setSentenceIndex(null);
+          setIntentIndex(0);
+        } else return false;
+        return true;
+      }
+      case "verbs": {
+        if (command === "next") setBuildIndex(cycle(f.buildIndex, f.buildVerbs.length));
+        else if (command === "select") {
+          setBuild({ step: "ending", verb: f.buildVerbs[f.buildIndex ?? 0] });
+          setBuildIndex(0);
+        } else if (command === "back") {
+          setBuild(null);
+          setBuildIndex(null);
+          setSentenceIndex(candidatesRef.current.length);
+        } else return false;
+        return true;
+      }
+      case "endings": {
+        const endings = ACTIVE_PROFILE.endings;
+        if (command === "next") setBuildIndex(cycle(f.buildIndex, endings.length));
+        else if (command === "select") finishBuildRef.current(endings[f.buildIndex ?? 0]);
+        else if (command === "back") {
+          setBuild({ step: "verb", verb: null });
+          setBuildIndex(0);
+        } else return false;
+        return true;
+      }
+      default:
+        return false;
+    }
   };
 
   // Keyboard (simulating the ring)
@@ -453,7 +538,9 @@ export default function App() {
         return;
       }
       const mode = ringMode();
-      switch (commandFor(mode, action)) {
+      const command = commandFor(mode, action);
+      if (flowStep(mode, command)) return;
+      switch (command) {
         case "capture":
           ringCapture(0);
           break;
@@ -470,7 +557,7 @@ export default function App() {
           if (pmRef.current.target && state.candidates.length > 0) {
             void sendPrivately(state.candidates[0]);
           } else if (state.candidates.length === 0) {
-            setPainOpen(true); // hold with nothing to queue = "I'm in pain"
+            setQuickIndex(0);
           } else if (state.candidates.length > 0) {
             dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
           }
@@ -490,8 +577,12 @@ export default function App() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan, sendPrivately, sendPain, showToast]
+    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan, sendPrivately, sendPain, showToast, handleQuickPhrase]
   );
+  const candidatesRef = useRef(state.candidates);
+  candidatesRef.current = state.candidates;
+  const selectedTileIdsRef = useRef(state.selectedTileIds);
+  selectedTileIdsRef.current = state.selectedTileIds;
 
   const scanIndex = scan?.index ?? -1;
   const scanLabel = scan?.options[scan.index]?.label;
@@ -600,15 +691,20 @@ export default function App() {
   const canBuild =
     intentId !== null && isProfileIntent(intentId) && intentId !== "feeling" && selectedLabels.length > 0 && state.candidates.length > 0;
   const buildVerbs = canBuild ? orderVerbs(intentId, profileVerbs(intentId, selectedLabels)) : [];
+  flowRef.current = { quickIndex, intentIndex, sentenceIndex, build, buildIndex, canBuild, buildVerbs };
+  const currentMode = ringMode();
   const finishBuild = (ending: Ending) => {
     if (!build?.verb || !intentId) return;
     const sentence = buildSentence(build.verb, selectedLabels[0], ending);
     recordVerb(intentId, build.verb);
     setBuild(null);
     setBuildIndex(null);
+    setSentenceIndex(0);
     if (pm.target) void sendPrivately(sentence);
     else void handleSpeak(sentence);
   };
+  const finishBuildRef = useRef(finishBuild);
+  finishBuildRef.current = finishBuild;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -652,6 +748,9 @@ export default function App() {
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
         <QuickPhrases phrases={ACTIVE_PROFILE.quickPhrases} highlight={quickIndex} onPick={handleQuickPhrase} />
+        <div className="text-sm text-blue-800 text-center" data-testid="ring-hint">
+          {RING_HINTS[currentMode]}
+        </div>
         <SpokenBanner
           spoken={spokenLog.length > 0 ? spokenLog[spokenLog.length - 1].text : null}
           cantTalk={cantTalk}
@@ -913,6 +1012,7 @@ export default function App() {
             candidates={state.candidates}
             onSpeak={pm.target ? sendPrivately : handleSpeak}
             onQueue={(sentence) => (pm.target ? void sendPrivately(sentence) : dispatch({ type: "QUEUE_SENTENCE", sentence }))}
+            highlight={sentenceIndex}
           />
           {canBuild && !build && (
             <div className="w-full max-w-lg mx-auto mt-2">
@@ -921,7 +1021,9 @@ export default function App() {
                   setBuild({ step: "verb", verb: null });
                   e.currentTarget.blur();
                 }}
-                className="w-full px-4 py-3 bg-white border-2 border-dashed border-gray-400 rounded-xl text-left text-lg text-gray-800"
+                className={`w-full px-4 py-3 bg-white border-2 border-dashed border-gray-400 rounded-xl text-left text-lg text-gray-800 ${
+                  sentenceIndex === state.candidates.length ? "outline outline-4 outline-blue-600 outline-offset-1" : ""
+                }`}
                 data-testid="build-open"
               >
                 Build my own: I … the {selectedLabels[0]}

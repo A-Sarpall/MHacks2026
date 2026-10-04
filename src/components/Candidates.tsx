@@ -2,9 +2,10 @@ interface Props {
   candidates: string[];
   onSpeak: (sentence: string) => void;
   onQueue: (sentence: string) => void;
+  highlight?: number | null;
 }
 
-export function Candidates({ candidates, onSpeak, onQueue }: Props) {
+export function Candidates({ candidates, onSpeak, onQueue, highlight = null }: Props) {
   if (candidates.length === 0) return null;
 
   return (
@@ -16,7 +17,10 @@ export function Candidates({ candidates, onSpeak, onQueue }: Props) {
         <div key={i} className="flex gap-2">
           <button
             onClick={() => onSpeak(sentence)}
-            className="flex-1 px-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-left text-lg hover:border-blue-400 hover:bg-blue-50 transition-all"
+            className={`flex-1 px-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-left text-lg hover:border-blue-400 hover:bg-blue-50 transition-all ${
+              highlight === i ? "outline outline-4 outline-blue-600 outline-offset-1" : ""
+            }`}
+            data-testid="candidate"
           >
             {sentence}
           </button>
