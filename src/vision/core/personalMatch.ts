@@ -6,6 +6,7 @@ export interface PersonalEntry {
   id: string;
   name: string;
   embeddings: Float32Array[];
+  contactId?: string;
 }
 
 export interface PersonalHit {
@@ -13,6 +14,7 @@ export interface PersonalHit {
   name: string;
   cos: number;
   runnerUp: number;
+  contactId?: string;
 }
 
 export interface PersonalMatchConfig {
@@ -33,6 +35,7 @@ export function nearestPersonal(v: Float32Array, entries: PersonalEntry[]): Pers
     .map((e) => ({
       id: e.id,
       name: e.name,
+      contactId: e.contactId,
       cos: e.embeddings.reduce((m, x) => Math.max(m, x.length === v.length ? cosine(x, v) : -Infinity), -Infinity),
     }))
     .filter((e) => Number.isFinite(e.cos))

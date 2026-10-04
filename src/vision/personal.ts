@@ -11,6 +11,7 @@ export interface PersonalObject {
   thumbnail: string;
   createdAt: number;
   model: string;
+  contactId?: string;
 }
 
 export interface TeachSample {
@@ -95,7 +96,7 @@ export function onPersonalChange(cb: (list: PersonalObject[]) => void): () => vo
   return () => listeners.delete(cb);
 }
 
-export async function addPersonal(name: string, samples: TeachSample[]): Promise<PersonalObject> {
+export async function addPersonal(name: string, samples: TeachSample[], contactId?: string): Promise<PersonalObject> {
   const obj: PersonalObject = {
     id: crypto.randomUUID(),
     name: name.trim(),
@@ -103,6 +104,7 @@ export async function addPersonal(name: string, samples: TeachSample[]): Promise
     thumbnail: samples[0]?.thumbnail ?? "",
     createdAt: Date.now(),
     model: SIGLIP.model,
+    ...(contactId ? { contactId } : {}),
   };
   if (!obj.name) throw new Error("Type a name first");
   if (obj.embeddings.length === 0) throw new Error("Take some photos first");

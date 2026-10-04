@@ -20,6 +20,7 @@ export interface NamedCrop {
   capture: CapturedObject;
   crop: HTMLCanvasElement;
   embedding?: Float32Array;
+  contactId?: string;
 }
 
 export interface NamerOptions {
@@ -97,6 +98,7 @@ export async function nameCrops(
       return {
         crop: l.crop,
         embedding: vectors[i],
+        contactId: hit.contactId,
         capture: {
           ...l.capture,
           label: hit.name,

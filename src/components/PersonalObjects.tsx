@@ -11,6 +11,7 @@ import {
   type TeachSample,
 } from "../vision/personal";
 import { SIGLIP } from "../vision/siglipConfig";
+import type { Contact } from "../lib/messages";
 
 export interface PersonalObjectsHandle {
   press(): void;
@@ -23,18 +24,21 @@ interface Props {
   capture: () => Promise<CaptureTarget | null>;
   onSaved: (obj: PersonalObject) => void;
   onClose: () => void;
+  contacts?: Contact[];
+  defaultContactId?: string;
 }
 
 const MIN_PHOTOS = 3;
 const MAX_PHOTOS = 5;
 
 export const PersonalObjects = forwardRef<PersonalObjectsHandle, Props>(function PersonalObjects(
-  { ready, capture, onSaved, onClose },
+  { ready, capture, onSaved, onClose, contacts, defaultContactId },
   ref
 ) {
   const [objects, setObjects] = useState<PersonalObject[]>([]);
   const [samples, setSamples] = useState<TeachSample[]>([]);
   const [name, setName] = useState("");
+  const [contactId, setContactId] = useState(defaultContactId ?? "");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [editing, setEditing] = useState<{ id: string; name: string } | null>(null);
@@ -42,6 +46,8 @@ export const PersonalObjects = forwardRef<PersonalObjectsHandle, Props>(function
   samplesRef.current = samples;
   const nameRef = useRef(name);
   nameRef.current = name;
+  const contactIdRef = useRef(contactId);
+  contactIdRef.current = contactId;
   const busyRef = useRef(false);
 
   useEffect(() => {
@@ -88,9 +94,10 @@ export const PersonalObjects = forwardRef<PersonalObjectsHandle, Props>(function
     busyRef.current = true;
     setBusy(true);
     try {
-      const obj = await addPersonal(nameRef.current, list);
+      const obj = await addPersonal(nameRef.current, list, contactIdRef.current || undefined);
       setSamples([]);
       setName("");
+      setContactId("");
       setMessage(`Saved "${obj.name}".`);
       onSaved(obj);
     } catch (err) {
@@ -155,6 +162,24 @@ export const PersonalObjects = forwardRef<PersonalObjectsHandle, Props>(function
               className="border border-gray-300 rounded-lg px-2 py-1.5 text-base"
             />
           </label>
+          {contacts && contacts.length > 0 && (
+            <label className="flex flex-col gap-1">
+              Link to a contact (optional)
+              <select
+                value={contactId}
+                onChange={(e) => setContactId(e.target.value)}
+                data-testid="personal-contact"
+                className="border border-gray-300 rounded-lg px-2 py-1.5 text-base"
+              >
+                <option value="">None — just an object</option>
+                {contacts.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}'s phone — point to message them
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           {message && <p className="text-amber-700" data-testid="personal-message">{message}</p>}
           <div className="flex flex-wrap gap-2">
             <button
@@ -210,6 +235,7 @@ export const PersonalObjects = forwardRef<PersonalObjectsHandle, Props>(function
                     <div className="font-medium truncate">{o.name}</div>
                     <div className="text-xs text-gray-400">
                       {o.embeddings.length} views
+                      {o.contactId ? ` · linked to ${contacts?.find((c) => c.id === o.contactId)?.name ?? "a contact"}` : ""}
                       {o.model !== SIGLIP.model ? " · taught with an older model, teach again" : ""}
                     </div>
                   </div>

@@ -29,6 +29,7 @@ export interface NamedOption {
   capture: CapturedObject;
   crop: HTMLCanvasElement;
   embedding?: Float32Array;
+  contactId?: string;
 }
 
 export interface NamingResult {
@@ -88,6 +89,7 @@ export async function nameTarget(
       capture: a.result.capture,
       crop: a.result.crop,
       embedding: a.result.embedding,
+      contactId: a.result.contactId,
     });
   }
   const max = Math.max(1, opts.maxOptions ?? 4);

@@ -277,6 +277,14 @@ export default function App() {
               options: res.options.map((o) => [o.label, Math.round(o.score * 100), o.rung.kind]),
             })
           );
+          // A taught object linked to a contact selects them as the private target (like a QR scan).
+          if (!res.low && res.best.contactId) {
+            const name = await pmRef.current.selectById(res.best.contactId);
+            feedbackRef.current(name ? "select" : "error");
+            showToast(name ? `Private to ${name}` : "Unknown contact");
+            endScan();
+            return;
+          }
           if (res.tooSmall) setHint({ text: "Move closer", key: Date.now() });
           const seq = ++scanSeq.current;
           if (res.empty && hasClaude()) {
@@ -783,6 +791,7 @@ export default function App() {
                 showToast(`Learned: ${obj.name}`);
               }}
               onClose={() => setTeaching(false)}
+              contacts={pm.contacts}
             />
           )}
           {calibrating && (
