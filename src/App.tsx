@@ -1265,8 +1265,8 @@ export default function App() {
                 data-testid="object-thumb"
                 aria-label={`Captured: ${latest.label}. Open captured objects`}
               >
-                {latest.thumbnail && <img src={latest.thumbnail} alt="" className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg" />}
-                <span className="text-base sm:text-lg font-semibold text-gray-900 capitalize truncate">{latest.label}</span>
+                {latest.thumbnail && <img src={latest.thumbnail} alt="" className="w-20 h-20 sm:w-28 sm:h-28 object-cover rounded-lg" />}
+                <span className="text-lg sm:text-xl font-semibold text-gray-900 capitalize truncate">{latest.label}</span>
               </button>
               <div className="flex-1 min-w-0 flex flex-col justify-center" aria-live="polite">
                 <div className="text-xs uppercase tracking-wider text-gray-500">Said</div>
