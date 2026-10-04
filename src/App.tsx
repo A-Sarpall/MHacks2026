@@ -33,7 +33,7 @@ import { initDetector } from "./lib/detect";
 import { initClassifier } from "./lib/classify";
 import { identifyFromImage, identifyWithClaude } from "./lib/identify";
 import { hasClaude } from "./lib/claude";
-import { claudeComposer, composeMock } from "./lib/compose";
+import { claudeComposer, composeMock, quickSentences, composeFromNoun } from "./lib/compose";
 import { tts } from "./lib/tts";
 import { HelpPanel } from "./components/HelpPanel";
 import { PrivateBar } from "./components/PrivateBar";
@@ -652,23 +652,28 @@ export default function App() {
 
   useEffect(() => {
     setBuild(null);
-    if (state.selectedCoreWords.length === 0) return;
+    if (selectedLabels.length === 0 && state.selectedCoreWords.length === 0) return;
     const seq = ++composeSeq.current;
     const input = { tiles: selectedLabels, coreWords: state.selectedCoreWords };
-    // Instant template sentences; Claude's fill the remaining slots when they arrive.
-    const templates = composeMock(input);
+    // When only a noun is captured (no intent selected), generate contextual sentences immediately
+    const templates = state.selectedCoreWords.length > 0
+      ? composeMock(input)
+      : selectedLabels.length > 0
+        ? quickSentences(selectedLabels)
+        : [];
     dispatch({ type: "SET_CANDIDATES", candidates: templates });
-    if (!hasClaude()) return;
+    if (!hasClaude() || selectedLabels.length === 0) return;
     dispatch({ type: "SET_STATUS", status: "composing" });
-    claudeComposer
-      .compose(input)
+    const composePromise = state.selectedCoreWords.length > 0
+      ? claudeComposer.compose(input)
+      : composeFromNoun(selectedLabels);
+    composePromise
       .then((candidates) => {
         if (seq !== composeSeq.current) return;
-        const fixed = templates.slice(0, 3);
-        const extra = candidates.filter((c) => !fixed.includes(c));
-        dispatch({ type: "SET_CANDIDATES", candidates: [...fixed, ...extra, ...templates.slice(3)].filter((c, i, a) => a.indexOf(c) === i).slice(0, 6) });
+        const extra = candidates.filter((c) => !templates.includes(c));
+        dispatch({ type: "SET_CANDIDATES", candidates: [...templates, ...extra].filter((c, i, a) => a.indexOf(c) === i).slice(0, 6) });
       })
-      .catch((err) => console.warn("[compose] Claude failed, keeping templates", err))
+      .catch((err) => console.warn("[compose] failed, keeping templates", err))
       .finally(() => {
         if (seq === composeSeq.current)
           dispatch({ type: "SET_STATUS", status: "idle" });
