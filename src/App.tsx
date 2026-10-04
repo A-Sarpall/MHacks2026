@@ -222,7 +222,7 @@ export default function App() {
       setQuickIndex(null);
       setSentenceIndex(null);
       setBuild(null);
-      setIntentIndex(0);
+      setIntentIndex(null);
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
@@ -340,23 +340,9 @@ export default function App() {
             endScan();
             return;
           }
-          if (!res.low) {
-            void commitCapture(withAlternatives(res.best, res.options), res.best.crop);
-            reviewRef.current = { until: performance.now() + REVIEW_MS, level: res.level };
-            endScan(900);
-            return;
-          }
-          setScan({ options: res.options, index: 0, level: res.level });
-          if (!hasClaude()) return;
-          const guess = await askClaude(res.best, res.options);
-          console.info("[naming] fallback", JSON.stringify({ claude: guess?.label ?? null }));
-          if (!guess || seq !== scanSeq.current) return;
-          setScan((s) => {
-            if (!s || s.options.some((o) => o.label.toLowerCase() === guess.label.toLowerCase())) return s;
-            const options = [...s.options];
-            options.splice(s.index + 1, 0, guess);
-            return { ...s, options };
-          });
+          void commitCapture(withAlternatives(res.best, res.options), res.best.crop);
+          reviewRef.current = { until: performance.now() + REVIEW_MS, level: res.level };
+          endScan(900);
         })
         .catch((err: unknown) => {
           console.warn("[capture]", err);
