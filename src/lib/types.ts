@@ -29,6 +29,7 @@ export interface LabelGuess {
   label: string;
   score: number;
   source: "detector" | "classifier" | "claude" | "vocab" | "personal";
+  category?: string;
 }
 
 // An object the user captured and identified; shown as a tile
@@ -38,6 +39,7 @@ export interface CapturedObject {
   confidence: number;
   source: LabelGuess["source"] | "manual";
   alternatives: LabelGuess[];
+  category?: string;
   thumbnail: string; // data URL of the crop
   refining: boolean; // waiting on Claude vision
 }

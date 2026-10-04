@@ -1,5 +1,6 @@
 import { decodeHalf } from "./core/f16";
 import { VocabIndex } from "./core/vocabIndex";
+import { PARENT_LABELS } from "../data/vocabulary";
 import { SIGLIP, vocabHash, type VocabMeta } from "./siglipConfig";
 import type { WorkerRequest, WorkerResponse } from "./siglip.worker";
 
@@ -56,7 +57,7 @@ async function loadVocab(): Promise<VocabIndex> {
     console.warn("[siglip] src/data/vocabulary.ts changed since the embeddings were built; run npm run embed-vocab");
     setState({ staleVocab: true });
   }
-  return new VocabIndex(meta.entries, emb, meta.dims, SIGLIP.logitScale);
+  return new VocabIndex(meta.entries, emb, meta.dims, SIGLIP.logitScale, PARENT_LABELS);
 }
 
 export function initSiglip(): Promise<void> {

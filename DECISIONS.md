@@ -302,3 +302,150 @@ The costly error for this user group is a wrong word committed without asking, s
 - The remaining wrong auto-commits are vocabulary problems, not thresholds: "prayer book" and "travel mug" are too specific, and the keyboard of a laptop is named "keyboard". Merging over-specific labels into their everyday parent would help more than any threshold.
 - The personal "own object" scores come from augmented copies of one photo (0.94–0.99), which is optimistic; a real webcam re-capture of a taught object scored 0.92–0.97, so some real objects will narrowly miss at 0.92 and fall back to the vocabulary (safe, but less helpful). Teach 5 photos from varied angles.
 - WebGPU and WASM produce noticeably different scores with the 4-bit model (e.g. "mug" vs "travel mug"), so thresholds should be re-checked if the model or its quantisation changes.
+
+
+---
+
+### 2026-10-04 — Narrow vocabulary labels are grouped under the everyday word
+
+**Decision**
+
+`PARENT_LABELS` in `src/data/vocabulary.ts` maps 44 narrow labels to the everyday word a user would say ("prayer book", "Bible", "puzzle book" → book; "travel mug" → mug; "sneakers" → shoes; "armchair" → chair; "coins" → money …). At scoring time the softmax probabilities of a group are added and the everyday word is shown; the narrow label that led the group becomes the first "fix the name" chip. Medication labels (`pills`, `pill bottle`, `medicine`, `liquid medicine`, `pill organizer`) are deliberately ungrouped so the medication check keeps triggering on them, and a unit test enforces that grouping never changes what `isMedicationLabel` returns. With the errors this removes, `lowConfidence` moves from 0.35 to **0.4**.
+
+**Reason**
+
+Most of the remaining wrong auto-commits were confident, narrower-than-wanted labels: "prayer book" at 90 % on a plain book, "travel mug" on a mug. No confidence threshold can catch an answer that scores higher than most correct ones. Adding the probabilities also stops the right word's score being split across near-synonyms ("book" 41 % → 65 % on WebGPU, "mug" 43 % → 83 % on WASM).
+
+**Results** (`npm run eval`, centre aim, 25 placeholder photos; before → after, both at the committed threshold)
+
+| Backend | top-1 | top-3 | auto | wrong auto | naming avg |
+|---|---|---|---|---|---|
+| WebGPU | 76 % → 76 % | 84 % → 84 % | 64 % → 68 % | 4 % → 4 % | 89 → 90 ms |
+| WASM | 80 % → 88 % | 88 % → 88 % | 80 % → 80 % | 8 % → 0 % | 497 → 473 ms |
+
+Threshold sweep after grouping (mean over backends): wrong auto-commits 4 % at 0.3, 2 % at 0.35–0.45; automation 74 % at 0.4. The picker chose 0.4 (same wrong-auto floor as 0.35, more conservative). The one WebGPU error left is "keyboard" for a laptop whose keyboard fills the centre crop; that is an aiming/crop issue, not a vocabulary one.
+
+**Alternatives considered**
+
+- Deleting the narrow labels — loses them as chips, and some users do want "sneakers" or "Bible"
+- Raising the confidence threshold — would send most correct answers to the scanner without catching 90 % "prayer book"
+
+**Implication**
+
+Groups are a product decision, not a model one; edit `PARENT_LABELS` when a word is too specific for users. No re-embedding is needed (the text embeddings are unchanged); the eval re-checks the result.
+
+
+---
+
+### 2026-10-04 — Degraded-conditions eval; crop enhancement measured and left off
+
+**Decision**
+
+The eval harness gained a `--conditions` mode that names every test image after synthetic degradation (dark, very dark, over-exposed, noisy, motion-blurred, zoomed in, tilted, dark + blurred) with three crop treatments: plain, enhance (pad crops to square + auto-levels on dark/flat crops), and enhance + flip-averaged embeddings. The enhancement and flip-averaging exist in the pipeline (`core/enhance.ts`, `NamerOptions.enhance` / `tta`, `?enhance=1` / `?tta=1`) but are **off by default**.
+
+**Results** (25 placeholder photos, centre aim, top-1 / wrong auto-commits)
+
+| Condition | WebGPU plain | WebGPU enhance+flip | WASM plain | WASM enhance+flip |
+|---|---|---|---|---|
+| clean | 76 % / 4 % | 76 % / 4 % | 88 % / 0 % | 84 % / 4 % |
+| dark (×0.4) | 56 % / 8 % | 64 % / 4 % | 84 % / 4 % | 76 % / 8 % |
+| very dark (×0.18) | 32 % / 0 % | 40 % / 0 % | 56 % / 8 % | 60 % / 4 % |
+| blurry | 56 % / 4 % | 60 % / 0 % | 68 % / 20 % | 68 % / 12 % |
+| dark + blurry | 20 % / 0 % | 32 % / 0 % | 56 % / 4 % | 60 % / 0 % |
+| tilted 18° | 72 % / 4 % | 68 % / 4 % | 84 % / 4 % | 80 % / 4 % |
+
+Naming time with enhance + flip: WebGPU 93 → 159 ms, WASM 486 → 902 ms.
+
+**Reason**
+
+Poor light and motion blur are the realistic failure modes for a finger-mounted camera, and the numbers show they cost 20–50 points of top-1. The cheap fixes were worth testing, but auto-levels is not a reliable gain: it helps WebGPU a little in the dark and hurts WASM on clean and dark photos (wrong auto-commits 4 % → 16 % in the dark, the error this project most wants to avoid). Flip-averaging gives small gains on dark/blurry photos at double the latency. Shipping either on by default would make the common clean case worse and slower for an uncertain benefit, so they stay off until real ring photos show otherwise.
+
+**Alternatives considered**
+
+- Ship enhancement on WebGPU only — the gain (4–8 points in the dark) is within the noise of a 25-image set
+- A larger or fine-tuned model for low light — out of scope until the hardware exists; the harness now measures what it would need to beat
+
+**Implication**
+
+Synthetic degradation is a proxy; the conditions table should be re-run on real dark/blurry ring photos (and the VizWiz slice) before any robustness change is adopted. Blur is already partly handled upstream by picking the sharpest frame of a burst, which the single-image eval cannot exercise. The remaining big lever for dark scenes is the camera itself (exposure, flash/LED on the ring).
+
+
+---
+
+### 2026-10-04 — Unsure beats wrong: blur gate, broad category word, threshold 0.45
+
+**Decision**
+
+Three changes that trade a little exactness for fewer confident wrong words:
+
+1. **Blur gate.** A capture whose chosen frame scores below `minSharpness` = 200 (variance of the Laplacian on the aim zone, the measure already used to pick frames) is treated as unsure regardless of the model's confidence, so it goes to the scanner.
+2. **Broad word when unsure.** The vocabulary's probability is summed per category; if one category holds ≥ 50 % and has an everyday word (`GENERIC_WORDS`: person, animal, fruit, vegetable, food, drink, clothes, furniture, electronics, tool) it is offered first in the scanner, and at ≥ 60 % it becomes the tile, with the specific guesses as the chips. Categories whose broad word would be unhelpful or would trigger the medication check (health & medical) have none.
+3. **`lowConfidence` 0.4 → 0.45**, and the eval's picker now maximises *exact* automation (auto-commits minus broad ones) and prefers the higher threshold within 5 points, so it encodes "unsure over wrong" instead of raw automation.
+
+**Results** (25 placeholder photos, centre aim)
+
+| | WebGPU before → after | WASM before → after |
+|---|---|---|
+| top-1 (exact word) | 76 % → 76 % | 88 % → 80 % |
+| tile without asking | 68 % → 68 % | 80 % → 84 % |
+| of which broad word | 0 % → 0 % | 0 % → 8 % |
+| wrong without asking | 4 % → 4 % | 0 % → 0 % |
+| wrong without asking, motion-blurred | 4 % → 0 % | 20 % → 0 % |
+| blur-gated: clean / blurred photos | 0 % / 96 % | 0 % / 96 % |
+
+The remaining WebGPU error is the laptop named "keyboard" (its keyboard fills the centre crop). On WASM the two exact answers lost became "furniture" (chair, 37 % → 65 % as a category) and "electronics" (monitor): safe but less specific, with the exact word one chip away.
+
+**Reason**
+
+Motion blur made SigLIP confidently wrong (20 % wrong tiles on WASM), which no confidence threshold could catch; a sharpness gate catches 96 % of it with zero clean photos affected. When the model is torn between several things of the same kind, the kind itself is usually right and is a better word to speak than the top specific guess. The threshold sweep showed 0.45 costs one exact answer on WASM and nothing on WebGPU; 0.6 would turn 16 % of correct specific answers into broad ones, so the picker was changed to weigh that.
+
+**Alternatives considered**
+
+- Raising the confidence threshold alone — cannot catch blur, and above 0.5 it mostly replaces right answers with broad ones
+- Image enhancement (previous entry) — did not reduce wrong answers reliably
+
+**Limitations**
+
+- Sharpness is content-dependent: a thin object on a plain background scores low when sharp (the toothbrush photo is at 330, every other clean photo ≥ 960). On the real ring this means such captures may go to the scanner, which is the preferred failure. Sensor noise masks blur, so dark + blurred captures are not gated and rely on the threshold.
+- An out-of-vocabulary object can now get a broad tile ("electronics" for a theremin at 67 %) where it used to get "not sure"; the eval counts that as wrong because the object has no category. Acceptable under "broad over specific", but worth watching on the public image set.
+- The "close" (zoomed-in) condition gates 12 % of captures because zooming removes detail; a real close-up from the ring will be sharper than an upscaled crop.
+
+
+---
+
+### 2026-10-04 — Finger roll: rotation search and whole-frame orientation cues measured, none shipped
+
+**Decision**
+
+Measured what SigLIP does with frames that arrive rotated past the per-hand orientation setting, tried four ways of searching over quarter-turns of the crop (`NamerOptions.rotations`: best / avg / unsure / margin) and two whole-frame cues for finding "up" before cropping. None ship by default. The eval's degraded-conditions mode now includes sideways, upside-down and mirrored frames so this stays measured.
+
+**Results** (25 placeholder photos, WebGPU, top-1 / wrong tiles without asking / naming ms)
+
+| Frame | plain | rotate with margin |
+|---|---|---|
+| upright | 76 % / 4 % / 93 | 76 % / 4 % / 281 |
+| tilted 18° | 72 % / 4 % | 72 % / 4 % |
+| mirrored | 72 % / 4 % | 72 % / 4 % |
+| sideways | 52 % / 8 % | 60 % / 8 % |
+| upside-down | 48 % / **16 %** | 64 % / 8 % |
+| zoomed in | 52 % / 8 % | 44 % / 12 % |
+| over-bright | 56 % / 8 % | 60 % / 12 % |
+
+Keeping the most confident turn: upright 72 % / 8 %. Averaging the four embeddings: upright 48 %. Rotating only when unsure: same rotated gains as margin, upright unchanged, but +4 points of wrong tiles on most other degraded frames (dark, over-bright, noisy, zoomed, tilted), 235 ms.
+
+**Reason**
+
+A finger-mounted camera rolls with the hand, so the mounting setting cannot make frames upright. Small roll and mirroring cost little, but a quarter or half turn costs 24–28 points and, upside-down, produces confident wrong words. Searching rotations in software recovers much of that, but the model is sometimes more confident on a wrong turn, so every variant either hurts clean photos or adds wrong tiles under other degradations, and all cost 2.5–3× naming time (WebGPU) or ~2 s (WASM). The margin variant is the best of them and is kept behind `?rotations=margin` for re-testing on real ring photos.
+
+**Whole-frame software cues** (tried after a tilt sensor was ruled out)
+
+| | clean frames wrongly turned | rotated frames caught | sideways / upside-down top-1 | cost per press |
+|---|---|---|---|---|
+| detector at four turns, margin 0.3 | 12 % (noisy: 28 %) | 40–48 % | 60 % / 60 % | ~+130 ms |
+| detector and SigLIP whole-frame must agree | 0 % (very dark / mirrored: 4 %) | 32 % | 56 % / 56 % | ~+130 ms |
+
+The agreement rule is safe but barely useful: one image of gain, no change to the 16 % confidently-wrong upside-down tiles, and a cost on every press. Neither ships; both remain as eval treatments (`core/upright.ts`).
+
+**Conclusion**
+
+A plain object on a table looks the same at any angle to the detector and to SigLIP, so no cheap cue recovers orientation reliably on this set. A dependable estimate would need a small orientation classifier trained on a few thousand real indoor photos (about a day, data not in the repo). Meanwhile: small roll is cheap (18° costs 4 points), the per-hand setting removes the mounting offset, and a hand pointing at a table is usually roughly palm-down, so quarter- and half-turn frames should be the exception. Confirm with real ring footage before spending more here.

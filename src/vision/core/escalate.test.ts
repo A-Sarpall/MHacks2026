@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cropLadder, escalate, orderForPointing, tooSmall, type Rung } from "./escalate";
+import { broadGuess, cropLadder, escalate, orderForPointing, tooSmall, type Rung } from "./escalate";
 import { rankCandidates, type Detection } from "./aim";
 
 const W = 640;
@@ -112,5 +112,30 @@ describe("wide crop penalty", () => {
     const { pointingScore } = await import("./escalate");
     expect(pointingScore(0.3, "wide")).toBeLessThan(pointingScore(0.25, "centre"));
     expect(pointingScore(0.5, "wide")).toBeGreaterThan(pointingScore(0.25, "centre"));
+  });
+});
+
+describe("broad guess when unsure", () => {
+  const generics = { fruit: "fruit", drinks: "drink" };
+
+  it("offers the category word when most of the probability is in one category", () => {
+    const g = broadGuess(
+      [
+        { label: "banana", score: 0.3, category: "fruit" },
+        { label: "corn", score: 0.2, category: "vegetables" },
+        { label: "lemon", score: 0.15, category: "fruit" },
+        { label: "pear", score: 0.1, category: "fruit" },
+      ],
+      generics,
+      0.5
+    );
+    expect(g).toMatchObject({ label: "fruit", category: "fruit" });
+    expect(g?.score).toBeCloseTo(0.55);
+  });
+
+  it("stays quiet when the guesses are spread out or the category has no broad word", () => {
+    expect(broadGuess([{ label: "banana", score: 0.3, category: "fruit" }, { label: "cup", score: 0.3, category: "kitchen" }], generics, 0.5)).toBeNull();
+    expect(broadGuess([{ label: "corn", score: 0.9, category: "vegetables" }], generics, 0.5)).toBeNull();
+    expect(broadGuess([{ label: "corn", score: 0.9 }], generics, 0.5)).toBeNull();
   });
 });

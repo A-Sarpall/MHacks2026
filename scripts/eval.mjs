@@ -15,8 +15,8 @@ const outDir = opt("out", "eval-results");
 
 const pct = (x) => `${Math.round(x * 100)}%`;
 const row = (name, s) =>
-  `| ${name} | ${s.n} | ${pct(s.top1)} | ${pct(s.top3)} | ${pct(s.auto)} | ${pct(s.wrongAuto)} | ${pct(s.notSure)} | ${Math.round(s.avgMs)} / ${Math.round(s.p95Ms)} | ${Math.round(s.avgTotalMs)} | ${Object.entries(s.sources).map(([k, v]) => `${k} ${v}`).join(", ")} |`;
-const HEAD = "| | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |\n|---|---|---|---|---|---|---|---|---|---|";
+  `| ${name} | ${s.n} | ${pct(s.top1)} | ${pct(s.top3)} | ${pct(s.auto)} | ${pct(s.wrongAuto)} | ${pct(s.broad ?? 0)} | ${pct(s.notSure)} | ${Math.round(s.avgMs)} / ${Math.round(s.p95Ms)} | ${Math.round(s.avgTotalMs)} | ${Object.entries(s.sources).map(([k, v]) => `${k} ${v}`).join(", ")} |`;
+const HEAD = "| | n | top-1 | top-3 | auto | wrong auto | broad | not sure | naming ms avg/p95 | total ms | answered by |\n|---|---|---|---|---|---|---|---|---|---|---|";
 
 function markdown(reports) {
   const out = ["# Cue recognition eval", ""];
@@ -29,7 +29,7 @@ function markdown(reports) {
       out.push("");
       out.push("| image | expected | answer | score | | choices |", "|---|---|---|---|---|---|");
       for (const { result: c } of f.cases) {
-        out.push(`| ${c.file} | ${c.expected} | ${c.empty ? "(not sure)" : c.best} | ${pct(c.bestScore)} | ${c.low ? "scanner" : "auto"} | ${c.choices.slice(0, 3).join(", ")} |`);
+        out.push(`| ${c.file} | ${c.expected} | ${c.empty ? "(not sure)" : c.best} | ${pct(c.bestScore)} | ${c.low ? "scanner" : "auto"}${c.blurry ? " (blurry)" : ""} | ${c.choices.slice(0, 3).join(", ")} |`);
       }
       out.push("");
     }
@@ -37,6 +37,20 @@ function markdown(reports) {
       out.push(`### ${s.folder}, confidence sweep (centre aim)`, "", HEAD.replace("| |", "| threshold |"));
       for (const x of s.rows) out.push(row(String(x.threshold), x.summary));
       out.push("", `Picked: ${s.picked ? s.picked.threshold : "none with zero wrong auto-commits"}`, "");
+    }
+    for (const folder of new Set(r.conditions.map((c) => c.folder))) {
+      const rows = r.conditions.filter((c) => c.folder === folder);
+      const variants = [...new Set(rows.map((x) => x.variant))];
+      out.push(`### ${folder}, degraded conditions (centre aim): top-1 / wrong auto / broad / auto / blurry-gated / re-oriented / median sharpness / naming ms / total ms`, "");
+      out.push(`| condition | ${variants.join(" | ")} |`, `|---|${variants.map(() => "---").join("|")}|`);
+      for (const c of new Set(rows.map((x) => x.condition))) {
+        const cells = variants.map((v) => {
+          const s = rows.find((x) => x.variant === v && x.condition === c)?.summary;
+          return s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.broad ?? 0)} / ${pct(s.auto)} / ${pct(s.blurry ?? 0)} / ${pct(s.turned ?? 0)} / ${Math.round(s.medianSharpness ?? 0)} / ${Math.round(s.avgMs)} / ${Math.round(s.avgTotalMs)}` : "";
+        });
+        out.push(`| ${c} | ${cells.join(" | ")} |`);
+      }
+      out.push("");
     }
     for (const p of r.personal) {
       out.push(`### ${p.folder}, personal objects (${p.objects} taught from augmented views)`, "");
@@ -94,6 +108,7 @@ try {
     if (flag("no-sweep")) params.set("sweep", "0");
     if (flag("no-personal")) params.set("personal", "0");
     if (flag("claude")) params.set("claude", "1");
+    if (flag("conditions")) params.set("conditions", "1");
     console.log(`[${backend}] ${base}?${params}`);
     await page.goto(`${base}?${params}`);
     let last = "";

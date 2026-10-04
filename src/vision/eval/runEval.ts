@@ -1,6 +1,9 @@
 import { detectImageFrame, initDetector } from "../../lib/detect";
 import { hasClaude } from "../../lib/claude";
 import { aimPoint, aimZone, rankCandidates, type Candidate, type Point } from "../core/aim";
+import { CONDITIONS, degrade, type Condition } from "../core/degrade";
+import { rotated } from "../core/enhance";
+import { DEFAULT_UPRIGHT, detectionEvidence, pickUpright, rotatePoint } from "../core/upright";
 import { DEFAULT_NAMING, type NamingConfig } from "../core/escalate";
 import {
   personalSweep,
@@ -17,9 +20,11 @@ import {
 } from "../core/evalScore";
 import { DEFAULT_PERSONAL, nearestPersonal, type PersonalEntry, type PersonalMatchConfig } from "../core/personalMatch";
 import { rankFrames, sharpness } from "../core/sharpness";
+import { GENERIC_WORDS, VOCABULARY } from "../../data/vocabulary";
+import { ENHANCE_DEFAULT, ROTATIONS_DEFAULT, TTA_DEFAULT, type NamerOptions, type RotationMode } from "../namer";
 import { askClaude, nameTarget, type NamingResult } from "../naming";
 import { teachSample } from "../personal";
-import { initSiglip, siglipState } from "../siglip";
+import { embedImages, initSiglip, siglipState, vocabIndex } from "../siglip";
 import { FileSource, IDENTITY, captureFrames, orientFrame, withTimeout } from "../sources";
 
 export type AimMode = "centre" | "labelled";
@@ -30,7 +35,45 @@ export interface EvalOptions {
   sweep: boolean;
   personal: boolean;
   claude: boolean;
+  conditions: boolean;
   onProgress?: (text: string) => void;
+}
+
+export interface ConditionReport {
+  folder: string;
+  variant: string;
+  condition: Condition;
+  summary: EvalSummary;
+}
+
+export type UprightMode = false | "detector" | "agree";
+
+export const VARIANTS: { name: string; namer: Pick<NamerOptions, "enhance" | "tta" | "rotations">; upright?: UprightMode }[] = [
+  { name: "plain", namer: { enhance: false, tta: false, rotations: false } },
+  { name: "upright-agree", namer: { enhance: false, tta: false, rotations: false }, upright: "agree" },
+  { name: "rot-margin", namer: { enhance: false, tta: false, rotations: "margin" } },
+];
+
+export async function uprightFrame(
+  image: HTMLCanvasElement,
+  aim: Point,
+  mode: UprightMode
+): Promise<{ image: HTMLCanvasElement; aim: Point; turn: number; ms: number }> {
+  const t0 = performance.now();
+  const views = [0, 1, 2, 3].map((q) => (q ? rotated(image, q) : image));
+  const evidence = views.map((v) => detectionEvidence(detectImageFrame(v).map((d) => d.score)));
+  let turn = pickUpright(evidence, DEFAULT_UPRIGHT);
+  if (mode === "agree" && turn !== 0) {
+    const vocab = vocabIndex();
+    const vectors = await embedImages(views);
+    const probs = vectors.map((v) => vocab?.top(v, 1)[0]?.prob ?? 0);
+    let bestSig = 0;
+    probs.forEach((p, q) => {
+      if (p > probs[bestSig]) bestSig = q;
+    });
+    if (bestSig !== turn) turn = 0;
+  }
+  return { image: views[turn], aim: rotatePoint(aim, image.width, image.height, turn), turn, ms: performance.now() - t0 };
 }
 
 export interface FolderReport {
@@ -56,10 +99,12 @@ export interface EvalReport {
   startedAt: string;
   ms: number;
   naming: NamingConfig;
+  defaults: { enhance: boolean; tta: boolean; rotations: RotationMode };
   missing: string[];
   folders: FolderReport[];
   sweeps: { folder: string; rows: SweepRow[]; picked: SweepRow | null }[];
   personal: PersonalReport[];
+  conditions: ConditionReport[];
 }
 
 interface Prepared {
@@ -67,6 +112,18 @@ interface Prepared {
   spec: LabelSpec;
   image: HTMLCanvasElement;
   prepMs: number;
+  sharpness: number;
+}
+
+function expectedGeneric(spec: LabelSpec): string | null {
+  const names = new Set([spec.label, ...(spec.accept ?? [])].map((s) => s.toLowerCase()));
+  const entry = VOCABULARY.find((v) => names.has(v.label.toLowerCase()));
+  return entry ? (GENERIC_WORDS[entry.category] ?? null) : null;
+}
+
+function sharpnessOf(image: HTMLCanvasElement, aim: Point): number {
+  const zone = aimZone(image.width, image.height, { zoneFrac: 0.5, offset: { dx: aim.x / image.width - 0.5, dy: aim.y / image.height - 0.5 } });
+  return sharpness(image, zone);
 }
 
 const BASE = import.meta.env.BASE_URL;
@@ -106,7 +163,7 @@ async function prepare(dir: string, file: string, spec: LabelSpec): Promise<Prep
     );
     const image = snapshot(ranked[0].item);
     ranked.forEach((r) => r.item.close());
-    return { file, spec, image, prepMs: performance.now() - t0 };
+    return { file, spec, image, prepMs: performance.now() - t0, sharpness: ranked[0].sharpness };
   } finally {
     source.stop();
   }
@@ -141,11 +198,13 @@ async function runCase(
   cfg: NamingConfig,
   personal: PersonalEntry[],
   claude: boolean,
-  personalCfg?: PersonalMatchConfig
+  personalCfg?: PersonalMatchConfig,
+  namer: Pick<NamerOptions, "enhance" | "tta" | "rotations"> = {},
+  extra: { turned?: number; ms?: number } = {}
 ): Promise<CaseResult> {
   const res = await nameTarget(
-    { image: p.image, candidates, aim },
-    { startLevel: 0, maxOptions: 4, cfg, namer: { personal, personalCfg } }
+    { image: p.image, candidates, aim, sharpness: p.sharpness },
+    { startLevel: 0, maxOptions: 4, cfg, namer: { personal, personalCfg, ...namer } }
   );
   let best = res.best.label;
   let source = res.best.capture.source;
@@ -174,10 +233,15 @@ async function runCase(
     source,
     low: res.low,
     empty,
+    blurry: res.blurry,
+    broad: res.broad && best === res.best.label,
+    turned: extra.turned ?? 0,
+    sharpness: p.sharpness,
+    expectedGeneric: expectedGeneric(p.spec),
     level: res.level,
     choices,
     ms,
-    totalMs: p.prepMs + detMs + ms,
+    totalMs: p.prepMs + detMs + ms + (extra.ms ?? 0),
   };
 }
 
@@ -259,7 +323,7 @@ async function evalPersonal(folder: string, prepared: Prepared[], progress: (t: 
     progress(`personal: recognising ${q.file}`);
     const p = prepared.find((x) => x.file === q.file)!;
     const { candidates, ms: detMs } = candidatesFor(q.image, q.aim);
-    const view: Prepared = { ...p, image: q.image, prepMs: 0 };
+    const view: Prepared = { ...p, image: q.image, prepMs: 0, sharpness: sharpnessOf(q.image, q.aim) };
     const withOwn = await runCase(view, q.aim, candidates, detMs, DEFAULT_NAMING, entries, false, cfg);
     totalMs += withOwn.ms;
     if (withOwn.source === "personal" && withOwn.best === `taught:${q.file}`) matched++;
@@ -288,10 +352,12 @@ export async function runEval(opts: EvalOptions): Promise<EvalReport> {
     startedAt: new Date().toISOString(),
     ms: 0,
     naming: DEFAULT_NAMING,
+    defaults: { enhance: ENHANCE_DEFAULT, tta: TTA_DEFAULT, rotations: ROTATIONS_DEFAULT },
     missing: [],
     folders: [],
     sweeps: [],
     personal: [],
+    conditions: [],
   };
   for (const dir of opts.dirs) {
     const labels = await loadLabels(dir);
@@ -334,6 +400,31 @@ export async function runEval(opts: EvalOptions): Promise<EvalReport> {
       report.sweeps.push({ folder: dir, rows, picked: pickLowConfidence(rows) });
     }
     if (opts.personal) report.personal.push(await evalPersonal(dir, prepared, progress));
+    if (opts.conditions) {
+      for (const variant of VARIANTS) {
+        for (const condition of CONDITIONS) {
+          const cases: { result: CaseResult; spec: LabelSpec }[] = [];
+          for (const [i, p] of prepared.entries()) {
+            progress(`${dir}: ${condition} / ${variant.name} ${p.file}`);
+            let d = degrade(p.image, condition, aimFor(p, "centre"), i + 1);
+            const extra: { turned?: number; ms?: number } = {};
+            if (variant.upright) {
+              const u = await uprightFrame(d.image, d.aim, variant.upright);
+              d = { image: u.image, aim: u.aim };
+              extra.turned = u.turn;
+              extra.ms = u.ms;
+            }
+            const { candidates, ms } = candidatesFor(d.image, d.aim);
+            const view: Prepared = { ...p, image: d.image, sharpness: sharpnessOf(d.image, d.aim) };
+            cases.push({
+              result: await runCase(view, d.aim, candidates, ms, DEFAULT_NAMING, [], false, undefined, variant.namer, extra),
+              spec: p.spec,
+            });
+          }
+          report.conditions.push({ folder: dir, variant: variant.name, condition, summary: summarizeCases(cases) });
+        }
+      }
+    }
   }
   report.ms = performance.now() - t0;
   progress("done");

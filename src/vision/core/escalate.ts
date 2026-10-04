@@ -16,16 +16,43 @@ export interface NamingConfig {
   widePenalty: number;
   minShow: number;
   minDetector: number;
+  minSharpness: number;
+  broadMin: number;
+  broadCommit: number;
+}
+
+export interface BroadGuess {
+  label: string;
+  score: number;
+  category: string;
+}
+
+export function broadGuess(
+  guesses: { label: string; score: number; category?: string }[],
+  generics: Record<string, string>,
+  minMass: number
+): BroadGuess | null {
+  const mass = new Map<string, number>();
+  for (const g of guesses) {
+    if (!g.category || !generics[g.category]) continue;
+    mass.set(g.category, (mass.get(g.category) ?? 0) + g.score);
+  }
+  const top = [...mass.entries()].sort((a, b) => b[1] - a[1])[0];
+  if (!top || top[1] < minMass) return null;
+  return { label: generics[top[0]], score: top[1], category: top[0] };
 }
 
 export const DEFAULT_NAMING: NamingConfig = {
   centreFrac: 0.35,
   wideFrac: 0.65,
-  lowConfidence: 0.35,
+  lowConfidence: 0.45,
   tinyAreaFrac: 0.01,
   widePenalty: 0.1,
   minShow: 0.12,
   minDetector: 0.5,
+  minSharpness: 200,
+  broadMin: 0.5,
+  broadCommit: 0.6,
 };
 
 export function worthShowing(

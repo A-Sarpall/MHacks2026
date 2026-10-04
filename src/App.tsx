@@ -261,7 +261,7 @@ export default function App() {
           dispatch({ type: "SET_STATUS", status: "identifying" });
           if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
           if (target.streamPick) console.info("[capture] stream", JSON.stringify(target.streamPick));
-          const res = await nameTarget(target, {
+          const res = await nameTarget({ ...target, sharpness: target.burst?.sharpness[0] ?? target.streamPick?.sharpness }, {
             startLevel: level,
             maxOptions: settingsRef.current.maxCandidates,
             namer: { boost: historyBoost() },
@@ -271,6 +271,8 @@ export default function App() {
             JSON.stringify({
               level: res.level,
               low: res.low,
+              blurry: res.blurry,
+              broad: res.broad,
               ms: Math.round(res.ms),
               tooSmall: res.tooSmall,
               empty: res.empty,
@@ -736,7 +738,9 @@ export default function App() {
                 detail:
                   o.capture.source === "claude"
                     ? `Claude's guess · ${RUNG_TEXT[o.rung.kind]}`
-                    : `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
+                    : o.key === "broad"
+                      ? `${Math.round(o.score * 100)}% sure it's some kind of ${o.label} · ${RUNG_TEXT[o.rung.kind]}`
+                      : `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
               }))}
               index={scan.index}
               hint={RING_HINTS[sourceSettings.autoScan ? "autoscan" : "scanning"]}

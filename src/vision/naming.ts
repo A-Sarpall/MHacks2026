@@ -1,9 +1,11 @@
 import { hasClaude } from "../lib/claude";
 import { identifyWithClaude } from "../lib/identify";
 import type { CapturedObject, LabelGuess } from "../lib/types";
+import { GENERIC_WORDS } from "../data/vocabulary";
 import { aimPoint, type Candidate, type Point } from "./core/aim";
 import {
   DEFAULT_NAMING,
+  broadGuess,
   cropLadder,
   escalate,
   orderForPointing,
@@ -19,6 +21,7 @@ export interface NamingInput {
   image: HTMLCanvasElement;
   candidates?: Candidate[];
   aim?: Point;
+  sharpness?: number;
 }
 
 export interface NamedOption {
@@ -35,6 +38,8 @@ export interface NamingResult {
   best: NamedOption;
   options: NamedOption[];
   low: boolean;
+  blurry: boolean;
+  broad: boolean;
   level: number;
   tooSmall: boolean;
   empty: boolean;
@@ -91,8 +96,44 @@ export async function nameTarget(
     });
   }
   const max = Math.max(1, opts.maxOptions ?? 4);
-  const low = (pointed[0]?.score ?? 0) < cfg.lowConfidence;
+  const blurry = input.sharpness !== undefined && input.sharpness < cfg.minSharpness;
+  let low = blurry || (pointed[0]?.score ?? 0) < cfg.lowConfidence;
   const lead = pointed[0];
+  let broad = false;
+  if (low && lead && lead.result.capture.source === "vocab") {
+    const mass = lead.result.categoryMass;
+    const guesses = mass
+      ? Object.entries(mass).map(([category, score]) => ({ label: category, score, category }))
+      : [
+          { label: lead.result.capture.label, score: lead.result.capture.confidence, category: lead.result.capture.category },
+          ...lead.result.capture.alternatives.filter((a) => a.source === "vocab"),
+        ];
+    const generic = broadGuess(guesses, GENERIC_WORDS, cfg.broadMin);
+    if (generic && !seen.has(generic.label)) {
+      seen.add(generic.label);
+      options.unshift({
+        key: "broad",
+        label: generic.label,
+        score: generic.score,
+        rung: lead,
+        capture: {
+          ...lead.result.capture,
+          id: `${lead.result.capture.id}-broad`,
+          label: generic.label,
+          confidence: generic.score,
+          source: "vocab",
+          alternatives: [
+            { label: lead.result.capture.label, score: lead.result.capture.confidence, source: "vocab" as const },
+            ...lead.result.capture.alternatives,
+          ].filter((a) => a.label !== generic.label),
+        },
+        crop: lead.result.crop,
+        embedding: lead.result.embedding,
+      });
+      broad = true;
+      if (!blurry && generic.score >= cfg.broadCommit) low = false;
+    }
+  }
   if (low && lead) {
     for (const alt of lead.result.capture.alternatives) {
       if (options.length >= max) break;
@@ -115,14 +156,14 @@ export async function nameTarget(
       });
     }
   }
-  const ranked = low
+  const ranked = low || broad
     ? [
         ...options.filter((o) => o.rung === lead || o.rung.kind !== "candidate"),
         ...options.filter((o) => o.rung !== lead && o.rung.kind === "candidate"),
       ]
     : options;
-  const shown = low
-    ? ranked.filter((o) => worthShowing(o.score, o.rung.kind, o.rung.candidate?.score, cfg))
+  const shown = low || broad
+    ? ranked.filter((o) => o.key === "broad" || worthShowing(o.score, o.rung.kind, o.rung.candidate?.score, cfg))
     : ranked;
   const final = shown.length > 0 ? shown : ranked;
   return {
@@ -130,6 +171,8 @@ export async function nameTarget(
     options: final.slice(0, max),
     empty: shown.length === 0,
     low,
+    blurry,
+    broad,
     level: esc.levelReached,
     tooSmall: tooSmall(candidates, w, h, cfg),
     ms: performance.now() - t0,
