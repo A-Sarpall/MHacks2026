@@ -730,17 +730,16 @@ export default function App() {
   const sayRef = useRef(say);
   sayRef.current = say;
   function scheduleFlush() {
-    if (flushTimerRef.current) clearTimeout(flushTimerRef.current);
+    if (flushTimerRef.current) return;
     flushTimerRef.current = setTimeout(() => {
       flushTimerRef.current = null;
       const summary = coalesceRef.current.flush(Date.now());
-      if (!summary) {
-        if (coalesceRef.current.pending()) scheduleFlush();
-        return;
+      if (summary) {
+        const pmNow = pmRef.current;
+        if (pmNow.targets.length > 0) pmNow.sendToTargets(summary).catch((err: unknown) => console.warn("[messages] repeat summary not sent", err));
       }
-      const pmNow = pmRef.current;
-      if (pmNow.targets.length > 0) pmNow.sendToTargets(summary).catch((err: unknown) => console.warn("[messages] repeat summary not sent", err));
-    }, coalesceRef.current.quietDelay());
+      if (coalesceRef.current.pending()) scheduleFlush();
+    }, coalesceRef.current.nextUpdateIn(Date.now()));
   }
 
   const intentId = state.selectedCoreWords[0] ?? null;
