@@ -1,12 +1,21 @@
 import type { Backchannel } from "./types";
 
 let currentUtterance: SpeechSynthesisUtterance | null = null;
+let rate = 0.95;
+
+export function setSpeechRate(r: number): void {
+  rate = Math.min(2, Math.max(0.5, r));
+}
+
+export function speechRate(): number {
+  return rate;
+}
 
 export function speakNow(text: string): Promise<void> {
   return new Promise((resolve, reject) => {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.95;
+    utterance.rate = rate;
     utterance.pitch = 1.0;
     currentUtterance = utterance;
     // Some systems never fire onend (no voices installed) — don't hang the UI

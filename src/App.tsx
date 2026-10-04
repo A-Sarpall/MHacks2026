@@ -5,7 +5,28 @@ import {
   type CaptureTarget,
 } from "./components/CameraView";
 import { TileBar } from "./components/TileBar";
-import { CoreWords } from "./components/CoreWords";
+import { IntentButtons } from "./components/IntentButtons";
+import { QuickPhrases } from "./components/QuickPhrases";
+import { SpokenBanner } from "./components/SpokenBanner";
+import { ACTIVE_PROFILE, isProfileIntent, type Ending, type QuickPhrase } from "./data/profiles";
+import { BuildSentence, type BuildState } from "./components/BuildSentence";
+import { buildSentence, profileVerbs } from "./lib/profileCompose";
+import { orderVerbs, recordVerb } from "./lib/verbHistory";
+import { setSpeechRate } from "./lib/speak";
+
+setSpeechRate(ACTIVE_PROFILE.sensory.speechRate);
+
+function withProfileDefaults<T extends { beep: boolean; speakOnHighlight: boolean; autoScan: boolean }>(settings: T): T {
+  let saved = false;
+  try {
+    saved = localStorage.getItem("cue.vision.source.v1") !== null;
+  } catch {
+    saved = false;
+  }
+  if (saved) return settings;
+  const s = ACTIVE_PROFILE.sensory;
+  return { ...settings, beep: s.soundFeedback, speakOnHighlight: s.speakOnHighlight, autoScan: s.autoScan };
+}
 import { Candidates } from "./components/Candidates";
 import { StatusBar } from "./components/StatusBar";
 import { HealthAlerts } from "./components/HealthAlerts";
@@ -29,11 +50,11 @@ import { TAPBACK_EMOJI } from "./lib/messages";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import { allergySentences, healthContext, type HealthProfile } from "./lib/health";
-import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
+import type { CapturedObject, InputAction } from "./lib/types";
 import { Scanner } from "./components/Scanner";
 import { RUNG_TEXT, askClaude, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
 import { correctSelection, historyBoost, recordSelection } from "./vision/history";
-import { RING_HINTS, commandFor, type RingMode } from "./vision/input/mappings";
+import { RING_HINTS, commandFor, type RingCommand, type RingMode } from "./vision/input/mappings";
 import { SourceSettings } from "./components/SourceSettings";
 import { Calibration, type CalibrationHandle } from "./components/Calibration";
 import { PersonalObjects, type PersonalObjectsHandle } from "./components/PersonalObjects";
@@ -73,6 +94,13 @@ export default function App() {
   const [clinicOpen, setClinicOpen] = useState(false);
   const pm = usePrivateMessaging();
   const [painOpen, setPainOpen] = useState(false);
+  const [cantTalk, setCantTalk] = useState(false);
+  const [quickIndex, setQuickIndex] = useState<number | null>(null);
+  const [intentIndex, setIntentIndex] = useState<number | null>(null);
+  const [build, setBuild] = useState<BuildState | null>(null);
+  const [buildIndex, setBuildIndex] = useState<number | null>(null);
+  const [sentenceIndex, setSentenceIndex] = useState<number | null>(null);
+  const flowRef = useRef({ quickIndex: null as number | null, intentIndex: null as number | null, sentenceIndex: null as number | null, build: null as BuildState | null, buildIndex: null as number | null, canBuild: false, buildVerbs: [] as string[] });
   const [painLevel, setPainLevel] = useState(5);
   const painRef = useRef({ open: painOpen, level: painLevel });
   painRef.current = { open: painOpen, level: painLevel };
@@ -83,7 +111,7 @@ export default function App() {
   // Full-size crops by capture id (tiles only keep a 160 px thumbnail, too small to read a label).
   const cropsRef = useRef(new Map<string, HTMLCanvasElement>());
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
-  const [sourceSettings, setSourceSettings] = useState(loadSourceSettings);
+  const [sourceSettings, setSourceSettings] = useState(() => withProfileDefaults(loadSourceSettings()));
   useEffect(() => saveSourceSettings(sourceSettings), [sourceSettings]);
   const { source, status: sourceStatus } = useFrameSource(sourceSettings, cameraId);
   useEffect(() => setMirror(source.kind === "webcam"), [source.kind]);
@@ -188,6 +216,10 @@ export default function App() {
       // A medicine is read by the hub's label check instead (it renames the tile on a match)
       const refine = hasClaude() && !confirmed && !isMed && capture.source !== "personal" && capture.source !== "claude";
       dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
+      setQuickIndex(null);
+      setSentenceIndex(null);
+      setBuild(null);
+      setIntentIndex(0);
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
@@ -377,6 +409,19 @@ export default function App() {
     [showToast]
   );
 
+  const handleQuickPhrase = useCallback(
+    (phrase: QuickPhrase) => {
+      setQuickIndex(null);
+      if (phrase.action === "pain") {
+        setPainOpen(true);
+        return;
+      }
+      if (phrase.action === "status") setCantTalk(true);
+      void handleSpeakRef.current(phrase.text);
+    },
+    []
+  );
+
   const handleSpeak = useCallback(
     async (sentence: string) => {
       setSpokenLog((log) => [...log, { text: sentence, at: Date.now() }]);
@@ -395,9 +440,88 @@ export default function App() {
 
   const ringMode = (): RingMode => {
     if (scanRef.current) return settingsRef.current.autoScan ? "autoscan" : "scanning";
+    const f = flowRef.current;
+    if (f.build) return f.build.step === "verb" ? "verbs" : "endings";
+    if (f.sentenceIndex !== null) return "sentences";
+    if (f.intentIndex !== null) return "intents";
+    if (f.quickIndex !== null) return "quick";
     if (pmRef.current.fresh) return "message";
     const review = reviewRef.current;
     return review && performance.now() < review.until ? "review" : "normal";
+  };
+
+  const flowStep = (mode: RingMode, command: RingCommand): boolean => {
+    const f = flowRef.current;
+    const cycle = (i: number | null, n: number, d = 1) => (n > 0 ? (((i ?? 0) + d) % n + n) % n : 0);
+    switch (mode) {
+      case "quick": {
+        const phrases = ACTIVE_PROFILE.quickPhrases;
+        if (command === "next") setQuickIndex(cycle(f.quickIndex, phrases.length));
+        else if (command === "select") handleQuickPhrase(phrases[f.quickIndex ?? 0]);
+        else if (command === "back") setQuickIndex(null);
+        else return false;
+        return true;
+      }
+      case "intents": {
+        const intents = ACTIVE_PROFILE.intents;
+        if (command === "next") setIntentIndex(cycle(f.intentIndex, intents.length));
+        else if (command === "select") {
+          const intent = intents[f.intentIndex ?? 0];
+          if (intent.needsObject && selectedTileIdsRef.current.length === 0) {
+            feedbackRef.current("error");
+            return true;
+          }
+          dispatch({ type: "TOGGLE_INTENT", intent: intent.id });
+          setIntentIndex(null);
+          setSentenceIndex(0);
+        } else if (command === "back") setIntentIndex(null);
+        else return false;
+        return true;
+      }
+      case "sentences": {
+        const n = candidatesRef.current.length + (f.canBuild ? 1 : 0);
+        if (command === "next") setSentenceIndex(cycle(f.sentenceIndex, n));
+        else if (command === "select") {
+          const i = f.sentenceIndex ?? 0;
+          if (i < candidatesRef.current.length) {
+            const sentence = candidatesRef.current[i];
+            if (pmRef.current.target) void sendPrivately(sentence);
+            else void handleSpeakRef.current(sentence);
+          } else if (f.canBuild) {
+            setBuild({ step: "verb", verb: null });
+            setBuildIndex(0);
+          }
+        } else if (command === "back") {
+          setSentenceIndex(null);
+          setIntentIndex(0);
+        } else return false;
+        return true;
+      }
+      case "verbs": {
+        if (command === "next") setBuildIndex(cycle(f.buildIndex, f.buildVerbs.length));
+        else if (command === "select") {
+          setBuild({ step: "ending", verb: f.buildVerbs[f.buildIndex ?? 0] });
+          setBuildIndex(0);
+        } else if (command === "back") {
+          setBuild(null);
+          setBuildIndex(null);
+          setSentenceIndex(candidatesRef.current.length);
+        } else return false;
+        return true;
+      }
+      case "endings": {
+        const endings = ACTIVE_PROFILE.endings;
+        if (command === "next") setBuildIndex(cycle(f.buildIndex, endings.length));
+        else if (command === "select") finishBuildRef.current(endings[f.buildIndex ?? 0]);
+        else if (command === "back") {
+          setBuild({ step: "verb", verb: null });
+          setBuildIndex(0);
+        } else return false;
+        return true;
+      }
+      default:
+        return false;
+    }
   };
 
   // Keyboard (simulating the ring)
@@ -431,7 +555,9 @@ export default function App() {
         return;
       }
       const mode = ringMode();
-      switch (commandFor(mode, action)) {
+      const command = commandFor(mode, action);
+      if (flowStep(mode, command)) return;
+      switch (command) {
         case "capture":
           ringCapture(0);
           break;
@@ -448,7 +574,7 @@ export default function App() {
           if (pmRef.current.target && state.candidates.length > 0) {
             void sendPrivately(state.candidates[0]);
           } else if (state.candidates.length === 0) {
-            setPainOpen(true); // hold with nothing to queue = "I'm in pain"
+            setQuickIndex(0);
           } else if (state.candidates.length > 0) {
             dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
           }
@@ -468,8 +594,12 @@ export default function App() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan, sendPrivately, sendPain, showToast]
+    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan, sendPrivately, sendPain, showToast, handleQuickPhrase]
   );
+  const candidatesRef = useRef(state.candidates);
+  candidatesRef.current = state.candidates;
+  const selectedTileIdsRef = useRef(state.selectedTileIds);
+  selectedTileIdsRef.current = state.selectedTileIds;
 
   const scanIndex = scan?.index ?? -1;
   const scanLabel = scan?.options[scan.index]?.label;
@@ -503,6 +633,7 @@ export default function App() {
   const selectionKey = `${selectedLabels.join("|")}#${state.selectedCoreWords.join("|")}#${health?.subject ?? ""}`;
 
   useEffect(() => {
+    setBuild(null);
     const healthInput = health ? healthContext(health, selectedLabels) : undefined;
     if (state.selectedCoreWords.length === 0) {
       // An allergen gets its warning sentence even before a core word
@@ -570,6 +701,28 @@ export default function App() {
     };
   }, [autoPause, hasQueue, showToast]);
 
+  const handleSpeakRef = useRef(handleSpeak);
+  handleSpeakRef.current = handleSpeak;
+
+  const intentId = state.selectedCoreWords[0] ?? null;
+  const canBuild =
+    intentId !== null && isProfileIntent(intentId) && intentId !== "feeling" && selectedLabels.length > 0 && state.candidates.length > 0;
+  const buildVerbs = canBuild ? orderVerbs(intentId, profileVerbs(intentId, selectedLabels)) : [];
+  flowRef.current = { quickIndex, intentIndex, sentenceIndex, build, buildIndex, canBuild, buildVerbs };
+  const currentMode = ringMode();
+  const finishBuild = (ending: Ending) => {
+    if (!build?.verb || !intentId) return;
+    const sentence = buildSentence(build.verb, selectedLabels[0], ending);
+    recordVerb(intentId, build.verb);
+    setBuild(null);
+    setBuildIndex(null);
+    setSentenceIndex(0);
+    if (pm.target) void sendPrivately(sentence);
+    else void handleSpeak(sentence);
+  };
+  const finishBuildRef = useRef(finishBuild);
+  finishBuildRef.current = finishBuild;
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b border-gray-200 px-6 py-3">
@@ -611,6 +764,15 @@ export default function App() {
       </header>
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
+        <QuickPhrases phrases={ACTIVE_PROFILE.quickPhrases} highlight={quickIndex} onPick={handleQuickPhrase} />
+        <div className="text-sm text-blue-800 text-center" data-testid="ring-hint">
+          {RING_HINTS[currentMode]}
+        </div>
+        <SpokenBanner
+          spoken={spokenLog.length > 0 ? spokenLog[spokenLog.length - 1].text : null}
+          cantTalk={cantTalk}
+          onClearStatus={() => setCantTalk(false)}
+        />
         {modelError && (
           <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
             {modelError}
@@ -839,13 +1001,17 @@ export default function App() {
 
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-xs text-gray-400 mb-2 text-center uppercase tracking-wider">
-            Core words
+            What do you want to say?
           </div>
-          <CoreWords
-            selectedCoreWords={state.selectedCoreWords}
-            onToggle={(word: CoreWord) =>
-              dispatch({ type: "TOGGLE_CORE_WORD", word })
-            }
+          <IntentButtons
+            intents={ACTIVE_PROFILE.intents}
+            selected={state.selectedCoreWords[0] ?? null}
+            highlight={intentIndex}
+            hasObject={state.selectedTileIds.length > 0}
+            onToggle={(intent) => {
+              setIntentIndex(null);
+              dispatch({ type: "TOGGLE_INTENT", intent: intent.id });
+            }}
           />
         </section>
 
@@ -865,7 +1031,45 @@ export default function App() {
             candidates={state.candidates}
             onSpeak={pm.target ? sendPrivately : handleSpeak}
             onQueue={(sentence) => (pm.target ? void sendPrivately(sentence) : dispatch({ type: "QUEUE_SENTENCE", sentence }))}
+            highlight={sentenceIndex}
           />
+          {canBuild && !build && (
+            <div className="w-full max-w-lg mx-auto mt-2">
+              <button
+                onClick={(e) => {
+                  setBuild({ step: "verb", verb: null });
+                  e.currentTarget.blur();
+                }}
+                className={`w-full px-4 py-3 bg-white border-2 border-dashed border-gray-400 rounded-xl text-left text-lg text-gray-800 ${
+                  sentenceIndex === state.candidates.length ? "outline outline-4 outline-blue-600 outline-offset-1" : ""
+                }`}
+                data-testid="build-open"
+              >
+                Build my own: I … the {selectedLabels[0]}
+              </button>
+            </div>
+          )}
+          {canBuild && build && (
+            <div className="mt-2">
+              <BuildSentence
+                object={selectedLabels[0]}
+                verbs={buildVerbs}
+                endings={ACTIVE_PROFILE.endings}
+                state={build}
+                highlight={buildIndex}
+                preview={build.verb ? `I ${build.verb} the ${selectedLabels[0]} …` : `I … the ${selectedLabels[0]}`}
+                onVerb={(verb) => {
+                  setBuild({ step: "ending", verb });
+                  setBuildIndex(null);
+                }}
+                onEnding={(ending) => finishBuild(ending)}
+                onBack={() => {
+                  setBuildIndex(null);
+                  setBuild((b) => (b?.step === "ending" ? { step: "verb", verb: null } : null));
+                }}
+              />
+            </div>
+          )}
         </section>
 
         {(state.captures.length > 0 || state.selectedCoreWords.length > 0) && (

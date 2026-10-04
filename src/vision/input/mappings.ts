@@ -1,6 +1,17 @@
 import type { InputAction } from "../../lib/types";
 
-export type RingMode = "normal" | "review" | "scanning" | "autoscan" | "message" | "pain";
+export type RingMode =
+  | "normal"
+  | "review"
+  | "scanning"
+  | "autoscan"
+  | "message"
+  | "pain"
+  | "quick"
+  | "intents"
+  | "sentences"
+  | "verbs"
+  | "endings";
 
 export type RingCommand =
   | "capture"
@@ -10,6 +21,7 @@ export type RingCommand =
   | "select"
   | "retake"
   | "tapback"
+  | "back"
   | "cancel";
 
 export const RING_MAPPINGS: Record<RingMode, Record<InputAction, RingCommand>> = {
@@ -21,6 +33,11 @@ export const RING_MAPPINGS: Record<RingMode, Record<InputAction, RingCommand>> =
   message: { click: "capture", double: "tapback", hold: "queue" },
   // Pain panel open: click steps the 1-10 level, hold sends it, double closes.
   pain: { click: "next", double: "cancel", hold: "select" },
+  quick: { click: "next", double: "back", hold: "select" },
+  intents: { click: "next", double: "back", hold: "select" },
+  sentences: { click: "next", double: "back", hold: "select" },
+  verbs: { click: "next", double: "back", hold: "select" },
+  endings: { click: "next", double: "back", hold: "select" },
 };
 
 export const RING_HINTS: Record<RingMode, string> = {
@@ -30,6 +47,11 @@ export const RING_HINTS: Record<RingMode, string> = {
   autoscan: "click: choose · double: retake · hold: cancel",
   message: "double: 👍 to their text · click: take picture · hold: queue sentence",
   pain: "click: next level · hold: send · double: close",
+  quick: "click: next phrase · hold: say it · double: close",
+  intents: "click: next · hold: choose · double: back",
+  sentences: "click: next sentence · hold: say it · double: back to intents",
+  verbs: "click: next word · hold: choose · double: back to sentences",
+  endings: "click: next ending · hold: say it · double: back to words",
 };
 
 export function commandFor(mode: RingMode, action: InputAction): RingCommand {
