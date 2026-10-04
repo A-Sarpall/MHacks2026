@@ -95,6 +95,23 @@ export default function App() {
   const pm = usePrivateMessaging();
   const [painOpen, setPainOpen] = useState(false);
   const [cantTalk, setCantTalk] = useState(false);
+  const [setupView, setSetupView] = useState(() => {
+    if (new URLSearchParams(window.location.search).get("view") === "setup") return true;
+    try {
+      return localStorage.getItem("cue.view.v1") === "setup";
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem("cue.view.v1", setupView ? "setup" : "user");
+    } catch {
+      return;
+    }
+  }, [setupView]);
+  const setupViewRef = useRef(setupView);
+  setupViewRef.current = setupView;
   const [quickIndex, setQuickIndex] = useState<number | null>(null);
   const [intentIndex, setIntentIndex] = useState<number | null>(null);
   const [build, setBuild] = useState<BuildState | null>(null);
@@ -212,7 +229,7 @@ export default function App() {
       cropsRef.current.set(capture.id, crop);
       if (cropsRef.current.size > 12) cropsRef.current.delete(cropsRef.current.keys().next().value!);
       recordSelection({ id: capture.id, label: capture.label, source: capture.source });
-      const isMed = isMedicationLabel(capture.label);
+      const isMed = setupViewRef.current && isMedicationLabel(capture.label);
       // A medicine is read by the hub's label check instead (it renames the tile on a match)
       const refine = hasClaude() && !confirmed && !isMed && capture.source !== "personal" && capture.source !== "claude";
       dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
@@ -735,6 +752,19 @@ export default function App() {
           </h1>
           <div className="flex items-center gap-3">
           <button
+            onClick={(e) => {
+              setSetupView((v) => !v);
+              e.currentTarget.blur();
+            }}
+            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            aria-pressed={setupView}
+            data-testid="view-toggle"
+          >
+            {setupView ? "Back to Qu" : "Setup"}
+          </button>
+          {setupView && (
+          <>
+          <button
             onClick={() => setPainOpen(true)}
             className="px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-sm font-semibold text-red-700 hover:bg-red-100"
           >
@@ -752,6 +782,8 @@ export default function App() {
           >
             Clinic summary
           </button>
+          </>
+          )}
           <StatusBar
             status={state.status}
             queuedSentence={state.queuedSentence}
@@ -780,7 +812,7 @@ export default function App() {
         )}
 
         <section className="flex flex-col items-center gap-2">
-          <div className="relative w-full max-w-2xl">
+          <div className={`relative w-full ${setupView ? "max-w-2xl" : "max-w-md"}`}>
             <CameraView
               ref={cameraRef}
               onCapture={(t) => void handleCapture(t)}
@@ -829,6 +861,7 @@ export default function App() {
               Mirror: {mirror ? "on" : "off"}
             </button>
           </div>
+          {setupView && (
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500">
             <span data-testid="track-info">
               {state.status === "loading"
@@ -891,6 +924,7 @@ export default function App() {
               </select>
             )}
           </div>
+          )}
           {scan && (
             <Scanner
               options={scan.options.map((o) => ({
@@ -917,7 +951,7 @@ export default function App() {
           {painOpen && <PainPanel level={painLevel} onLevel={setPainLevel} onSend={sendPain} onClose={() => setPainOpen(false)} />}
           <PrivateBar pm={pm} />
           <IncomingCard pm={pm} />
-          {medCard && (
+          {setupView && medCard && (
             <MedCard
               state={medCard}
               onTaken={markTaken}
@@ -925,6 +959,7 @@ export default function App() {
               onDismiss={() => setMedCard(null)}
             />
           )}
+          {setupView && (
           <SourceSettings
             settings={sourceSettings}
             onChange={setSourceSettings}
@@ -935,7 +970,8 @@ export default function App() {
             onCalibrate={() => setCalibrating(true)}
             onPersonal={() => setTeaching(true)}
           />
-          {teaching && (
+          )}
+          {setupView && teaching && (
             <PersonalObjects
               ref={teachRef}
               ready={siglip.status === "ready"}
@@ -951,7 +987,7 @@ export default function App() {
               onClose={() => setTeaching(false)}
             />
           )}
-          {calibrating && (
+          {setupView && calibrating && (
             <Calibration
               ref={calibRef}
               title={`${source.label}, ${sourceSettings.hand} hand`}
@@ -1016,6 +1052,7 @@ export default function App() {
         </section>
 
         <section>
+          {setupView && (
           <HealthAlerts
             profile={health}
             captures={selectedCaptures}
@@ -1027,6 +1064,7 @@ export default function App() {
               })
             }
           />
+          )}
           <Candidates
             candidates={state.candidates}
             onSpeak={pm.target ? sendPrivately : handleSpeak}
@@ -1072,7 +1110,7 @@ export default function App() {
           )}
         </section>
 
-        {(state.captures.length > 0 || state.selectedCoreWords.length > 0) && (
+        {setupView && (state.captures.length > 0 || state.selectedCoreWords.length > 0) && (
           <div className="flex justify-center">
             <button
               onClick={() => dispatch({ type: "CLEAR_ALL" })}
@@ -1083,6 +1121,7 @@ export default function App() {
           </div>
         )}
 
+        {setupView && (
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <HealthPanel
             profile={health}
@@ -1092,8 +1131,9 @@ export default function App() {
             onClearLog={() => setSpokenLog([])}
           />
         </section>
+        )}
       </main>
-      {clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
+      {setupView && clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
     </div>
   );
 }
