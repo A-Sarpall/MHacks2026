@@ -10,8 +10,7 @@ export type RingMode =
   | "quick"
   | "intents"
   | "sentences"
-  | "verbs"
-  | "endings";
+  | "slot";
 
 export type RingCommand =
   | "capture"
@@ -36,8 +35,7 @@ export const RING_MAPPINGS: Record<RingMode, Record<InputAction, RingCommand>> =
   quick: { click: "next", double: "back", hold: "select" },
   intents: { click: "next", double: "back", hold: "select" },
   sentences: { click: "next", double: "back", hold: "select" },
-  verbs: { click: "next", double: "back", hold: "select" },
-  endings: { click: "next", double: "back", hold: "select" },
+  slot: { click: "next", double: "back", hold: "select" },
 };
 
 export const RING_HINTS: Record<RingMode, string> = {
@@ -50,8 +48,7 @@ export const RING_HINTS: Record<RingMode, string> = {
   quick: "Space (click): next phrase · H (hold): say it · D (double): close",
   intents: "Space (click): next · H (hold): choose · D (double): back",
   sentences: "Space (click): next · H (hold): choose · D (double): back to intents",
-  verbs: "Space (click): next word · H (hold): choose · D (double): back",
-  endings: "Space (click): next ending · H (hold): say it · D (double): back to words",
+  slot: "Space (click): next choice · H (hold): choose (the last one says it) · D (double): back",
 };
 
 export function commandFor(mode: RingMode, action: InputAction): RingCommand {

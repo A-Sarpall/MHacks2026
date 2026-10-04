@@ -8,9 +8,13 @@ import { TileBar } from "./components/TileBar";
 import { IntentButtons } from "./components/IntentButtons";
 import { QuickPhrases } from "./components/QuickPhrases";
 import { SpokenBanner } from "./components/SpokenBanner";
-import { ACTIVE_PROFILE, isProfileIntent, type Ending, type QuickPhrase } from "./data/profiles";
+import { ACTIVE_PROFILE, isProfileIntent, type QuickPhrase } from "./data/profiles";
 import { BuildSentence, type BuildState } from "./components/BuildSentence";
-import { buildSentence, profileVerbs } from "./lib/profileCompose";
+import { activeFrameProviders, FRAME_TIMEOUT_MS, initialPicks, isComplete, optionLabel, renderFrame, type FrameInput } from "./lib/frames";
+import { useSentenceFrame } from "./lib/frames/useSentenceFrame";
+import { groupForLabel } from "./data/profiles";
+
+const FRAME_PROVIDERS = activeFrameProviders();
 import { mostUsedIndex, recordVerb } from "./lib/verbHistory";
 import { setSpeechRate } from "./lib/speak";
 
@@ -148,7 +152,8 @@ export default function App() {
   const [build, setBuild] = useState<BuildState | null>(null);
   const [buildIndex, setBuildIndex] = useState<number | null>(null);
   const [sentenceIndex, setSentenceIndex] = useState<number | null>(null);
-  const flowRef = useRef({ quickIndex: null as number | null, intentIndex: null as number | null, sentenceIndex: null as number | null, build: null as BuildState | null, buildIndex: null as number | null, canBuild: false, buildVerbs: [] as string[] });
+  const flowRef = useRef({ quickIndex: null as number | null, intentIndex: null as number | null, sentenceIndex: null as number | null, build: null as BuildState | null, buildIndex: null as number | null, canBuild: false });
+  const cropsRef = useRef(new Map<string, HTMLCanvasElement>());
   const helpRef = useRef(helpOpen);
   helpRef.current = helpOpen;
   const pmRef = useRef(pm);
@@ -217,6 +222,8 @@ export default function App() {
   const commitCapture = useCallback(
     async (capture: CapturedObject, crop: HTMLCanvasElement, confirmed = false) => {
       recordSelection({ id: capture.id, label: capture.label, source: capture.source });
+      cropsRef.current.set(capture.id, crop);
+      if (cropsRef.current.size > 12) cropsRef.current.delete(cropsRef.current.keys().next().value!);
       const refine = hasClaude() && !confirmed && capture.source !== "personal" && capture.source !== "claude";
       dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
       setQuickIndex(null);
@@ -466,7 +473,7 @@ export default function App() {
   const ringMode = (): RingMode => {
     if (scanRef.current) return settingsRef.current.autoScan ? "autoscan" : "scanning";
     const f = flowRef.current;
-    if (f.build) return f.build.step === "verb" ? "verbs" : "endings";
+    if (f.build) return "slot";
     if (f.sentenceIndex !== null) return "sentences";
     if (f.intentIndex !== null) return "intents";
     if (f.quickIndex !== null) return "quick";
@@ -519,25 +526,22 @@ export default function App() {
         } else return false;
         return true;
       }
-      case "verbs": {
-        if (command === "next") setBuildIndex(cycle(f.buildIndex, f.buildVerbs.length));
-        else if (command === "select") {
-          setBuild((b) => ({ step: "ending", verb: f.buildVerbs[f.buildIndex ?? 0], ending: b?.ending ?? "none" }));
-          setBuildIndex(0);
-        } else if (command === "back") {
-          setBuild(null);
-          setBuildIndex(null);
-          setSentenceIndex(0);
-        } else return false;
-        return true;
-      }
-      case "endings": {
-        const endings = ACTIVE_PROFILE.endings;
-        if (command === "next") setBuildIndex(cycle(f.buildIndex, endings.length));
-        else if (command === "select") finishBuildRef.current(endings[f.buildIndex ?? 0]);
+      case "slot": {
+        const fr = frameRef.current;
+        const b = f.build;
+        if (!fr || !b) return false;
+        const slot = fr.slots[b.slot];
+        if (command === "next") setBuildIndex(cycle(f.buildIndex, slot.options.length));
+        else if (command === "select") pickRef.current(b.slot, f.buildIndex ?? 0);
         else if (command === "back") {
-          setBuild((b) => ({ step: "verb", verb: b?.verb ?? null, ending: b?.ending ?? "none" }));
-          setBuildIndex(0);
+          if (b.slot > 0) {
+            setBuild({ ...b, slot: b.slot - 1 });
+            setBuildIndex(b.picks[fr.slots[b.slot - 1].id] ?? 0);
+          } else {
+            setBuild(null);
+            setBuildIndex(null);
+            setSentenceIndex(0);
+          }
         } else return false;
         return true;
       }
@@ -761,36 +765,74 @@ export default function App() {
   }
 
   const intentId = state.selectedCoreWords[0] ?? null;
-  const canBuild =
-    intentId !== null && isProfileIntent(intentId) && intentId !== "feeling" && selectedLabels.length > 0 && state.candidates.length > 0;
-  const buildVerbs = canBuild ? profileVerbs(intentId, selectedLabels) : [];
+  const frameCapture = !overstimulated && intentId !== null && isProfileIntent(intentId) ? state.captures.find((c) => state.selectedTileIds.includes(c.id)) ?? null : null;
+  const frameInput = useMemo<FrameInput | null>(() => {
+    if (!frameCapture || !intentId) return null;
+    const intent = ACTIVE_PROFILE.intents.find((i) => i.id === intentId)!;
+    return {
+      captureId: frameCapture.id,
+      object: {
+        label: frameCapture.label,
+        alternatives: frameCapture.alternatives.map((a) => a.label),
+        confidence: frameCapture.confidence,
+        source: frameCapture.source,
+        category: frameCapture.category ?? null,
+        group: groupForLabel(frameCapture.label),
+      },
+      image: { thumbnail: frameCapture.thumbnail, crop: cropsRef.current.get(frameCapture.id) ?? null },
+      intent: { id: intent.id, label: intent.label },
+      rules: { maxWords: ACTIVE_PROFILE.maxWords, maxOptions: 4, maxSlots: 3, promptNote: ACTIVE_PROFILE.promptNote },
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [frameCapture?.id, frameCapture?.label, intentId]);
+  const frameState = useSentenceFrame(frameInput, FRAME_PROVIDERS, FRAME_TIMEOUT_MS);
+  const frame = frameState.status === "ready" ? frameState.resolved.frame : null;
+  const frameRef = useRef(frame);
+  frameRef.current = frame;
+  const showBuilder = frameInput !== null && (frameState.status === "loading" || frame !== null);
+  const canBuild = frame !== null;
+  const builder: BuildState = build ?? { slot: 0, picks: frame ? initialPicks(frame) : {} };
+  const historyKey = (slotId: string) => `${intentId ?? ""}:${slotId}`;
+  const preHighlight = (slot: number, picks: BuildState["picks"]) => {
+    if (!frame) return 0;
+    const s = frame.slots[slot];
+    return picks[s.id] ?? mostUsedIndex(historyKey(s.id), s.options.map(optionLabel));
+  };
   const startBuild = () => {
-    setBuild({ step: "verb", verb: null, ending: "none" });
-    setBuildIndex(intentId ? mostUsedIndex(intentId, buildVerbs) : 0);
+    if (!frame) return;
+    const picks = initialPicks(frame);
+    setBuild({ slot: 0, picks });
+    setBuildIndex(preHighlight(0, picks));
   };
-  const builder: BuildState = build ?? { step: "verb", verb: null, ending: "none" };
-  const sayBuilt = () => {
-    if (!build?.verb || !intentId) return;
-    const sentence = buildSentence(build.verb, selectedLabels[0], build.ending);
-    recordVerb(intentId, build.verb);
+  const sayBuilt = (picks: BuildState["picks"] = builder.picks) => {
+    if (!frame || !isComplete(frame, picks)) return;
+    for (const s of frame.slots) {
+      const i = picks[s.id];
+      if (i !== null && i !== undefined) recordVerb(historyKey(s.id), optionLabel(s.options[i]));
+    }
+    const sentence = renderFrame(frame, picks);
     setBuild(null);
     setBuildIndex(null);
     setSentenceIndex(0);
     void say(sentence);
   };
-  flowRef.current = { quickIndex, intentIndex, sentenceIndex, build, buildIndex, canBuild, buildVerbs };
+  const pick = (slot: number, option: number) => {
+    if (!frame) return;
+    const picks = { ...builder.picks, [frame.slots[slot].id]: option };
+    const next = frame.slots.findIndex((s, i) => i > slot && (picks[s.id] === null || picks[s.id] === undefined));
+    const last = slot === frame.slots.length - 1;
+    if (last && isComplete(frame, picks)) {
+      sayBuilt(picks);
+      return;
+    }
+    const to = next >= 0 ? next : Math.min(slot + 1, frame.slots.length - 1);
+    setBuild({ slot: to, picks });
+    setBuildIndex(build ? preHighlight(to, picks) : null);
+  };
+  const pickRef = useRef(pick);
+  pickRef.current = pick;
+  flowRef.current = { quickIndex, intentIndex, sentenceIndex, build, buildIndex, canBuild };
   const currentMode = ringMode();
-  const finishBuild = (ending: Ending) => {
-    if (!build?.verb || !intentId) return;
-    const sentence = buildSentence(build.verb, selectedLabels[0], ending);
-    recordVerb(intentId, build.verb);
-    setBuild(null);
-    setBuildIndex(null);
-    setSentenceIndex(0);
-    void say(sentence);
-  };
-  const finishBuildRef = useRef(finishBuild);
-  finishBuildRef.current = finishBuild;
   const startBuildRef = useRef(startBuild);
   startBuildRef.current = startBuild;
 
@@ -990,25 +1032,20 @@ export default function App() {
     />
   );
 
-  const builderBlock = !overstimulated && canBuild && (
+  const builderBlock = showBuilder && (
     <BuildSentence
-      object={selectedLabels[0]}
-      verbs={buildVerbs}
-      endings={ACTIVE_PROFILE.endings}
+      frame={frame}
       state={builder}
       highlight={build ? buildIndex : null}
       stripHighlighted={sentenceIndex === 0 && build === null}
       actionLabel={pm.targets.length > 0 ? `Send to ${pm.targets.map((c) => c.name).join(", ")}` : "Say it"}
-      onVerb={(verb) => {
-        setBuild({ step: "ending", verb, ending: builder.ending });
-        setBuildIndex(0);
+      canSay={frame !== null && isComplete(frame, builder.picks)}
+      onSlot={(slot) => {
+        setBuild({ ...builder, slot });
+        setBuildIndex(build ? preHighlight(slot, builder.picks) : null);
       }}
-      onEnding={(ending) => {
-        if (builder.verb) finishBuild(ending);
-        else setBuild({ ...builder, ending });
-      }}
-      onSay={sayBuilt}
-      onOpen={() => (build ? setBuild(null) : startBuild())}
+      onPick={pick}
+      onSay={() => sayBuilt()}
     />
   );
 
