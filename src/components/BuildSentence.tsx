@@ -81,7 +81,7 @@ export function BuildSentence({ frame, state, highlight, stripHighlighted, actio
           {actionLabel}
         </button>
       </div>
-      <div className="grid grid-cols-4 gap-1.5" role="group" aria-label={active.prompt}>
+      <div className={`grid gap-1.5 ${active.options.length > 4 ? "grid-cols-3" : "grid-cols-4"}`} role="group" aria-label={active.prompt}>
         {active.options.map((o, i) => {
           const on = state.picks[active.id] === i;
           return (

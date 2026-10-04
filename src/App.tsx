@@ -781,7 +781,7 @@ export default function App() {
       },
       image: { thumbnail: frameCapture.thumbnail, crop: cropsRef.current.get(frameCapture.id) ?? null },
       intent: { id: intent.id, label: intent.label },
-      rules: { maxWords: ACTIVE_PROFILE.maxWords, maxOptions: 4, maxSlots: 3, promptNote: ACTIVE_PROFILE.promptNote },
+      rules: { maxWords: ACTIVE_PROFILE.maxWords, maxOptions: 6, maxSlots: 3, promptNote: ACTIVE_PROFILE.promptNote },
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frameCapture?.id, frameCapture?.label, intentId]);
