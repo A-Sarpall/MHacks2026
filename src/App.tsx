@@ -803,7 +803,7 @@ export default function App() {
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
         <QuickPhrases phrases={ACTIVE_PROFILE.quickPhrases} highlight={quickIndex} onPick={handleQuickPhrase} />
-        <div className="text-sm text-blue-800 text-center" data-testid="ring-hint">
+        <div className="text-base text-blue-900 text-center" data-testid="ring-hint">
           {RING_HINTS[currentMode]}
         </div>
         <SpokenBanner

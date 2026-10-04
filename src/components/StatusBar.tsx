@@ -59,9 +59,6 @@ export function StatusBar({
         </div>
       )}
 
-      <div className="text-xs text-gray-400">
-        Click/Space: identify · D: backchannel · H: queue
-      </div>
     </div>
   );
 }

@@ -41,17 +41,17 @@ export const RING_MAPPINGS: Record<RingMode, Record<InputAction, RingCommand>> =
 };
 
 export const RING_HINTS: Record<RingMode, string> = {
-  normal: "click: take picture · double: quick reply · hold: queue sentence",
-  review: "double: wrong? retake wider · click: next picture",
-  scanning: "click: next · hold: choose · double: retake",
-  autoscan: "click: choose · double: retake · hold: cancel",
-  message: "double: 👍 to their text · click: take picture · hold: queue sentence",
-  pain: "click: next level · hold: send · double: close",
-  quick: "click: next phrase · hold: say it · double: close",
-  intents: "click: next · hold: choose · double: back",
-  sentences: "click: next sentence · hold: say it · double: back to intents",
-  verbs: "click: next word · hold: choose · double: back to sentences",
-  endings: "click: next ending · hold: say it · double: back to words",
+  normal: "Space (click): take picture · D (double): quick reply · H (hold): queue sentence",
+  review: "D (double): wrong? retake wider · Space (click): next picture",
+  scanning: "Space (click): next · H (hold): choose · D (double): retake",
+  autoscan: "Space (click): choose · D (double): retake · H (hold): cancel",
+  message: "D (double): 👍 to their text · Space (click): take picture · H (hold): queue sentence",
+  pain: "Space (click): next level · H (hold): send · D (double): close",
+  quick: "Space (click): next phrase · H (hold): say it · D (double): close",
+  intents: "Space (click): next · H (hold): choose · D (double): back",
+  sentences: "Space (click): next sentence · H (hold): say it · D (double): back to intents",
+  verbs: "Space (click): next word · H (hold): choose · D (double): back to sentences",
+  endings: "Space (click): next ending · H (hold): say it · D (double): back to words",
 };
 
 export function commandFor(mode: RingMode, action: InputAction): RingCommand {
