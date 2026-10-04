@@ -76,7 +76,7 @@ export function TileBar({
                     key={alt.label}
                     onClick={() => onRename(c.id, alt.label)}
                     title={`Rename to "${alt.label}" (${alt.source}, ${Math.round(alt.score * 100)}%)`}
-                    className="px-1.5 py-0.5 text-[11px] rounded bg-white border border-gray-200 text-gray-600 hover:bg-blue-50 hover:border-blue-300"
+                    className="min-h-10 px-3 py-1 text-base rounded-lg bg-white border-2 border-gray-300 text-gray-800 hover:bg-blue-50 hover:border-blue-300"
                   >
                     {alt.label}
                   </button>
@@ -86,7 +86,7 @@ export function TileBar({
             <button
               onClick={() => onRemove(c.id)}
               title="Remove"
-              className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/50 text-white text-xs hover:bg-black/70"
+              className="absolute top-1 right-1 w-11 h-11 rounded-full bg-black/60 text-white text-lg hover:bg-black/80"
             >
               ✕
             </button>

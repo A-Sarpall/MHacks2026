@@ -395,7 +395,7 @@ export default function App() {
         if (contact) {
           await sendPrivate(contact.id, HELP_TEXT);
           names = [contact.name];
-        } else if (pmNow.targets.length > 0) {
+        } else if (pmNow.caretakers.length > 0) {
           names = await pmNow.sendToTargets(HELP_TEXT);
         } else if (pmNow.contacts[0]) {
           await sendPrivate(pmNow.contacts[0].id, HELP_TEXT);
@@ -428,7 +428,7 @@ export default function App() {
       if (phrase.action === "status") {
         setOverstimulated(true);
         const pmNow = pmRef.current;
-        if (pmNow.targets.length > 0) void pmNow.sendToTargets(ACTIVE_PROFILE.overstimulated.message).catch(() => feedbackRef.current("error"));
+        if (pmNow.caretakers.length > 0) void pmNow.sendToTargets(ACTIVE_PROFILE.overstimulated.message).catch(() => feedbackRef.current("error"));
         else if (pmNow.target) void pmNow.send(ACTIVE_PROFILE.overstimulated.message).catch(() => feedbackRef.current("error"));
       }
       void sayRef.current(phrase.text);
@@ -509,7 +509,7 @@ export default function App() {
       case "verbs": {
         if (command === "next") setBuildIndex(cycle(f.buildIndex, f.buildVerbs.length));
         else if (command === "select") {
-          setBuild({ step: "ending", verb: f.buildVerbs[f.buildIndex ?? 0] });
+          setBuild((b) => ({ step: "ending", verb: f.buildVerbs[f.buildIndex ?? 0], ending: b?.ending ?? "none" }));
           setBuildIndex(0);
         } else if (command === "back") {
           setBuild(null);
@@ -523,7 +523,7 @@ export default function App() {
         if (command === "next") setBuildIndex(cycle(f.buildIndex, endings.length));
         else if (command === "select") finishBuildRef.current(endings[f.buildIndex ?? 0]);
         else if (command === "back") {
-          setBuild({ step: "verb", verb: null });
+          setBuild((b) => ({ step: "verb", verb: b?.verb ?? null, ending: b?.ending ?? "none" }));
           setBuildIndex(0);
         } else return false;
         return true;
@@ -747,8 +747,18 @@ export default function App() {
     intentId !== null && isProfileIntent(intentId) && intentId !== "feeling" && selectedLabels.length > 0 && state.candidates.length > 0;
   const buildVerbs = canBuild ? profileVerbs(intentId, selectedLabels) : [];
   const startBuild = () => {
-    setBuild({ step: "verb", verb: null });
+    setBuild({ step: "verb", verb: null, ending: "none" });
     setBuildIndex(intentId ? mostUsedIndex(intentId, buildVerbs) : 0);
+  };
+  const buildSentenceText = build?.verb ? buildSentence(build.verb, selectedLabels[0] ?? "", build.ending) : `I … the ${selectedLabels[0] ?? ""}`;
+  const sayBuilt = () => {
+    if (!build?.verb || !intentId) return;
+    const sentence = buildSentence(build.verb, selectedLabels[0], build.ending);
+    recordVerb(intentId, build.verb);
+    setBuild(null);
+    setBuildIndex(null);
+    setSentenceIndex(0);
+    void say(sentence);
   };
   flowRef.current = { quickIndex, intentIndex, sentenceIndex, build, buildIndex, canBuild, buildVerbs };
   const currentMode = ringMode();
@@ -782,7 +792,7 @@ export default function App() {
               setSetupView((v) => !v);
               e.currentTarget.blur();
             }}
-            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="min-h-11 px-4 rounded-xl border-2 border-gray-300 text-base font-semibold text-gray-800 hover:bg-gray-100"
             aria-pressed={setupView}
             data-testid="view-toggle"
           >
@@ -815,7 +825,7 @@ export default function App() {
               setOverstimulated((v) => !v);
               e.currentTarget.blur();
             }}
-            className={`min-h-9 px-3 py-1.5 rounded-full border-2 text-sm font-semibold ${
+            className={`min-h-11 px-4 rounded-full border-2 text-base font-semibold ${
               overstimulated ? "border-red-500 bg-red-600 text-white" : "border-green-600 bg-green-50 text-green-900"
             }`}
             aria-pressed={overstimulated}
@@ -884,6 +894,7 @@ export default function App() {
                 {toast.text}
               </div>
             )}
+            {setupView && (
             <button
               onClick={(e) => {
                 setMirror((m) => !m);
@@ -894,6 +905,7 @@ export default function App() {
             >
               Mirror: {mirror ? "on" : "off"}
             </button>
+            )}
           </div>
           {setupView && (
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500">
@@ -1141,15 +1153,18 @@ export default function App() {
                 endings={ACTIVE_PROFILE.endings}
                 state={build}
                 highlight={buildIndex}
-                preview={build.verb ? `I ${build.verb} the ${selectedLabels[0]} …` : `I … the ${selectedLabels[0]}`}
+                sentence={buildSentenceText}
+                actionLabel={pm.targets.length > 0 ? `Send to ${pm.targets.map((c) => c.name).join(", ")}` : "Say it"}
                 onVerb={(verb) => {
-                  setBuild({ step: "ending", verb });
-                  setBuildIndex(null);
+                  setBuild((b) => ({ step: "ending", verb, ending: b?.ending ?? "none" }));
+                  setBuildIndex(0);
                 }}
-                onEnding={(ending) => finishBuild(ending)}
+                onEnding={(ending) => setBuild((b) => (b ? { ...b, ending } : b))}
+                onSay={sayBuilt}
                 onBack={() => {
                   setBuildIndex(null);
-                  setBuild((b) => (b?.step === "ending" ? { step: "verb", verb: null } : null));
+                  setBuild(null);
+                  setSentenceIndex(state.candidates.length);
                 }}
               />
             </div>

@@ -52,27 +52,27 @@ export function Scanner({ options, index, hint, autoScanSec, onPick, onSelect, o
               onPick(i);
               e.currentTarget.blur();
             }}
-            className={`flex flex-col items-center w-20 shrink-0 rounded-lg border-2 ${
+            className={`flex flex-col items-center w-28 shrink-0 rounded-lg border-2 ${
               i === index ? "border-blue-600 opacity-100" : "border-transparent opacity-70 hover:opacity-100"
             }`}
             data-testid="scan-option"
           >
             <img src={o.thumbnail} alt={o.label} className="w-full h-16 object-cover rounded-t-md bg-gray-100" />
-            <span className="text-[11px] capitalize truncate w-full text-center px-1">{o.label}</span>
+            <span className="text-base capitalize truncate w-full text-center px-1 py-1">{o.label}</span>
           </button>
         ))}
       </div>
       <div className="flex flex-wrap gap-2">
-        <button onClick={onSelect} className="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold">
+        <button onClick={onSelect} className="min-h-12 px-5 py-2 rounded-xl bg-blue-600 text-white text-lg font-semibold">
           Choose “{current.label}”
         </button>
-        <button onClick={onNext} className="px-4 py-2 rounded-lg border border-gray-200">
+        <button onClick={onNext} className="min-h-12 px-5 py-2 rounded-xl border-2 border-gray-300 text-lg">
           Next
         </button>
-        <button onClick={onRetake} className="px-4 py-2 rounded-lg border border-gray-200">
+        <button onClick={onRetake} className="min-h-12 px-5 py-2 rounded-xl border-2 border-gray-300 text-lg">
           Retake
         </button>
-        <button onClick={onCancel} className="px-4 py-2 rounded-lg border border-gray-200 ml-auto">
+        <button onClick={onCancel} className="min-h-12 px-5 py-2 rounded-xl border-2 border-gray-300 text-lg ml-auto">
           Cancel
         </button>
       </div>
