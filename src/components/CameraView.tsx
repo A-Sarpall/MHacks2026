@@ -175,6 +175,34 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     const frameRef = useRef<Frame | null>(null);
     const bufferRef = useRef(new FrameBuffer(BUFFER_FRAMES));
     const speedRef = useRef(new SpeedMeter());
+    const meterRef = useRef({ since: 0, frames: 0, detects: 0, detectMs: 0, w: 0, h: 0 });
+    const meterTick = (kind: "frame" | "detect", ms = 0, w = 0, h = 0) => {
+      const m = meterRef.current;
+      const now = performance.now();
+      if (m.since === 0) m.since = now;
+      if (kind === "frame") {
+        m.frames++;
+        m.w = w;
+        m.h = h;
+      } else {
+        m.detects++;
+        m.detectMs += ms;
+      }
+      if (now - m.since >= 5000) {
+        const s = (now - m.since) / 1000;
+        console.info(
+          "[frames]",
+          JSON.stringify({
+            source: source?.kind,
+            frameSize: `${m.w}x${m.h}`,
+            framesPerSec: +(m.frames / s).toFixed(1),
+            detectsPerSec: +(m.detects / s).toFixed(1),
+            detectAvgMs: m.detects ? Math.round(m.detectMs / m.detects) : null,
+          })
+        );
+        meterRef.current = { since: now, frames: 0, detects: 0, detectMs: 0, w: m.w, h: m.h };
+      }
+    };
     const frozenRef = useRef<{ image: HTMLCanvasElement; until: number } | null>(null);
     const dirtyRef = useRef(false);
     const tracksRef = useRef<TrackedObject[]>([]);
@@ -246,6 +274,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
       if (!source?.onFrame) return;
       source.onFrame((bmp, time) => {
         const up = orientFrame(bmp, orientationRef.current);
+        meterTick("frame", 0, up.width, up.height);
         setFrame({ bitmap: up, time, owned: false });
         buffer.push(up, time, speedRef.current.current());
         dirtyRef.current = true;
@@ -340,7 +369,10 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
           const now = performance.now();
           if (isDetectorReady() && now - lastDetect >= lastCost) {
             try {
-              tracksRef.current = tracker.update(detectImageFrame(frame.bitmap));
+              const t0 = performance.now();
+              const detections = detectImageFrame(frame.bitmap);
+              meterTick("detect", performance.now() - t0);
+              tracksRef.current = tracker.update(detections);
               const f = aimed();
               const { width: w, height: h } = frame.bitmap;
               const speed = speedRef.current.update(
