@@ -8,7 +8,10 @@ import { TileBar } from "./components/TileBar";
 import { IntentButtons } from "./components/IntentButtons";
 import { QuickPhrases } from "./components/QuickPhrases";
 import { SpokenBanner } from "./components/SpokenBanner";
-import { ACTIVE_PROFILE, type QuickPhrase } from "./data/profiles";
+import { ACTIVE_PROFILE, isProfileIntent, type Ending, type QuickPhrase } from "./data/profiles";
+import { BuildSentence, type BuildState } from "./components/BuildSentence";
+import { buildSentence, profileVerbs } from "./lib/profileCompose";
+import { orderVerbs, recordVerb } from "./lib/verbHistory";
 import { Candidates } from "./components/Candidates";
 import { StatusBar } from "./components/StatusBar";
 import { HealthAlerts } from "./components/HealthAlerts";
@@ -79,6 +82,8 @@ export default function App() {
   const [cantTalk, setCantTalk] = useState(false);
   const [quickIndex, setQuickIndex] = useState<number | null>(null);
   const [intentIndex, setIntentIndex] = useState<number | null>(null);
+  const [build, setBuild] = useState<BuildState | null>(null);
+  const [buildIndex, setBuildIndex] = useState<number | null>(null);
   const [painLevel, setPainLevel] = useState(5);
   const painRef = useRef({ open: painOpen, level: painLevel });
   painRef.current = { open: painOpen, level: painLevel };
@@ -520,6 +525,7 @@ export default function App() {
   const selectionKey = `${selectedLabels.join("|")}#${state.selectedCoreWords.join("|")}#${health?.subject ?? ""}`;
 
   useEffect(() => {
+    setBuild(null);
     const healthInput = health ? healthContext(health, selectedLabels) : undefined;
     if (state.selectedCoreWords.length === 0) {
       // An allergen gets its warning sentence even before a core word
@@ -589,6 +595,20 @@ export default function App() {
 
   const handleSpeakRef = useRef(handleSpeak);
   handleSpeakRef.current = handleSpeak;
+
+  const intentId = state.selectedCoreWords[0] ?? null;
+  const canBuild =
+    intentId !== null && isProfileIntent(intentId) && intentId !== "feeling" && selectedLabels.length > 0 && state.candidates.length > 0;
+  const buildVerbs = canBuild ? orderVerbs(intentId, profileVerbs(intentId, selectedLabels)) : [];
+  const finishBuild = (ending: Ending) => {
+    if (!build?.verb || !intentId) return;
+    const sentence = buildSentence(build.verb, selectedLabels[0], ending);
+    recordVerb(intentId, build.verb);
+    setBuild(null);
+    setBuildIndex(null);
+    if (pm.target) void sendPrivately(sentence);
+    else void handleSpeak(sentence);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -894,6 +914,41 @@ export default function App() {
             onSpeak={pm.target ? sendPrivately : handleSpeak}
             onQueue={(sentence) => (pm.target ? void sendPrivately(sentence) : dispatch({ type: "QUEUE_SENTENCE", sentence }))}
           />
+          {canBuild && !build && (
+            <div className="w-full max-w-lg mx-auto mt-2">
+              <button
+                onClick={(e) => {
+                  setBuild({ step: "verb", verb: null });
+                  e.currentTarget.blur();
+                }}
+                className="w-full px-4 py-3 bg-white border-2 border-dashed border-gray-400 rounded-xl text-left text-lg text-gray-800"
+                data-testid="build-open"
+              >
+                Build my own: I … the {selectedLabels[0]}
+              </button>
+            </div>
+          )}
+          {canBuild && build && (
+            <div className="mt-2">
+              <BuildSentence
+                object={selectedLabels[0]}
+                verbs={buildVerbs}
+                endings={ACTIVE_PROFILE.endings}
+                state={build}
+                highlight={buildIndex}
+                preview={build.verb ? `I ${build.verb} the ${selectedLabels[0]} …` : `I … the ${selectedLabels[0]}`}
+                onVerb={(verb) => {
+                  setBuild({ step: "ending", verb });
+                  setBuildIndex(null);
+                }}
+                onEnding={(ending) => finishBuild(ending)}
+                onBack={() => {
+                  setBuildIndex(null);
+                  setBuild((b) => (b?.step === "ending" ? { step: "verb", verb: null } : null));
+                }}
+              />
+            </div>
+          )}
         </section>
 
         {(state.captures.length > 0 || state.selectedCoreWords.length > 0) && (
