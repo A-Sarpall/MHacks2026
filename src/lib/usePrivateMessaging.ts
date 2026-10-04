@@ -20,6 +20,21 @@ export function usePrivateMessaging() {
       return [];
     }
   });
+  const [deliverTo, setDeliverToState] = useState<"speech" | "text">(() => {
+    try {
+      return localStorage.getItem("cue.deliver.v1") === "text" ? "text" : "speech";
+    } catch {
+      return "speech";
+    }
+  });
+  const setDeliverTo = useCallback((mode: "speech" | "text") => {
+    setDeliverToState(mode);
+    try {
+      localStorage.setItem("cue.deliver.v1", mode);
+    } catch {
+      return;
+    }
+  }, []);
   const [chosenOnce, setChosenOnce] = useState(() => {
     try {
       return localStorage.getItem("cue.contacts.selected.v1") !== null;
@@ -96,7 +111,8 @@ export function usePrivateMessaging() {
     [incoming]
   );
 
-  const targets = contacts.filter((c) => targetIds.includes(c.id));
+  const caretakers = contacts.filter((c) => targetIds.includes(c.id));
+  const targets = deliverTo === "text" ? caretakers : [];
   const toggleTarget = useCallback((c: Contact) => {
     setChosenOnce(true);
     setTargetIds((ids) => (ids.includes(c.id) ? ids.filter((id) => id !== c.id) : [...ids, c.id]));
@@ -108,7 +124,7 @@ export function usePrivateMessaging() {
   const sendToTargets = useCallback(
     async (text: string): Promise<string[]> => {
       const list = contactsRef.current.filter((c) => targetIds.includes(c.id));
-      if (list.length === 0) throw new Error("no contacts selected");
+      if (list.length === 0) throw new Error("no caregiver chosen");
       await Promise.all(list.map((c) => sendPrivate(c.id, text)));
       return list.map((c) => c.name);
     },
@@ -130,6 +146,9 @@ export function usePrivateMessaging() {
     target,
     setTarget,
     targets,
+    caretakers,
+    deliverTo,
+    setDeliverTo,
     toggleTarget,
     clearTargets,
     sendToTargets,

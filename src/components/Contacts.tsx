@@ -12,7 +12,7 @@ export function Contacts({ pm }: Props) {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const offline = pm.mode === "offline";
-  const selected = new Set(pm.targets.map((c) => c.id));
+  const selected = new Set(pm.caretakers.map((c) => c.id));
 
   const submit = async () => {
     if (busy) return;
@@ -34,7 +34,7 @@ export function Contacts({ pm }: Props) {
     <section className="w-full max-w-2xl mx-auto rounded-2xl border border-gray-200 bg-white p-3 flex flex-col gap-3" data-testid="contacts">
       <div className="flex items-center justify-between gap-3">
         <div className="text-base font-semibold text-gray-900">
-          {pm.targets.length === 0 ? "Say it out loud" : `Send to ${pm.targets.map((c) => c.name).join(", ")}`}
+          {pm.caretakers.length === 0 ? "No caregiver chosen" : `Current caregivers: ${pm.caretakers.map((c) => c.name).join(", ")}`}
         </div>
         <button
           onClick={(e) => {
@@ -50,7 +50,7 @@ export function Contacts({ pm }: Props) {
       {offline && <div className="text-base text-amber-800">Texting is off: the hub is not running.</div>}
       {!offline && pm.mode === "dry-run" && <div className="text-sm text-gray-500">Test mode: texts are logged, not sent.</div>}
       {pm.contacts.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2" role="group" aria-label="Send to">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2" role="group" aria-label="Tick the people Qu texts">
           {pm.contacts.map((c) => {
             const on = selected.has(c.id);
             return (
