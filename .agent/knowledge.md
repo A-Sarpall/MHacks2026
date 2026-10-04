@@ -82,6 +82,15 @@
 - Agents in one `Bureau` message each other locally (no endpoints needed); Bureau supports mailbox agents. `ctx.send_and_receive(dest, msg, response_type=Model, timeout=)` returns `(msg|None, status)`. Address from seed: `uagents.crypto.Identity.from_seed(seed, 0).address`.
 - MHacks 2026 hackpack (innovationlab.fetch.ai/events/hackathons/mhacks-2026/hackpack): must register an agent on Agentverse, implement the chat protocol, be usable in ASI:One with the primary workflow completed inside an ASI:One conversation; submit Devpost + "MHacks ASI:One Submission Agent"; README with agent names/addresses and the two badge lines; 3-5 min video; promo `MHACKS26MHACKS26AV`.
 
+## Ring onboarding (verified 2026-10-04)
+
+- ESP32-CAM ring Wi-Fi AP: SSID `Qu-Ring`, password `12345678`, WebSocket at `ws://192.168.4.1:81/`
+- Protocol unchanged from `src/vision/README.md`: binary JPEGs, `{"type":"capture","count":N}`, `{"type":"burst-end"}`, `{"type":"button","action":"click|double|hold"}`, `{"type":"feedback","kind":...}`
+- Ring has button (click/double/hold) and vibration motor (driven by feedback). No IMU.
+- Backup web remote: `http://192.168.4.1` (click/double/hold, vibration test, camera test, `/status` JSON)
+- Default `wsUrl` = `ws://192.168.4.1:81/`, default `wsMode` = `stream` (live preview)
+- `StatusInfo.status` field (not `.state`) for connection status: `idle | connecting | live | reconnecting | error`
+
 ## Photon CLI and shared-pool iMessage (verified 2026-10-03)
 
 - Package `@photon-ai/cli` (run via npx). `projects create --name X --platforms imessage [--json]` -> `{id, name, env}`; `projects secret <id> --json` -> `{id, projectSecret}`; `spectrum users add --first-name --last-name --email --phone [--invite]` (all four required non-interactively); `spectrum users ls --json` includes `assignedPhoneNumber`.

@@ -302,3 +302,39 @@ The costly error for this user group is a wrong word committed without asking, s
 - The remaining wrong auto-commits are vocabulary problems, not thresholds: "prayer book" and "travel mug" are too specific, and the keyboard of a laptop is named "keyboard". Merging over-specific labels into their everyday parent would help more than any threshold.
 - The personal "own object" scores come from augmented copies of one photo (0.94–0.99), which is optimistic; a real webcam re-capture of a taught object scored 0.92–0.97, so some real objects will narrowly miss at 0.92 and fall back to the vocabulary (safe, but less helpful). Teach 5 photos from varied angles.
 - WebGPU and WASM produce noticeably different scores with the 4-bit model (e.g. "mug" vs "travel mug"), so thresholds should be re-checked if the model or its quantisation changes.
+
+---
+
+### 2026-10-04 — Double-press always says "Yes!" (ring-onboarding branch)
+
+**Decision**
+
+Normal mode double-press plays "Yes!" (cloned-voice reaction clip if available, browser TTS otherwise) instead of cycling through the full backchannel list. The message mode exception is kept: while a caregiver text is fresh, double-press sends a 👍 tapback.
+
+**Reason**
+
+"Yes!" is by far the most useful quick reply for an AAC user. Cycling through 9 backchannels requires counting presses, which is cognitively expensive for someone who has difficulty speaking. The other backchannels remain available through the UI.
+
+---
+
+### 2026-10-04 — Personal objects link to contacts via contactId
+
+**Decision**
+
+Add an optional `contactId` to `PersonalObject`. When a personal-object match carries a `contactId`, the ring capture flow selects that contact as the private messaging target (same as reading their QR code) instead of committing a tile. QR targeting remains as a fallback.
+
+**Reason**
+
+Pointing the ring at someone's phone is more natural than asking them to open a QR page. The existing personal-object pipeline (SigLIP embeddings, cosine matching) handles phone recognition with no new model or heavy dependency; it is the same flow as teaching "Mom's mug".
+
+**Implication**
+
+`PersonalObject`, `PersonalEntry`, `PersonalHit`, `NamedCrop` and `NamedOption` all carry the optional `contactId`. Old taught objects without a `contactId` work exactly as before.
+
+---
+
+### 2026-10-04 — Onboarding flow stored in localStorage
+
+**Decision**
+
+One guided wizard ("Set up Qu"), auto-shown on first run, reachable from a header button, every step skippable and re-runnable. Completion stored in `localStorage` (`qu.onboarding.done`). No accounts or server-side state for onboarding.
