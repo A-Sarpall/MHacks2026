@@ -1,0 +1,189 @@
+{
+ "demographics": {
+  "name": "Harriet Lindqvist",
+  "birthDate": "1948-03-02",
+  "gender": "female"
+ },
+ "allergies": [
+  {
+   "substance": "Sulfonamide",
+   "reaction": "Synthetic example: hives",
+   "status": "active"
+  },
+  {
+   "substance": "Contrast media",
+   "reaction": "Synthetic example: nausea",
+   "status": "active"
+  }
+ ],
+ "medications": [
+  {
+   "name": "apixaban 5 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth twice daily",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-08-19",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "24 HR metoprolol succinate 50 MG Extended Release Oral Tablet",
+   "dosage": "Take 1 tablet by mouth once daily; do not crush",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-08-19",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "furosemide 40 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth every morning",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-08-19",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "lisinopril 10 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth once daily",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-10-14",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "atorvastatin 40 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth at bedtime",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-10-14",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "metformin hydrochloride 500 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth once daily with the evening meal",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-10-14",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "levothyroxine sodium 0.075 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth every morning on an empty stomach",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2026-01-20",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "omeprazole 20 MG Delayed Release Oral Capsule",
+   "dosage": "Take 1 capsule by mouth once daily before breakfast",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-10-14",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "acetaminophen 500 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth every 8 hours as needed for knee pain",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-10-14",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "sertraline 50 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth once daily",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2026-01-20",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "trazodone hydrochloride 50 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth at bedtime as needed for sleep",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2026-01-20",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "potassium chloride 20 MEQ Extended Release Oral Tablet",
+   "dosage": "Take 1 tablet by mouth once daily with food",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-08-19",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "cholecalciferol 0.025 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth once daily",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-10-14",
+   "endDate": null,
+   "reason": null
+  },
+  {
+   "name": "aspirin 81 MG Oral Tablet",
+   "dosage": "Take 1 tablet by mouth once daily",
+   "frequency": null,
+   "status": "active",
+   "startDate": "2025-10-14",
+   "endDate": null,
+   "reason": null
+  }
+ ],
+ "conditions": [
+  {
+   "name": "Chronic kidney disease stage 3",
+   "status": "active"
+  },
+  {
+   "name": "Atrial fibrillation",
+   "status": "active"
+  },
+  {
+   "name": "Heart failure",
+   "status": "active"
+  },
+  {
+   "name": "Essential hypertension",
+   "status": "active"
+  },
+  {
+   "name": "Type 2 diabetes mellitus",
+   "status": "active"
+  },
+  {
+   "name": "Hyperlipidemia",
+   "status": "active"
+  },
+  {
+   "name": "Hypothyroidism",
+   "status": "active"
+  },
+  {
+   "name": "Osteoarthritis of knee",
+   "status": "active"
+  },
+  {
+   "name": "Gastroesophageal reflux disease",
+   "status": "active"
+  },
+  {
+   "name": "Insomnia",
+   "status": "active"
+  }
+ ]
+}

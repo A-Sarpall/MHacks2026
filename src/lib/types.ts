@@ -28,7 +28,7 @@ export interface TrackedObject {
 export interface LabelGuess {
   label: string;
   score: number;
-  source: "detector" | "classifier" | "claude";
+  source: "detector" | "classifier" | "claude" | "vocab" | "personal";
 }
 
 // An object the user captured and identified; shown as a tile
@@ -77,6 +77,7 @@ export const BACKCHANNELS = [
   "haha",
   "mm-hmm",
   "wait",
+  "hold-on",
   "wow",
   "okay",
   "thanks",

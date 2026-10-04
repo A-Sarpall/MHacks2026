@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   CameraView,
   type CameraViewHandle,
@@ -12,15 +12,45 @@ import { HealthAlerts } from "./components/HealthAlerts";
 import { HealthPanel, type SpokenEntry } from "./components/HealthPanel";
 import { initDetector } from "./lib/detect";
 import { initClassifier } from "./lib/classify";
-import { identifyLocal, identifyWithClaude } from "./lib/identify";
+import { identifyFromImage, identifyWithClaude } from "./lib/identify";
 import { hasClaude } from "./lib/claude";
 import { claudeComposer, composeMock } from "./lib/compose";
-import { speakNow, playBackchannel } from "./lib/speak";
-import { startInputListening, stopInputListening } from "./lib/input";
+import { tts } from "./lib/tts";
+import { canvasToJpegBase64, checkMedication, isMedicationLabel } from "./lib/meds";
+import { MedCard, type MedState } from "./components/MedCard";
+import { ClinicPanel } from "./components/ClinicPanel";
+import { PainPanel } from "./components/PainPanel";
+import { logSpoken, markTaken, reportPain } from "./lib/care";
+import { PrivateBar } from "./components/PrivateBar";
+import { IncomingCard } from "./components/IncomingCard";
+import { usePrivateMessaging } from "./lib/usePrivateMessaging";
+import { readContactQr } from "./lib/qr";
+import { TAPBACK_EMOJI } from "./lib/messages";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import { allergySentences, healthContext, type HealthProfile } from "./lib/health";
 import type { CoreWord, InputAction } from "./lib/types";
+import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
+import { Scanner } from "./components/Scanner";
+import { RUNG_TEXT, askClaude, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
+import { correctSelection, historyBoost, recordSelection } from "./vision/history";
+import { RING_HINTS, commandFor, type RingMode } from "./vision/input/mappings";
+import { SourceSettings } from "./components/SourceSettings";
+import { Calibration, type CalibrationHandle } from "./components/Calibration";
+import { PersonalObjects, type PersonalObjectsHandle } from "./components/PersonalObjects";
+import {
+  isStillSource,
+  loadSourceSettings,
+  orientationFor,
+  orientationKey,
+  saveSourceSettings,
+} from "./vision/settings";
+import { clearCalibration, loadCalibration, saveCalibration } from "./vision/calibration";
+import type { FeedbackKind } from "./vision/input/types";
+import { useButtonInputs, useFrameSource } from "./vision/useVisionIO";
+import { initSiglip, onSiglipState, type SiglipState } from "./vision/siglip";
+
+const REVIEW_MS = 4000;
 
 export default function App() {
   const { state, dispatch } = useCueStore();
@@ -40,7 +70,56 @@ export default function App() {
   const healthRef = useRef(health);
   healthRef.current = health;
   const [spokenLog, setSpokenLog] = useState<SpokenEntry[]>([]);
+  const [medCard, setMedCard] = useState<MedState | null>(null);
+  const [clinicOpen, setClinicOpen] = useState(false);
+  const pm = usePrivateMessaging();
+  const [painOpen, setPainOpen] = useState(false);
+  const [painLevel, setPainLevel] = useState(5);
+  const painRef = useRef({ open: painOpen, level: painLevel });
+  painRef.current = { open: painOpen, level: painLevel };
+  const pmRef = useRef(pm);
+  pmRef.current = pm;
+  // What the user has said with Qu, newest last: goes into the clinic summary as "their own words".
+  const spokenRef = useRef<string[]>([]);
+  // Full-size crops by capture id (tiles only keep a 160 px thumbnail, too small to read a label).
+  const cropsRef = useRef(new Map<string, HTMLCanvasElement>());
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
+  const [sourceSettings, setSourceSettings] = useState(loadSourceSettings);
+  useEffect(() => saveSourceSettings(sourceSettings), [sourceSettings]);
+  const { source, status: sourceStatus } = useFrameSource(sourceSettings, cameraId);
+  useEffect(() => setMirror(source.kind === "webcam"), [source.kind]);
+  const calibKey = orientationKey(sourceSettings.kind, sourceSettings.hand);
+  const [calibration, setCalibration] = useState(() => loadCalibration(calibKey));
+  useEffect(() => setCalibration(loadCalibration(calibKey)), [calibKey]);
+  const aim = useMemo(
+    () => ({
+      zoneFrac: sourceSettings.zoneFrac,
+      offset: (sourceSettings.useCalibration && calibration?.offset) || { dx: 0, dy: 0 },
+    }),
+    [sourceSettings.zoneFrac, sourceSettings.useCalibration, calibration]
+  );
+  const [calibrating, setCalibrating] = useState(false);
+  const calibratingRef = useRef(calibrating);
+  calibratingRef.current = calibrating;
+  const calibRef = useRef<CalibrationHandle>(null);
+  const [teaching, setTeaching] = useState(false);
+  const teachingRef = useRef(teaching);
+  teachingRef.current = teaching;
+  const teachRef = useRef<PersonalObjectsHandle>(null);
+  const feedbackRef = useRef<(kind: FeedbackKind) => void>(() => {});
+  const [scan, setScan] = useState<{ options: NamedOption[]; index: number; level: number } | null>(null);
+  const scanRef = useRef(scan);
+  const scanSeq = useRef(0);
+  scanRef.current = scan;
+  const reviewRef = useRef<{ until: number; level: number } | null>(null);
+  const [hint, setHint] = useState<{ text: string; key: number } | null>(null);
+  useEffect(() => {
+    if (!hint) return;
+    const t = setTimeout(() => setHint(null), 3000);
+    return () => clearTimeout(t);
+  }, [hint]);
+  const settingsRef = useRef(sourceSettings);
+  settingsRef.current = sourceSettings;
 
   // Brief "Identified: X" banner over the camera
   const showToast = useCallback((text: string) => {
@@ -52,9 +131,13 @@ export default function App() {
     return () => clearTimeout(t);
   }, [toast]);
 
+  const [siglip, setSiglip] = useState<SiglipState>({ status: "idle", progress: 0 });
+  useEffect(() => onSiglipState(setSiglip), []);
+
   // Load both models up front; the detector gates the "ready" state, the
   // classifier only improves identification.
   useEffect(() => {
+    initSiglip().catch((err) => console.warn("[siglip] not available, using the fallback classifier", err));
     initClassifier().catch((err) =>
       console.warn("[classify] failed to load, using detector labels", err)
     );
@@ -68,20 +151,39 @@ export default function App() {
       });
   }, [dispatch]);
 
-  const handleCapture = useCallback(
-    async (target: CaptureTarget) => {
-      const { capture, crop } = identifyLocal(
-        target.video,
-        target.box,
-        target.detected
-      );
-      dispatch({ type: "ADD_CAPTURE", capture });
+  // Medication mode: a medicine bottle was named, so read its label and check it against the record.
+  const runMedCheck = useCallback(
+    async (input: { image: string } | { drug: string; strength?: string }) => {
+      setMedCard({ status: "checking" });
+      try {
+        const { read, verdict } = await checkMedication(input);
+        setMedCard({ status: "done", verdict, read });
+        tts.speak(verdict.speech).catch(() => {});
+      } catch (err) {
+        const message = (err as Error).message;
+        setMedCard({ status: "error", message });
+        tts.speak("I can't read this label. Don't take it until you know what it is.").catch(() => {});
+      }
+    },
+    []
+  );
+
+  const commitCapture = useCallback(
+    async (capture: CapturedObject, crop: HTMLCanvasElement, confirmed = false) => {
+      // Keep the full-size crop: a tile only has a 160 px thumbnail, too small to read a medicine label.
+      cropsRef.current.set(capture.id, crop);
+      if (cropsRef.current.size > 12) cropsRef.current.delete(cropsRef.current.keys().next().value!);
+      recordSelection({ id: capture.id, label: capture.label, source: capture.source });
+      const refine = hasClaude() && !confirmed && capture.source !== "personal" && capture.source !== "claude";
+      dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
       );
-      if (sayNameRef.current && !hasClaude()) speakNow(capture.label).catch(() => {});
-      if (!hasClaude()) return;
+      const isMed = isMedicationLabel(capture.label);
+      if (isMed) void runMedCheck({ image: canvasToJpegBase64(crop) });
+      if (sayNameRef.current && !refine && !isMed) tts.speak(capture.label).catch(() => {});
+      if (!refine) return;
 
       dispatch({ type: "SET_STATUS", status: "identifying" });
       try {
@@ -100,8 +202,9 @@ export default function App() {
             }
           : {};
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { ...patch, refining: false } });
+        if (label) correctSelection(capture.id, label, "claude");
         if (label && label !== capture.label) showToast(`Claude says: ${label}`);
-        if (sayNameRef.current) speakNow(label ?? capture.label).catch(() => {});
+        if (sayNameRef.current) tts.speak(label ?? capture.label).catch(() => {});
       } catch (err) {
         console.warn("[identify] Claude vision failed", err);
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { refining: false } });
@@ -109,15 +212,166 @@ export default function App() {
         dispatch({ type: "SET_STATUS", status: "idle" });
       }
     },
-    [dispatch, showToast]
+    [dispatch, showToast, runMedCheck]
+  );
+
+  const handleCapture = useCallback(
+    async (target: CaptureTarget) => {
+      feedbackRef.current("captured");
+      const { capture, crop } = identifyFromImage(target.image, target.box, target.detected);
+      await commitCapture(capture, crop);
+    },
+    [commitCapture]
+  );
+
+  const endScan = useCallback((unfreezeAfterMs = 0) => {
+    scanSeq.current++;
+    setScan(null);
+    setTimeout(() => cameraRef.current?.unfreeze(), unfreezeAfterMs);
+  }, []);
+
+  const ringCapture = useCallback(
+    (level: number) => {
+      reviewRef.current = null;
+      cameraRef.current
+        ?.capture()
+        .then(async (target) => {
+          if (!target) return;
+          feedbackRef.current("captured");
+          // A contact holding up their Qu QR code means "message them privately", not "name an object".
+          const qrId = readContactQr(target.image);
+          if (qrId) {
+            const name = await pmRef.current.selectById(qrId);
+            feedbackRef.current(name ? "select" : "error");
+            showToast(name ? `Private to ${name}` : "Unknown QR code");
+            endScan();
+            return;
+          }
+          dispatch({ type: "SET_STATUS", status: "identifying" });
+          if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
+          if (target.streamPick) console.info("[capture] stream", JSON.stringify(target.streamPick));
+          const res = await nameTarget(target, {
+            startLevel: level,
+            maxOptions: settingsRef.current.maxCandidates,
+            namer: { boost: historyBoost() },
+          }).finally(() => dispatch({ type: "SET_STATUS", status: "idle" }));
+          console.info(
+            "[naming]",
+            JSON.stringify({
+              level: res.level,
+              low: res.low,
+              ms: Math.round(res.ms),
+              tooSmall: res.tooSmall,
+              empty: res.empty,
+              options: res.options.map((o) => [o.label, Math.round(o.score * 100), o.rung.kind]),
+            })
+          );
+          if (res.tooSmall) setHint({ text: "Move closer", key: Date.now() });
+          const seq = ++scanSeq.current;
+          if (res.empty && hasClaude()) {
+            setHint({ text: "Not sure. Asking Claude…", key: Date.now() });
+            dispatch({ type: "SET_STATUS", status: "identifying" });
+            const guess = await askClaude(res.best, res.options).finally(() =>
+              dispatch({ type: "SET_STATUS", status: "idle" })
+            );
+            if (seq !== scanSeq.current) return;
+            console.info("[naming] fallback", JSON.stringify({ claude: guess?.label ?? null }));
+            if (guess) {
+              setHint(null);
+              setScan({ options: [guess], index: 0, level: res.level });
+              return;
+            }
+          }
+          if (res.empty) {
+            feedbackRef.current("error");
+            setHint({ text: "Not sure what that is. Try again or move closer", key: Date.now() });
+            endScan();
+            return;
+          }
+          if (!res.low) {
+            void commitCapture(withAlternatives(res.best, res.options), res.best.crop);
+            reviewRef.current = { until: performance.now() + REVIEW_MS, level: res.level };
+            endScan(900);
+            return;
+          }
+          setScan({ options: res.options, index: 0, level: res.level });
+          if (!hasClaude()) return;
+          const guess = await askClaude(res.best, res.options);
+          console.info("[naming] fallback", JSON.stringify({ claude: guess?.label ?? null }));
+          if (!guess || seq !== scanSeq.current) return;
+          setScan((s) => {
+            if (!s || s.options.some((o) => o.label.toLowerCase() === guess.label.toLowerCase())) return s;
+            const options = [...s.options];
+            options.splice(s.index + 1, 0, guess);
+            return { ...s, options };
+          });
+        })
+        .catch((err: unknown) => {
+          console.warn("[capture]", err);
+          feedbackRef.current("error");
+          showToast(String((err as Error)?.message ?? "Could not take a picture"));
+        });
+    },
+    [commitCapture, endScan, showToast, dispatch]
+  );
+
+  const chooseScan = useCallback(
+    (index?: number) => {
+      const s = scanRef.current;
+      if (!s) return;
+      const chosen = s.options[index ?? s.index];
+      feedbackRef.current("select");
+      void commitCapture(withAlternatives(chosen, s.options), chosen.crop, true);
+      endScan(600);
+    },
+    [commitCapture, endScan]
+  );
+
+  const moveScan = useCallback((delta: number) => {
+    setScan((s) => s && { ...s, index: (s.index + delta + s.options.length) % s.options.length });
+  }, []);
+
+  const retake = useCallback(
+    (fromLevel: number) => {
+      setScan(null);
+      cameraRef.current?.unfreeze();
+      ringCapture(Math.min(2, fromLevel + 1));
+    },
+    [ringCapture]
+  );
+
+  // With a private contact selected, a picked sentence is texted to them instead of spoken aloud.
+  const sendPrivately = useCallback(
+    async (sentence: string) => {
+      try {
+        const name = await pmRef.current.send(sentence);
+        feedbackRef.current("select");
+        showToast(`Sent privately to ${name}`);
+      } catch (err) {
+        feedbackRef.current("error");
+        showToast(`Couldn't send: ${(err as Error).message}`);
+      }
+    },
+    [showToast]
+  );
+
+  const sendPain = useCallback(
+    async (level: number | null) => {
+      await reportPain(level);
+      feedbackRef.current("select");
+      showToast("Your caregiver is being told");
+    },
+    [showToast]
   );
 
   const handleSpeak = useCallback(
     async (sentence: string) => {
       setSpokenLog((log) => [...log, { text: sentence, at: Date.now() }]);
       dispatch({ type: "SET_STATUS", status: "speaking" });
+      spokenRef.current = [...spokenRef.current, sentence].slice(-20);
+      logSpoken(sentence);
       try {
-        await speakNow(sentence);
+        await tts.speak(sentence);
       } catch (err) {
         console.warn("[speak]", err);
       }
@@ -126,27 +380,107 @@ export default function App() {
     [dispatch]
   );
 
+  const ringMode = (): RingMode => {
+    if (scanRef.current) return settingsRef.current.autoScan ? "autoscan" : "scanning";
+    if (pmRef.current.fresh) return "message";
+    const review = reviewRef.current;
+    return review && performance.now() < review.until ? "review" : "normal";
+  };
+
   // Keyboard (simulating the ring)
   const handleInput = useCallback(
     (action: InputAction) => {
-      if (action === "click") {
-        const target = cameraRef.current?.captureFocused();
-        if (target) void handleCapture(target);
+      if (calibratingRef.current) {
+        if (action === "click") calibRef.current?.press();
+        if (action === "double") calibRef.current?.undo();
+        if (action === "hold") calibRef.current?.save();
+        return;
       }
-      if (action === "double") {
-        playBackchannel(nextBackchannel());
+      if (painRef.current.open) {
+        switch (commandFor("pain", action)) {
+          case "next":
+            setPainLevel((l) => (l % 10) + 1);
+            feedbackRef.current("highlight");
+            break;
+          case "select":
+            void sendPain(painRef.current.level).catch(() => feedbackRef.current("error"));
+            break;
+          case "cancel":
+            setPainOpen(false);
+            break;
+        }
+        return;
       }
-      if (action === "hold" && state.candidates.length > 0) {
-        dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
+      if (teachingRef.current) {
+        if (action === "click") teachRef.current?.press();
+        if (action === "double") teachRef.current?.undo();
+        if (action === "hold") teachRef.current?.save();
+        return;
+      }
+      const mode = ringMode();
+      switch (commandFor(mode, action)) {
+        case "capture":
+          ringCapture(0);
+          break;
+        case "backchannel":
+          tts.playBackchannel(nextBackchannel());
+          break;
+        case "tapback":
+          pmRef.current
+            .tap("like")
+            .then((name) => name && showToast(`${TAPBACK_EMOJI.like} sent to ${name}`))
+            .catch(() => feedbackRef.current("error"));
+          break;
+        case "queue":
+          if (pmRef.current.target && state.candidates.length > 0) {
+            void sendPrivately(state.candidates[0]);
+          } else if (state.candidates.length === 0) {
+            setPainOpen(true); // hold with nothing to queue = "I'm in pain"
+          } else if (state.candidates.length > 0) {
+            dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
+          }
+          break;
+        case "next":
+          moveScan(1);
+          break;
+        case "select":
+          chooseScan();
+          break;
+        case "retake":
+          retake(scanRef.current?.level ?? reviewRef.current?.level ?? 0);
+          break;
+        case "cancel":
+          endScan();
+          break;
       }
     },
-    [state.candidates, dispatch, handleCapture]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan, sendPrivately, sendPain, showToast]
   );
 
+  const scanIndex = scan?.index ?? -1;
+  const scanLabel = scan?.options[scan.index]?.label;
   useEffect(() => {
-    startInputListening(handleInput);
-    return () => stopInputListening();
-  }, [handleInput]);
+    if (scanIndex < 0) return;
+    feedbackRef.current("highlight");
+    if (sourceSettings.speakOnHighlight && scanLabel) tts.speak(scanLabel).catch(() => {});
+  }, [scanIndex, scanLabel, scan?.options, sourceSettings.speakOnHighlight]);
+
+  const scanning = scan !== null;
+  useEffect(() => {
+    if (!scanning || !sourceSettings.autoScan) return;
+    const t = setInterval(() => moveScan(1), sourceSettings.autoScanSec * 1000);
+    return () => clearInterval(t);
+  }, [scanning, sourceSettings.autoScan, sourceSettings.autoScanSec, moveScan]);
+
+  const { hub, ringStatus } = useButtonInputs(sourceSettings, handleInput, sourceSettings.beep);
+  feedbackRef.current = (kind) => {
+    hub.feedback(kind);
+    const sameLink =
+      sourceSettings.buttonKind === source.kind &&
+      (source.kind === "ble" || (sourceSettings.buttonUrl || sourceSettings.wsUrl) === sourceSettings.wsUrl);
+    if (!sameLink) source.feedback?.(kind);
+  };
 
   // Compose sentences whenever the selection changes (needs a core word)
   const selectedCaptures = state.captures.filter((c) =>
@@ -228,11 +562,30 @@ export default function App() {
       <header className="bg-white border-b border-gray-200 px-6 py-3">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           <h1 className="text-xl font-bold text-gray-900">
-            Cue
+            Qu
             <span className="ml-2 text-sm font-normal text-gray-400">
               prototype
             </span>
           </h1>
+          <div className="flex items-center gap-3">
+          <button
+            onClick={() => setPainOpen(true)}
+            className="px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-sm font-semibold text-red-700 hover:bg-red-100"
+          >
+            I'm in pain
+          </button>
+          <button
+            onClick={() => setMedCard({ status: "ask" })}
+            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          >
+            Check medicine
+          </button>
+          <button
+            onClick={() => setClinicOpen(true)}
+            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          >
+            Clinic summary
+          </button>
           <StatusBar
             status={state.status}
             queuedSentence={state.queuedSentence}
@@ -240,6 +593,7 @@ export default function App() {
             onSpeakQueue={handleSpeakQueue}
             listening={listening}
           />
+          </div>
         </div>
       </header>
 
@@ -259,7 +613,27 @@ export default function App() {
               mirror={mirror}
               deviceId={cameraId}
               onDevices={setCameras}
+              source={source}
+              orientation={orientationFor(sourceSettings)}
+              burst={isStillSource(sourceSettings) ? sourceSettings.burst : 1}
+              discard={sourceSettings.discard}
+              delayMs={sourceSettings.delayMs}
+              aim={aim}
+              maxCandidates={sourceSettings.maxCandidates}
+              onTargetCue={sourceSettings.onTargetCue}
+              onOnTarget={() => feedbackRef.current("on-target")}
+              freezeMs={Number.POSITIVE_INFINITY}
+              highlight={scan ? scan.options[scan.index]?.rung.box ?? null : null}
             />
+            {hint && (
+              <div
+                key={hint.key}
+                data-testid="hint"
+                className="absolute bottom-12 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-amber-400 text-black text-lg font-semibold shadow-lg pointer-events-none"
+              >
+                {hint.text}
+              </div>
+            )}
             {toast && (
               <div
                 key={toast.key}
@@ -290,6 +664,15 @@ export default function App() {
                 ? "Claude identification on"
                 : "on-device identification (set VITE_ANTHROPIC_API_KEY for Claude)"}
             </span>
+            <span data-testid="siglip-status" className={siglip.status === "error" ? "text-amber-600" : ""}>
+              {siglip.status === "loading"
+                ? `Downloading recognition model ${Math.round(siglip.progress * 100)}%…`
+                : siglip.status === "ready"
+                  ? `Everyday-object names on (${siglip.device === "webgpu" ? "GPU" : "CPU"})`
+                  : siglip.status === "error"
+                    ? "Basic names only (recognition model unavailable)"
+                    : ""}
+            </span>
             <label className="flex items-center gap-1 cursor-pointer">
               <input
                 type="checkbox"
@@ -315,7 +698,7 @@ export default function App() {
               />
               Auto-speak queue at pause (mic)
             </label>
-            {cameras.length > 1 && (
+            {source.kind === "webcam" && cameras.length > 1 && (
               <select
                 value={cameraId ?? ""}
                 onChange={(e) => {
@@ -333,6 +716,88 @@ export default function App() {
               </select>
             )}
           </div>
+          {scan && (
+            <Scanner
+              options={scan.options.map((o) => ({
+                key: o.key,
+                label: o.label,
+                thumbnail: o.capture.thumbnail,
+                detail:
+                  o.capture.source === "claude"
+                    ? `Claude's guess · ${RUNG_TEXT[o.rung.kind]}`
+                    : `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
+              }))}
+              index={scan.index}
+              hint={RING_HINTS[sourceSettings.autoScan ? "autoscan" : "scanning"]}
+              autoScanSec={sourceSettings.autoScan ? sourceSettings.autoScanSec : null}
+              onPick={(i) => setScan((s) => s && { ...s, index: i })}
+              onSelect={() => chooseScan()}
+              onNext={() => moveScan(1)}
+              onRetake={() => retake(scan.level)}
+              onCancel={() => endScan()}
+            />
+          )}
+          {painOpen && <PainPanel level={painLevel} onLevel={setPainLevel} onSend={sendPain} onClose={() => setPainOpen(false)} />}
+          <PrivateBar pm={pm} />
+          <IncomingCard pm={pm} />
+          {medCard && (
+            <MedCard
+              state={medCard}
+              onTaken={markTaken}
+              onType={(drug, strength) => void runMedCheck({ drug, strength })}
+              onDismiss={() => setMedCard(null)}
+            />
+          )}
+          <SourceSettings
+            settings={sourceSettings}
+            onChange={setSourceSettings}
+            source={source}
+            status={sourceStatus}
+            buttonStatus={ringStatus}
+            calibration={calibration}
+            onCalibrate={() => setCalibrating(true)}
+            onPersonal={() => setTeaching(true)}
+          />
+          {teaching && (
+            <PersonalObjects
+              ref={teachRef}
+              ready={siglip.status === "ready"}
+              capture={async () => {
+                const t = await cameraRef.current?.capture();
+                cameraRef.current?.unfreeze();
+                return t ?? null;
+              }}
+              onSaved={(obj) => {
+                feedbackRef.current("select");
+                showToast(`Learned: ${obj.name}`);
+              }}
+              onClose={() => setTeaching(false)}
+            />
+          )}
+          {calibrating && (
+            <Calibration
+              ref={calibRef}
+              title={`${source.label}, ${sourceSettings.hand} hand`}
+              current={calibration}
+              capture={async () => {
+                const t = await cameraRef.current?.capture();
+                cameraRef.current?.unfreeze();
+                return t?.image ?? null;
+              }}
+              onSave={(cal) => {
+                saveCalibration(calibKey, cal);
+                setCalibration(cal);
+                setCalibrating(false);
+                feedbackRef.current("select");
+                showToast("Aim calibrated");
+              }}
+              onReset={() => {
+                clearCalibration(calibKey);
+                setCalibration(null);
+              }}
+              onClose={() => setCalibrating(false)}
+            />
+          )}
         </section>
 
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
@@ -343,13 +808,16 @@ export default function App() {
             captures={state.captures}
             selectedTileIds={state.selectedTileIds}
             onToggle={(id) => dispatch({ type: "TOGGLE_TILE", id })}
-            onRename={(id, label) =>
+            onRename={(id, label) => {
+              correctSelection(id, label, "manual");
               dispatch({
                 type: "UPDATE_CAPTURE",
                 id,
                 patch: { label, source: "manual", confidence: 0, refining: false },
-              })
-            }
+              });
+              const crop = cropsRef.current.get(id);
+              if (crop && isMedicationLabel(label)) void runMedCheck({ image: canvasToJpegBase64(crop) });
+            }}
             onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
           />
         </section>
@@ -380,8 +848,8 @@ export default function App() {
           />
           <Candidates
             candidates={state.candidates}
-            onSpeak={handleSpeak}
-            onQueue={(sentence) => dispatch({ type: "QUEUE_SENTENCE", sentence })}
+            onSpeak={pm.target ? sendPrivately : handleSpeak}
+            onQueue={(sentence) => (pm.target ? void sendPrivately(sentence) : dispatch({ type: "QUEUE_SENTENCE", sentence }))}
           />
         </section>
 
@@ -406,6 +874,7 @@ export default function App() {
           />
         </section>
       </main>
+      {clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 ## Objective
 
-Build a working browser prototype of Cue that demonstrates the full core loop: webcam capture -> object detection -> tile selection -> sentence composition -> speech output, with keyboard shortcuts simulating the ring.
+Build a working browser prototype of Qu that demonstrates the full core loop: webcam capture -> object detection -> tile selection -> sentence composition -> speech output, with keyboard shortcuts simulating the ring.
 
 ## Why
 

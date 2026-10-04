@@ -11,3 +11,12 @@ if (!existsSync(src)) {
 }
 cpSync(src, dest, { recursive: true });
 console.log(`[copy-wasm] ${src} -> ${dest}`);
+
+const ortSrc = "node_modules/onnxruntime-web/dist";
+const ortDest = "public/ort";
+if (existsSync(ortSrc)) {
+  for (const f of ["ort-wasm-simd-threaded.asyncify.mjs", "ort-wasm-simd-threaded.asyncify.wasm"]) {
+    cpSync(`${ortSrc}/${f}`, `${ortDest}/${f}`);
+  }
+  console.log(`[copy-wasm] ${ortSrc} -> ${ortDest}`);
+}

@@ -44,6 +44,7 @@ const BACKCHANNEL_TEXT: Record<Backchannel, string> = {
   haha: "Ha ha!",
   "mm-hmm": "Mm hmm.",
   wait: "Wait.",
+  "hold-on": "Hold on.",
   wow: "Wow!",
   okay: "Okay.",
   thanks: "Thanks!",

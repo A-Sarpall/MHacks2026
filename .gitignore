@@ -24,3 +24,20 @@ dist-ssr
 *.sw?
 public/mediapipe/
 public/models/
+public/ort/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+server/.env.local
+server/voice.json
+server/contacts.json
+agents/.venv/
+agents/.env
+
+# Local tool settings
+.claude/
+
+# Cloned-voice audio (a real person's voice): regenerate with `npm run voice -- reactions`
+public/reactions/
