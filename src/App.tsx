@@ -6,6 +6,9 @@ import {
 } from "./components/CameraView";
 import { TileBar } from "./components/TileBar";
 import { CoreWords } from "./components/CoreWords";
+import { QuickPhrases } from "./components/QuickPhrases";
+import { SpokenBanner } from "./components/SpokenBanner";
+import { ACTIVE_PROFILE, type QuickPhrase } from "./data/profiles";
 import { Candidates } from "./components/Candidates";
 import { StatusBar } from "./components/StatusBar";
 import { HealthAlerts } from "./components/HealthAlerts";
@@ -73,6 +76,8 @@ export default function App() {
   const [clinicOpen, setClinicOpen] = useState(false);
   const pm = usePrivateMessaging();
   const [painOpen, setPainOpen] = useState(false);
+  const [cantTalk, setCantTalk] = useState(false);
+  const [quickIndex, setQuickIndex] = useState<number | null>(null);
   const [painLevel, setPainLevel] = useState(5);
   const painRef = useRef({ open: painOpen, level: painLevel });
   painRef.current = { open: painOpen, level: painLevel };
@@ -375,6 +380,19 @@ export default function App() {
     [showToast]
   );
 
+  const handleQuickPhrase = useCallback(
+    (phrase: QuickPhrase) => {
+      setQuickIndex(null);
+      if (phrase.action === "pain") {
+        setPainOpen(true);
+        return;
+      }
+      if (phrase.action === "status") setCantTalk(true);
+      void handleSpeakRef.current(phrase.text);
+    },
+    []
+  );
+
   const handleSpeak = useCallback(
     async (sentence: string) => {
       setSpokenLog((log) => [...log, { text: sentence, at: Date.now() }]);
@@ -568,6 +586,9 @@ export default function App() {
     };
   }, [autoPause, hasQueue, showToast]);
 
+  const handleSpeakRef = useRef(handleSpeak);
+  handleSpeakRef.current = handleSpeak;
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b border-gray-200 px-6 py-3">
@@ -609,6 +630,12 @@ export default function App() {
       </header>
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
+        <QuickPhrases phrases={ACTIVE_PROFILE.quickPhrases} highlight={quickIndex} onPick={handleQuickPhrase} />
+        <SpokenBanner
+          spoken={spokenLog.length > 0 ? spokenLog[spokenLog.length - 1].text : null}
+          cantTalk={cantTalk}
+          onClearStatus={() => setCantTalk(false)}
+        />
         {modelError && (
           <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
             {modelError}
