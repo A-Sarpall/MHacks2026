@@ -5,7 +5,7 @@ export const SIGLIP = {
   model: "onnx-community/siglip2-base-patch16-224-ONNX",
   textDtype: "q8",
   visionDtypeWasm: "q4f16",
-  visionDtypeWebgpu: "q4f16",
+  visionDtypeWebgpu: "q4",
   dims: 768,
   maxTextLength: 64,
   logitScale: Math.exp(4.724453449249268),

@@ -465,3 +465,24 @@ Team scope decision: Qu focuses on communication and information.
 **Consequence**
 
 The hub only serves voice (ElevenLabs), messages (Photon) and the ring relay. The FinchNode and Fetch.ai sponsor tracks are no longer targeted.
+
+### 2026-10-04 — SigLIP on WebGPU runs the q4 weights; auto-commit threshold 0.65
+
+**Decision**
+
+`visionDtypeWebgpu` is `q4` (WASM keeps `q4f16`), `scripts/fetch-models.mjs` fetches both files, and `DEFAULT_NAMING.lowConfidence` is 0.65.
+
+**Reason**
+
+Measured on the 277-image public dev split (`test-images-public/dev`, centre aim, `node scripts/eval.mjs --backends webgpu --dirs test-images-public/dev --no-sweep --no-personal`): with the identical `q4f16` file the two backends agreed on the top label for only 49% of images and WebGPU scored 41.2% top-1 against WASM's 52.0%. Running the 4-bit weights without fp16 compute (`q4`) on WebGPU reproduces WASM exactly: 52.0% top-1 at the old 0.45 threshold, but 22.4% wrong auto-commits. At 0.65: top-1 48.7% (was 41.2%), top-3 74.4% (was 55.6%), not sure 0.7% (was 8.7%), auto-commits 61.0% (was 51.3%), wrong auto-commits 35 of 277 (was 32; 12.6% vs 11.6%, inside the Wilson intervals), naming p95 263 ms (was 209). Reports: `eval-results/exp-webgpu-q4-t0.65/`, baseline `eval-results/phase1/`.
+
+**Alternatives considered**
+
+- Keep `q4f16` on WebGPU: 11 points of top-1 left on the table.
+- `q4` at 0.45: doubles wrong auto-commits.
+- A separate auto-commit threshold with escalation at 0.45: 46.9% top-1 and 13.7% wrong auto-commits, because the low flag also drives the broad-guess path.
+- Thresholds above 0.65: the same 35 confident mistakes remain and top-1 falls.
+
+**Consequence**
+
+Dev-split evidence only; the held-out run in phase 3 must confirm it. First load fetches one more 63 MB file. The remaining confident mistakes (bed → blanket, tv → monitor, bowls named by their contents) are the next recognition work.

@@ -11,7 +11,7 @@ const MODELS = {
 };
 const HF = "https://huggingface.co/onnx-community/siglip2-base-patch16-224-ONNX/resolve/main";
 const SIGLIP_DIR = "onnx-community/siglip2-base-patch16-224-ONNX";
-for (const f of ["config.json", "preprocessor_config.json", "onnx/vision_model_q4f16.onnx"]) {
+for (const f of ["config.json", "preprocessor_config.json", "onnx/vision_model_q4f16.onnx", "onnx/vision_model_q4.onnx"]) {
   MODELS[`${SIGLIP_DIR}/${f}`] = `${HF}/${f}`;
 }
 const dir = "public/models";

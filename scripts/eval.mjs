@@ -90,7 +90,7 @@ if (flag("report-only")) {
   process.exit(0);
 }
 
-const server = await createServer({ logLevel: "warn", server: { port } });
+const server = await createServer({ logLevel: "warn", server: { port, hmr: false, watch: null } });
 await server.listen();
 const base = server.resolvedUrls.local[0];
 const browser = await chromium.launch({

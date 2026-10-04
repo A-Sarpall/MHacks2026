@@ -225,3 +225,7 @@ Recognition never imports hardware code: it takes an upright image plus an aim p
 5. **Orientation.** Mount the ring, open the preview, and set "Rotate" / "Flip image" in the panel until the picture is upright (or `?rotate=90&flip=1`). This is saved per source and per hand; update `HAND_PRESETS` in `sources/orient.ts` once you know how the ring sits on each hand.
 6. **Calibration.** "Calibrate aim…" → point at the pink target 3–5 times (or tap the object) for each hand, then tick "use it". Saved per source + hand.
 7. **Check it.** Run the mock (`scripts/mock-ring.mjs`) to compare against the reference protocol, then point at a few objects; `[capture]` and `[naming]` console lines show burst timing, sharpness, and what was named. If the new camera's images look different from a webcam's (fisheye, low light), capture a few dozen labelled photos into a folder with a `labels.json` and run `npm run eval -- --dirs that-folder` to re-check the thresholds.
+
+## Backends are not interchangeable (2026-10-04)
+
+The same `q4f16` SigLIP file scored 41.2% top-1 on WebGPU and 52.0% on WASM over the 277-image public dev split, agreeing on the top label for only 49% of images. WebGPU now runs the `q4` weights, which match WASM, with the auto-commit threshold at 0.65 (48.7% top-1, 74.4% top-3, 12.6% wrong auto-commits, p95 263 ms on dev). Numbers and alternatives: DECISIONS.md, `eval-results/phase1/baseline.md`, `eval-results/exp-webgpu-q4-t0.65/`.
