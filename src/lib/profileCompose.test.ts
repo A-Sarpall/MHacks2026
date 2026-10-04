@@ -4,14 +4,13 @@ import { buildSentence, profilePrompt, profileSentences, profileVerbs } from "./
 
 describe("profile sentences", () => {
   it("fills the templates for the intent and the object's group", () => {
-    expect(profileSentences({ tiles: ["mug"], intent: "need" })).toEqual([
-      "I want something to drink.",
-      "I would like the mug.",
-      "Can I have the mug, please?",
-    ]);
+    const mug = profileSentences({ tiles: ["mug"], intent: "need" })!;
+    expect(mug.slice(0, 3)).toEqual(["I want something to drink.", "I would like the mug.", "Can I have the mug, please?"]);
+    expect(mug).toHaveLength(6);
+    expect(new Set(mug).size).toBe(6);
     expect(profileSentences({ tiles: ["shirt"], intent: "dont-want" })?.[0]).toBe("This feels itchy.");
     expect(profileSentences({ tiles: ["phone"], intent: "help" })?.[0]).toBe("It's not working.");
-    expect(profileSentences({ tiles: ["Mom's mug"], intent: "need" })).toEqual([
+    expect(profileSentences({ tiles: ["Mom's mug"], intent: "need" })?.slice(0, 3)).toEqual([
       "I need the Mom's mug.",
       "Can I have the Mom's mug, please?",
       "I want the Mom's mug now.",
@@ -19,8 +18,8 @@ describe("profile sentences", () => {
   });
 
   it("gives feelings without an object and nothing for other intents without one", () => {
-    expect(profileSentences({ tiles: [], intent: "feeling" })).toEqual(["I'm tired.", "I'm hurt.", "I'm hungry."]);
-    expect(profileSentences({ tiles: ["shirt"], intent: "feeling" })).toEqual(["I'm too hot.", "I'm too cold.", "This feels itchy."]);
+    expect(profileSentences({ tiles: [], intent: "feeling" })).toEqual(["I'm tired.", "I'm hurt.", "I'm hungry.", "I'm too hot.", "I'm too cold.", "I'm scared."]);
+    expect(profileSentences({ tiles: ["shirt"], intent: "feeling" })?.slice(0, 3)).toEqual(["I'm too hot.", "I'm too cold.", "This feels itchy."]);
     expect(profileSentences({ tiles: [], intent: "need" })).toEqual(["I need something.", "I need help with something.", "Can you come here, please?"]);
     expect(profileSentences({ tiles: [], intent: "question" })).toHaveLength(3);
   });

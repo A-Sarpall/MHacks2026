@@ -11,7 +11,7 @@ import { SpokenBanner } from "./components/SpokenBanner";
 import { ACTIVE_PROFILE, isProfileIntent, type Ending, type QuickPhrase } from "./data/profiles";
 import { BuildSentence, type BuildState } from "./components/BuildSentence";
 import { buildSentence, profileVerbs } from "./lib/profileCompose";
-import { orderVerbs, recordVerb } from "./lib/verbHistory";
+import { mostUsedIndex, recordVerb } from "./lib/verbHistory";
 import { setSpeechRate } from "./lib/speak";
 
 setSpeechRate(ACTIVE_PROFILE.sensory.speechRate);
@@ -473,8 +473,12 @@ export default function App() {
     switch (mode) {
       case "quick": {
         const phrases = ACTIVE_PROFILE.quickPhrases;
-        if (command === "next") setQuickIndex(cycle(f.quickIndex, phrases.length));
-        else if (command === "select") handleQuickPhrase(phrases[f.quickIndex ?? 0]);
+        if (command === "next") {
+          if ((f.quickIndex ?? 0) >= phrases.length - 1) {
+            setQuickIndex(null);
+            setIntentIndex(0);
+          } else setQuickIndex(cycle(f.quickIndex, phrases.length));
+        } else if (command === "select") handleQuickPhrase(phrases[f.quickIndex ?? 0]);
         else if (command === "back") setQuickIndex(null);
         else return false;
         return true;
@@ -501,8 +505,7 @@ export default function App() {
             if (pmRef.current.target) void sendPrivately(sentence);
             else void handleSpeakRef.current(sentence);
           } else if (f.canBuild) {
-            setBuild({ step: "verb", verb: null });
-            setBuildIndex(0);
+            startBuildRef.current();
           }
         } else if (command === "back") {
           setSentenceIndex(null);
@@ -658,15 +661,18 @@ export default function App() {
       coreWords: state.selectedCoreWords,
       health: healthInput,
     };
-    // Instant template sentences; Claude's replace them when they arrive.
-    dispatch({ type: "SET_CANDIDATES", candidates: composeMock(input) });
+    // Instant template sentences; Claude's fill the remaining slots when they arrive.
+    const templates = composeMock(input);
+    dispatch({ type: "SET_CANDIDATES", candidates: templates });
     if (!hasClaude()) return;
     dispatch({ type: "SET_STATUS", status: "composing" });
     claudeComposer
       .compose(input)
       .then((candidates) => {
-        if (seq === composeSeq.current)
-          dispatch({ type: "SET_CANDIDATES", candidates });
+        if (seq !== composeSeq.current) return;
+        const fixed = templates.slice(0, 3);
+        const extra = candidates.filter((c) => !fixed.includes(c));
+        dispatch({ type: "SET_CANDIDATES", candidates: [...fixed, ...extra, ...templates.slice(3)].filter((c, i, a) => a.indexOf(c) === i).slice(0, 6) });
       })
       .catch((err) => console.warn("[compose] Claude failed, keeping templates", err))
       .finally(() => {
@@ -718,7 +724,11 @@ export default function App() {
   const intentId = state.selectedCoreWords[0] ?? null;
   const canBuild =
     intentId !== null && isProfileIntent(intentId) && intentId !== "feeling" && selectedLabels.length > 0 && state.candidates.length > 0;
-  const buildVerbs = canBuild ? orderVerbs(intentId, profileVerbs(intentId, selectedLabels)) : [];
+  const buildVerbs = canBuild ? profileVerbs(intentId, selectedLabels) : [];
+  const startBuild = () => {
+    setBuild({ step: "verb", verb: null });
+    setBuildIndex(intentId ? mostUsedIndex(intentId, buildVerbs) : 0);
+  };
   flowRef.current = { quickIndex, intentIndex, sentenceIndex, build, buildIndex, canBuild, buildVerbs };
   const currentMode = ringMode();
   const finishBuild = (ending: Ending) => {
@@ -733,6 +743,8 @@ export default function App() {
   };
   const finishBuildRef = useRef(finishBuild);
   finishBuildRef.current = finishBuild;
+  const startBuildRef = useRef(startBuild);
+  startBuildRef.current = startBuild;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -1061,14 +1073,13 @@ export default function App() {
           <Candidates
             candidates={state.candidates}
             onSpeak={pm.target ? sendPrivately : handleSpeak}
-            onQueue={(sentence) => (pm.target ? void sendPrivately(sentence) : dispatch({ type: "QUEUE_SENTENCE", sentence }))}
             highlight={sentenceIndex}
           />
           {canBuild && !build && (
             <div className="w-full max-w-lg mx-auto mt-2">
               <button
                 onClick={(e) => {
-                  setBuild({ step: "verb", verb: null });
+                  startBuild();
                   e.currentTarget.blur();
                 }}
                 className={`w-full px-4 py-3 bg-white border-2 border-dashed border-gray-400 rounded-xl text-left text-lg text-gray-800 ${

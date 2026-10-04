@@ -23,9 +23,10 @@ export function recordVerb(intent: string, verb: string): void {
   }
 }
 
-export function orderVerbs(intent: string, verbs: string[], counts: Counts = load()): string[] {
-  return verbs
-    .map((v, i) => ({ v, i, n: counts[`${intent}:${v}`] ?? 0 }))
-    .sort((a, b) => b.n - a.n || a.i - b.i)
-    .map((x) => x.v);
+export function mostUsedIndex(intent: string, verbs: string[], counts: Counts = load()): number {
+  let best = 0;
+  verbs.forEach((v, i) => {
+    if ((counts[`${intent}:${v}`] ?? 0) > (counts[`${intent}:${verbs[best]}`] ?? 0)) best = i;
+  });
+  return best;
 }

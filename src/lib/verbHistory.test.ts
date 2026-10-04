@@ -1,13 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { orderVerbs } from "./verbHistory";
+import { mostUsedIndex } from "./verbHistory";
 
-describe("verb order", () => {
-  it("keeps the profile order until the user has picked something", () => {
-    expect(orderVerbs("need", ["want", "need", "would like", "will drink"], {})).toEqual(["want", "need", "would like", "will drink"]);
+describe("verb pre-highlight", () => {
+  const verbs = ["want", "need", "would like", "will drink"];
+
+  it("starts on the first verb until the user has picked something", () => {
+    expect(mostUsedIndex("need", verbs, {})).toBe(0);
   });
 
-  it("moves often-picked verbs first and keeps ties in profile order", () => {
+  it("pre-highlights the most used verb without changing the order", () => {
     const counts = { "need:would like": 3, "need:need": 1, "dont-want:need": 9 };
-    expect(orderVerbs("need", ["want", "need", "would like", "will drink"], counts)).toEqual(["would like", "need", "want", "will drink"]);
+    expect(mostUsedIndex("need", verbs, counts)).toBe(2);
+    expect(verbs).toEqual(["want", "need", "would like", "will drink"]);
   });
 });

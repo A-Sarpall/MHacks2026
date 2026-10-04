@@ -13,17 +13,26 @@ export function profileGroup(tiles: string[], profile: UserProfile = ACTIVE_PROF
   return tiles.length > 0 ? groupForLabel(tiles[0], profile) : "general";
 }
 
+export const SLOTS = 6;
+
 export function profileSentences(input: ProfileComposeInput, profile: UserProfile = ACTIVE_PROFILE): string[] | null {
   if (!isProfileIntent(input.intent, profile)) return null;
-  if (input.intent === "feeling") {
-    const group = profileGroup(input.tiles, profile);
-    const lines = input.tiles.length > 0 ? profile.templates.feeling[group] : profile.feelings.slice(0, 3);
-    return [...new Set(lines)];
-  }
-  if (input.tiles.length === 0) return [...new Set(profile.objectless[input.intent] ?? [])];
   const group = profileGroup(input.tiles, profile);
   const object = input.tiles[0];
-  return [...new Set(profile.templates[input.intent][group].map((t) => fillObject(t, object)))];
+  let lines: string[];
+  if (input.intent === "feeling") {
+    lines = input.tiles.length > 0 ? [...profile.templates.feeling[group], ...profile.feelings] : profile.feelings;
+  } else if (input.tiles.length === 0) {
+    lines = profile.objectless[input.intent] ?? [];
+  } else {
+    const fill = (t: string) => fillObject(t, object);
+    lines = [
+      ...profile.templates[input.intent][group].map(fill),
+      ...(group === "general" ? [] : profile.templates[input.intent].general.map(fill)),
+      ...(profile.objectless[input.intent] ?? []),
+    ];
+  }
+  return [...new Set(lines)].slice(0, SLOTS);
 }
 
 export function profileVerbs(intent: string, tiles: string[], profile: UserProfile = ACTIVE_PROFILE): string[] {
