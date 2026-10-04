@@ -34,7 +34,8 @@
         {
           "contactsPermission": "Qu reads your contacts only so you can choose people to message privately. Only the people you tick are sent to your laptop."
         }
-      ]
+      ],
+      "expo-audio"
     ]
   }
 }
