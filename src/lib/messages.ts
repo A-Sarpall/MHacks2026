@@ -31,8 +31,10 @@ async function call<T>(path: string, body?: unknown): Promise<T> {
 }
 
 export const fetchContacts = () => call<{ mode: "photon" | "dry-run"; contacts: Contact[] }>("/messages/status");
+export const addContact = (name: string, phone: string) => call<Contact>("/messages/contacts", { name, phone });
 export const sendPrivate = (to: string, text: string) => call<{ sent: true; to: string; mode: string }>("/messages/send", { to, text });
 export const sendTapback = (to: string, kind: Tapback) => call<{ sent: true }>("/messages/tapback", { to, kind });
+export const fetchVoiceStatus = () => call<{ configured: boolean; voice: string; cloned: boolean }>("/voice/status");
 
 /** Live inbound texts. Returns an unsubscribe function. EventSource reconnects by itself. */
 export function subscribeIncoming(onMessage: (m: IncomingMessage) => void): () => void {

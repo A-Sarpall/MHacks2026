@@ -44,6 +44,7 @@ import {
   orientationKey,
   saveSourceSettings,
 } from "./vision/settings";
+import { Onboarding, isOnboardingDone } from "./components/Onboarding";
 import { clearCalibration, loadCalibration, saveCalibration } from "./vision/calibration";
 import type { FeedbackKind } from "./vision/input/types";
 import { useButtonInputs, useFrameSource } from "./vision/useVisionIO";
@@ -111,6 +112,8 @@ export default function App() {
   const scanSeq = useRef(0);
   scanRef.current = scan;
   const reviewRef = useRef<{ until: number; level: number } | null>(null);
+  const [onboarding, setOnboarding] = useState(!isOnboardingDone());
+  const [ringButtonPressed, setRingButtonPressed] = useState(false);
   const [hint, setHint] = useState<{ text: string; key: number } | null>(null);
   useEffect(() => {
     if (!hint) return;
@@ -409,6 +412,7 @@ export default function App() {
   // Keyboard (simulating the ring)
   const handleInput = useCallback(
     (action: InputAction) => {
+      if (action === "click") setRingButtonPressed(true);
       if (calibratingRef.current) {
         if (action === "click") calibRef.current?.press();
         if (action === "double") calibRef.current?.undo();
@@ -587,6 +591,12 @@ export default function App() {
             </span>
           </h1>
           <div className="flex items-center gap-3">
+          <button
+            onClick={() => setOnboarding(true)}
+            className="px-3 py-1.5 rounded-lg border border-blue-300 bg-blue-50 text-sm font-semibold text-blue-700 hover:bg-blue-100"
+          >
+            Set up Qu
+          </button>
           <button
             onClick={() => setPainOpen(true)}
             className="px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-sm font-semibold text-red-700 hover:bg-red-100"
@@ -895,6 +905,25 @@ export default function App() {
         </section>
       </main>
       {clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
+      {onboarding && (
+        <Onboarding
+          onClose={() => setOnboarding(false)}
+          sourceStatus={sourceStatus}
+          feedback={(kind) => feedbackRef.current(kind)}
+          ringButtonPressed={ringButtonPressed}
+          capture={async () => {
+            const t = await cameraRef.current?.capture();
+            cameraRef.current?.unfreeze();
+            return t ?? null;
+          }}
+          siglipReady={siglip.status === "ready"}
+          health={health}
+          onHealth={setHealth}
+          contacts={pm.contacts}
+          onContactsChanged={() => void pm.refresh()}
+          wsUrl={sourceSettings.wsUrl}
+        />
+      )}
     </div>
   );
 }
