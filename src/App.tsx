@@ -12,6 +12,21 @@ import { ACTIVE_PROFILE, isProfileIntent, type Ending, type QuickPhrase } from "
 import { BuildSentence, type BuildState } from "./components/BuildSentence";
 import { buildSentence, profileVerbs } from "./lib/profileCompose";
 import { orderVerbs, recordVerb } from "./lib/verbHistory";
+import { setSpeechRate } from "./lib/speak";
+
+setSpeechRate(ACTIVE_PROFILE.sensory.speechRate);
+
+function withProfileDefaults<T extends { beep: boolean; speakOnHighlight: boolean; autoScan: boolean }>(settings: T): T {
+  let saved = false;
+  try {
+    saved = localStorage.getItem("cue.vision.source.v1") !== null;
+  } catch {
+    saved = false;
+  }
+  if (saved) return settings;
+  const s = ACTIVE_PROFILE.sensory;
+  return { ...settings, beep: s.soundFeedback, speakOnHighlight: s.speakOnHighlight, autoScan: s.autoScan };
+}
 import { Candidates } from "./components/Candidates";
 import { StatusBar } from "./components/StatusBar";
 import { HealthAlerts } from "./components/HealthAlerts";
@@ -96,7 +111,7 @@ export default function App() {
   // Full-size crops by capture id (tiles only keep a 160 px thumbnail, too small to read a label).
   const cropsRef = useRef(new Map<string, HTMLCanvasElement>());
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
-  const [sourceSettings, setSourceSettings] = useState(loadSourceSettings);
+  const [sourceSettings, setSourceSettings] = useState(() => withProfileDefaults(loadSourceSettings()));
   useEffect(() => saveSourceSettings(sourceSettings), [sourceSettings]);
   const { source, status: sourceStatus } = useFrameSource(sourceSettings, cameraId);
   useEffect(() => setMirror(source.kind === "webcam"), [source.kind]);

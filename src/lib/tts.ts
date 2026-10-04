@@ -3,7 +3,7 @@
 //   playBackchannel(id) plays a pre-generated clip from /reactions/<id>.mp3 (local, instant)
 // Any failure (hub down, no key, slow network) falls back to browserTTS so the app always speaks.
 import { HUB } from "./hub";
-import { browserTTS, type TTSEngine } from "./speak";
+import { browserTTS, type TTSEngine, speechRate } from "./speak";
 import type { Backchannel } from "./types";
 
 const SPEAK_TIMEOUT_MS = 4000;
@@ -39,6 +39,7 @@ function stopAudio(): void {
 function play(audio: HTMLAudioElement): Promise<void> {
   return new Promise((resolve, reject) => {
     current = audio;
+    audio.playbackRate = speechRate();
     audio.onended = () => resolve();
     audio.onerror = () => reject(new Error("audio error"));
     audio.play().catch(reject);
