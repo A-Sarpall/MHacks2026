@@ -86,7 +86,10 @@ export async function nameCrops(
   const personal = opts.personal ?? personalEntries();
   return local.map((l, i) => {
     const top = vocab.top(vectors[i], opts.topK ?? 3, opts.boost);
-    const vocabGuesses: LabelGuess[] = top.map((t) => ({ label: t.label, score: t.prob, source: "vocab" as const }));
+    const vocabGuesses: LabelGuess[] = top.flatMap((t, rank) => [
+      { label: t.label, score: t.prob, source: "vocab" as const },
+      ...(rank === 0 && t.specific ? [{ label: t.specific.label, score: t.specific.prob, source: "vocab" as const }] : []),
+    ]);
     const hit = personal.length > 0 ? matchPersonal(vectors[i], personal, opts.personalCfg) : null;
     if (personal.length > 0) {
       const near = nearestPersonal(vectors[i], personal)[0];

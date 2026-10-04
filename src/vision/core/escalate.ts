@@ -21,7 +21,7 @@ export interface NamingConfig {
 export const DEFAULT_NAMING: NamingConfig = {
   centreFrac: 0.35,
   wideFrac: 0.65,
-  lowConfidence: 0.35,
+  lowConfidence: 0.4,
   tinyAreaFrac: 0.01,
   widePenalty: 0.1,
   minShow: 0.12,

@@ -54,7 +54,7 @@ Stream sources keep the last 10 upright frames in `core/frameBuffer.ts` with the
 
 ## Naming: centre first, widen only when unsure (`core/escalate.ts`, `naming.ts`)
 
-For now Qu assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence` = 0.35, chosen by the eval; see below):
+For now Qu assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence` = 0.4, chosen by the eval; see below):
 
 | Level | Crops | When |
 |---|---|---|
@@ -70,7 +70,7 @@ Every crop is named by **SigLIP 2** (`onnx-community/siglip2-base-patch16-224-ON
 
 - **Text side, precomputed:** `npm run embed-vocab` encodes every label with 4 prompt templates (averaged) using the text model (283 MB, only on the developer's machine, ~30 s) and writes `public/vocab/siglip2-base-224.{bin,json}` (float16, ~1 MB, committed). Re-run it after editing the vocabulary; the app warns in the console if they're out of sync.
 - **Image side, in the browser:** `siglip.worker.ts` runs in a Web Worker, WebGPU first, WASM fallback (`?siglip=wasm` to force, `?siglip=off` to disable). Model, config and ONNX runtime are served from `public/` (`npm run dev` downloads/copies them), so after the first run nothing is fetched from the internet. Load progress shows under the camera.
-- **Scores:** `confidence` is a softmax over the vocabulary with SigLIP 2's learned scale (e^4.72 ≈ 113); top 3 become the name + "fix the name" chips. When unsure, the scanner also offers the next SigLIP guesses for the pointed-at crop, so even an object outside the vocabulary gets real choices.
+- **Scores:** `confidence` is a softmax over the vocabulary with SigLIP 2's learned scale (e^4.72 ≈ 113). Narrow labels are grouped under the everyday word the user would say (`PARENT_LABELS` in `vocabulary.ts`: "prayer book", "Bible" → book; "travel mug" → mug; "sneakers" → shoes; "reading glasses" → glasses; 44 in all): the group's probabilities are added and the everyday word is shown, with the narrow label kept as the first "fix the name" chip. Medication labels are never grouped, so the medicine check still triggers on them. Top 3 groups become the name + chips. When unsure, the scanner also offers the next SigLIP guesses for the pointed-at crop, so even an object outside the vocabulary gets real choices.
 - **Fallback:** if SigLIP isn't loaded or fails, the old EfficientNet/ImageNet classifier is used, cleaned by `core/imagenetMap.ts`: place/scene labels are dropped and over-specific ones mapped to everyday words (tabby → cat, quilt → blanket, notebook → laptop, dog breeds → dog). Claude refinement still runs on top when a key is set.
 - **Speed (headless Chrome, M-series Mac):** ~0.1 s per press on WebGPU (0.2 s when it widens), 0.3–0.9 s on WASM with cross-origin isolation (`vite.config.ts` sets COOP/COEP so WASM can use threads; ~3× faster than without).
 

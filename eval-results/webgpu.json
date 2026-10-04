@@ -1,12 +1,12 @@
 {
   "device": "webgpu",
   "claude": false,
-  "startedAt": "2026-10-03T23:34:09.910Z",
-  "ms": 43907.25,
+  "startedAt": "2026-10-04T03:10:39.363Z",
+  "ms": 43875.51999998093,
   "naming": {
     "centreFrac": 0.35,
     "wideFrac": 0.65,
-    "lowConfidence": 0.35,
+    "lowConfidence": 0.4,
     "tinyAreaFrac": 0.01,
     "widePenalty": 0.1,
     "minShow": 0.12,
@@ -23,12 +23,12 @@
         "n": 25,
         "top1": 0.76,
         "top3": 0.84,
-        "auto": 0.64,
+        "auto": 0.68,
         "wrongAuto": 0.04,
         "notSure": 0.12,
-        "avgMs": 89.27780000209809,
-        "p95Ms": 165.52499997615814,
-        "avgTotalMs": 128.15100001335145,
+        "avgMs": 89.69039999961853,
+        "p95Ms": 159.53999996185303,
+        "avgTotalMs": 129.35960000514984,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -42,9 +42,9 @@
           "auto": 0.7692307692307693,
           "wrongAuto": 0,
           "notSure": 0.07692307692307693,
-          "avgMs": 83.63423074208774,
-          "p95Ms": 165.52499997615814,
-          "avgTotalMs": 129.35884616008173,
+          "avgMs": 84.67307691390698,
+          "p95Ms": 126.39499998092651,
+          "avgTotalMs": 131.543846148711,
           "sources": {
             "vocab": 12,
             "none": 1
@@ -57,9 +57,9 @@
           "auto": 0.6,
           "wrongAuto": 0.2,
           "notSure": 0,
-          "avgMs": 98.34700005054474,
-          "p95Ms": 175.71000003814697,
-          "avgTotalMs": 130.91699998378755,
+          "avgMs": 96.4980000257492,
+          "p95Ms": 176.92500007152557,
+          "avgTotalMs": 129.3020000219345,
           "sources": {
             "vocab": 5
           }
@@ -68,12 +68,12 @@
           "n": 4,
           "top1": 1,
           "top3": 1,
-          "auto": 0.75,
+          "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 74.57375001907349,
-          "p95Ms": 111.12000000476837,
-          "avgTotalMs": 104.03500005602837,
+          "avgMs": 75.51249998807907,
+          "p95Ms": 112.63999998569489,
+          "avgTotalMs": 105.63374999165535,
           "sources": {
             "vocab": 4
           }
@@ -85,9 +85,9 @@
           "auto": 0,
           "wrongAuto": 0,
           "notSure": 0.6666666666666666,
-          "avgMs": 118.22333335876465,
-          "p95Ms": 158.1950000524521,
-          "avgTotalMs": 150.46166670322418,
+          "avgMs": 118.99000000953674,
+          "p95Ms": 159.53999996185303,
+          "avgTotalMs": 151.62500003973642,
           "sources": {
             "none": 2,
             "vocab": 1
@@ -103,7 +103,7 @@
               "single"
             ],
             "best": "mug",
-            "bestScore": 0.49053745985580005,
+            "bestScore": 0.5412159370559386,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -114,8 +114,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 45.609999895095825,
-            "totalMs": 235.70499992370605
+            "ms": 48.24000000953674,
+            "totalMs": 260.210000038147
           },
           "spec": {
             "label": "mug",
@@ -152,8 +152,8 @@
               "cup",
               "thing"
             ],
-            "ms": 116.5900000333786,
-            "totalMs": 151.7150000333786
+            "ms": 121.6949999332428,
+            "totalMs": 159.48500001430511
           },
           "spec": {
             "label": "water bottle",
@@ -177,7 +177,7 @@
               "single"
             ],
             "best": "glasses",
-            "bestScore": 0.4240774981099204,
+            "bestScore": 0.6425997187056951,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -185,11 +185,11 @@
             "choices": [
               "glasses",
               "sunglasses",
-              "reading glasses",
+              "glass",
               "thing"
             ],
-            "ms": 44.144999980926514,
-            "totalMs": 77.66500008106232
+            "ms": 42.325000047683716,
+            "totalMs": 75.70500004291534
           },
           "spec": {
             "label": "glasses",
@@ -214,19 +214,19 @@
               "single"
             ],
             "best": "phone",
-            "bestScore": 0.38919495242948116,
+            "bestScore": 0.6856680211194046,
             "source": "vocab",
             "low": false,
             "empty": false,
-            "level": 0,
+            "level": 1,
             "choices": [
               "phone",
               "ticket",
               "remote",
-              "thing"
+              "cell phone"
             ],
-            "ms": 40.919999957084656,
-            "totalMs": 72.26499998569489
+            "ms": 126.39499998092651,
+            "totalMs": 159.54499995708466
           },
           "spec": {
             "label": "phone",
@@ -264,8 +264,8 @@
               "lighter",
               "knife"
             ],
-            "ms": 126.30999994277954,
-            "totalMs": 155.92499995231628
+            "ms": 118.35000002384186,
+            "totalMs": 149.61500000953674
           },
           "spec": {
             "label": "remote",
@@ -291,19 +291,19 @@
               "single"
             ],
             "best": "toothbrush",
-            "bestScore": 0.3491018508408512,
+            "bestScore": 0.41168588252201943,
             "source": "vocab",
             "low": true,
             "empty": false,
             "level": 2,
             "choices": [
               "toothbrush",
-              "electric toothbrush",
               "toothpaste",
+              "comb",
               "thing"
             ],
-            "ms": 126.63999998569489,
-            "totalMs": 157.36000001430511
+            "ms": 123.64999997615814,
+            "totalMs": 155.6949999332428
           },
           "spec": {
             "label": "toothbrush",
@@ -333,8 +333,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 165.52499997615814,
-            "totalMs": 202.51500010490417
+            "ms": 125.5900000333786,
+            "totalMs": 162.36500000953674
           },
           "spec": {
             "label": "pills",
@@ -362,19 +362,19 @@
               "single"
             ],
             "best": "book",
-            "bestScore": 0.4083549796533254,
+            "bestScore": 0.6502055116331905,
             "source": "vocab",
             "low": false,
             "empty": false,
             "level": 0,
             "choices": [
               "book",
-              "prayer book",
               "newspaper",
+              "notebook",
               "thing"
             ],
-            "ms": 48.20999991893768,
-            "totalMs": 89.51999998092651
+            "ms": 40.93500006198883,
+            "totalMs": 79.07000005245209
           },
           "spec": {
             "label": "book",
@@ -410,8 +410,8 @@
               "ladle",
               "scissors"
             ],
-            "ms": 125.96000003814697,
-            "totalMs": 156.43500018119812
+            "ms": 111.70999991893768,
+            "totalMs": 140.77499985694885
           },
           "spec": {
             "label": "spoon",
@@ -430,20 +430,21 @@
             "tags": [
               "single"
             ],
-            "best": "sneakers",
-            "bestScore": 0.4013287929126606,
+            "best": "shoes",
+            "bestScore": 0.49479245566382135,
             "source": "vocab",
             "low": false,
             "empty": false,
             "level": 0,
             "choices": [
+              "shoes",
               "sneakers",
               "shoelaces",
-              "shoes",
+              "foot",
               "thing"
             ],
-            "ms": 45.360000014305115,
-            "totalMs": 80.56500005722046
+            "ms": 40.35000002384186,
+            "totalMs": 71.95499992370605
           },
           "spec": {
             "label": "shoe",
@@ -469,19 +470,19 @@
               "single"
             ],
             "best": "keys",
-            "bestScore": 0.6338960810580535,
+            "bestScore": 0.7829209171948692,
             "source": "vocab",
             "low": false,
             "empty": false,
             "level": 0,
             "choices": [
               "keys",
-              "key ring",
               "padlock",
+              "fork",
               "thing"
             ],
-            "ms": 41.97000002861023,
-            "totalMs": 75.01500010490417
+            "ms": 39.88499999046326,
+            "totalMs": 70.19500017166138
           },
           "spec": {
             "label": "keys",
@@ -507,7 +508,7 @@
               "single"
             ],
             "best": "chair",
-            "bestScore": 0.36858128986825206,
+            "bestScore": 0.5135157427234924,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -515,10 +516,10 @@
             "choices": [
               "chair",
               "stool",
-              "armchair"
+              "table"
             ],
-            "ms": 117.09499990940094,
-            "totalMs": 151.42999982833862
+            "ms": 111.70499992370605,
+            "totalMs": 143.08499991893768
           },
           "spec": {
             "label": "chair",
@@ -553,8 +554,8 @@
               "lemon",
               "thing"
             ],
-            "ms": 42.9099999666214,
-            "totalMs": 75.549999833107
+            "ms": 49.919999957084656,
+            "totalMs": 82.37000000476837
           },
           "spec": {
             "label": "banana",
@@ -578,7 +579,7 @@
               "cluttered"
             ],
             "best": "mug",
-            "bestScore": 0.30770444184002743,
+            "bestScore": 0.3172076646566312,
             "source": "vocab",
             "low": true,
             "empty": false,
@@ -589,8 +590,8 @@
               "coffee",
               "bowl"
             ],
-            "ms": 113.51999998092651,
-            "totalMs": 145.5699999332428
+            "ms": 112.72500002384186,
+            "totalMs": 148.65499997138977
           },
           "spec": {
             "label": "cup",
@@ -628,8 +629,8 @@
               "monitor",
               "computer"
             ],
-            "ms": 121.9300000667572,
-            "totalMs": 154.48500001430511
+            "ms": 111.41500008106232,
+            "totalMs": 142.7300000190735
           },
           "spec": {
             "label": "laptop",
@@ -666,8 +667,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 40.510000109672546,
-            "totalMs": 72.78000009059906
+            "ms": 40.605000019073486,
+            "totalMs": 71.67000007629395
           },
           "spec": {
             "label": "mouse",
@@ -703,8 +704,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 40.06500005722046,
-            "totalMs": 73.57499992847443
+            "ms": 40.8199999332428,
+            "totalMs": 73.79499995708466
           },
           "spec": {
             "label": "laptop",
@@ -743,8 +744,8 @@
               "computer",
               "thing"
             ],
-            "ms": 175.71000003814697,
-            "totalMs": 208.17499995231628
+            "ms": 176.92500007152557,
+            "totalMs": 209.6600000858307
           },
           "spec": {
             "label": "monitor",
@@ -781,8 +782,8 @@
               "orange",
               "thing"
             ],
-            "ms": 107.0900000333786,
-            "totalMs": 137.94500017166138
+            "ms": 108.53999996185303,
+            "totalMs": 139.0350000858307
           },
           "spec": {
             "label": "apple",
@@ -804,7 +805,7 @@
               "held"
             ],
             "best": "phone",
-            "bestScore": 0.4635987147304421,
+            "bestScore": 0.46568198854097,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -815,8 +816,8 @@
               "finger",
               "thing"
             ],
-            "ms": 39.91499996185303,
-            "totalMs": 68.88499987125397
+            "ms": 40.06500005722046,
+            "totalMs": 70.28999996185303
           },
           "spec": {
             "label": "phone",
@@ -842,7 +843,7 @@
               "held"
             ],
             "best": "mug",
-            "bestScore": 0.41644267534371965,
+            "bestScore": 0.4471386212628954,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -853,8 +854,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 40.170000076293945,
-            "totalMs": 69.21000015735626
+            "ms": 40.80499994754791,
+            "totalMs": 70.14999997615814
           },
           "spec": {
             "label": "mug",
@@ -880,19 +881,19 @@
               "held"
             ],
             "best": "keys",
-            "bestScore": 0.3429053164609826,
+            "bestScore": 0.6558821134433429,
             "source": "vocab",
-            "low": true,
+            "low": false,
             "empty": false,
-            "level": 2,
+            "level": 1,
             "choices": [
               "keys",
               "finger",
-              "key ring",
+              "hand",
               "person"
             ],
-            "ms": 111.12000000476837,
-            "totalMs": 140.10000002384186
+            "ms": 112.63999998569489,
+            "totalMs": 143.05999994277954
           },
           "spec": {
             "label": "keys",
@@ -924,8 +925,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 81.6599999666214,
-            "totalMs": 111.69500005245209
+            "ms": 82.08000004291534,
+            "totalMs": 111.60500001907349
           },
           "spec": {
             "label": "theremin",
@@ -953,8 +954,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 158.1950000524521,
-            "totalMs": 190.76500010490417
+            "ms": 159.53999996185303,
+            "totalMs": 194.24500000476837
           },
           "spec": {
             "label": "sextant",
@@ -987,8 +988,8 @@
               "pie",
               "clock"
             ],
-            "ms": 114.81500005722046,
-            "totalMs": 148.92499995231628
+            "ms": 115.35000002384186,
+            "totalMs": 149.02500009536743
           },
           "spec": {
             "label": "astrolabe",
@@ -1009,14 +1010,14 @@
       "aimMode": "labelled",
       "summary": {
         "n": 25,
-        "top1": 0.76,
+        "top1": 0.8,
         "top3": 0.8,
-        "auto": 0.72,
-        "wrongAuto": 0.04,
+        "auto": 0.76,
+        "wrongAuto": 0,
         "notSure": 0.08,
-        "avgMs": 80.8069999885559,
-        "p95Ms": 124.44999992847443,
-        "avgTotalMs": 112.70600000858308,
+        "avgMs": 86.96940001010894,
+        "p95Ms": 125.58999991416931,
+        "avgTotalMs": 119.47340002059937,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -1030,23 +1031,23 @@
           "auto": 0.8461538461538461,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 77.41846152452322,
-          "p95Ms": 124.44999992847443,
-          "avgTotalMs": 109.8030769274785,
+          "avgMs": 83.68730769707606,
+          "p95Ms": 125.58999991416931,
+          "avgTotalMs": 116.63576926634862,
           "sources": {
             "vocab": 13
           }
         },
         "cluttered": {
           "n": 5,
-          "top1": 0.8,
+          "top1": 1,
           "top3": 1,
           "auto": 0.8,
-          "wrongAuto": 0.2,
+          "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 83.09299998283386,
-          "p95Ms": 113.81499993801117,
-          "avgTotalMs": 115.2519999742508,
+          "avgMs": 98.68400003910065,
+          "p95Ms": 120.84500002861023,
+          "avgTotalMs": 131.62800002098083,
           "sources": {
             "vocab": 5
           }
@@ -1055,12 +1056,12 @@
           "n": 4,
           "top1": 1,
           "top3": 1,
-          "auto": 0.75,
+          "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 59.92875000834465,
-          "p95Ms": 113.08000004291534,
-          "avgTotalMs": 89.69875004887581,
+          "avgMs": 58.122500002384186,
+          "p95Ms": 111.47000002861023,
+          "avgTotalMs": 88.26249998807907,
           "sources": {
             "vocab": 4
           }
@@ -1072,9 +1073,9 @@
           "auto": 0,
           "wrongAuto": 0,
           "notSure": 0.6666666666666666,
-          "avgMs": 119.5183333158493,
-          "p95Ms": 159.2849999666214,
-          "avgTotalMs": 151.71833336353302,
+          "avgMs": 120.12999999523163,
+          "p95Ms": 158.23500001430511,
+          "avgTotalMs": 153.1266666650772,
           "sources": {
             "none": 2,
             "vocab": 1
@@ -1090,7 +1091,7 @@
               "single"
             ],
             "best": "mug",
-            "bestScore": 0.6168214439466554,
+            "bestScore": 0.6717857685360202,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -1100,8 +1101,8 @@
               "cup",
               "coffee"
             ],
-            "ms": 124.44999992847443,
-            "totalMs": 161.00499999523163
+            "ms": 125.58999991416931,
+            "totalMs": 164.97000002861023
           },
           "spec": {
             "label": "mug",
@@ -1127,7 +1128,7 @@
               "single"
             ],
             "best": "glass",
-            "bestScore": 0.1387824307294945,
+            "bestScore": 0.14244502633372347,
             "source": "vocab",
             "low": true,
             "empty": false,
@@ -1138,8 +1139,8 @@
               "ticket",
               "thing"
             ],
-            "ms": 107.5,
-            "totalMs": 142.22499990463257
+            "ms": 109.27499997615814,
+            "totalMs": 145.49500000476837
           },
           "spec": {
             "label": "water bottle",
@@ -1163,7 +1164,7 @@
               "single"
             ],
             "best": "glasses",
-            "bestScore": 0.3543356885705228,
+            "bestScore": 0.4844337906641904,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -1171,11 +1172,11 @@
             "choices": [
               "glasses",
               "sunglasses",
-              "reading glasses",
+              "glass",
               "thing"
             ],
-            "ms": 39.77999997138977,
-            "totalMs": 71.87000012397766
+            "ms": 40.21000003814697,
+            "totalMs": 73.15000009536743
           },
           "spec": {
             "label": "glasses",
@@ -1200,19 +1201,19 @@
               "single"
             ],
             "best": "phone",
-            "bestScore": 0.3528704800309224,
+            "bestScore": 0.6856680211194046,
             "source": "vocab",
             "low": false,
             "empty": false,
-            "level": 0,
+            "level": 1,
             "choices": [
               "phone",
               "ticket",
-              "pen",
-              "thing"
+              "remote",
+              "cell phone"
             ],
-            "ms": 39.860000014305115,
-            "totalMs": 70.40499997138977
+            "ms": 110.4449999332428,
+            "totalMs": 142.84500002861023
           },
           "spec": {
             "label": "phone",
@@ -1250,8 +1251,8 @@
               "lighter",
               "knife"
             ],
-            "ms": 111.57999992370605,
-            "totalMs": 140.74500000476837
+            "ms": 113.625,
+            "totalMs": 143.78000009059906
           },
           "spec": {
             "label": "remote",
@@ -1277,7 +1278,7 @@
               "single"
             ],
             "best": "toothbrush",
-            "bestScore": 0.5272909807493907,
+            "bestScore": 0.5710966163439362,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -1285,11 +1286,11 @@
             "choices": [
               "toothbrush",
               "comb",
-              "electric toothbrush",
+              "paintbrush",
               "thing"
             ],
-            "ms": 105.22500002384186,
-            "totalMs": 135.85500013828278
+            "ms": 108.2150000333786,
+            "totalMs": 139.30999994277954
           },
           "spec": {
             "label": "toothbrush",
@@ -1324,8 +1325,8 @@
               "jar",
               "thing"
             ],
-            "ms": 121.46499991416931,
-            "totalMs": 156.11500000953674
+            "ms": 123.29999995231628,
+            "totalMs": 157.40499997138977
           },
           "spec": {
             "label": "pills",
@@ -1353,19 +1354,19 @@
               "single"
             ],
             "best": "book",
-            "bestScore": 0.45515483654503197,
+            "bestScore": 0.6731957420391012,
             "source": "vocab",
             "low": false,
             "empty": false,
             "level": 0,
             "choices": [
               "book",
-              "prayer book",
               "newspaper",
+              "e-reader",
               "thing"
             ],
-            "ms": 40.519999980926514,
-            "totalMs": 79.83499991893768
+            "ms": 41.2150000333786,
+            "totalMs": 79.10000002384186
           },
           "spec": {
             "label": "book",
@@ -1401,8 +1402,8 @@
               "ladle",
               "scissors"
             ],
-            "ms": 110.06000006198883,
-            "totalMs": 139.10500013828278
+            "ms": 112.66000008583069,
+            "totalMs": 142.2700001001358
           },
           "spec": {
             "label": "spoon",
@@ -1421,20 +1422,21 @@
             "tags": [
               "single"
             ],
-            "best": "sneakers",
-            "bestScore": 0.4972896408322088,
+            "best": "shoes",
+            "bestScore": 0.7403878116754948,
             "source": "vocab",
             "low": false,
             "empty": false,
             "level": 1,
             "choices": [
-              "sneakers",
               "shoes",
+              "sneakers",
               "shoelaces",
+              "foot",
               "thing"
             ],
-            "ms": 83.40499997138977,
-            "totalMs": 114.40499997138977
+            "ms": 81.79999995231628,
+            "totalMs": 113.17499995231628
           },
           "spec": {
             "label": "shoe",
@@ -1460,19 +1462,19 @@
               "single"
             ],
             "best": "keys",
-            "bestScore": 0.5578569605076169,
+            "bestScore": 0.7259048719094165,
             "source": "vocab",
             "low": false,
             "empty": false,
             "level": 0,
             "choices": [
               "keys",
-              "key ring",
               "padlock",
+              "fork",
               "thing"
             ],
-            "ms": 39.87000000476837,
-            "totalMs": 70.40499997138977
+            "ms": 40.144999980926514,
+            "totalMs": 70.46000015735626
           },
           "spec": {
             "label": "keys",
@@ -1498,7 +1500,7 @@
               "single"
             ],
             "best": "chair",
-            "bestScore": 0.4207515109311848,
+            "bestScore": 0.5046652725882355,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -1506,11 +1508,11 @@
             "choices": [
               "chair",
               "stool",
-              "armchair",
+              "fork",
               "thing"
             ],
-            "ms": 41.91499996185303,
-            "totalMs": 72.93499994277954
+            "ms": 39.66000008583069,
+            "totalMs": 70.4650000333786
           },
           "spec": {
             "label": "chair",
@@ -1545,8 +1547,8 @@
               "lemon",
               "thing"
             ],
-            "ms": 40.81000006198883,
-            "totalMs": 72.5349999666214
+            "ms": 41.795000076293945,
+            "totalMs": 73.8400000333786
           },
           "spec": {
             "label": "banana",
@@ -1570,7 +1572,7 @@
               "cluttered"
             ],
             "best": "mug",
-            "bestScore": 0.30770444184002743,
+            "bestScore": 0.3172076646566312,
             "source": "vocab",
             "low": true,
             "empty": false,
@@ -1581,8 +1583,8 @@
               "coffee",
               "bowl"
             ],
-            "ms": 113.81499993801117,
-            "totalMs": 144.86499989032745
+            "ms": 111.80999994277954,
+            "totalMs": 147.54999995231628
           },
           "spec": {
             "label": "cup",
@@ -1620,8 +1622,8 @@
               "monitor",
               "computer"
             ],
-            "ms": 110.16500008106232,
-            "totalMs": 142.26500010490417
+            "ms": 110.0900000333786,
+            "totalMs": 141.79499995708466
           },
           "spec": {
             "label": "laptop",
@@ -1658,8 +1660,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 41.21999990940094,
-            "totalMs": 73.74000000953674
+            "ms": 40.13000011444092,
+            "totalMs": 71.075000166893
           },
           "spec": {
             "label": "mouse",
@@ -1683,20 +1685,20 @@
             "tags": [
               "cluttered"
             ],
-            "best": "keyboard",
-            "bestScore": 0.3985924623455908,
+            "best": "laptop",
+            "bestScore": 0.45451944787600895,
             "source": "vocab",
             "low": false,
             "empty": false,
-            "level": 0,
+            "level": 1,
             "choices": [
-              "keyboard",
               "laptop",
+              "keyboard",
               "notebook",
-              "thing"
+              "tablet stand"
             ],
-            "ms": 40.69500005245209,
-            "totalMs": 73.45499992370605
+            "ms": 120.84500002861023,
+            "totalMs": 153.76499998569489
           },
           "spec": {
             "label": "laptop",
@@ -1733,8 +1735,8 @@
               "tv",
               "computer"
             ],
-            "ms": 109.5699999332428,
-            "totalMs": 141.93499994277954
+            "ms": 110.54500007629395,
+            "totalMs": 143.95500004291534
           },
           "spec": {
             "label": "monitor",
@@ -1771,8 +1773,8 @@
               "orange",
               "thing"
             ],
-            "ms": 43.5900000333786,
-            "totalMs": 74.61500012874603
+            "ms": 40.28500008583069,
+            "totalMs": 70.90500009059906
           },
           "spec": {
             "label": "apple",
@@ -1794,7 +1796,7 @@
               "held"
             ],
             "best": "phone",
-            "bestScore": 0.5653815431664261,
+            "bestScore": 0.5671641868257179,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -1805,8 +1807,8 @@
               "lime",
               "thing"
             ],
-            "ms": 42.49000000953674,
-            "totalMs": 71.59999990463257
+            "ms": 40.389999985694885,
+            "totalMs": 70.52999985218048
           },
           "spec": {
             "label": "phone",
@@ -1832,7 +1834,7 @@
               "held"
             ],
             "best": "cup",
-            "bestScore": 0.492646323692879,
+            "bestScore": 0.5169414221159865,
             "source": "vocab",
             "low": false,
             "empty": false,
@@ -1843,8 +1845,8 @@
               "drum",
               "thing"
             ],
-            "ms": 40.55499994754791,
-            "totalMs": 69.76500010490417
+            "ms": 40.34499990940094,
+            "totalMs": 69.82500004768372
           },
           "spec": {
             "label": "mug",
@@ -1870,19 +1872,19 @@
               "held"
             ],
             "best": "keys",
-            "bestScore": 0.3429053164609826,
+            "bestScore": 0.6558821134433429,
             "source": "vocab",
-            "low": true,
+            "low": false,
             "empty": false,
-            "level": 2,
+            "level": 1,
             "choices": [
               "keys",
               "finger",
-              "key ring",
+              "hand",
               "person"
             ],
-            "ms": 113.08000004291534,
-            "totalMs": 142.81500005722046
+            "ms": 111.47000002861023,
+            "totalMs": 141.78999996185303
           },
           "spec": {
             "label": "keys",
@@ -1914,8 +1916,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 81.49500000476837,
-            "totalMs": 111.32000005245209
+            "ms": 84.78999996185303,
+            "totalMs": 114.66999995708466
           },
           "spec": {
             "label": "theremin",
@@ -1943,8 +1945,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 159.2849999666214,
-            "totalMs": 191.77500009536743
+            "ms": 158.23500001430511,
+            "totalMs": 193.41500008106232
           },
           "spec": {
             "label": "sextant",
@@ -1977,8 +1979,8 @@
               "pie",
               "clock"
             ],
-            "ms": 117.77499997615814,
-            "totalMs": 152.05999994277954
+            "ms": 117.36500000953674,
+            "totalMs": 151.29499995708466
           },
           "spec": {
             "label": "astrolabe",
@@ -2008,9 +2010,9 @@
             "auto": 0.84,
             "wrongAuto": 0.16,
             "notSure": 0.12,
-            "avgMs": 72.46540000438691,
-            "p95Ms": 128.98500001430511,
-            "avgTotalMs": 104.56579999923706,
+            "avgMs": 72.59219997406007,
+            "p95Ms": 124.94999992847443,
+            "avgTotalMs": 105.88419999599456,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2026,9 +2028,9 @@
             "auto": 0.8,
             "wrongAuto": 0.12,
             "notSure": 0.12,
-            "avgMs": 77.35300000667571,
-            "p95Ms": 156.8550000190735,
-            "avgTotalMs": 109.20380000591278,
+            "avgMs": 78.49760001659394,
+            "p95Ms": 160.95500004291534,
+            "avgTotalMs": 112.11279998779297,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2041,12 +2043,12 @@
             "n": 25,
             "top1": 0.72,
             "top3": 0.8,
-            "auto": 0.76,
+            "auto": 0.8,
             "wrongAuto": 0.12,
             "notSure": 0.12,
-            "avgMs": 79.2364000082016,
-            "p95Ms": 158.57999992370605,
-            "avgTotalMs": 111.25680000305175,
+            "avgMs": 78.24920000076294,
+            "p95Ms": 161.7699999809265,
+            "avgTotalMs": 112.16100001335144,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2059,12 +2061,12 @@
             "n": 25,
             "top1": 0.76,
             "top3": 0.84,
-            "auto": 0.76,
+            "auto": 0.8,
             "wrongAuto": 0.08,
             "notSure": 0.12,
-            "avgMs": 81.75320001125336,
-            "p95Ms": 157.79500007629395,
-            "avgTotalMs": 113.7604000043869,
+            "avgMs": 81.26760000228882,
+            "p95Ms": 163.75,
+            "avgTotalMs": 114.943600025177,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2077,12 +2079,12 @@
             "n": 25,
             "top1": 0.76,
             "top3": 0.84,
-            "auto": 0.64,
+            "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 85.64079998970031,
-            "p95Ms": 159.07999992370605,
-            "avgTotalMs": 118.13139998435975,
+            "avgMs": 82.78780000686646,
+            "p95Ms": 160.35000002384186,
+            "avgTotalMs": 116.56920001983643,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2095,12 +2097,12 @@
             "n": 25,
             "top1": 0.76,
             "top3": 0.84,
-            "auto": 0.6,
+            "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 89.85139999866486,
-            "p95Ms": 176.68500006198883,
-            "avgTotalMs": 122.1798000049591,
+            "avgMs": 88.75800000190735,
+            "p95Ms": 161.41999995708466,
+            "avgTotalMs": 122.61940000534058,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2113,12 +2115,12 @@
             "n": 25,
             "top1": 0.76,
             "top3": 0.84,
-            "auto": 0.52,
+            "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 98.8725999879837,
-            "p95Ms": 175.625,
-            "avgTotalMs": 131.21499999523164,
+            "avgMs": 91.48139999389649,
+            "p95Ms": 160.3049999475479,
+            "avgTotalMs": 124.97240002632141,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2131,12 +2133,12 @@
             "n": 25,
             "top1": 0.76,
             "top3": 0.84,
-            "auto": 0.48,
+            "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 106.62260000228882,
-            "p95Ms": 175.0549999475479,
-            "avgTotalMs": 139.0148000049591,
+            "avgMs": 96.20480000019073,
+            "p95Ms": 165.5549999475479,
+            "avgTotalMs": 129.46940001010896,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2149,12 +2151,12 @@
             "n": 25,
             "top1": 0.72,
             "top3": 0.84,
-            "auto": 0.32,
+            "auto": 0.48,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 119.37960000038147,
-            "p95Ms": 176.85000002384186,
-            "avgTotalMs": 151.99940001010896,
+            "avgMs": 116.64320000171661,
+            "p95Ms": 183.32500004768372,
+            "avgTotalMs": 150.7571999883652,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2163,17 +2165,17 @@
         }
       ],
       "picked": {
-        "threshold": 0.35,
+        "threshold": 0.5,
         "summary": {
           "n": 25,
           "top1": 0.76,
           "top3": 0.84,
-          "auto": 0.64,
+          "auto": 0.68,
           "wrongAuto": 0.04,
           "notSure": 0.12,
-          "avgMs": 85.64079998970031,
-          "p95Ms": 159.07999992370605,
-          "avgTotalMs": 118.13139998435975,
+          "avgMs": 96.20480000019073,
+          "p95Ms": 165.5549999475479,
+          "avgTotalMs": 129.46940001010896,
           "sources": {
             "vocab": 22,
             "none": 3
@@ -4980,7 +4982,7 @@
         "matched": 1,
         "falseMatched": 0,
         "n": 25,
-        "avgMs": 41.931400003433225
+        "avgMs": 42.408199982643126
       }
     }
   ]

@@ -284,3 +284,34 @@ The costly error for this user group is a wrong word committed without asking, s
 - The remaining wrong auto-commits are vocabulary problems, not thresholds: "prayer book" and "travel mug" are too specific, and the keyboard of a laptop is named "keyboard". Merging over-specific labels into their everyday parent would help more than any threshold.
 - The personal "own object" scores come from augmented copies of one photo (0.94–0.99), which is optimistic; a real webcam re-capture of a taught object scored 0.92–0.97, so some real objects will narrowly miss at 0.92 and fall back to the vocabulary (safe, but less helpful). Teach 5 photos from varied angles.
 - WebGPU and WASM produce noticeably different scores with the 4-bit model (e.g. "mug" vs "travel mug"), so thresholds should be re-checked if the model or its quantisation changes.
+
+
+---
+
+### 2026-10-04 — Narrow vocabulary labels are grouped under the everyday word
+
+**Decision**
+
+`PARENT_LABELS` in `src/data/vocabulary.ts` maps 44 narrow labels to the everyday word a user would say ("prayer book", "Bible", "puzzle book" → book; "travel mug" → mug; "sneakers" → shoes; "armchair" → chair; "coins" → money …). At scoring time the softmax probabilities of a group are added and the everyday word is shown; the narrow label that led the group becomes the first "fix the name" chip. Medication labels (`pills`, `pill bottle`, `medicine`, `liquid medicine`, `pill organizer`) are deliberately ungrouped so the medication check keeps triggering on them, and a unit test enforces that grouping never changes what `isMedicationLabel` returns. With the errors this removes, `lowConfidence` moves from 0.35 to **0.4**.
+
+**Reason**
+
+Most of the remaining wrong auto-commits were confident, narrower-than-wanted labels: "prayer book" at 90 % on a plain book, "travel mug" on a mug. No confidence threshold can catch an answer that scores higher than most correct ones. Adding the probabilities also stops the right word's score being split across near-synonyms ("book" 41 % → 65 % on WebGPU, "mug" 43 % → 83 % on WASM).
+
+**Results** (`npm run eval`, centre aim, 25 placeholder photos; before → after, both at the committed threshold)
+
+| Backend | top-1 | top-3 | auto | wrong auto | naming avg |
+|---|---|---|---|---|---|
+| WebGPU | 76 % → 76 % | 84 % → 84 % | 64 % → 68 % | 4 % → 4 % | 89 → 90 ms |
+| WASM | 80 % → 88 % | 88 % → 88 % | 80 % → 80 % | 8 % → 0 % | 497 → 473 ms |
+
+Threshold sweep after grouping (mean over backends): wrong auto-commits 4 % at 0.3, 2 % at 0.35–0.45; automation 74 % at 0.4. The picker chose 0.4 (same wrong-auto floor as 0.35, more conservative). The one WebGPU error left is "keyboard" for a laptop whose keyboard fills the centre crop; that is an aiming/crop issue, not a vocabulary one.
+
+**Alternatives considered**
+
+- Deleting the narrow labels — loses them as chips, and some users do want "sneakers" or "Bible"
+- Raising the confidence threshold — would send most correct answers to the scanner without catching 90 % "prayer book"
+
+**Implication**
+
+Groups are a product decision, not a model one; edit `PARENT_LABELS` when a word is too specific for users. No re-embedding is needed (the text embeddings are unchanged); the eval re-checks the result.
