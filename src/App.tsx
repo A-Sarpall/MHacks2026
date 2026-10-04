@@ -94,7 +94,20 @@ export default function App() {
   const [clinicOpen, setClinicOpen] = useState(false);
   const pm = usePrivateMessaging();
   const [painOpen, setPainOpen] = useState(false);
-  const [cantTalk, setCantTalk] = useState(false);
+  const [overstimulated, setOverstimulated] = useState(() => {
+    try {
+      return localStorage.getItem("cue.capacity.v1") === "overstimulated";
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem("cue.capacity.v1", overstimulated ? "overstimulated" : "ok");
+    } catch {
+      return;
+    }
+  }, [overstimulated]);
   const [setupView, setSetupView] = useState(() => {
     if (new URLSearchParams(window.location.search).get("view") === "setup") return true;
     try {
@@ -433,7 +446,10 @@ export default function App() {
         setPainOpen(true);
         return;
       }
-      if (phrase.action === "status") setCantTalk(true);
+      if (phrase.action === "status") {
+        setOverstimulated(true);
+        if (pmRef.current.target) void pmRef.current.send(ACTIVE_PROFILE.overstimulated.message).catch(() => feedbackRef.current("error"));
+      }
       void handleSpeakRef.current(phrase.text);
     },
     []
@@ -630,7 +646,7 @@ export default function App() {
     return () => clearInterval(t);
   }, [scanning, sourceSettings.autoScan, sourceSettings.autoScanSec, moveScan]);
 
-  const { hub, ringStatus } = useButtonInputs(sourceSettings, handleInput, sourceSettings.beep);
+  const { hub, ringStatus } = useButtonInputs(sourceSettings, handleInput, sourceSettings.beep && !overstimulated);
   feedbackRef.current = (kind) => {
     hub.feedback(kind);
     const sameLink =
@@ -790,6 +806,19 @@ export default function App() {
           </button>
           </>
           )}
+          <button
+            onClick={(e) => {
+              setOverstimulated((v) => !v);
+              e.currentTarget.blur();
+            }}
+            className={`min-h-9 px-3 py-1.5 rounded-full border-2 text-sm font-semibold ${
+              overstimulated ? "border-red-500 bg-red-600 text-white" : "border-green-600 bg-green-50 text-green-900"
+            }`}
+            aria-pressed={overstimulated}
+            data-testid="capacity-badge"
+          >
+            {overstimulated ? "Overstimulated" : "Talking is OK"}
+          </button>
           <StatusBar
             status={state.status}
             queuedSentence={state.queuedSentence}
@@ -808,8 +837,10 @@ export default function App() {
         </div>
         <SpokenBanner
           spoken={spokenLog.length > 0 ? spokenLog[spokenLog.length - 1].text : null}
-          cantTalk={cantTalk}
-          onClearStatus={() => setCantTalk(false)}
+          overstimulated={overstimulated}
+          badge={ACTIVE_PROFILE.overstimulated.badge}
+          clearLabel={ACTIVE_PROFILE.overstimulated.clear}
+          onClearStatus={() => setOverstimulated(false)}
         />
         {modelError && (
           <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
@@ -818,7 +849,7 @@ export default function App() {
         )}
 
         <section className="flex flex-col items-center gap-2">
-          <div className={`relative w-full ${setupView ? "max-w-2xl" : "max-w-md"}`}>
+          <div className={`relative w-full ${setupView ? "max-w-2xl" : overstimulated ? "max-w-[160px]" : "max-w-md"}`}>
             <CameraView
               ref={cameraRef}
               onCapture={(t) => void handleCapture(t)}
@@ -1019,6 +1050,7 @@ export default function App() {
           )}
         </section>
 
+        {!overstimulated && (
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-xs text-gray-400 mb-3 text-center uppercase tracking-wider">
             Captured objects
@@ -1040,7 +1072,9 @@ export default function App() {
             onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
           />
         </section>
+        )}
 
+        {!overstimulated && (
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-xs text-gray-400 mb-2 text-center uppercase tracking-wider">
             What do you want to say?
@@ -1055,7 +1089,9 @@ export default function App() {
             }}
           />
         </section>
+        )}
 
+        {!overstimulated && (
         <section>
           {setupView && (
           <HealthAlerts
@@ -1113,6 +1149,7 @@ export default function App() {
             </div>
           )}
         </section>
+        )}
 
         {setupView && (state.captures.length > 0 || state.selectedCoreWords.length > 0) && (
           <div className="flex justify-center">

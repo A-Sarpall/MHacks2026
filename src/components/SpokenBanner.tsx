@@ -1,23 +1,26 @@
 interface Props {
   spoken: string | null;
-  cantTalk: boolean;
+  overstimulated: boolean;
+  badge: string;
+  clearLabel: string;
   onClearStatus: () => void;
 }
 
-export function SpokenBanner({ spoken, cantTalk, onClearStatus }: Props) {
-  if (!spoken && !cantTalk) return null;
+export function SpokenBanner({ spoken, overstimulated, badge, clearLabel, onClearStatus }: Props) {
+  if (!spoken && !overstimulated) return null;
   return (
     <section className="flex flex-col gap-2" data-testid="spoken-banner">
-      {cantTalk && (
-        <div className="flex items-center justify-between gap-3 rounded-2xl border-2 border-amber-400 bg-amber-50 px-5 py-4">
-          <div className="text-2xl font-bold text-amber-900" data-testid="cant-talk-status">
-            I can't talk right now
+      {overstimulated && (
+        <div className="flex items-center justify-between gap-3 rounded-2xl border-2 border-red-400 bg-red-50 px-5 py-4">
+          <div className="text-2xl font-bold text-red-900" data-testid="overstimulated-status">
+            {badge}
           </div>
           <button
             onClick={onClearStatus}
-            className="px-4 py-2 rounded-xl border-2 border-amber-400 bg-white text-base font-semibold text-amber-900"
+            className="min-h-11 px-4 py-2 rounded-xl border-2 border-red-400 bg-white text-base font-semibold text-red-900"
+            data-testid="clear-status"
           >
-            I can talk again
+            {clearLabel}
           </button>
         </div>
       )}

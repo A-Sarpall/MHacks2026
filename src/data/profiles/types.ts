@@ -47,6 +47,7 @@ export interface UserProfile {
   categoryGroups: Record<string, TemplateGroup>;
   labelGroups: Record<string, TemplateGroup>;
   sensory: SensoryDefaults;
+  overstimulated: { badge: string; message: string; clear: string };
   promptNote: string;
   maxWords: number;
 }

@@ -14,12 +14,13 @@ describe("neurodivergent profile", () => {
       "It's too loud",
       "Stop",
       "Please wait",
-      "I can't talk right now",
-      "I'm okay",
+      "I'm overstimulated",
       "I'm in pain",
     ]);
+    expect(p.quickPhrases).toHaveLength(6);
     expect(p.quickPhrases.find((q) => q.text === "I'm in pain")?.action).toBe("pain");
-    expect(p.quickPhrases.find((q) => q.text === "I can't talk right now")?.action).toBe("status");
+    expect(p.quickPhrases.find((q) => q.text === "I'm overstimulated")?.action).toBe("status");
+    expect(p.overstimulated.message).not.toMatch(/!/);
   });
 
   it("has six intents in a fixed order, and only feeling works without an object", () => {

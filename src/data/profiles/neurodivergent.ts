@@ -21,8 +21,7 @@ export const neurodivergentProfile: UserProfile = {
     { text: "It's too loud", action: "speak" },
     { text: "Stop", action: "speak" },
     { text: "Please wait", action: "speak" },
-    { text: "I can't talk right now", action: "status" },
-    { text: "I'm okay", action: "speak" },
+    { text: "I'm overstimulated", action: "status" },
     { text: "I'm in pain", action: "pain" },
   ],
   intents: [
@@ -217,6 +216,11 @@ export const neurodivergentProfile: UserProfile = {
     speakOnHighlight: false,
     timeouts: false,
     speechRate: 0.85,
+  },
+  overstimulated: {
+    badge: "Overstimulated. Text me, don't ask questions.",
+    message: "I'm overstimulated and can't talk. Please text instead of asking me questions. I'll reply when I can.",
+    clear: "Talking is OK",
   },
   promptNote:
     "The speaker is a neurodivergent adult who may be autistic. Write literal, concrete, polite sentences with no idioms, sarcasm, or exclamation marks.",
