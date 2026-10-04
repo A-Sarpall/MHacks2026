@@ -41,12 +41,12 @@ function markdown(reports) {
     for (const folder of new Set(r.conditions.map((c) => c.folder))) {
       const rows = r.conditions.filter((c) => c.folder === folder);
       const variants = [...new Set(rows.map((x) => x.variant))];
-      out.push(`### ${folder}, degraded conditions (centre aim): top-1 / wrong auto / broad / auto / blurry-gated / median sharpness / naming ms`, "");
+      out.push(`### ${folder}, degraded conditions (centre aim): top-1 / wrong auto / broad / auto / blurry-gated / re-oriented / median sharpness / naming ms / total ms`, "");
       out.push(`| condition | ${variants.join(" | ")} |`, `|---|${variants.map(() => "---").join("|")}|`);
       for (const c of new Set(rows.map((x) => x.condition))) {
         const cells = variants.map((v) => {
           const s = rows.find((x) => x.variant === v && x.condition === c)?.summary;
-          return s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.broad ?? 0)} / ${pct(s.auto)} / ${pct(s.blurry ?? 0)} / ${Math.round(s.medianSharpness ?? 0)} / ${Math.round(s.avgMs)}` : "";
+          return s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.broad ?? 0)} / ${pct(s.auto)} / ${pct(s.blurry ?? 0)} / ${pct(s.turned ?? 0)} / ${Math.round(s.medianSharpness ?? 0)} / ${Math.round(s.avgMs)} / ${Math.round(s.avgTotalMs)}` : "";
         });
         out.push(`| ${c} | ${cells.join(" | ")} |`);
       }

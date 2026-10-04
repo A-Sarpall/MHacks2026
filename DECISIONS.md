@@ -395,11 +395,11 @@ Motion blur made SigLIP confidently wrong (20 % wrong tiles on WASM), which no c
 
 ---
 
-### 2026-10-04 — Finger roll: software rotation search measured and left off; recommend a tilt sensor
+### 2026-10-04 — Finger roll: rotation search and whole-frame orientation cues measured, none shipped
 
 **Decision**
 
-Measured what SigLIP does with frames that arrive rotated past the per-hand orientation setting, and tried four ways of searching over quarter-turns in software (`NamerOptions.rotations`: best / avg / unsure / margin). None ship by default. The eval's degraded-conditions mode now includes sideways, upside-down and mirrored frames so this stays measured.
+Measured what SigLIP does with frames that arrive rotated past the per-hand orientation setting, tried four ways of searching over quarter-turns of the crop (`NamerOptions.rotations`: best / avg / unsure / margin) and two whole-frame cues for finding "up" before cropping. None ship by default. The eval's degraded-conditions mode now includes sideways, upside-down and mirrored frames so this stays measured.
 
 **Results** (25 placeholder photos, WebGPU, top-1 / wrong tiles without asking / naming ms)
 
@@ -419,6 +419,15 @@ Keeping the most confident turn: upright 72 % / 8 %. Averaging the four embeddin
 
 A finger-mounted camera rolls with the hand, so the mounting setting cannot make frames upright. Small roll and mirroring cost little, but a quarter or half turn costs 24–28 points and, upside-down, produces confident wrong words. Searching rotations in software recovers much of that, but the model is sometimes more confident on a wrong turn, so every variant either hurts clean photos or adds wrong tiles under other degradations, and all cost 2.5–3× naming time (WebGPU) or ~2 s (WASM). The margin variant is the best of them and is kept behind `?rotations=margin` for re-testing on real ring photos.
 
-**Recommendation**
+**Whole-frame software cues** (tried after a tilt sensor was ruled out)
 
-Put a tilt sensor on the ring and send gravity direction with each frame. `orientFrame` already handles any quarter-turn per frame, so this gives correct orientation at zero naming cost and no guessing. Proposed wire additions: Wi-Fi `{"type":"orientation","rotation":0|90|180|270}` before a frame; Bluetooth a rotation byte in the image header. To be agreed with the hardware plan before building.
+| | clean frames wrongly turned | rotated frames caught | sideways / upside-down top-1 | cost per press |
+|---|---|---|---|---|
+| detector at four turns, margin 0.3 | 12 % (noisy: 28 %) | 40–48 % | 60 % / 60 % | ~+130 ms |
+| detector and SigLIP whole-frame must agree | 0 % (very dark / mirrored: 4 %) | 32 % | 56 % / 56 % | ~+130 ms |
+
+The agreement rule is safe but barely useful: one image of gain, no change to the 16 % confidently-wrong upside-down tiles, and a cost on every press. Neither ships; both remain as eval treatments (`core/upright.ts`).
+
+**Conclusion**
+
+A plain object on a table looks the same at any angle to the detector and to SigLIP, so no cheap cue recovers orientation reliably on this set. A dependable estimate would need a small orientation classifier trained on a few thousand real indoor photos (about a day, data not in the repo). Meanwhile: small roll is cheap (18° costs 4 points), the per-hand setting removes the mounting offset, and a hand pointing at a table is usually roughly palm-down, so quarter- and half-turn frames should be the exception. Confirm with real ring footage before spending more here.

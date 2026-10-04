@@ -145,7 +145,7 @@ export function EvalPage() {
             const conds = [...new Set(rows.map((r) => r.condition))];
             return (
               <section key={`cond-${folder}`} className="bg-white rounded-xl p-4 border border-gray-100">
-                <h2 className="font-semibold mb-2">{folder} · degraded conditions (centre aim) · top-1 / wrong auto / broad / auto / median sharpness</h2>
+                <h2 className="font-semibold mb-2">{folder} · degraded conditions (centre aim) · top-1 / wrong auto / broad / auto / re-oriented / median sharpness</h2>
                 <table>
                   <thead>
                     <tr className="text-left text-gray-500">
@@ -159,7 +159,7 @@ export function EvalPage() {
                         <td className="pr-3">{c}</td>
                         {variants.map((v) => {
                           const s = rows.find((r) => r.variant === v && r.condition === c)?.summary;
-                          return <td key={v} className="pr-3">{s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.broad)} / ${pct(s.auto)} / ${Math.round(s.medianSharpness)}` : ""}</td>;
+                          return <td key={v} className="pr-3">{s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.broad)} / ${pct(s.auto)} / ${pct(s.turned)} / ${Math.round(s.medianSharpness)}` : ""}</td>;
                         })}
                       </tr>
                     ))}

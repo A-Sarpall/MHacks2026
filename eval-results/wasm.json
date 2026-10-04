@@ -1,8 +1,8 @@
 {
   "device": "wasm",
   "claude": false,
-  "startedAt": "2026-10-04T05:11:57.753Z",
-  "ms": 1200025.9600000381,
+  "startedAt": "2026-10-04T05:50:19.214Z",
+  "ms": 1273462.1749999523,
   "naming": {
     "centreFrac": 0.35,
     "wideFrac": 0.65,
@@ -36,10 +36,11 @@
         "notSure": 0.04,
         "broad": 0.08,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2926.9478257543897,
-        "avgMs": 539.4348000001908,
-        "p95Ms": 1281.7599999904633,
-        "avgTotalMs": 587.0441999959945,
+        "avgMs": 538.3841999864578,
+        "p95Ms": 1282.25,
+        "avgTotalMs": 586.0743999767303,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -55,10 +56,11 @@
           "notSure": 0,
           "broad": 0.07692307692307693,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 2379.668821201704,
-          "avgMs": 513.2161538325823,
-          "p95Ms": 1286.9349999427795,
-          "avgTotalMs": 568.5419230644519,
+          "avgMs": 511.9269230732551,
+          "p95Ms": 1284.8250000476837,
+          "avgTotalMs": 567.3992307644623,
           "sources": {
             "vocab": 13
           }
@@ -72,10 +74,11 @@
           "notSure": 0,
           "broad": 0.2,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 3843.913506556457,
-          "avgMs": 577.7660000085831,
-          "p95Ms": 1281.7599999904633,
-          "avgTotalMs": 616.3170000076294,
+          "avgMs": 577.07399995327,
+          "p95Ms": 1282.25,
+          "avgTotalMs": 617.8309998989105,
           "sources": {
             "vocab": 5
           }
@@ -89,10 +92,11 @@
           "notSure": 0,
           "broad": 0,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 2342.1232945655747,
-          "avgMs": 392.7612500190735,
-          "p95Ms": 764.375,
-          "avgTotalMs": 431.07249999046326,
+          "avgMs": 391.46250000596046,
+          "p95Ms": 760.7549999952316,
+          "avgTotalMs": 428.90124997496605,
           "sources": {
             "vocab": 4
           }
@@ -106,10 +110,11 @@
           "notSure": 0.3333333333333333,
           "broad": 0,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 784.7283333539963,
-          "p95Ms": 1038.4800000190735,
-          "avgTotalMs": 826.3950000206629,
+          "avgMs": 784.4449999729792,
+          "p95Ms": 1039.1000000238419,
+          "avgTotalMs": 823.6366666952769,
           "sources": {
             "none": 1,
             "vocab": 2
@@ -131,6 +136,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 3243.530585967693,
             "expectedGeneric": null,
             "level": 0,
@@ -141,8 +147,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 289.77999997138977,
-            "totalMs": 526.5599998235703
+            "ms": 288.25999999046326,
+            "totalMs": 508.4399998188019
           },
           "spec": {
             "label": "mug",
@@ -174,6 +180,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 5176.133052405924,
             "expectedGeneric": "drink",
             "level": 1,
@@ -183,8 +190,8 @@
               "urinal bottle",
               "bottle"
             ],
-            "ms": 789.5,
-            "totalMs": 832.4850000143051
+            "ms": 786.5,
+            "totalMs": 837.3799999952316
           },
           "spec": {
             "label": "water bottle",
@@ -214,6 +221,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2306.452854763657,
             "expectedGeneric": "clothes",
             "level": 0,
@@ -223,8 +231,8 @@
               "glasses case",
               "thing"
             ],
-            "ms": 275.24000000953674,
-            "totalMs": 315.8050000667572
+            "ms": 277.6200000047684,
+            "totalMs": 320.22500002384186
           },
           "spec": {
             "label": "glasses",
@@ -255,6 +263,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 4972.630851011353,
             "expectedGeneric": null,
             "level": 0,
@@ -264,8 +273,8 @@
               "calculator",
               "thing"
             ],
-            "ms": 277.2999999523163,
-            "totalMs": 317.20500004291534
+            "ms": 275.66999995708466,
+            "totalMs": 314.06500005722046
           },
           "spec": {
             "label": "phone",
@@ -298,6 +307,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1905.894450205952,
             "expectedGeneric": "electronics",
             "level": 1,
@@ -306,8 +316,8 @@
               "speaker",
               "game controller"
             ],
-            "ms": 793.8949999809265,
-            "totalMs": 830.9750000238419
+            "ms": 791.835000038147,
+            "totalMs": 828.7099999189377
           },
           "spec": {
             "label": "remote",
@@ -339,6 +349,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 330.4783327777058,
             "expectedGeneric": null,
             "level": 0,
@@ -348,8 +359,8 @@
               "toothpaste",
               "thing"
             ],
-            "ms": 277.6749999523163,
-            "totalMs": 314.43999993801117
+            "ms": 273.63499999046326,
+            "totalMs": 311.93499994277954
           },
           "spec": {
             "label": "toothbrush",
@@ -379,6 +390,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1280.3119878863085,
             "expectedGeneric": null,
             "level": 2,
@@ -388,8 +400,8 @@
               "pill organizer",
               "thing"
             ],
-            "ms": 798.5249999761581,
-            "totalMs": 837.8899999856949
+            "ms": 796.9450000524521,
+            "totalMs": 838.9550000429153
           },
           "spec": {
             "label": "pills",
@@ -423,6 +435,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 4296.583267793103,
             "expectedGeneric": null,
             "level": 0,
@@ -433,8 +446,8 @@
               "rosary",
               "thing"
             ],
-            "ms": 275.1599999666214,
-            "totalMs": 315.1650000810623
+            "ms": 273.71999990940094,
+            "totalMs": 316.4449999332428
           },
           "spec": {
             "label": "book",
@@ -464,6 +477,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1759.9019080391865,
             "expectedGeneric": null,
             "level": 1,
@@ -474,8 +488,8 @@
               "spatula",
               "scissors"
             ],
-            "ms": 785.2400000095367,
-            "totalMs": 822.670000076294
+            "ms": 782.9950000047684,
+            "totalMs": 826.3250000476837
           },
           "spec": {
             "label": "spoon",
@@ -501,6 +515,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 7467.495210055647,
             "expectedGeneric": null,
             "level": 0,
@@ -511,8 +526,8 @@
               "ball",
               "thing"
             ],
-            "ms": 275.68500006198883,
-            "totalMs": 322.5349999666214
+            "ms": 274.74000000953674,
+            "totalMs": 318.51000010967255
           },
           "spec": {
             "label": "shoe",
@@ -544,6 +559,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2379.668821201704,
             "expectedGeneric": null,
             "level": 0,
@@ -553,8 +569,8 @@
               "can opener",
               "thing"
             ],
-            "ms": 273.40499997138977,
-            "totalMs": 311.50999999046326
+            "ms": 273.5549999475479,
+            "totalMs": 313.2150000333786
           },
           "spec": {
             "label": "keys",
@@ -586,6 +602,7 @@
             "empty": false,
             "blurry": false,
             "broad": true,
+            "turned": 0,
             "sharpness": 1522.3248353622273,
             "expectedGeneric": "furniture",
             "level": 2,
@@ -598,8 +615,8 @@
               "high chair",
               "thing"
             ],
-            "ms": 1286.9349999427795,
-            "totalMs": 1326.2149999141693
+            "ms": 1284.8250000476837,
+            "totalMs": 1326.1150000095367
           },
           "spec": {
             "label": "chair",
@@ -629,6 +646,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 6438.973425384223,
             "expectedGeneric": "fruit",
             "level": 0,
@@ -638,8 +656,8 @@
               "fruit bowl",
               "thing"
             ],
-            "ms": 273.47000002861023,
-            "totalMs": 317.5899999141693
+            "ms": 274.75,
+            "totalMs": 315.8700000047684
           },
           "spec": {
             "label": "banana",
@@ -669,6 +687,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 4066.109100269212,
             "expectedGeneric": "drink",
             "level": 0,
@@ -678,8 +697,8 @@
               "cup",
               "thing"
             ],
-            "ms": 276.9800000190735,
-            "totalMs": 318.38499999046326
+            "ms": 272.81499993801117,
+            "totalMs": 313.2300000190735
           },
           "spec": {
             "label": "cup",
@@ -712,6 +731,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 3843.913506556457,
             "expectedGeneric": "electronics",
             "level": 1,
@@ -721,8 +741,8 @@
               "computer",
               "monitor"
             ],
-            "ms": 780.4350000619888,
-            "totalMs": 817.9249999523163
+            "ms": 780.4399999380112,
+            "totalMs": 821.0499999523163
           },
           "spec": {
             "label": "laptop",
@@ -754,6 +774,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 3584.604476547479,
             "expectedGeneric": "electronics",
             "level": 0,
@@ -763,8 +784,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 274.36499989032745,
-            "totalMs": 310.3900001049042
+            "ms": 273.6199998855591,
+            "totalMs": 315.3549997806549
           },
           "spec": {
             "label": "mouse",
@@ -795,6 +816,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 4305.144944511932,
             "expectedGeneric": "electronics",
             "level": 0,
@@ -804,8 +826,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 275.2900000810623,
-            "totalMs": 313.52999997138977
+            "ms": 276.2450000047684,
+            "totalMs": 317.53999984264374
           },
           "spec": {
             "label": "laptop",
@@ -837,6 +859,7 @@
             "empty": false,
             "blurry": false,
             "broad": true,
+            "turned": 0,
             "sharpness": 2382.7141704153746,
             "expectedGeneric": "electronics",
             "level": 2,
@@ -849,8 +872,8 @@
               "desk",
               "thing"
             ],
-            "ms": 1281.7599999904633,
-            "totalMs": 1321.3550000190735
+            "ms": 1282.25,
+            "totalMs": 1321.9799998998642
           },
           "spec": {
             "label": "monitor",
@@ -882,6 +905,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1215.8854684185455,
             "expectedGeneric": "fruit",
             "level": 0,
@@ -891,8 +915,8 @@
               "orange",
               "thing"
             ],
-            "ms": 267.56500005722046,
-            "totalMs": 306.1650000810623
+            "ms": 269.36500000953674,
+            "totalMs": 309.5750000476837
           },
           "spec": {
             "label": "apple",
@@ -920,6 +944,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 3744.0437010068376,
             "expectedGeneric": null,
             "level": 0,
@@ -929,8 +954,8 @@
               "hand",
               "thing"
             ],
-            "ms": 269.6449999809265,
-            "totalMs": 307.25
+            "ms": 267.7700001001358,
+            "totalMs": 304.38499999046326
           },
           "spec": {
             "label": "phone",
@@ -962,6 +987,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2342.1232945655747,
             "expectedGeneric": null,
             "level": 1,
@@ -970,8 +996,8 @@
               "hot chocolate",
               "cup"
             ],
-            "ms": 764.375,
-            "totalMs": 802.2649999856949
+            "ms": 760.7549999952316,
+            "totalMs": 797.4899998903275
           },
           "spec": {
             "label": "mug",
@@ -1003,6 +1029,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 961.7173620339775,
             "expectedGeneric": null,
             "level": 0,
@@ -1012,8 +1039,8 @@
               "remote",
               "thing"
             ],
-            "ms": 269.460000038147,
-            "totalMs": 308.6099998950958
+            "ms": 267.9599999189377,
+            "totalMs": 304.15499997138977
           },
           "spec": {
             "label": "keys",
@@ -1045,12 +1072,13 @@
             "empty": true,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1125.6179503187068,
             "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 539.7300000190735,
-            "totalMs": 575.8949999809265
+            "ms": 537.1699999570847,
+            "totalMs": 573.4449999332428
           },
           "spec": {
             "label": "theremin",
@@ -1078,6 +1106,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2926.9478257543897,
             "expectedGeneric": null,
             "level": 2,
@@ -1087,8 +1116,8 @@
               "magnifying glass",
               "thing"
             ],
-            "ms": 1038.4800000190735,
-            "totalMs": 1080.0049999952316
+            "ms": 1039.1000000238419,
+            "totalMs": 1082.075000166893
           },
           "spec": {
             "label": "sextant",
@@ -1116,6 +1145,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 7314.322311164916,
             "expectedGeneric": null,
             "level": 2,
@@ -1124,8 +1154,8 @@
               "ruler",
               "CD"
             ],
-            "ms": 775.9750000238419,
-            "totalMs": 823.2850000858307
+            "ms": 777.0649999380112,
+            "totalMs": 815.3899999856949
           },
           "spec": {
             "label": "astrolabe",
@@ -1153,10 +1183,11 @@
         "notSure": 0,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2926.9478257543897,
-        "avgMs": 458.2323999977112,
-        "p95Ms": 860.7200000286102,
-        "avgTotalMs": 497.6176000070572,
+        "avgMs": 454.93500000953674,
+        "p95Ms": 790.9750000238419,
+        "avgTotalMs": 494.64099998950957,
         "sources": {
           "vocab": 25
         }
@@ -1171,10 +1202,11 @@
           "notSure": 0,
           "broad": 0,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 2379.668821201704,
-          "avgMs": 424.0903846025467,
-          "p95Ms": 781.0100001096725,
-          "avgTotalMs": 463.1819230776567,
+          "avgMs": 424.9696153952525,
+          "p95Ms": 779.4800000190735,
+          "avgTotalMs": 464.8134615237896,
           "sources": {
             "vocab": 13
           }
@@ -1188,10 +1220,11 @@
           "notSure": 0,
           "broad": 0.2,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 3843.913506556457,
-          "avgMs": 493.01900000572203,
-          "p95Ms": 860.7200000286102,
-          "avgTotalMs": 533.3339999914169,
+          "avgMs": 475.33400001525877,
+          "p95Ms": 780.6900000572205,
+          "avgTotalMs": 516.0589999675751,
           "sources": {
             "vocab": 5
           }
@@ -1205,10 +1238,11 @@
           "notSure": 0,
           "broad": 0,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 2342.1232945655747,
-          "avgMs": 271.86500000953674,
-          "p95Ms": 272.64999997615814,
-          "avgTotalMs": 309.5887500047684,
+          "avgMs": 269.6912499964237,
+          "p95Ms": 271.3400000333786,
+          "avgTotalMs": 307.6200000047684,
           "sources": {
             "vocab": 4
           }
@@ -1222,10 +1256,11 @@
           "notSure": 0,
           "broad": 0,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 796.6933333476385,
-          "p95Ms": 1061.2350000143051,
-          "avgTotalMs": 838.016666730245,
+          "avgMs": 797.778333346049,
+          "p95Ms": 1066.5649999380112,
+          "avgTotalMs": 837.5583333571752,
           "sources": {
             "vocab": 3
           }
@@ -1246,6 +1281,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 3243.530585967693,
             "expectedGeneric": null,
             "level": 0,
@@ -1256,8 +1292,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 270.93499994277954,
-            "totalMs": 318.27499985694885
+            "ms": 270.7350000143051,
+            "totalMs": 318.2849999666214
           },
           "spec": {
             "label": "mug",
@@ -1289,6 +1325,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 5176.133052405924,
             "expectedGeneric": "drink",
             "level": 1,
@@ -1298,8 +1335,8 @@
               "urinal bottle",
               "bottle"
             ],
-            "ms": 769.1749999523163,
-            "totalMs": 809.4799998998642
+            "ms": 763.670000076294,
+            "totalMs": 804.2450000047684
           },
           "spec": {
             "label": "water bottle",
@@ -1329,6 +1366,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2306.452854763657,
             "expectedGeneric": "clothes",
             "level": 0,
@@ -1338,8 +1376,8 @@
               "glasses case",
               "thing"
             ],
-            "ms": 269.00999999046326,
-            "totalMs": 307.30999994277954
+            "ms": 268.25,
+            "totalMs": 309.710000038147
           },
           "spec": {
             "label": "glasses",
@@ -1370,6 +1408,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 4972.630851011353,
             "expectedGeneric": null,
             "level": 0,
@@ -1379,8 +1418,8 @@
               "letter",
               "thing"
             ],
-            "ms": 267.88499999046326,
-            "totalMs": 304.91999995708466
+            "ms": 268.88499999046326,
+            "totalMs": 307.3400000333786
           },
           "spec": {
             "label": "phone",
@@ -1413,6 +1452,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1905.894450205952,
             "expectedGeneric": "electronics",
             "level": 1,
@@ -1421,8 +1461,8 @@
               "speaker",
               "game controller"
             ],
-            "ms": 769.3899999856949,
-            "totalMs": 805.4850000143051
+            "ms": 779.4800000190735,
+            "totalMs": 816.4550000429153
           },
           "spec": {
             "label": "remote",
@@ -1454,6 +1494,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 330.4783327777058,
             "expectedGeneric": null,
             "level": 0,
@@ -1463,8 +1504,8 @@
               "dental floss",
               "thing"
             ],
-            "ms": 268.6599999666214,
-            "totalMs": 305.5900000333786
+            "ms": 268.585000038147,
+            "totalMs": 310.27999997138977
           },
           "spec": {
             "label": "toothbrush",
@@ -1494,6 +1535,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1280.3119878863085,
             "expectedGeneric": null,
             "level": 1,
@@ -1504,8 +1546,8 @@
               "medicine",
               "thing"
             ],
-            "ms": 781.0100001096725,
-            "totalMs": 820.950000166893
+            "ms": 774.9199999570847,
+            "totalMs": 816.039999961853
           },
           "spec": {
             "label": "pills",
@@ -1539,6 +1581,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 4296.583267793103,
             "expectedGeneric": null,
             "level": 0,
@@ -1549,8 +1592,8 @@
               "newspaper",
               "thing"
             ],
-            "ms": 270.9449999332428,
-            "totalMs": 312.3000000715256
+            "ms": 269.25,
+            "totalMs": 308.7299998998642
           },
           "spec": {
             "label": "book",
@@ -1580,6 +1623,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1759.9019080391865,
             "expectedGeneric": null,
             "level": 1,
@@ -1590,8 +1634,8 @@
               "spatula",
               "scissors"
             ],
-            "ms": 771.5849999189377,
-            "totalMs": 806.4450000524521
+            "ms": 778.1650000810623,
+            "totalMs": 813.7000000476837
           },
           "spec": {
             "label": "spoon",
@@ -1617,6 +1661,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 7467.495210055647,
             "expectedGeneric": null,
             "level": 0,
@@ -1627,8 +1672,8 @@
               "long shoehorn",
               "thing"
             ],
-            "ms": 267.75,
-            "totalMs": 308.539999961853
+            "ms": 269.77499997615814,
+            "totalMs": 307.7350000143051
           },
           "spec": {
             "label": "shoe",
@@ -1660,6 +1705,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2379.668821201704,
             "expectedGeneric": null,
             "level": 0,
@@ -1669,8 +1715,8 @@
               "bottle opener",
               "thing"
             ],
-            "ms": 269.0500000715256,
-            "totalMs": 307.2900000810623
+            "ms": 271.65500009059906,
+            "totalMs": 307.1100000143051
           },
           "spec": {
             "label": "keys",
@@ -1702,6 +1748,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1522.3248353622273,
             "expectedGeneric": "furniture",
             "level": 0,
@@ -1711,8 +1758,8 @@
               "step stool",
               "thing"
             ],
-            "ms": 268.43499994277954,
-            "totalMs": 306.18999993801117
+            "ms": 269.3699998855591,
+            "totalMs": 310.5849997997284
           },
           "spec": {
             "label": "chair",
@@ -1742,6 +1789,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 6438.973425384223,
             "expectedGeneric": "fruit",
             "level": 0,
@@ -1751,8 +1799,8 @@
               "mango",
               "thing"
             ],
-            "ms": 269.34500002861023,
-            "totalMs": 308.5900000333786
+            "ms": 271.86500000953674,
+            "totalMs": 312.3600000143051
           },
           "spec": {
             "label": "banana",
@@ -1782,6 +1830,7 @@
             "empty": false,
             "blurry": false,
             "broad": true,
+            "turned": 0,
             "sharpness": 4066.109100269212,
             "expectedGeneric": "drink",
             "level": 2,
@@ -1792,8 +1841,8 @@
               "mug",
               "bowl"
             ],
-            "ms": 860.7200000286102,
-            "totalMs": 898.1050000190735
+            "ms": 780.6900000572205,
+            "totalMs": 822.420000076294
           },
           "spec": {
             "label": "cup",
@@ -1826,6 +1875,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 3843.913506556457,
             "expectedGeneric": "electronics",
             "level": 1,
@@ -1835,8 +1885,8 @@
               "computer",
               "monitor"
             ],
-            "ms": 783.1100000143051,
-            "totalMs": 819.2549998760223
+            "ms": 779.6050000190735,
+            "totalMs": 820.2699999809265
           },
           "spec": {
             "label": "laptop",
@@ -1868,6 +1918,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 3584.604476547479,
             "expectedGeneric": "electronics",
             "level": 0,
@@ -1877,8 +1928,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 274.33000004291534,
-            "totalMs": 317.88500010967255
+            "ms": 271.8899999856949,
+            "totalMs": 309.5849999189377
           },
           "spec": {
             "label": "mouse",
@@ -1909,6 +1960,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 4305.144944511932,
             "expectedGeneric": "electronics",
             "level": 0,
@@ -1918,8 +1970,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 271.99000000953674,
-            "totalMs": 315.8399999141693
+            "ms": 273.2699999809265,
+            "totalMs": 314.62999987602234
           },
           "spec": {
             "label": "laptop",
@@ -1951,6 +2003,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2382.7141704153746,
             "expectedGeneric": "electronics",
             "level": 0,
@@ -1960,8 +2013,8 @@
               "window",
               "thing"
             ],
-            "ms": 274.9449999332428,
-            "totalMs": 315.585000038147
+            "ms": 271.2150000333786,
+            "totalMs": 313.3899999856949
           },
           "spec": {
             "label": "monitor",
@@ -1993,6 +2046,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 1215.8854684185455,
             "expectedGeneric": "fruit",
             "level": 0,
@@ -2002,8 +2056,8 @@
               "orange",
               "thing"
             ],
-            "ms": 272.2999999523163,
-            "totalMs": 308.2699999809265
+            "ms": 268.6399999856949,
+            "totalMs": 310.74000000953674
           },
           "spec": {
             "label": "apple",
@@ -2031,6 +2085,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 3744.0437010068376,
             "expectedGeneric": null,
             "level": 0,
@@ -2040,8 +2095,8 @@
               "watch",
               "thing"
             ],
-            "ms": 271.875,
-            "totalMs": 310.09500002861023
+            "ms": 268.0199999809265,
+            "totalMs": 305.14999997615814
           },
           "spec": {
             "label": "phone",
@@ -2073,6 +2128,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2342.1232945655747,
             "expectedGeneric": null,
             "level": 0,
@@ -2082,8 +2138,8 @@
               "tea",
               "thing"
             ],
-            "ms": 270.63500010967255,
-            "totalMs": 307.79500007629395
+            "ms": 271.3400000333786,
+            "totalMs": 308.66999995708466
           },
           "spec": {
             "label": "mug",
@@ -2115,6 +2171,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 961.7173620339775,
             "expectedGeneric": null,
             "level": 0,
@@ -2124,8 +2181,8 @@
               "can opener",
               "thing"
             ],
-            "ms": 272.64999997615814,
-            "totalMs": 312.1949999332428
+            "ms": 270.7649999856949,
+            "totalMs": 305.92000007629395
           },
           "spec": {
             "label": "keys",
@@ -2157,6 +2214,7 @@
             "empty": false,
             "blurry": false,
             "broad": true,
+            "turned": 0,
             "sharpness": 1125.6179503187068,
             "expectedGeneric": null,
             "level": 2,
@@ -2168,8 +2226,8 @@
               "speaker",
               "thing"
             ],
-            "ms": 545.3250000476837,
-            "totalMs": 580.4900000095367
+            "ms": 535.795000076294,
+            "totalMs": 575.0700000524521
           },
           "spec": {
             "label": "theremin",
@@ -2197,6 +2255,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 2926.9478257543897,
             "expectedGeneric": null,
             "level": 2,
@@ -2206,8 +2265,8 @@
               "iron",
               "thing"
             ],
-            "ms": 1061.2350000143051,
-            "totalMs": 1103.445000052452
+            "ms": 1066.5649999380112,
+            "totalMs": 1105.9350000619888
           },
           "spec": {
             "label": "sextant",
@@ -2235,6 +2294,7 @@
             "empty": false,
             "blurry": false,
             "broad": false,
+            "turned": 0,
             "sharpness": 7314.322311164916,
             "expectedGeneric": null,
             "level": 2,
@@ -2243,8 +2303,8 @@
               "ruler",
               "CD"
             ],
-            "ms": 783.5199999809265,
-            "totalMs": 830.115000128746
+            "ms": 790.9750000238419,
+            "totalMs": 831.6699999570847
           },
           "spec": {
             "label": "astrolabe",
@@ -2276,10 +2336,11 @@
             "notSure": 0.04,
             "broad": 0,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 367.5533999967575,
-            "p95Ms": 787.2050000429153,
-            "avgTotalMs": 406.8349999856949,
+            "avgMs": 363.61039999008176,
+            "p95Ms": 781.3400000333786,
+            "avgTotalMs": 403.6831999731064,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2297,10 +2358,11 @@
             "notSure": 0.04,
             "broad": 0,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 433.46300000190735,
-            "p95Ms": 792.8150000572205,
-            "avgTotalMs": 473.8472000074387,
+            "avgMs": 429.0914000082016,
+            "p95Ms": 825.1200000047684,
+            "avgTotalMs": 469.70940000534057,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2318,10 +2380,11 @@
             "notSure": 0.04,
             "broad": 0.04,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 467.44039999961853,
-            "p95Ms": 1114.9750000238419,
-            "avgTotalMs": 507.8792000007629,
+            "avgMs": 459.9421999883652,
+            "p95Ms": 1102.7050000429153,
+            "avgTotalMs": 500.66819997310637,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2339,10 +2402,11 @@
             "notSure": 0.04,
             "broad": 0.04,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 462.2575999927521,
-            "p95Ms": 1097.6949999332428,
-            "avgTotalMs": 502.70840000629426,
+            "avgMs": 457.50180001735686,
+            "p95Ms": 1070.304999947548,
+            "avgTotalMs": 497.9712000083923,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2360,10 +2424,11 @@
             "notSure": 0.04,
             "broad": 0.04,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 495.5806000041962,
-            "p95Ms": 1076.625,
-            "avgTotalMs": 536.2506000232696,
+            "avgMs": 486.4033999967575,
+            "p95Ms": 1077.914999961853,
+            "avgTotalMs": 526.2938000011444,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2381,10 +2446,11 @@
             "notSure": 0.04,
             "broad": 0.04,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 487.80079998016356,
-            "p95Ms": 1074.9800000190735,
-            "avgTotalMs": 528.3758000040054,
+            "avgMs": 486.57880001068116,
+            "p95Ms": 1112.9249999523163,
+            "avgTotalMs": 526.5991999912262,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2402,10 +2468,11 @@
             "notSure": 0.04,
             "broad": 0.08,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 545.9202000141144,
-            "p95Ms": 1280.2250000238419,
-            "avgTotalMs": 585.6237999963761,
+            "avgMs": 535.5646000003815,
+            "p95Ms": 1269.3400000333786,
+            "avgTotalMs": 575.4925999879837,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2423,10 +2490,11 @@
             "notSure": 0.04,
             "broad": 0.08,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 583.4117999982834,
-            "p95Ms": 1280.5,
-            "avgTotalMs": 624.4844000005722,
+            "avgMs": 586.0885999965668,
+            "p95Ms": 1289.679999947548,
+            "avgTotalMs": 627.6871999835968,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2444,10 +2512,11 @@
             "notSure": 0.04,
             "broad": 0.16,
             "blurry": 0,
+            "turned": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 614.9863999986649,
-            "p95Ms": 1270.0299999713898,
-            "avgTotalMs": 654.6511999988556,
+            "avgMs": 619.9530000019073,
+            "p95Ms": 1281.9449999332428,
+            "avgTotalMs": 661.1581999731064,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2466,10 +2535,11 @@
           "notSure": 0.04,
           "broad": 0.04,
           "blurry": 0,
+          "turned": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 487.80079998016356,
-          "p95Ms": 1074.9800000190735,
-          "avgTotalMs": 528.3758000040054,
+          "avgMs": 486.57880001068116,
+          "p95Ms": 1112.9249999523163,
+          "avgTotalMs": 526.5991999912262,
           "sources": {
             "vocab": 24,
             "none": 1
@@ -5276,7 +5346,7 @@
         "matched": 1,
         "falseMatched": 0,
         "n": 25,
-        "avgMs": 275.6845999956131
+        "avgMs": 275.3105999946594
       }
     }
   ],
@@ -5294,10 +5364,11 @@
         "notSure": 0.04,
         "broad": 0.08,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2942.1173949141275,
-        "avgMs": 528.7309999895095,
-        "p95Ms": 1250.8100000619888,
-        "avgTotalMs": 571.3857999944687,
+        "avgMs": 545.1263999891281,
+        "p95Ms": 1302.2099999189377,
+        "avgTotalMs": 586.544199976921,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5317,10 +5388,11 @@
         "notSure": 0,
         "broad": 0.12,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 652.4400341464548,
-        "avgMs": 717.4499999952317,
-        "p95Ms": 1666.6949999332428,
-        "avgTotalMs": 761.3708000040054,
+        "avgMs": 558.5208000040054,
+        "p95Ms": 1046.1800000667572,
+        "avgTotalMs": 599.4553999948502,
         "sources": {
           "vocab": 25
         }
@@ -5339,10 +5411,11 @@
         "notSure": 0.08,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 957.4226254472544,
-        "avgMs": 840.7790000152588,
-        "p95Ms": 1413.755000114441,
-        "avgTotalMs": 885.8582000112533,
+        "avgMs": 643.3772000074387,
+        "p95Ms": 1055.0649999380112,
+        "avgTotalMs": 683.4826000022888,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5362,10 +5435,11 @@
         "notSure": 0.04,
         "broad": 0,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2660.0666847161624,
-        "avgMs": 727.6151999950409,
-        "p95Ms": 1318.2250000238419,
-        "avgTotalMs": 773.055799999237,
+        "avgMs": 576.2798000097275,
+        "p95Ms": 1054.4350000619888,
+        "avgTotalMs": 618.428200006485,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5385,10 +5459,11 @@
         "notSure": 0,
         "broad": 0.08,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 7782.621993216299,
-        "avgMs": 684.8055999994278,
-        "p95Ms": 1283.3100000619888,
-        "avgTotalMs": 728.3354000043869,
+        "avgMs": 552.8213999938965,
+        "p95Ms": 1050.4449999332428,
+        "avgTotalMs": 593.969799990654,
         "sources": {
           "vocab": 25
         }
@@ -5407,10 +5482,11 @@
         "notSure": 0.04,
         "broad": 0.28,
         "blurry": 0.96,
+        "turned": 0,
         "medianSharpness": 86.33651983604263,
-        "avgMs": 886.176799993515,
-        "p95Ms": 1596.9700000286102,
-        "avgTotalMs": 929.7550000047684,
+        "avgMs": 715.8431999921798,
+        "p95Ms": 1284.5299999713898,
+        "avgTotalMs": 757.5757999658584,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5430,10 +5506,11 @@
         "notSure": 0.04,
         "broad": 0.12,
         "blurry": 0.12,
+        "turned": 0,
         "medianSharpness": 1200.2486640736952,
-        "avgMs": 774.400400018692,
-        "p95Ms": 1180.3900001049042,
-        "avgTotalMs": 817.2576000356675,
+        "avgMs": 632.7879999876022,
+        "p95Ms": 1048.7699999809265,
+        "avgTotalMs": 674.2143999910354,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5453,10 +5530,11 @@
         "notSure": 0.04,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2679.2194262990006,
-        "avgMs": 503.17959998607637,
-        "p95Ms": 965.3899999856949,
-        "avgTotalMs": 543.6423999929428,
+        "avgMs": 496.80920001506803,
+        "p95Ms": 784.5199999809265,
+        "avgTotalMs": 538.7808000135421,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5476,10 +5554,11 @@
         "notSure": 0.12,
         "broad": 0.12,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 338.8866238546703,
-        "avgMs": 714.0193999958038,
-        "p95Ms": 1046.4000000953674,
-        "avgTotalMs": 754.2709999799729,
+        "avgMs": 710.3998000097275,
+        "p95Ms": 1052.570000052452,
+        "avgTotalMs": 750.4753999853134,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -5499,10 +5578,11 @@
         "notSure": 0,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2940.9100279378727,
-        "avgMs": 529.5630000019073,
-        "p95Ms": 1021.8650000095367,
-        "avgTotalMs": 569.1367999982834,
+        "avgMs": 530.589200000763,
+        "p95Ms": 1030.2450000047684,
+        "avgTotalMs": 571.7547999763489,
         "sources": {
           "vocab": 25
         }
@@ -5521,10 +5601,11 @@
         "notSure": 0,
         "broad": 0.08,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2941.1069229372506,
-        "avgMs": 517.3980000019073,
-        "p95Ms": 1020.5149999856949,
-        "avgTotalMs": 557.200800023079,
+        "avgMs": 528.1325999975204,
+        "p95Ms": 1044.554999947548,
+        "avgTotalMs": 568.9861999940872,
         "sources": {
           "vocab": 25
         }
@@ -5543,10 +5624,294 @@
         "notSure": 0,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2944.2335328383433,
-        "avgMs": 515.045599989891,
-        "p95Ms": 806.3550000190735,
-        "avgTotalMs": 554.7599999952316,
+        "avgMs": 526.9990000152588,
+        "p95Ms": 816.3600000143051,
+        "avgTotalMs": 567.5931999778747,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.84,
+        "wrongAuto": 0,
+        "notSure": 0.04,
+        "broad": 0.08,
+        "blurry": 0,
+        "turned": 0,
+        "medianSharpness": 2942.1173949141275,
+        "avgMs": 540.4722000026703,
+        "p95Ms": 1281.1299999952316,
+        "avgTotalMs": 807.3417999982834,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.88,
+        "auto": 0.8,
+        "wrongAuto": 0,
+        "notSure": 0,
+        "broad": 0.12,
+        "blurry": 0,
+        "turned": 0,
+        "medianSharpness": 652.4400341464548,
+        "avgMs": 558.5444000053405,
+        "p95Ms": 1056.8450000286102,
+        "avgTotalMs": 746.0679999923706,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.52,
+        "top3": 0.68,
+        "auto": 0.6,
+        "wrongAuto": 0.16,
+        "notSure": 0.04,
+        "broad": 0.04,
+        "blurry": 0,
+        "turned": 0.04,
+        "medianSharpness": 957.4226254472544,
+        "avgMs": 672.6749999904632,
+        "p95Ms": 1075.530000090599,
+        "avgTotalMs": 913.6025999498368,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.88,
+        "auto": 0.72,
+        "wrongAuto": 0.08,
+        "notSure": 0.04,
+        "broad": 0,
+        "blurry": 0,
+        "turned": 0,
+        "medianSharpness": 2660.0666847161624,
+        "avgMs": 579.9046000099182,
+        "p95Ms": 1064.414999961853,
+        "avgTotalMs": 729.3763999843598,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.84,
+        "auto": 0.72,
+        "wrongAuto": 0.04,
+        "notSure": 0,
+        "broad": 0.08,
+        "blurry": 0,
+        "turned": 0,
+        "medianSharpness": 7782.621993216299,
+        "avgMs": 557.9039999771118,
+        "p95Ms": 1051,
+        "avgTotalMs": 991.0915999507904,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.44,
+        "top3": 0.8,
+        "auto": 0.04,
+        "wrongAuto": 0,
+        "notSure": 0.04,
+        "broad": 0.28,
+        "blurry": 0.96,
+        "turned": 0,
+        "medianSharpness": 86.33651983604263,
+        "avgMs": 722.2714000034332,
+        "p95Ms": 1288.0650000572205,
+        "avgTotalMs": 952.4155999994277,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.52,
+        "top3": 0.8,
+        "auto": 0.64,
+        "wrongAuto": 0.12,
+        "notSure": 0.04,
+        "broad": 0.12,
+        "blurry": 0.12,
+        "turned": 0,
+        "medianSharpness": 1200.2486640736952,
+        "avgMs": 640.5939999771118,
+        "p95Ms": 1059.0550000667572,
+        "avgTotalMs": 789.3763999652863,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.84,
+        "wrongAuto": 0.04,
+        "notSure": 0.04,
+        "broad": 0.04,
+        "blurry": 0,
+        "turned": 0,
+        "medianSharpness": 2679.2194262990006,
+        "avgMs": 503.26820000648496,
+        "p95Ms": 799.460000038147,
+        "avgTotalMs": 733.4500000238419,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.48,
+        "top3": 0.56,
+        "auto": 0.48,
+        "wrongAuto": 0.12,
+        "notSure": 0.12,
+        "broad": 0.12,
+        "blurry": 0,
+        "turned": 0,
+        "medianSharpness": 338.8866238546703,
+        "avgMs": 715.3902000045777,
+        "p95Ms": 1060.5249999761581,
+        "avgTotalMs": 943.0227999973297,
+        "sources": {
+          "vocab": 22,
+          "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "sideways",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.8,
+        "wrongAuto": 0,
+        "notSure": 0,
+        "broad": 0.08,
+        "blurry": 0,
+        "turned": 0.12,
+        "medianSharpness": 2940.9100279378727,
+        "avgMs": 550.7985999965667,
+        "p95Ms": 1061.4850000143051,
+        "avgTotalMs": 1104.517399983406,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "upside-down",
+      "summary": {
+        "n": 25,
+        "top1": 0.68,
+        "top3": 0.8,
+        "auto": 0.88,
+        "wrongAuto": 0.12,
+        "notSure": 0,
+        "broad": 0.12,
+        "blurry": 0,
+        "turned": 0.16,
+        "medianSharpness": 2941.1069229372506,
+        "avgMs": 545.5875999975204,
+        "p95Ms": 1067.3000000715256,
+        "avgTotalMs": 1171.862199988365,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "upright-agree",
+      "condition": "mirrored",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.88,
+        "wrongAuto": 0.04,
+        "notSure": 0,
+        "broad": 0.04,
+        "blurry": 0,
+        "turned": 0,
+        "medianSharpness": 2944.2335328383433,
+        "avgMs": 532.2279999828338,
+        "p95Ms": 828.1549999713898,
+        "avgTotalMs": 799.0923999691009,
         "sources": {
           "vocab": 25
         }
@@ -5565,10 +5930,11 @@
         "notSure": 0.04,
         "broad": 0.08,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2942.1173949141275,
-        "avgMs": 1746.847199997902,
-        "p95Ms": 4620.289999961853,
-        "avgTotalMs": 1788.9366000080108,
+        "avgMs": 1823.9785999917983,
+        "p95Ms": 4821.9800000190735,
+        "avgTotalMs": 1866.3675999689103,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5588,10 +5954,11 @@
         "notSure": 0,
         "broad": 0.12,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 652.4400341464548,
-        "avgMs": 1750.2106000232698,
-        "p95Ms": 2827.0350000858307,
-        "avgTotalMs": 1791.1442000293732,
+        "avgMs": 1763.9022000026703,
+        "p95Ms": 2932.414999961853,
+        "avgTotalMs": 1806.0941999769211,
         "sources": {
           "vocab": 25
         }
@@ -5610,10 +5977,11 @@
         "notSure": 0.08,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 957.4226254472544,
-        "avgMs": 2230.950600013733,
-        "p95Ms": 3700.1849999427795,
-        "avgTotalMs": 2273.402600007057,
+        "avgMs": 2377.199200005531,
+        "p95Ms": 3966.015000104904,
+        "avgTotalMs": 2424.799399995804,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5633,10 +6001,11 @@
         "notSure": 0.04,
         "broad": 0,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2660.0666847161624,
-        "avgMs": 1928.9177999925614,
-        "p95Ms": 3689.1999999284744,
-        "avgTotalMs": 1971.9699999904633,
+        "avgMs": 2119.850799999237,
+        "p95Ms": 4205.340000033379,
+        "avgTotalMs": 2169.3285999774935,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5656,10 +6025,11 @@
         "notSure": 0,
         "broad": 0.12,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 7782.621993216299,
-        "avgMs": 1826.4083999872207,
-        "p95Ms": 2793.5950000286102,
-        "avgTotalMs": 1867.6417999887467,
+        "avgMs": 1882.342800002098,
+        "p95Ms": 2980.2799999713898,
+        "avgTotalMs": 1924.588799982071,
         "sources": {
           "vocab": 25
         }
@@ -5678,10 +6048,11 @@
         "notSure": 0.04,
         "broad": 0.28,
         "blurry": 0.96,
+        "turned": 0,
         "medianSharpness": 86.33651983604263,
-        "avgMs": 2396.9244000148774,
-        "p95Ms": 3716.014999985695,
-        "avgTotalMs": 2441.0408000087737,
+        "avgMs": 2389.215999994278,
+        "p95Ms": 3715.5400000810623,
+        "avgTotalMs": 2435.3221999883654,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5701,10 +6072,11 @@
         "notSure": 0.04,
         "broad": 0.12,
         "blurry": 0.12,
+        "turned": 0,
         "medianSharpness": 1200.2486640736952,
-        "avgMs": 2155.5964000129698,
-        "p95Ms": 3694.2050000429153,
-        "avgTotalMs": 2198.1268000078203,
+        "avgMs": 2209.3743999958037,
+        "p95Ms": 3738.789999961853,
+        "avgTotalMs": 2255.0499999713898,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5724,10 +6096,11 @@
         "notSure": 0,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2679.2194262990006,
-        "avgMs": 1595.4747999954225,
-        "p95Ms": 2841.664999961853,
-        "avgTotalMs": 1638.5839999866485,
+        "avgMs": 1625.0419999980927,
+        "p95Ms": 2850.8450000286102,
+        "avgTotalMs": 1667.1593999719619,
         "sources": {
           "vocab": 25
         }
@@ -5746,10 +6119,11 @@
         "notSure": 0.12,
         "broad": 0.08,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 338.8866238546703,
-        "avgMs": 2421.8222000265123,
-        "p95Ms": 3693.4249999523163,
-        "avgTotalMs": 2463.146400036812,
+        "avgMs": 2434.3010000085833,
+        "p95Ms": 3714.9049999713898,
+        "avgTotalMs": 2476.6333999967574,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -5769,10 +6143,11 @@
         "notSure": 0,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2940.9100279378727,
-        "avgMs": 1562.5115999937057,
-        "p95Ms": 3680.8799999952316,
-        "avgTotalMs": 1604.5999999904632,
+        "avgMs": 1580.7628000020982,
+        "p95Ms": 3729.6549999713898,
+        "avgTotalMs": 1622.9219999837876,
         "sources": {
           "vocab": 25
         }
@@ -5791,10 +6166,11 @@
         "notSure": 0,
         "broad": 0.08,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2941.1069229372506,
-        "avgMs": 1643.6049999809266,
-        "p95Ms": 2843.805000066757,
-        "avgTotalMs": 1686.8029999732971,
+        "avgMs": 1646.8236000204085,
+        "p95Ms": 2878.069999933243,
+        "avgTotalMs": 1689.813400001526,
         "sources": {
           "vocab": 25
         }
@@ -5813,280 +6189,11 @@
         "notSure": 0,
         "broad": 0.04,
         "blurry": 0,
+        "turned": 0,
         "medianSharpness": 2944.2335328383433,
-        "avgMs": 1710.8910000276564,
-        "p95Ms": 2839.7850000858307,
-        "avgTotalMs": 1754.4234000492097,
-        "sources": {
-          "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "clean",
-      "summary": {
-        "n": 25,
-        "top1": 0.8,
-        "top3": 0.88,
-        "auto": 0.76,
-        "wrongAuto": 0,
-        "notSure": 0.04,
-        "broad": 0,
-        "blurry": 0,
-        "medianSharpness": 2942.1173949141275,
-        "avgMs": 546.2605999994278,
-        "p95Ms": 1295.9500000476837,
-        "avgTotalMs": 589.045999994278,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "dark",
-      "summary": {
-        "n": 25,
-        "top1": 0.64,
-        "top3": 0.8,
-        "auto": 0.84,
-        "wrongAuto": 0.12,
-        "notSure": 0,
-        "broad": 0.12,
-        "blurry": 0,
-        "medianSharpness": 652.4400341464548,
-        "avgMs": 496.19280000686643,
-        "p95Ms": 837.6399999856949,
-        "avgTotalMs": 537.0296000051499,
-        "sources": {
-          "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "very-dark",
-      "summary": {
-        "n": 25,
-        "top1": 0.52,
-        "top3": 0.6,
-        "auto": 0.68,
-        "wrongAuto": 0.12,
-        "notSure": 0.04,
-        "broad": 0.08,
-        "blurry": 0,
-        "medianSharpness": 957.4226254472544,
-        "avgMs": 607.842000002861,
-        "p95Ms": 861.0049999952316,
-        "avgTotalMs": 647.7192000102997,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "bright",
-      "summary": {
-        "n": 25,
-        "top1": 0.72,
-        "top3": 0.88,
-        "auto": 0.76,
-        "wrongAuto": 0.08,
-        "notSure": 0.04,
-        "broad": 0.04,
-        "blurry": 0,
-        "medianSharpness": 2660.0666847161624,
-        "avgMs": 563.9580000019073,
-        "p95Ms": 804.2600001096725,
-        "avgTotalMs": 604.0473999929428,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "noisy",
-      "summary": {
-        "n": 25,
-        "top1": 0.68,
-        "top3": 0.76,
-        "auto": 0.76,
-        "wrongAuto": 0.08,
-        "notSure": 0,
-        "broad": 0.12,
-        "blurry": 0,
-        "medianSharpness": 7782.621993216299,
-        "avgMs": 537.6461999988555,
-        "p95Ms": 1056.594999909401,
-        "avgTotalMs": 577.7732000017166,
-        "sources": {
-          "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "blurry",
-      "summary": {
-        "n": 25,
-        "top1": 0.36,
-        "top3": 0.8,
-        "auto": 0.04,
-        "wrongAuto": 0,
-        "notSure": 0,
-        "broad": 0.32,
-        "blurry": 0.96,
-        "medianSharpness": 86.33651983604263,
-        "avgMs": 703.9738000202179,
-        "p95Ms": 1059.875,
-        "avgTotalMs": 743.7818000173569,
-        "sources": {
-          "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "close",
-      "summary": {
-        "n": 25,
-        "top1": 0.48,
-        "top3": 0.76,
-        "auto": 0.6,
-        "wrongAuto": 0.12,
-        "notSure": 0.04,
-        "broad": 0.16,
-        "blurry": 0.12,
-        "medianSharpness": 1200.2486640736952,
-        "avgMs": 628.9634000015259,
-        "p95Ms": 1057.625,
-        "avgTotalMs": 668.6118000030517,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "tilted",
-      "summary": {
-        "n": 25,
-        "top1": 0.76,
-        "top3": 0.88,
-        "auto": 0.84,
-        "wrongAuto": 0.04,
-        "notSure": 0.04,
-        "broad": 0.04,
-        "blurry": 0,
-        "medianSharpness": 2679.2194262990006,
-        "avgMs": 496.1489999961853,
-        "p95Ms": 812.4050000905991,
-        "avgTotalMs": 537.2543999910355,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "dark-blurry",
-      "summary": {
-        "n": 25,
-        "top1": 0.56,
-        "top3": 0.68,
-        "auto": 0.56,
-        "wrongAuto": 0.08,
-        "notSure": 0.16,
-        "broad": 0.08,
-        "blurry": 0,
-        "medianSharpness": 338.8866238546703,
-        "avgMs": 754.1190000009536,
-        "p95Ms": 1069.6349999904633,
-        "avgTotalMs": 794.1008000040055,
-        "sources": {
-          "vocab": 21,
-          "none": 4
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "sideways",
-      "summary": {
-        "n": 25,
-        "top1": 0.72,
-        "top3": 0.88,
-        "auto": 0.72,
-        "wrongAuto": 0.04,
-        "notSure": 0,
-        "broad": 0.04,
-        "blurry": 0,
-        "medianSharpness": 2940.9100279378727,
-        "avgMs": 516.5601999998092,
-        "p95Ms": 1058.0049999952316,
-        "avgTotalMs": 556.5460000181198,
-        "sources": {
-          "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "upside-down",
-      "summary": {
-        "n": 25,
-        "top1": 0.64,
-        "top3": 0.76,
-        "auto": 0.8,
-        "wrongAuto": 0.2,
-        "notSure": 0,
-        "broad": 0.04,
-        "blurry": 0,
-        "medianSharpness": 2941.1069229372506,
-        "avgMs": 504.87960000038146,
-        "p95Ms": 899.2749999761581,
-        "avgTotalMs": 545.6140000152587,
-        "sources": {
-          "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance",
-      "condition": "mirrored",
-      "summary": {
-        "n": 25,
-        "top1": 0.8,
-        "top3": 0.88,
-        "auto": 0.88,
-        "wrongAuto": 0.04,
-        "notSure": 0,
-        "broad": 0.04,
-        "blurry": 0,
-        "medianSharpness": 2944.2335328383433,
-        "avgMs": 540.1764000082017,
-        "p95Ms": 834.6349999904633,
-        "avgTotalMs": 581.1340000152588,
+        "avgMs": 1722.3893999910354,
+        "p95Ms": 2835.25,
+        "avgTotalMs": 1765.4851999759674,
         "sources": {
           "vocab": 25
         }

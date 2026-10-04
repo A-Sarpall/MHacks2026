@@ -18,6 +18,7 @@ export interface CaseResult {
   empty: boolean;
   blurry: boolean;
   broad: boolean;
+  turned: number;
   sharpness: number;
   expectedGeneric: string | null;
   level: number;
@@ -44,6 +45,7 @@ export interface EvalSummary {
   notSure: number;
   broad: number;
   blurry: number;
+  turned: number;
   medianSharpness: number;
   avgMs: number;
   p95Ms: number;
@@ -97,6 +99,7 @@ export function summarizeCases(cases: { result: CaseResult; spec: LabelSpec }[])
     notSure: rate((o) => o.notSure),
     broad: rate((o) => o.broad),
     blurry: n ? cases.filter((c) => c.result.blurry).length / n : 0,
+    turned: n ? cases.filter((c) => c.result.turned !== 0).length / n : 0,
     medianSharpness: n ? sharp[Math.floor(n / 2)] : 0,
     avgMs: n ? ms.reduce((a, b) => a + b, 0) / n : 0,
     p95Ms: n ? ms[Math.min(n - 1, Math.ceil(n * 0.95) - 1)] : 0,
@@ -138,6 +141,7 @@ export function meanSweep(sweeps: SweepRow[][]): SweepRow[] {
           notSure: mean((x) => x.notSure),
           broad: mean((x) => x.broad),
           blurry: mean((x) => x.blurry),
+          turned: mean((x) => x.turned),
           medianSharpness: mean((x) => x.medianSharpness),
           avgMs: mean((x) => x.avgMs),
           avgTotalMs: mean((x) => x.avgTotalMs),

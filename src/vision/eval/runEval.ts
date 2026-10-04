@@ -2,6 +2,8 @@ import { detectImageFrame, initDetector } from "../../lib/detect";
 import { hasClaude } from "../../lib/claude";
 import { aimPoint, aimZone, rankCandidates, type Candidate, type Point } from "../core/aim";
 import { CONDITIONS, degrade, type Condition } from "../core/degrade";
+import { rotated } from "../core/enhance";
+import { DEFAULT_UPRIGHT, detectionEvidence, pickUpright, rotatePoint } from "../core/upright";
 import { DEFAULT_NAMING, type NamingConfig } from "../core/escalate";
 import {
   personalSweep,
@@ -22,7 +24,7 @@ import { GENERIC_WORDS, VOCABULARY } from "../../data/vocabulary";
 import { ENHANCE_DEFAULT, ROTATIONS_DEFAULT, TTA_DEFAULT, type NamerOptions, type RotationMode } from "../namer";
 import { askClaude, nameTarget, type NamingResult } from "../naming";
 import { teachSample } from "../personal";
-import { initSiglip, siglipState } from "../siglip";
+import { embedImages, initSiglip, siglipState, vocabIndex } from "../siglip";
 import { FileSource, IDENTITY, captureFrames, orientFrame, withTimeout } from "../sources";
 
 export type AimMode = "centre" | "labelled";
@@ -44,11 +46,35 @@ export interface ConditionReport {
   summary: EvalSummary;
 }
 
-export const VARIANTS: { name: string; namer: Pick<NamerOptions, "enhance" | "tta" | "rotations"> }[] = [
+export type UprightMode = false | "detector" | "agree";
+
+export const VARIANTS: { name: string; namer: Pick<NamerOptions, "enhance" | "tta" | "rotations">; upright?: UprightMode }[] = [
   { name: "plain", namer: { enhance: false, tta: false, rotations: false } },
+  { name: "upright-agree", namer: { enhance: false, tta: false, rotations: false }, upright: "agree" },
   { name: "rot-margin", namer: { enhance: false, tta: false, rotations: "margin" } },
-  { name: "enhance", namer: { enhance: true, tta: false, rotations: false } },
 ];
+
+export async function uprightFrame(
+  image: HTMLCanvasElement,
+  aim: Point,
+  mode: UprightMode
+): Promise<{ image: HTMLCanvasElement; aim: Point; turn: number; ms: number }> {
+  const t0 = performance.now();
+  const views = [0, 1, 2, 3].map((q) => (q ? rotated(image, q) : image));
+  const evidence = views.map((v) => detectionEvidence(detectImageFrame(v).map((d) => d.score)));
+  let turn = pickUpright(evidence, DEFAULT_UPRIGHT);
+  if (mode === "agree" && turn !== 0) {
+    const vocab = vocabIndex();
+    const vectors = await embedImages(views);
+    const probs = vectors.map((v) => vocab?.top(v, 1)[0]?.prob ?? 0);
+    let bestSig = 0;
+    probs.forEach((p, q) => {
+      if (p > probs[bestSig]) bestSig = q;
+    });
+    if (bestSig !== turn) turn = 0;
+  }
+  return { image: views[turn], aim: rotatePoint(aim, image.width, image.height, turn), turn, ms: performance.now() - t0 };
+}
 
 export interface FolderReport {
   folder: string;
@@ -173,7 +199,8 @@ async function runCase(
   personal: PersonalEntry[],
   claude: boolean,
   personalCfg?: PersonalMatchConfig,
-  namer: Pick<NamerOptions, "enhance" | "tta" | "rotations"> = {}
+  namer: Pick<NamerOptions, "enhance" | "tta" | "rotations"> = {},
+  extra: { turned?: number; ms?: number } = {}
 ): Promise<CaseResult> {
   const res = await nameTarget(
     { image: p.image, candidates, aim, sharpness: p.sharpness },
@@ -208,12 +235,13 @@ async function runCase(
     empty,
     blurry: res.blurry,
     broad: res.broad && best === res.best.label,
+    turned: extra.turned ?? 0,
     sharpness: p.sharpness,
     expectedGeneric: expectedGeneric(p.spec),
     level: res.level,
     choices,
     ms,
-    totalMs: p.prepMs + detMs + ms,
+    totalMs: p.prepMs + detMs + ms + (extra.ms ?? 0),
   };
 }
 
@@ -378,11 +406,18 @@ export async function runEval(opts: EvalOptions): Promise<EvalReport> {
           const cases: { result: CaseResult; spec: LabelSpec }[] = [];
           for (const [i, p] of prepared.entries()) {
             progress(`${dir}: ${condition} / ${variant.name} ${p.file}`);
-            const d = degrade(p.image, condition, aimFor(p, "centre"), i + 1);
+            let d = degrade(p.image, condition, aimFor(p, "centre"), i + 1);
+            const extra: { turned?: number; ms?: number } = {};
+            if (variant.upright) {
+              const u = await uprightFrame(d.image, d.aim, variant.upright);
+              d = { image: u.image, aim: u.aim };
+              extra.turned = u.turn;
+              extra.ms = u.ms;
+            }
             const { candidates, ms } = candidatesFor(d.image, d.aim);
             const view: Prepared = { ...p, image: d.image, sharpness: sharpnessOf(d.image, d.aim) };
             cases.push({
-              result: await runCase(view, d.aim, candidates, ms, DEFAULT_NAMING, [], false, undefined, variant.namer),
+              result: await runCase(view, d.aim, candidates, ms, DEFAULT_NAMING, [], false, undefined, variant.namer, extra),
               spec: p.spec,
             });
           }

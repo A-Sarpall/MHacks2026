@@ -24,6 +24,7 @@ const result = (over: Partial<CaseResult>): CaseResult => ({
   empty: false,
   blurry: false,
   broad: false,
+  turned: 0,
   sharpness: 100,
   expectedGeneric: null,
   level: 0,
@@ -73,7 +74,7 @@ describe("eval scoring", () => {
       { result: result({ empty: true, ms: 200 }), spec },
       { result: result({ low: true, ms: 400 }), spec },
     ]);
-    expect(s).toMatchObject({ n: 4, top1: 0.5, top3: 0.5, auto: 0.5, wrongAuto: 0.25, notSure: 0.25, broad: 0, blurry: 0, medianSharpness: 100, avgMs: 250, p95Ms: 400 });
+    expect(s).toMatchObject({ n: 4, top1: 0.5, top3: 0.5, auto: 0.5, wrongAuto: 0.25, notSure: 0.25, broad: 0, blurry: 0, turned: 0, medianSharpness: 100, avgMs: 250, p95Ms: 400 });
     expect(s.sources).toEqual({ vocab: 2, personal: 1, none: 1 });
   });
 
@@ -96,7 +97,7 @@ describe("eval scoring", () => {
   });
 
   it("combines sweeps from several backends by their mean", () => {
-    const sum = (auto: number, wrongAuto: number) => ({ auto, wrongAuto, top1: 0, top3: 0, notSure: 0, broad: 0, blurry: 0, medianSharpness: 0, avgMs: 0, avgTotalMs: 0 }) as EvalSummary;
+    const sum = (auto: number, wrongAuto: number) => ({ auto, wrongAuto, top1: 0, top3: 0, notSure: 0, broad: 0, blurry: 0, turned: 0, medianSharpness: 0, avgMs: 0, avgTotalMs: 0 }) as EvalSummary;
     const gpu = [
       { threshold: 0.3, summary: sum(0.76, 0.08) },
       { threshold: 0.35, summary: sum(0.64, 0.04) },
