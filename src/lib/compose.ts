@@ -2,11 +2,13 @@
 // Template implementation always works offline; App shows it instantly and
 // swaps in the Claude composer's sentences when VITE_ANTHROPIC_API_KEY is set.
 import { getClaude, CLAUDE_MODEL, textOf } from "./claude";
+import { allergySentences, type HealthContext } from "./health";
 
 export interface ComposeInput {
   tiles: string[];
   coreWords: string[];
   partnerContext?: string;
+  health?: HealthContext; // FinchNode record + what the objects matched in it
 }
 
 // Template sentences per core word. `the` = "the cup" (or "that" with no
@@ -20,6 +22,17 @@ const TEMPLATES: Record<string, (f: Forms) => string[]> = {
   help: (f) => [`Can you help me with ${f.the}?`, `I need help with ${f.the}.`, `Help, please.`],
   yes: (f) => [`Yes, ${f.the}, please.`, `Yes, I'd like ${f.the}.`, `Yes!`],
   question: (f) => [`What is ${f.the}?`, `Whose is ${f.the}?`, `Can I ask about ${f.the}?`],
+};
+
+// When the object is one of the user's own medicines (`m` = "albuterol inhaler")
+const MED_TEMPLATES: Record<string, (m: string) => string[]> = {
+  want: (m) => [`I need my ${m}.`, `Can I have my ${m}, please?`, `Is it time for my ${m}?`],
+  no: (m) => [`I don't want my ${m} right now.`, `I already took my ${m}.`, `Not now, please.`],
+  more: (m) => [`My ${m} is running out.`, `Can we refill my ${m}?`, `I need more ${m}.`],
+  go: (m) => [`Can we go get my ${m}?`, `Can we go to the pharmacy?`, `Let's go.`],
+  help: (m) => [`Can you help me take my ${m}?`, `I need help with my ${m}.`, `Help, please.`],
+  yes: (m) => [`Yes, I'll take my ${m}.`, `Yes, I took my ${m}.`, `Yes!`],
+  question: (m) => [`Is it time for my ${m}?`, `Did I take my ${m} today?`, `What is my ${m} for?`],
 };
 
 function cap(s: string): string {
@@ -40,8 +53,15 @@ function joinList(items: string[]): string {
 }
 
 export function composeMock(input: ComposeInput): string[] {
-  const { tiles, coreWords } = input;
+  const { tiles, coreWords, health } = input;
   if (tiles.length === 0 && coreWords.length === 0) return [];
+
+  // An allergen overrides the core word: never offer to ask for it
+  if (health?.allergies.length) return allergySentences(health.allergies);
+  if (health?.meds.length) {
+    const template = MED_TEMPLATES[coreWords[0] ?? "want"] ?? MED_TEMPLATES.want;
+    return [...new Set(template(joinList(health.meds.map((m) => m.spoken))))];
+  }
 
   const bare = tiles.length ? joinList(tiles) : "that";
   const forms: Forms = tiles.length
@@ -67,6 +87,8 @@ export const mockComposer: Composer = {
 
 export const claudeComposer: Composer = {
   async compose(input) {
+    // Allergen sentences come from code, never the model
+    if (input.health?.allergies.length) return allergySentences(input.health.allergies);
     const client = await getClaude();
     const message = await client.messages.create({
       model: CLAUDE_MODEL,
@@ -74,7 +96,10 @@ export const claudeComposer: Composer = {
       system:
         "You write short spoken sentences for an AAC (augmentative and alternative communication) user. " +
         "Given objects they pointed at and core words they chose, write exactly 3 different natural first-person sentences they might want to say aloud. " +
-        "Keep each under 12 words. Output one sentence per line, nothing else.",
+        "Keep each under 12 words. Output one sentence per line, nothing else." +
+        (input.health
+          ? " You also get facts from their health record. Use them only when relevant (refer to their medicines by name), and never state medical facts that are not in the record."
+          : ""),
       messages: [
         {
           role: "user",
@@ -83,7 +108,8 @@ export const claudeComposer: Composer = {
             `Core words: ${input.coreWords.join(", ") || "(none)"}` +
             (input.partnerContext
               ? `\nPartner just said: ${input.partnerContext}`
-              : ""),
+              : "") +
+            (input.health ? healthPrompt(input.health) : ""),
         },
       ],
     });
@@ -96,3 +122,10 @@ export const claudeComposer: Composer = {
     return lines;
   },
 };
+
+function healthPrompt(h: HealthContext): string {
+  let text = `\n\nTheir health record:\n${h.summary}`;
+  if (h.meds.length)
+    text += `\nThe object is their medicine: ${h.meds.map((m) => m.spoken).join(", ")}.`;
+  return text;
+}

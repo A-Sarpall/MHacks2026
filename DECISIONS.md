@@ -102,3 +102,24 @@ COCO's 80 classes are good for finding objects in real time but too coarse to na
 **Implication**
 
 The detector picks *where*, the classifier/Claude decide *what*. Users can rename a tile from the alternatives list when the models disagree.
+
+---
+
+### 2026-10-03 — FinchNode health records from the browser (demo API)
+
+**Decision**
+
+Read patient records from FinchNode's keyless public demo API (`https://api.finchnode.com/demo/v1`) directly in the browser, and use them for allergy alerts on captured objects, medicine-aware sentences, clinic phrases and visit notes.
+
+**Reason**
+
+FinchNode sponsor track. The demo API needs no key and sends `access-control-allow-origin: *`, so it fits the no-backend architecture. Allergy refusals are produced by code, not the model, so a bad LLM answer cannot offer an allergen.
+
+**Alternatives considered**
+
+- FinchNode production / sandbox API — needs a server-side key and Hosted Connect consent; no backend yet
+- FinchNode MCP endpoint via Claude — adds latency and makes safety depend on the model
+
+**Implication**
+
+Only synthetic patients. Real records need a small server holding the key plus the Hosted Connect flow; `health.ts` is the only module that would change.

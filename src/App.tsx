@@ -8,6 +8,8 @@ import { TileBar } from "./components/TileBar";
 import { CoreWords } from "./components/CoreWords";
 import { Candidates } from "./components/Candidates";
 import { StatusBar } from "./components/StatusBar";
+import { HealthAlerts } from "./components/HealthAlerts";
+import { HealthPanel, type SpokenEntry } from "./components/HealthPanel";
 import { initDetector } from "./lib/detect";
 import { initClassifier } from "./lib/classify";
 import { identifyLocal, identifyWithClaude } from "./lib/identify";
@@ -17,6 +19,7 @@ import { speakNow, playBackchannel } from "./lib/speak";
 import { startInputListening, stopInputListening } from "./lib/input";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
+import { allergySentences, healthContext, type HealthProfile } from "./lib/health";
 import type { CoreWord, InputAction } from "./lib/types";
 
 export default function App() {
@@ -33,6 +36,10 @@ export default function App() {
   const [listening, setListening] = useState(false);
   const sayNameRef = useRef(sayName);
   sayNameRef.current = sayName;
+  const [health, setHealth] = useState<HealthProfile | null>(null);
+  const healthRef = useRef(health);
+  healthRef.current = health;
+  const [spokenLog, setSpokenLog] = useState<SpokenEntry[]>([]);
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
 
   // Brief "Identified: X" banner over the camera
@@ -79,7 +86,8 @@ export default function App() {
       dispatch({ type: "SET_STATUS", status: "identifying" });
       try {
         const hints = [capture.label, ...capture.alternatives.map((a) => a.label)];
-        const label = await identifyWithClaude(crop, hints);
+        const medicines = healthRef.current?.meds.map((m) => m.spoken) ?? [];
+        const label = await identifyWithClaude(crop, hints, medicines);
         const patch = label
           ? {
               label,
@@ -106,6 +114,7 @@ export default function App() {
 
   const handleSpeak = useCallback(
     async (sentence: string) => {
+      setSpokenLog((log) => [...log, { text: sentence, at: Date.now() }]);
       dispatch({ type: "SET_STATUS", status: "speaking" });
       try {
         await speakNow(sentence);
@@ -140,15 +149,26 @@ export default function App() {
   }, [handleInput]);
 
   // Compose sentences whenever the selection changes (needs a core word)
-  const selectedLabels = state.captures
-    .filter((c) => state.selectedTileIds.includes(c.id))
-    .map((c) => c.label);
-  const selectionKey = `${selectedLabels.join("|")}#${state.selectedCoreWords.join("|")}`;
+  const selectedCaptures = state.captures.filter((c) =>
+    state.selectedTileIds.includes(c.id)
+  );
+  const selectedLabels = selectedCaptures.map((c) => c.label);
+  const selectionKey = `${selectedLabels.join("|")}#${state.selectedCoreWords.join("|")}#${health?.subject ?? ""}`;
 
   useEffect(() => {
-    if (state.selectedCoreWords.length === 0) return;
+    const healthInput = health ? healthContext(health, selectedLabels) : undefined;
+    if (state.selectedCoreWords.length === 0) {
+      // An allergen gets its warning sentence even before a core word
+      if (healthInput?.allergies.length)
+        dispatch({ type: "SET_CANDIDATES", candidates: allergySentences(healthInput.allergies) });
+      return;
+    }
     const seq = ++composeSeq.current;
-    const input = { tiles: selectedLabels, coreWords: state.selectedCoreWords };
+    const input = {
+      tiles: selectedLabels,
+      coreWords: state.selectedCoreWords,
+      health: healthInput,
+    };
     // Instant template sentences; Claude's replace them when they arrive.
     dispatch({ type: "SET_CANDIDATES", candidates: composeMock(input) });
     if (!hasClaude()) return;
@@ -347,6 +367,17 @@ export default function App() {
         </section>
 
         <section>
+          <HealthAlerts
+            profile={health}
+            captures={selectedCaptures}
+            onRename={(id, label) =>
+              dispatch({
+                type: "UPDATE_CAPTURE",
+                id,
+                patch: { label, source: "manual", confidence: 0, refining: false },
+              })
+            }
+          />
           <Candidates
             candidates={state.candidates}
             onSpeak={handleSpeak}
@@ -364,6 +395,16 @@ export default function App() {
             </button>
           </div>
         )}
+
+        <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <HealthPanel
+            profile={health}
+            onProfile={setHealth}
+            onSpeak={handleSpeak}
+            spokenLog={spokenLog}
+            onClearLog={() => setSpokenLog([])}
+          />
+        </section>
       </main>
     </div>
   );

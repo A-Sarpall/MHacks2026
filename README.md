@@ -35,6 +35,15 @@ VITE_ANTHROPIC_API_KEY=sk-ant-...
 
 With a key, each capture is also sent to Claude Haiku 4.5 vision for an everyday name ("tv remote", "reusable water bottle"), and sentences come from Claude (template sentences show instantly, then get replaced). Without a key everything runs on-device. **The key is exposed to the browser — prototype only.**
 
+### Health record (FinchNode)
+
+The **Health record** panel at the bottom loads a synthetic patient from FinchNode's public demo API (no key, no account). Open http://localhost:5173/?patient=pediatric-asthma to preselect one (`baseline-adult`, `polypharmacy-senior`, `pediatric-asthma`, `multi-source-overlap`, `sparse-record`, `messy-coding`). With a record loaded:
+
+- **Allergy alert**: a captured object whose name mentions an allergen (e.g. "peanut butter jar" for the pediatric-asthma patient) shows a red alert, and the only sentences offered are refusals, whatever core word is picked. These come from code, not the model, even when Claude is on.
+- **Their medicines**: a pill bottle or inhaler asks "which of their medicines is this?", then sentences name it ("Is it time for my montelukast?"). Claude vision is also given the medicine names so it can read a label.
+- **Say at the clinic**: one-tap sentences from the record (allergies, conditions, medication list, next appointment).
+- **Visit notes**: everything spoken is logged with times; **Copy for clinician** copies it with the allergy and medication summary.
+
 ### Troubleshooting
 
 - **"Loading models…" forever / model error** — the first run needs internet to download models (`public/models/`). After that it works offline.
@@ -51,6 +60,7 @@ Webcam ─► ObjectDetector (EfficientDet-Lite0, VIDEO mode, every frame)
 Click/Space ─► crop box ─► ImageClassifier (EfficientNet-Lite0, ImageNet)
                              └► (optional) Claude vision ─► tile
 Tile + core word ─► templates (instant) ─► (optional) Claude composer ─► sentences
+                    ▲ FinchNode record (allergies, medicines) ─► alerts, clinic phrases
 Sentence ─► SpeechSynthesis
 ```
 
@@ -66,6 +76,8 @@ Sentence ─► SpeechSynthesis
 | `src/lib/vision.ts` | Shared wasm loader, GPU→CPU fallback, local-model resolver |
 | `src/lib/claude.ts` | Lazy Anthropic SDK client (only when a key is set) |
 | `src/lib/compose.ts` | Template sentences + Claude composer (`Composer` interface) |
+| `src/lib/health.ts` | FinchNode demo API client, record → profile, allergy/medicine matching, clinic phrases |
+| `src/components/HealthPanel.tsx`, `HealthAlerts.tsx` | Patient picker, record card, clinic phrases, visit notes; per-tile alerts |
 | `src/lib/speak.ts` | SpeechSynthesis + backchannels (`TTSEngine` interface) |
 | `src/lib/listen.ts` | Energy-based pause detector for auto-speaking the queue |
 | `src/lib/input.ts` | Keyboard → ring actions (swap for a ring client later) |

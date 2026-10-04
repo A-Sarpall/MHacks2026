@@ -25,6 +25,12 @@ Done:
 
 - Real webcam, real audio output, real Claude responses (no key in sandbox), GPU drivers on user's machine
 
+## FinchNode health record (2026-10-03, branch sponsor-features)
+
+Done: `src/lib/health.ts`, `HealthPanel`, `HealthAlerts`; health context in `compose.ts` + Claude vision hints; `?patient=<scenario>`.
+Verified (Docker: node:22 build + lint; Playwright headless Chromium with fake webcam pill-bottle image, mocked Anthropic API): 14/14 checks — record card, clinic phrases, pill bottle → medicine chips → med sentences, visit log + clipboard notes, patient switch, allergy alert + refusal-only sentences with the Claude composer skipped, medicine + record in composer/vision prompts.
+Not verified: real Claude responses, real webcam, audio.
+
 ## Next ideas
 
 - Partner transcription (Web Speech API) -> partnerContext

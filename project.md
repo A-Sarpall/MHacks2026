@@ -34,6 +34,8 @@ One browser tab runs everything. No backend server.
 
 Data flow: Webcam -> live tracking -> click -> identify -> object tiles -> user taps core word -> LLM generates sentences -> user picks one -> TTS speaks it (now or at next pause)
 
+Health record: an optional FinchNode record (public synthetic demo API, called from the browser) adds allergy alerts on captured objects, medicine-aware sentences, one-tap clinic phrases and copyable visit notes.
+
 ## Important directories
 
 | Path | Purpose |
@@ -68,7 +70,7 @@ Never put secret values here.
 - Keyboard shortcuts simulate ring: Space = click (capture + detect), D = double-click (backchannel), H = hold (queue to pause).
 - Browser SpeechSynthesis for TTS (not ElevenLabs -- no API dependency for prototype).
 - MediaPipe runs client-side. No server-side ML.
-- Must work offline except for LLM calls (which can be mocked).
+- Must work offline except for LLM calls (which can be mocked) and the optional FinchNode health record (fetched from the browser; Cue works without one).
 
 ## Explicit non-goals
 

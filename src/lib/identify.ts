@@ -86,9 +86,11 @@ export function identifyLocal(
 }
 
 // Ask Claude vision for a short, everyday name for the object in the crop.
+// `medicines` (from the health record) lets it name a medicine by its label.
 export async function identifyWithClaude(
   crop: HTMLCanvasElement,
-  hints: string[]
+  hints: string[],
+  medicines: string[] = []
 ): Promise<string | null> {
   const client = await getClaude();
   const data = crop.toDataURL("image/jpeg", 0.85).split(",")[1];
@@ -108,6 +110,9 @@ export async function identifyWithClaude(
             text:
               "This is a webcam crop of an object someone is pointing at, for an AAC (speech aid) app. " +
               `On-device models guessed: ${hints.join(", ") || "nothing"}. ` +
+              (medicines.length
+                ? `If it is a medicine and you can read its label, include the drug name (e.g. "lisinopril bottle"); the person takes ${medicines.join(", ")}. Do not guess a drug name you cannot read. `
+                : "") +
               "Reply with ONLY a short everyday name for the main object (1-3 words, lowercase, no article, no punctuation), e.g. \"water bottle\" or \"tv remote\".",
           },
         ],
