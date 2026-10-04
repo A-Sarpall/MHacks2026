@@ -1,8 +1,8 @@
 {
   "device": "wasm",
   "claude": false,
-  "startedAt": "2026-10-04T03:11:24.946Z",
-  "ms": 204029.57000005245,
+  "startedAt": "2026-10-04T03:32:20.929Z",
+  "ms": 729470.6699999571,
   "naming": {
     "centreFrac": 0.35,
     "wideFrac": 0.65,
@@ -11,6 +11,10 @@
     "widePenalty": 0.1,
     "minShow": 0.12,
     "minDetector": 0.5
+  },
+  "defaults": {
+    "enhance": false,
+    "tta": false
   },
   "missing": [
     "test-images-public"
@@ -26,9 +30,9 @@
         "auto": 0.8,
         "wrongAuto": 0,
         "notSure": 0.04,
-        "avgMs": 472.71279998779295,
-        "p95Ms": 1064.164999961853,
-        "avgTotalMs": 517.4747999763489,
+        "avgMs": 471.99980000019076,
+        "p95Ms": 1018.9800000190735,
+        "avgTotalMs": 517.5448000001908,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -42,9 +46,9 @@
           "auto": 0.9230769230769231,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 427.8753846058479,
-          "p95Ms": 784.2300000190735,
-          "avgTotalMs": 479.7603845871412,
+          "avgMs": 430.10038461134985,
+          "p95Ms": 791.5350000858307,
+          "avgTotalMs": 481.7292307523581,
           "sources": {
             "vocab": 13
           }
@@ -56,9 +60,9 @@
           "auto": 0.8,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 570.5159999608993,
-          "p95Ms": 1269.1699999570847,
-          "avgTotalMs": 608.7879999637604,
+          "avgMs": 570.5239999771118,
+          "p95Ms": 1262.4950000047684,
+          "avgTotalMs": 611.0610000371933,
           "sources": {
             "vocab": 5
           }
@@ -70,9 +74,9 @@
           "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 264.45625001192093,
-          "p95Ms": 265.6399999856949,
-          "avgTotalMs": 298.9224999845028,
+          "avgMs": 263.59875002503395,
+          "p95Ms": 265.27999997138977,
+          "avgTotalMs": 301.11125004291534,
           "sources": {
             "vocab": 4
           }
@@ -84,9 +88,9 @@
           "auto": 0,
           "wrongAuto": 0,
           "notSure": 0.3333333333333333,
-          "avgMs": 781.6783333222071,
-          "p95Ms": 1064.164999961853,
-          "avgTotalMs": 820.1183333396912,
+          "avgMs": 767.2250000238419,
+          "p95Ms": 1018.9800000190735,
+          "avgTotalMs": 805.4633332888285,
           "sources": {
             "none": 1,
             "vocab": 2
@@ -114,8 +118,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 287.5699999332428,
-            "totalMs": 511.59999990463257
+            "ms": 287.16999995708466,
+            "totalMs": 502.8549998998642
           },
           "spec": {
             "label": "mug",
@@ -152,8 +156,8 @@
               "urinal bottle",
               "bottle"
             ],
-            "ms": 773.6699999570847,
-            "totalMs": 809.009999871254
+            "ms": 775.2799999713898,
+            "totalMs": 816.8949998617172
           },
           "spec": {
             "label": "water bottle",
@@ -188,8 +192,8 @@
               "glasses case",
               "thing"
             ],
-            "ms": 271.35000002384186,
-            "totalMs": 317.88499987125397
+            "ms": 273.16999995708466,
+            "totalMs": 308.8249999284744
           },
           "spec": {
             "label": "glasses",
@@ -225,8 +229,8 @@
               "calculator",
               "thing"
             ],
-            "ms": 270.31000006198883,
-            "totalMs": 304.11500000953674
+            "ms": 272.16999995708466,
+            "totalMs": 310.6749999523163
           },
           "spec": {
             "label": "phone",
@@ -263,8 +267,8 @@
               "speaker",
               "game controller"
             ],
-            "ms": 778.9199999570847,
-            "totalMs": 810.704999923706
+            "ms": 784.0800000429153,
+            "totalMs": 819.575000166893
           },
           "spec": {
             "label": "remote",
@@ -301,8 +305,8 @@
               "toothpaste",
               "thing"
             ],
-            "ms": 270.4650000333786,
-            "totalMs": 306.97000002861023
+            "ms": 271.66999995708466,
+            "totalMs": 308.16499984264374
           },
           "spec": {
             "label": "toothbrush",
@@ -337,8 +341,8 @@
               "pill organizer",
               "thing"
             ],
-            "ms": 784.2300000190735,
-            "totalMs": 820.3750001192093
+            "ms": 791.5350000858307,
+            "totalMs": 838.9350000619888
           },
           "spec": {
             "label": "pills",
@@ -378,8 +382,8 @@
               "rosary",
               "thing"
             ],
-            "ms": 271.32999992370605,
-            "totalMs": 312.1449999809265
+            "ms": 270.38499999046326,
+            "totalMs": 308.89999997615814
           },
           "spec": {
             "label": "book",
@@ -415,8 +419,8 @@
               "spatula",
               "scissors"
             ],
-            "ms": 774.7149999141693,
-            "totalMs": 806.2799998521805
+            "ms": 775.7849999666214,
+            "totalMs": 809.3700000047684
           },
           "spec": {
             "label": "spoon",
@@ -448,8 +452,8 @@
               "ball",
               "thing"
             ],
-            "ms": 270.06499993801117,
-            "totalMs": 310.17000007629395
+            "ms": 271.45500004291534,
+            "totalMs": 309.4150000810623
           },
           "spec": {
             "label": "shoe",
@@ -486,8 +490,8 @@
               "can opener",
               "thing"
             ],
-            "ms": 268.81500005722046,
-            "totalMs": 302.59500002861023
+            "ms": 274.9300000667572,
+            "totalMs": 309.3600000143051
           },
           "spec": {
             "label": "keys",
@@ -524,8 +528,8 @@
               "high chair",
               "thing"
             ],
-            "ms": 268.41999995708466,
-            "totalMs": 308.56499993801117
+            "ms": 271.3600000143051,
+            "totalMs": 309.56000006198883
           },
           "spec": {
             "label": "chair",
@@ -560,8 +564,8 @@
               "fruit bowl",
               "thing"
             ],
-            "ms": 272.5200001001358,
-            "totalMs": 316.47000002861023
+            "ms": 272.31499993801117,
+            "totalMs": 309.9499999284744
           },
           "spec": {
             "label": "banana",
@@ -596,8 +600,8 @@
               "cup",
               "thing"
             ],
-            "ms": 269.1200000047684,
-            "totalMs": 310.16999995708466
+            "ms": 271.6399999856949,
+            "totalMs": 311.99500012397766
           },
           "spec": {
             "label": "cup",
@@ -635,8 +639,8 @@
               "computer",
               "monitor"
             ],
-            "ms": 769.5649999380112,
-            "totalMs": 809.414999961853
+            "ms": 775.5349999666214,
+            "totalMs": 816.8899999856949
           },
           "spec": {
             "label": "laptop",
@@ -673,8 +677,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 271.25,
-            "totalMs": 311.22500002384186
+            "ms": 270.5349999666214,
+            "totalMs": 311.3750001192093
           },
           "spec": {
             "label": "mouse",
@@ -710,8 +714,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 273.47499990463257,
-            "totalMs": 306.2149999141693
+            "ms": 272.414999961853,
+            "totalMs": 309.97500002384186
           },
           "spec": {
             "label": "laptop",
@@ -751,8 +755,8 @@
               "desk",
               "thing"
             ],
-            "ms": 1269.1699999570847,
-            "totalMs": 1306.914999961853
+            "ms": 1262.4950000047684,
+            "totalMs": 1305.0699999332428
           },
           "spec": {
             "label": "monitor",
@@ -789,8 +793,8 @@
               "orange",
               "thing"
             ],
-            "ms": 263.3900001049042,
-            "totalMs": 307.2999999523163
+            "ms": 261.92000007629395,
+            "totalMs": 307.0400000810623
           },
           "spec": {
             "label": "apple",
@@ -823,8 +827,8 @@
               "hand",
               "thing"
             ],
-            "ms": 265.6399999856949,
-            "totalMs": 295.2549999952316
+            "ms": 264.3899999856949,
+            "totalMs": 298.42000007629395
           },
           "spec": {
             "label": "phone",
@@ -861,8 +865,8 @@
               "cup",
               "thing"
             ],
-            "ms": 264.45499992370605,
-            "totalMs": 296.4950000047684
+            "ms": 265.27999997138977,
+            "totalMs": 298.63499987125397
           },
           "spec": {
             "label": "mug",
@@ -899,8 +903,8 @@
               "remote",
               "thing"
             ],
-            "ms": 264.3400000333786,
-            "totalMs": 296.6399999856949
+            "ms": 262.8050000667572,
+            "totalMs": 300.35000014305115
           },
           "spec": {
             "label": "keys",
@@ -932,8 +936,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 527.1749999523163,
-            "totalMs": 567.4750000238419
+            "ms": 525.4049999713898,
+            "totalMs": 560.3349999189377
           },
           "spec": {
             "label": "theremin",
@@ -966,8 +970,8 @@
               "magnifying glass",
               "thing"
             ],
-            "ms": 1064.164999961853,
-            "totalMs": 1098.2849999666214
+            "ms": 1018.9800000190735,
+            "totalMs": 1059.2299998998642
           },
           "spec": {
             "label": "sextant",
@@ -999,8 +1003,8 @@
               "ruler",
               "CD"
             ],
-            "ms": 753.6950000524521,
-            "totalMs": 794.5950000286102
+            "ms": 757.2900000810623,
+            "totalMs": 796.8250000476837
           },
           "spec": {
             "label": "astrolabe",
@@ -1026,9 +1030,9 @@
         "auto": 0.88,
         "wrongAuto": 0.04,
         "notSure": 0,
-        "avgMs": 455.85840000629423,
-        "p95Ms": 843.414999961853,
-        "avgTotalMs": 495.704799990654,
+        "avgMs": 441.63779998779296,
+        "p95Ms": 759.6750000715256,
+        "avgTotalMs": 480.3824000024795,
         "sources": {
           "vocab": 25
         }
@@ -1041,9 +1045,9 @@
           "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 421.0873076915741,
-          "p95Ms": 781.2099999189377,
-          "avgTotalMs": 460.8623076585623,
+          "avgMs": 415.04269231282746,
+          "p95Ms": 759.6750000715256,
+          "avgTotalMs": 454.2942307637288,
           "sources": {
             "vocab": 13
           }
@@ -1055,9 +1059,9 @@
           "auto": 1,
           "wrongAuto": 0.2,
           "notSure": 0,
-          "avgMs": 496.2480000257492,
-          "p95Ms": 843.414999961853,
-          "avgTotalMs": 534.5500000238419,
+          "avgMs": 457.21699998378756,
+          "p95Ms": 750.7549999952316,
+          "avgTotalMs": 495.9820000171661,
           "sources": {
             "vocab": 5
           }
@@ -1069,9 +1073,9 @@
           "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 271.5725000202656,
-          "p95Ms": 272.47500002384186,
-          "avgTotalMs": 311.2787500023842,
+          "avgMs": 264.2449999451637,
+          "p95Ms": 265.4249999523163,
+          "avgTotalMs": 299.88374999165535,
           "sources": {
             "vocab": 4
           }
@@ -1083,9 +1087,9 @@
           "auto": 0,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 784.9316666523615,
-          "p95Ms": 1041.1200000047684,
-          "avgTotalMs": 827.8483333587646,
+          "avgMs": 767.4416666428248,
+          "p95Ms": 1019.7949999570847,
+          "avgTotalMs": 808.0966666936874,
           "sources": {
             "vocab": 3
           }
@@ -1112,8 +1116,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 265.3600000143051,
-            "totalMs": 311.77999997138977
+            "ms": 264.97000002861023,
+            "totalMs": 304.0849999189377
           },
           "spec": {
             "label": "mug",
@@ -1150,8 +1154,8 @@
               "urinal bottle",
               "bottle"
             ],
-            "ms": 751.2000000476837,
-            "totalMs": 787.1100000143051
+            "ms": 751.6000000238419,
+            "totalMs": 792
           },
           "spec": {
             "label": "water bottle",
@@ -1186,8 +1190,8 @@
               "glasses case",
               "thing"
             ],
-            "ms": 264.0499999523163,
-            "totalMs": 303.91999983787537
+            "ms": 264.99000000953674,
+            "totalMs": 304.75499987602234
           },
           "spec": {
             "label": "glasses",
@@ -1223,8 +1227,8 @@
               "letter",
               "thing"
             ],
-            "ms": 263.8000000715256,
-            "totalMs": 297.3249999284744
+            "ms": 265.2450000047684,
+            "totalMs": 308.4500000476837
           },
           "spec": {
             "label": "phone",
@@ -1261,8 +1265,8 @@
               "speaker",
               "game controller"
             ],
-            "ms": 762.7050000429153,
-            "totalMs": 797.8899999856949
+            "ms": 749.7799999713898,
+            "totalMs": 788.1300001144409
           },
           "spec": {
             "label": "remote",
@@ -1299,8 +1303,8 @@
               "dental floss",
               "thing"
             ],
-            "ms": 270.039999961853,
-            "totalMs": 310.18499994277954
+            "ms": 262.89999997615814,
+            "totalMs": 304.5699999332428
           },
           "spec": {
             "label": "toothbrush",
@@ -1336,8 +1340,8 @@
               "medicine",
               "thing"
             ],
-            "ms": 781.2099999189377,
-            "totalMs": 822.1100000143051
+            "ms": 759.6750000715256,
+            "totalMs": 802.2849999666214
           },
           "spec": {
             "label": "pills",
@@ -1377,8 +1381,8 @@
               "newspaper",
               "thing"
             ],
-            "ms": 271.4650000333786,
-            "totalMs": 312.85000002384186
+            "ms": 264.49000000953674,
+            "totalMs": 303.2999999523163
           },
           "spec": {
             "label": "book",
@@ -1414,8 +1418,8 @@
               "spatula",
               "scissors"
             ],
-            "ms": 762.460000038147,
-            "totalMs": 801.7749999761581
+            "ms": 752.8200000524521,
+            "totalMs": 785.4750000238419
           },
           "spec": {
             "label": "spoon",
@@ -1447,8 +1451,8 @@
               "long shoehorn",
               "thing"
             ],
-            "ms": 272.35000002384186,
-            "totalMs": 309.74500012397766
+            "ms": 264.0899999141693,
+            "totalMs": 305.49000000953674
           },
           "spec": {
             "label": "shoe",
@@ -1485,8 +1489,8 @@
               "bottle opener",
               "thing"
             ],
-            "ms": 268.6399999856949,
-            "totalMs": 308.34999990463257
+            "ms": 264.0700000524521,
+            "totalMs": 299.24000012874603
           },
           "spec": {
             "label": "keys",
@@ -1523,8 +1527,8 @@
               "step stool",
               "thing"
             ],
-            "ms": 269.539999961853,
-            "totalMs": 310.20499992370605
+            "ms": 265.0349999666214,
+            "totalMs": 305.3700000047684
           },
           "spec": {
             "label": "chair",
@@ -1559,8 +1563,8 @@
               "mango",
               "thing"
             ],
-            "ms": 271.31499993801117,
-            "totalMs": 317.9649999141693
+            "ms": 265.8899999856949,
+            "totalMs": 302.6749999523163
           },
           "spec": {
             "label": "banana",
@@ -1595,8 +1599,8 @@
               "mug",
               "bowl"
             ],
-            "ms": 758.0400000810623,
-            "totalMs": 792.1449999809265
+            "ms": 750.7549999952316,
+            "totalMs": 790.170000076294
           },
           "spec": {
             "label": "cup",
@@ -1634,8 +1638,8 @@
               "computer",
               "monitor"
             ],
-            "ms": 843.414999961853,
-            "totalMs": 881.9049999713898
+            "ms": 745.7200000286102,
+            "totalMs": 781.8899999856949
           },
           "spec": {
             "label": "laptop",
@@ -1672,8 +1676,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 333.8700000047684,
-            "totalMs": 375.76000010967255
+            "ms": 264.04499995708466,
+            "totalMs": 303.2350001335144
           },
           "spec": {
             "label": "mouse",
@@ -1709,8 +1713,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 274.49000000953674,
-            "totalMs": 311.875
+            "ms": 262.91999995708466,
+            "totalMs": 303.13499999046326
           },
           "spec": {
             "label": "laptop",
@@ -1747,8 +1751,8 @@
               "window",
               "thing"
             ],
-            "ms": 271.4250000715256,
-            "totalMs": 311.06500005722046
+            "ms": 262.6449999809265,
+            "totalMs": 301.4799998998642
           },
           "spec": {
             "label": "monitor",
@@ -1785,8 +1789,8 @@
               "orange",
               "thing"
             ],
-            "ms": 272.47500002384186,
-            "totalMs": 312.52499997615814
+            "ms": 265.4249999523163,
+            "totalMs": 309.0199999809265
           },
           "spec": {
             "label": "apple",
@@ -1819,8 +1823,8 @@
               "watch",
               "thing"
             ],
-            "ms": 270.7450000047684,
-            "totalMs": 310.86500000953674
+            "ms": 263.96999990940094,
+            "totalMs": 295.81000006198883
           },
           "spec": {
             "label": "phone",
@@ -1857,8 +1861,8 @@
               "tea",
               "thing"
             ],
-            "ms": 270.59500002861023,
-            "totalMs": 308.57999992370605
+            "ms": 262.4599999189377,
+            "totalMs": 296.01999974250793
           },
           "spec": {
             "label": "mug",
@@ -1895,8 +1899,8 @@
               "can opener",
               "thing"
             ],
-            "ms": 272.47500002384186,
-            "totalMs": 313.1450001001358
+            "ms": 265.125,
+            "totalMs": 298.6850001811981
           },
           "spec": {
             "label": "keys",
@@ -1934,8 +1938,8 @@
               "speaker",
               "thing"
             ],
-            "ms": 544.5900000333786,
-            "totalMs": 588.9150000810623
+            "ms": 528.6849999427795,
+            "totalMs": 566.1799999475479
           },
           "spec": {
             "label": "theremin",
@@ -1968,8 +1972,8 @@
               "iron",
               "thing"
             ],
-            "ms": 1041.1200000047684,
-            "totalMs": 1083.1150000095367
+            "ms": 1019.7949999570847,
+            "totalMs": 1063.6200000047684
           },
           "spec": {
             "label": "sextant",
@@ -2001,8 +2005,8 @@
               "ruler",
               "CD"
             ],
-            "ms": 769.0849999189377,
-            "totalMs": 811.5149999856949
+            "ms": 753.8450000286102,
+            "totalMs": 794.490000128746
           },
           "spec": {
             "label": "astrolabe",
@@ -2032,9 +2036,9 @@
             "auto": 0.96,
             "wrongAuto": 0.12,
             "notSure": 0.04,
-            "avgMs": 357.5605999851227,
-            "p95Ms": 764.25,
-            "avgTotalMs": 397.2861999845505,
+            "avgMs": 361.0099999856949,
+            "p95Ms": 758.4850000143051,
+            "avgTotalMs": 400.34379999637605,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2050,9 +2054,9 @@
             "auto": 0.92,
             "wrongAuto": 0.04,
             "notSure": 0.04,
-            "avgMs": 417.28940001487734,
-            "p95Ms": 764.7300000190735,
-            "avgTotalMs": 457.3253999996185,
+            "avgMs": 429.39000000476835,
+            "p95Ms": 799.960000038147,
+            "avgTotalMs": 467.5592000055313,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2068,9 +2072,9 @@
             "auto": 0.84,
             "wrongAuto": 0,
             "notSure": 0.04,
-            "avgMs": 445.90379999637605,
-            "p95Ms": 1026.5149999856949,
-            "avgTotalMs": 485.6226000070572,
+            "avgMs": 450.54620000839236,
+            "p95Ms": 1015.2400000095367,
+            "avgTotalMs": 488.85100001335144,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2086,9 +2090,9 @@
             "auto": 0.84,
             "wrongAuto": 0,
             "notSure": 0.04,
-            "avgMs": 450.56080001831054,
-            "p95Ms": 1044.795000076294,
-            "avgTotalMs": 490.0839999961853,
+            "avgMs": 445.6434000015259,
+            "p95Ms": 1044.7150000333786,
+            "avgTotalMs": 485.0674000072479,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2104,9 +2108,9 @@
             "auto": 0.8,
             "wrongAuto": 0,
             "notSure": 0.04,
-            "avgMs": 467.4553999996185,
-            "p95Ms": 1032.0550000667572,
-            "avgTotalMs": 507.47839997768403,
+            "avgMs": 467.6228000116348,
+            "p95Ms": 1027.030000090599,
+            "avgTotalMs": 506.28100001335144,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2122,9 +2126,9 @@
             "auto": 0.8,
             "wrongAuto": 0,
             "notSure": 0.04,
-            "avgMs": 484.3484000253677,
-            "p95Ms": 1059.1849999427795,
-            "avgTotalMs": 524.7696000003815,
+            "avgMs": 469.6104000091553,
+            "p95Ms": 1059.4499999284744,
+            "avgTotalMs": 508.9416000080109,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2140,9 +2144,9 @@
             "auto": 0.76,
             "wrongAuto": 0,
             "notSure": 0.04,
-            "avgMs": 531.9363999986649,
-            "p95Ms": 1263.8949999809265,
-            "avgTotalMs": 571.9063999938965,
+            "avgMs": 547.6814000082016,
+            "p95Ms": 1307.0249999761581,
+            "avgTotalMs": 587.8028000116349,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2158,9 +2162,9 @@
             "auto": 0.76,
             "wrongAuto": 0.04,
             "notSure": 0.04,
-            "avgMs": 572.144800004959,
-            "p95Ms": 1263.0049999952316,
-            "avgTotalMs": 611.6874000072479,
+            "avgMs": 582.89,
+            "p95Ms": 1283.8400000333786,
+            "avgTotalMs": 623.4148000049591,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2176,9 +2180,9 @@
             "auto": 0.68,
             "wrongAuto": 0,
             "notSure": 0.04,
-            "avgMs": 611.5826000070572,
-            "p95Ms": 1250.1399999856949,
-            "avgTotalMs": 651.1751999807358,
+            "avgMs": 618.0661999940872,
+            "p95Ms": 1271.8500000238419,
+            "avgTotalMs": 658.275799999237,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2195,9 +2199,9 @@
           "auto": 0.84,
           "wrongAuto": 0,
           "notSure": 0.04,
-          "avgMs": 450.56080001831054,
-          "p95Ms": 1044.795000076294,
-          "avgTotalMs": 490.0839999961853,
+          "avgMs": 445.6434000015259,
+          "p95Ms": 1044.7150000333786,
+          "avgTotalMs": 485.0674000072479,
           "sources": {
             "vocab": 24,
             "none": 1
@@ -5004,7 +5008,541 @@
         "matched": 1,
         "falseMatched": 0,
         "n": 25,
-        "avgMs": 264.92179999351504
+        "avgMs": 270.8454000043869
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.88,
+        "top3": 0.88,
+        "auto": 0.8,
+        "wrongAuto": 0,
+        "notSure": 0.04,
+        "avgMs": 486.3606000089645,
+        "p95Ms": 1128.0049999952316,
+        "avgTotalMs": 528.8440000104904,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.84,
+        "top3": 0.88,
+        "auto": 0.76,
+        "wrongAuto": 0.04,
+        "notSure": 0,
+        "avgMs": 530.655799999237,
+        "p95Ms": 1043.5449999570847,
+        "avgTotalMs": 571.318000011444,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.68,
+        "auto": 0.44,
+        "wrongAuto": 0.08,
+        "notSure": 0.12,
+        "avgMs": 610.5153999996186,
+        "p95Ms": 1041.4099999666214,
+        "avgTotalMs": 651.3474000120164,
+        "sources": {
+          "vocab": 22,
+          "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.88,
+        "auto": 0.76,
+        "wrongAuto": 0.08,
+        "notSure": 0.04,
+        "avgMs": 542.5432000017166,
+        "p95Ms": 842.5649999380112,
+        "avgTotalMs": 583.4474000024795,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.84,
+        "auto": 0.8,
+        "wrongAuto": 0.04,
+        "notSure": 0,
+        "avgMs": 514.9748000001907,
+        "p95Ms": 820.1449999809265,
+        "avgTotalMs": 556.1650000047683,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.68,
+        "top3": 0.88,
+        "auto": 0.72,
+        "wrongAuto": 0.2,
+        "notSure": 0.04,
+        "avgMs": 661.9507999801635,
+        "p95Ms": 1019.6200000047684,
+        "avgTotalMs": 704.9507999897003,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.64,
+        "top3": 0.8,
+        "auto": 0.76,
+        "wrongAuto": 0.12,
+        "notSure": 0.04,
+        "avgMs": 610.5218000125885,
+        "p95Ms": 799.4850000143051,
+        "avgTotalMs": 650.568400015831,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.84,
+        "top3": 0.88,
+        "auto": 0.84,
+        "wrongAuto": 0.04,
+        "notSure": 0.04,
+        "avgMs": 445.2193999958038,
+        "p95Ms": 769.0749999284744,
+        "avgTotalMs": 484.99219999790193,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.6,
+        "auto": 0.4,
+        "wrongAuto": 0.04,
+        "notSure": 0.12,
+        "avgMs": 705.1464000082016,
+        "p95Ms": 1065.2200000286102,
+        "avgTotalMs": 745.9330000209808,
+        "sources": {
+          "vocab": 22,
+          "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.8,
+        "wrongAuto": 0.04,
+        "notSure": 0.04,
+        "avgMs": 512.4158000040054,
+        "p95Ms": 1054.8849999904633,
+        "avgTotalMs": 552.4509999895096,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.8,
+        "auto": 0.8,
+        "wrongAuto": 0.16,
+        "notSure": 0,
+        "avgMs": 488.39259999752045,
+        "p95Ms": 825.6599999666214,
+        "avgTotalMs": 528.6598000144959,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.64,
+        "auto": 0.64,
+        "wrongAuto": 0.12,
+        "notSure": 0.04,
+        "avgMs": 596.9602000045776,
+        "p95Ms": 833.9550000429153,
+        "avgTotalMs": 637.0016000127792,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.88,
+        "auto": 0.76,
+        "wrongAuto": 0.08,
+        "notSure": 0.04,
+        "avgMs": 533.6390000057221,
+        "p95Ms": 789.1299999952316,
+        "avgTotalMs": 574.8368000268936,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.8,
+        "auto": 0.8,
+        "wrongAuto": 0.08,
+        "notSure": 0,
+        "avgMs": 509.9691999959946,
+        "p95Ms": 841.6449999809265,
+        "avgTotalMs": 549.7934000015259,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.64,
+        "top3": 0.84,
+        "auto": 0.72,
+        "wrongAuto": 0.12,
+        "notSure": 0,
+        "avgMs": 679.5099999904633,
+        "p95Ms": 832.9800000190735,
+        "avgTotalMs": 720.3816000127792,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.76,
+        "auto": 0.68,
+        "wrongAuto": 0.12,
+        "notSure": 0.04,
+        "avgMs": 630.9488000059127,
+        "p95Ms": 1075.6650000810623,
+        "avgTotalMs": 671.7284000062942,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.8,
+        "wrongAuto": 0.04,
+        "notSure": 0.04,
+        "avgMs": 455.0970000076294,
+        "p95Ms": 796.5250000953674,
+        "avgTotalMs": 495.1424000167847,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.68,
+        "auto": 0.44,
+        "wrongAuto": 0,
+        "notSure": 0.16,
+        "avgMs": 752.7884000205994,
+        "p95Ms": 1086.695000052452,
+        "avgTotalMs": 793.3956000137329,
+        "sources": {
+          "vocab": 21,
+          "none": 4
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.84,
+        "top3": 0.88,
+        "auto": 0.84,
+        "wrongAuto": 0.04,
+        "notSure": 0,
+        "avgMs": 901.6574000072479,
+        "p95Ms": 1936.0749999284744,
+        "avgTotalMs": 943.0066000175476,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.84,
+        "auto": 0.76,
+        "wrongAuto": 0.08,
+        "notSure": 0,
+        "avgMs": 893.9623999881744,
+        "p95Ms": 1490.4449999332428,
+        "avgTotalMs": 936.2518000078202,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.64,
+        "auto": 0.6,
+        "wrongAuto": 0.04,
+        "notSure": 0.08,
+        "avgMs": 1119.2204000282288,
+        "p95Ms": 1506.695000052452,
+        "avgTotalMs": 1160.6060000324248,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.88,
+        "auto": 0.8,
+        "wrongAuto": 0.12,
+        "notSure": 0.04,
+        "avgMs": 987.805799999237,
+        "p95Ms": 1484.4800000190735,
+        "avgTotalMs": 1028.9169999980927,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.8,
+        "auto": 0.76,
+        "wrongAuto": 0.08,
+        "notSure": 0,
+        "avgMs": 992.6806000185013,
+        "p95Ms": 1902.9800000190735,
+        "avgTotalMs": 1033.5664000177383,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.68,
+        "top3": 0.8,
+        "auto": 0.72,
+        "wrongAuto": 0.12,
+        "notSure": 0.04,
+        "avgMs": 1190.5970000219345,
+        "p95Ms": 1526.2000000476837,
+        "avgTotalMs": 1233.951600008011,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.76,
+        "auto": 0.72,
+        "wrongAuto": 0.16,
+        "notSure": 0.04,
+        "avgMs": 1100.315600004196,
+        "p95Ms": 1485.4800000190735,
+        "avgTotalMs": 1141.8940000104903,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.8,
+        "wrongAuto": 0.04,
+        "notSure": 0.04,
+        "avgMs": 855.7525999975204,
+        "p95Ms": 1497.695000052452,
+        "avgTotalMs": 897.5349999904632,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.64,
+        "auto": 0.44,
+        "wrongAuto": 0,
+        "notSure": 0.24,
+        "avgMs": 1341.9813999986648,
+        "p95Ms": 1924.7599999904633,
+        "avgTotalMs": 1382.8564000177385,
+        "sources": {
+          "vocab": 19,
+          "none": 6
+        }
       }
     }
   ]

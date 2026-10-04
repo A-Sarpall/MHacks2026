@@ -38,6 +38,20 @@ function markdown(reports) {
       for (const x of s.rows) out.push(row(String(x.threshold), x.summary));
       out.push("", `Picked: ${s.picked ? s.picked.threshold : "none with zero wrong auto-commits"}`, "");
     }
+    for (const folder of new Set(r.conditions.map((c) => c.folder))) {
+      const rows = r.conditions.filter((c) => c.folder === folder);
+      const variants = [...new Set(rows.map((x) => x.variant))];
+      out.push(`### ${folder}, degraded conditions (centre aim): top-1 / wrong auto / auto / naming ms`, "");
+      out.push(`| condition | ${variants.join(" | ")} |`, `|---|${variants.map(() => "---").join("|")}|`);
+      for (const c of new Set(rows.map((x) => x.condition))) {
+        const cells = variants.map((v) => {
+          const s = rows.find((x) => x.variant === v && x.condition === c)?.summary;
+          return s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.auto)} / ${Math.round(s.avgMs)}` : "";
+        });
+        out.push(`| ${c} | ${cells.join(" | ")} |`);
+      }
+      out.push("");
+    }
     for (const p of r.personal) {
       out.push(`### ${p.folder}, personal objects (${p.objects} taught from augmented views)`, "");
       out.push(`Picked threshold ${p.picked?.threshold ?? "none"}, margin ${p.picked?.margin ?? "-"}; full pipeline with it: matched ${pct(p.pipeline.matched)}, false matches ${pct(p.pipeline.falseMatched)}, naming ${Math.round(p.pipeline.avgMs)} ms`, "");
@@ -94,6 +108,7 @@ try {
     if (flag("no-sweep")) params.set("sweep", "0");
     if (flag("no-personal")) params.set("personal", "0");
     if (flag("claude")) params.set("claude", "1");
+    if (flag("conditions")) params.set("conditions", "1");
     console.log(`[${backend}] ${base}?${params}`);
     await page.goto(`${base}?${params}`);
     let last = "";

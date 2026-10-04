@@ -18,6 +18,7 @@ function optionsFromUrl(): EvalOptions {
     sweep: q.get("sweep") !== "0",
     personal: q.get("personal") !== "0",
     claude: q.get("claude") === "1",
+    conditions: q.get("conditions") === "1",
   };
 }
 
@@ -137,6 +138,35 @@ export function EvalPage() {
               <p className="mt-2">Picked: {s.picked ? s.picked.threshold : "none with zero wrong auto-commits"}</p>
             </section>
           ))}
+          {[...new Set(report.conditions.map((c) => c.folder))].map((folder) => {
+            const rows = report.conditions.filter((c) => c.folder === folder);
+            const variants = [...new Set(rows.map((r) => r.variant))];
+            const conds = [...new Set(rows.map((r) => r.condition))];
+            return (
+              <section key={`cond-${folder}`} className="bg-white rounded-xl p-4 border border-gray-100">
+                <h2 className="font-semibold mb-2">{folder} · degraded conditions (centre aim) · top-1 / wrong auto / auto</h2>
+                <table>
+                  <thead>
+                    <tr className="text-left text-gray-500">
+                      <th className="pr-3">condition</th>
+                      {variants.map((v) => <th key={v} className="pr-3">{v}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {conds.map((c) => (
+                      <tr key={c} className="border-t border-gray-100">
+                        <td className="pr-3">{c}</td>
+                        {variants.map((v) => {
+                          const s = rows.find((r) => r.variant === v && r.condition === c)?.summary;
+                          return <td key={v} className="pr-3">{s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.auto)}` : ""}</td>;
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </section>
+            );
+          })}
           {report.personal.map((p) => (
             <section key={p.folder} className="bg-white rounded-xl p-4 border border-gray-100">
               <h2 className="font-semibold mb-2">{p.folder} · personal objects ({p.objects} taught)</h2>

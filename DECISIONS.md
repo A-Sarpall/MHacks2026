@@ -315,3 +315,38 @@ Threshold sweep after grouping (mean over backends): wrong auto-commits 4 % at 0
 **Implication**
 
 Groups are a product decision, not a model one; edit `PARENT_LABELS` when a word is too specific for users. No re-embedding is needed (the text embeddings are unchanged); the eval re-checks the result.
+
+
+---
+
+### 2026-10-04 — Degraded-conditions eval; crop enhancement measured and left off
+
+**Decision**
+
+The eval harness gained a `--conditions` mode that names every test image after synthetic degradation (dark, very dark, over-exposed, noisy, motion-blurred, zoomed in, tilted, dark + blurred) with three crop treatments: plain, enhance (pad crops to square + auto-levels on dark/flat crops), and enhance + flip-averaged embeddings. The enhancement and flip-averaging exist in the pipeline (`core/enhance.ts`, `NamerOptions.enhance` / `tta`, `?enhance=1` / `?tta=1`) but are **off by default**.
+
+**Results** (25 placeholder photos, centre aim, top-1 / wrong auto-commits)
+
+| Condition | WebGPU plain | WebGPU enhance+flip | WASM plain | WASM enhance+flip |
+|---|---|---|---|---|
+| clean | 76 % / 4 % | 76 % / 4 % | 88 % / 0 % | 84 % / 4 % |
+| dark (×0.4) | 56 % / 8 % | 64 % / 4 % | 84 % / 4 % | 76 % / 8 % |
+| very dark (×0.18) | 32 % / 0 % | 40 % / 0 % | 56 % / 8 % | 60 % / 4 % |
+| blurry | 56 % / 4 % | 60 % / 0 % | 68 % / 20 % | 68 % / 12 % |
+| dark + blurry | 20 % / 0 % | 32 % / 0 % | 56 % / 4 % | 60 % / 0 % |
+| tilted 18° | 72 % / 4 % | 68 % / 4 % | 84 % / 4 % | 80 % / 4 % |
+
+Naming time with enhance + flip: WebGPU 93 → 159 ms, WASM 486 → 902 ms.
+
+**Reason**
+
+Poor light and motion blur are the realistic failure modes for a finger-mounted camera, and the numbers show they cost 20–50 points of top-1. The cheap fixes were worth testing, but auto-levels is not a reliable gain: it helps WebGPU a little in the dark and hurts WASM on clean and dark photos (wrong auto-commits 4 % → 16 % in the dark, the error this project most wants to avoid). Flip-averaging gives small gains on dark/blurry photos at double the latency. Shipping either on by default would make the common clean case worse and slower for an uncertain benefit, so they stay off until real ring photos show otherwise.
+
+**Alternatives considered**
+
+- Ship enhancement on WebGPU only — the gain (4–8 points in the dark) is within the noise of a 25-image set
+- A larger or fine-tuned model for low light — out of scope until the hardware exists; the harness now measures what it would need to beat
+
+**Implication**
+
+Synthetic degradation is a proxy; the conditions table should be re-run on real dark/blurry ring photos (and the VizWiz slice) before any robustness change is adopted. Blur is already partly handled upstream by picking the sharpest frame of a burst, which the single-image eval cannot exercise. The remaining big lever for dark scenes is the camera itself (exposure, flash/LED on the ring).

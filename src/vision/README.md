@@ -192,7 +192,13 @@ Reported: top-1 and top-3 (labels or accepted synonyms, plural-insensitive), aut
 - **Confidence sweep**: `lowConfidence` from 0.15 to 0.6. The picker takes the lowest wrong-auto rate any threshold reaches, then the most automation, then the higher threshold; across backends it uses the mean.
 - **Personal objects**: every image is taught from 3 augmented views (zoom, shift, rotation, lighting) and queried with a 4th. For each threshold/margin it measures true matches, false matches (the object wasn't taught but matched something else) and confusions; the picker requires zero false matches and confusions on every backend. The chosen setting is then re-checked through `nameTarget`.
 
-Options: `--backends webgpu,wasm`, `--dirs`, `--no-sweep`, `--no-personal`, `--claude` (also ask Claude for unsure answers; needs a key), `--headed`, `--report-only` (rebuild `summary.md` from the JSON).
+- **Degraded conditions** (`--conditions`, `core/degrade.ts`): every image is also named after being darkened (×0.4 and ×0.18 plus sensor noise), over-exposed, made noisy, motion-blurred (4 % of the short side), zoomed in 1.8× on the aim point, tilted 18°, and dark + blurred, each with three crop treatments: `plain`, `enhance` (pad to square + auto-levels), `enhance+flip` (also average with the mirrored crop). The table shows top-1 / wrong auto-commits / auto-commits / naming ms per condition so a change can be judged on the conditions it targets without hurting clean photos.
+
+Options: `--backends webgpu,wasm`, `--dirs`, `--no-sweep`, `--no-personal`, `--conditions`, `--claude` (also ask Claude for unsure answers; needs a key), `--headed`, `--report-only` (rebuild `summary.md` from the JSON).
+
+### Crop treatments (`core/enhance.ts`, off by default)
+
+`?enhance=1` pads non-square crops to a square (SigLIP's preprocessor squashes crops to 224×224, so a long thin box is otherwise distorted) and applies auto-levels to dark or flat crops (stretch the 1st–99th luma percentiles, gamma up to 0.55 when the mean is under 90). `?tta=1` also embeds the mirrored crop and averages the two embeddings. Both are measured by the degraded-conditions eval and are **off** because on the current photos they help only a little in the dark on WebGPU, hurt WASM (clean top-1 88 % → 80 %, dark wrong auto-commits 4 % → 16 %), and flip-averaging doubles the naming time. They stay available for re-testing on real ring photos (`NamerOptions.enhance` / `tta`).
 
 ## Connecting new hardware
 

@@ -1,8 +1,8 @@
 {
   "device": "webgpu",
   "claude": false,
-  "startedAt": "2026-10-04T03:10:39.363Z",
-  "ms": 43875.51999998093,
+  "startedAt": "2026-10-04T03:29:36.044Z",
+  "ms": 163133.96499991417,
   "naming": {
     "centreFrac": 0.35,
     "wideFrac": 0.65,
@@ -11,6 +11,10 @@
     "widePenalty": 0.1,
     "minShow": 0.12,
     "minDetector": 0.5
+  },
+  "defaults": {
+    "enhance": false,
+    "tta": false
   },
   "missing": [
     "test-images-public"
@@ -26,9 +30,9 @@
         "auto": 0.68,
         "wrongAuto": 0.04,
         "notSure": 0.12,
-        "avgMs": 89.69039999961853,
-        "p95Ms": 159.53999996185303,
-        "avgTotalMs": 129.35960000514984,
+        "avgMs": 89.95920000076293,
+        "p95Ms": 163.5699999332428,
+        "avgTotalMs": 128.5054000043869,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -42,9 +46,9 @@
           "auto": 0.7692307692307693,
           "wrongAuto": 0,
           "notSure": 0.07692307692307693,
-          "avgMs": 84.67307691390698,
-          "p95Ms": 126.39499998092651,
-          "avgTotalMs": 131.543846148711,
+          "avgMs": 84.84999998716208,
+          "p95Ms": 131.42499995231628,
+          "avgTotalMs": 129.97576921719772,
           "sources": {
             "vocab": 12,
             "none": 1
@@ -57,9 +61,9 @@
           "auto": 0.6,
           "wrongAuto": 0.2,
           "notSure": 0,
-          "avgMs": 96.4980000257492,
-          "p95Ms": 176.92500007152557,
-          "avgTotalMs": 129.3020000219345,
+          "avgMs": 96.07400002479554,
+          "p95Ms": 178.2850000858307,
+          "avgTotalMs": 128.10500004291535,
           "sources": {
             "vocab": 5
           }
@@ -71,9 +75,9 @@
           "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 75.51249998807907,
-          "p95Ms": 112.63999998569489,
-          "avgTotalMs": 105.63374999165535,
+          "avgMs": 75.79000002145767,
+          "p95Ms": 111.08999991416931,
+          "avgTotalMs": 105.64875000715256,
           "sources": {
             "vocab": 4
           }
@@ -85,9 +89,9 @@
           "auto": 0,
           "wrongAuto": 0,
           "notSure": 0.6666666666666666,
-          "avgMs": 118.99000000953674,
-          "p95Ms": 159.53999996185303,
-          "avgTotalMs": 151.62500003973642,
+          "avgMs": 120.79999999205272,
+          "p95Ms": 163.5699999332428,
+          "avgTotalMs": 153.27666668097177,
           "sources": {
             "none": 2,
             "vocab": 1
@@ -114,8 +118,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 48.24000000953674,
-            "totalMs": 260.210000038147
+            "ms": 51.075000047683716,
+            "totalMs": 238.45000004768372
           },
           "spec": {
             "label": "mug",
@@ -152,8 +156,8 @@
               "cup",
               "thing"
             ],
-            "ms": 121.6949999332428,
-            "totalMs": 159.48500001430511
+            "ms": 115.1949999332428,
+            "totalMs": 150.7150000333786
           },
           "spec": {
             "label": "water bottle",
@@ -188,8 +192,8 @@
               "glass",
               "thing"
             ],
-            "ms": 42.325000047683716,
-            "totalMs": 75.70500004291534
+            "ms": 42.27499997615814,
+            "totalMs": 74.62000012397766
           },
           "spec": {
             "label": "glasses",
@@ -225,8 +229,8 @@
               "remote",
               "cell phone"
             ],
-            "ms": 126.39499998092651,
-            "totalMs": 159.54499995708466
+            "ms": 131.42499995231628,
+            "totalMs": 163.34999990463257
           },
           "spec": {
             "label": "phone",
@@ -264,8 +268,8 @@
               "lighter",
               "knife"
             ],
-            "ms": 118.35000002384186,
-            "totalMs": 149.61500000953674
+            "ms": 115.1599999666214,
+            "totalMs": 145.6950000524521
           },
           "spec": {
             "label": "remote",
@@ -302,8 +306,8 @@
               "comb",
               "thing"
             ],
-            "ms": 123.64999997615814,
-            "totalMs": 155.6949999332428
+            "ms": 124.35000002384186,
+            "totalMs": 155.0349999666214
           },
           "spec": {
             "label": "toothbrush",
@@ -333,8 +337,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 125.5900000333786,
-            "totalMs": 162.36500000953674
+            "ms": 123.44999992847443,
+            "totalMs": 161.17499995231628
           },
           "spec": {
             "label": "pills",
@@ -373,8 +377,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 40.93500006198883,
-            "totalMs": 79.07000005245209
+            "ms": 41.299999952316284,
+            "totalMs": 74.8899998664856
           },
           "spec": {
             "label": "book",
@@ -410,8 +414,8 @@
               "ladle",
               "scissors"
             ],
-            "ms": 111.70999991893768,
-            "totalMs": 140.77499985694885
+            "ms": 111.80499994754791,
+            "totalMs": 141.5199999809265
           },
           "spec": {
             "label": "spoon",
@@ -443,8 +447,8 @@
               "foot",
               "thing"
             ],
-            "ms": 40.35000002384186,
-            "totalMs": 71.95499992370605
+            "ms": 45.41000008583069,
+            "totalMs": 78.22500002384186
           },
           "spec": {
             "label": "shoe",
@@ -481,8 +485,8 @@
               "fork",
               "thing"
             ],
-            "ms": 39.88499999046326,
-            "totalMs": 70.19500017166138
+            "ms": 42.77499997615814,
+            "totalMs": 74.71499991416931
           },
           "spec": {
             "label": "keys",
@@ -518,8 +522,8 @@
               "stool",
               "table"
             ],
-            "ms": 111.70499992370605,
-            "totalMs": 143.08499991893768
+            "ms": 117.87000000476837,
+            "totalMs": 151.88999998569489
           },
           "spec": {
             "label": "chair",
@@ -554,8 +558,8 @@
               "lemon",
               "thing"
             ],
-            "ms": 49.919999957084656,
-            "totalMs": 82.37000000476837
+            "ms": 40.96000003814697,
+            "totalMs": 79.40499997138977
           },
           "spec": {
             "label": "banana",
@@ -590,8 +594,8 @@
               "coffee",
               "bowl"
             ],
-            "ms": 112.72500002384186,
-            "totalMs": 148.65499997138977
+            "ms": 111.56000006198883,
+            "totalMs": 144.0350000858307
           },
           "spec": {
             "label": "cup",
@@ -629,8 +633,8 @@
               "monitor",
               "computer"
             ],
-            "ms": 111.41500008106232,
-            "totalMs": 142.7300000190735
+            "ms": 109.44500005245209,
+            "totalMs": 140.83500003814697
           },
           "spec": {
             "label": "laptop",
@@ -667,8 +671,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 40.605000019073486,
-            "totalMs": 71.67000007629395
+            "ms": 40.00999999046326,
+            "totalMs": 71.52499997615814
           },
           "spec": {
             "label": "mouse",
@@ -704,8 +708,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 40.8199999332428,
-            "totalMs": 73.79499995708466
+            "ms": 41.0699999332428,
+            "totalMs": 72.57999992370605
           },
           "spec": {
             "label": "laptop",
@@ -744,8 +748,8 @@
               "computer",
               "thing"
             ],
-            "ms": 176.92500007152557,
-            "totalMs": 209.6600000858307
+            "ms": 178.2850000858307,
+            "totalMs": 211.55000019073486
           },
           "spec": {
             "label": "monitor",
@@ -782,8 +786,8 @@
               "orange",
               "thing"
             ],
-            "ms": 108.53999996185303,
-            "totalMs": 139.0350000858307
+            "ms": 110.44000005722046,
+            "totalMs": 141.28999996185303
           },
           "spec": {
             "label": "apple",
@@ -816,8 +820,8 @@
               "finger",
               "thing"
             ],
-            "ms": 40.06500005722046,
-            "totalMs": 70.28999996185303
+            "ms": 40.56000006198883,
+            "totalMs": 70.08000004291534
           },
           "spec": {
             "label": "phone",
@@ -854,8 +858,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 40.80499994754791,
-            "totalMs": 70.14999997615814
+            "ms": 41.07000005245209,
+            "totalMs": 70.7700001001358
           },
           "spec": {
             "label": "mug",
@@ -892,8 +896,8 @@
               "hand",
               "person"
             ],
-            "ms": 112.63999998569489,
-            "totalMs": 143.05999994277954
+            "ms": 111.08999991416931,
+            "totalMs": 140.45499992370605
           },
           "spec": {
             "label": "keys",
@@ -925,8 +929,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 82.08000004291534,
-            "totalMs": 111.60500001907349
+            "ms": 82.12999999523163,
+            "totalMs": 111.63999998569489
           },
           "spec": {
             "label": "theremin",
@@ -954,8 +958,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 159.53999996185303,
-            "totalMs": 194.24500000476837
+            "ms": 163.5699999332428,
+            "totalMs": 196.94000005722046
           },
           "spec": {
             "label": "sextant",
@@ -988,8 +992,8 @@
               "pie",
               "clock"
             ],
-            "ms": 115.35000002384186,
-            "totalMs": 149.02500009536743
+            "ms": 116.70000004768372,
+            "totalMs": 151.25
           },
           "spec": {
             "label": "astrolabe",
@@ -1015,9 +1019,9 @@
         "auto": 0.76,
         "wrongAuto": 0,
         "notSure": 0.08,
-        "avgMs": 86.96940001010894,
-        "p95Ms": 125.58999991416931,
-        "avgTotalMs": 119.47340002059937,
+        "avgMs": 87.61820001602173,
+        "p95Ms": 127.04000008106232,
+        "avgTotalMs": 120.4978000164032,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -1031,9 +1035,9 @@
           "auto": 0.8461538461538461,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 83.68730769707606,
-          "p95Ms": 125.58999991416931,
-          "avgTotalMs": 116.63576926634862,
+          "avgMs": 84.34346155936902,
+          "p95Ms": 127.04000008106232,
+          "avgTotalMs": 118.18423076776358,
           "sources": {
             "vocab": 13
           }
@@ -1045,9 +1049,9 @@
           "auto": 0.8,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 98.68400003910065,
-          "p95Ms": 120.84500002861023,
-          "avgTotalMs": 131.62800002098083,
+          "avgMs": 100.33300004005432,
+          "p95Ms": 118.8050000667572,
+          "avgTotalMs": 132.95200006961824,
           "sources": {
             "vocab": 5
           }
@@ -1059,9 +1063,9 @@
           "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 58.122500002384186,
-          "p95Ms": 111.47000002861023,
-          "avgTotalMs": 88.26249998807907,
+          "avgMs": 57.84249997138977,
+          "p95Ms": 110.76999998092651,
+          "avgTotalMs": 87.82874998450279,
           "sources": {
             "vocab": 4
           }
@@ -1073,9 +1077,9 @@
           "auto": 0,
           "wrongAuto": 0,
           "notSure": 0.6666666666666666,
-          "avgMs": 120.12999999523163,
-          "p95Ms": 158.23500001430511,
-          "avgTotalMs": 153.1266666650772,
+          "avgMs": 120.31833334763844,
+          "p95Ms": 161.66499996185303,
+          "avgTotalMs": 153.32500004768372,
           "sources": {
             "none": 2,
             "vocab": 1
@@ -1101,8 +1105,8 @@
               "cup",
               "coffee"
             ],
-            "ms": 125.58999991416931,
-            "totalMs": 164.97000002861023
+            "ms": 127.04000008106232,
+            "totalMs": 167.16999995708466
           },
           "spec": {
             "label": "mug",
@@ -1139,8 +1143,8 @@
               "ticket",
               "thing"
             ],
-            "ms": 109.27499997615814,
-            "totalMs": 145.49500000476837
+            "ms": 108.38499999046326,
+            "totalMs": 142.7850000858307
           },
           "spec": {
             "label": "water bottle",
@@ -1175,8 +1179,8 @@
               "glass",
               "thing"
             ],
-            "ms": 40.21000003814697,
-            "totalMs": 73.15000009536743
+            "ms": 41.4300000667572,
+            "totalMs": 73.77500009536743
           },
           "spec": {
             "label": "glasses",
@@ -1212,8 +1216,8 @@
               "remote",
               "cell phone"
             ],
-            "ms": 110.4449999332428,
-            "totalMs": 142.84500002861023
+            "ms": 110.59499990940094,
+            "totalMs": 142.72499990463257
           },
           "spec": {
             "label": "phone",
@@ -1251,8 +1255,8 @@
               "lighter",
               "knife"
             ],
-            "ms": 113.625,
-            "totalMs": 143.78000009059906
+            "ms": 114.61000001430511,
+            "totalMs": 144.55000007152557
           },
           "spec": {
             "label": "remote",
@@ -1289,8 +1293,8 @@
               "paintbrush",
               "thing"
             ],
-            "ms": 108.2150000333786,
-            "totalMs": 139.30999994277954
+            "ms": 107.8400000333786,
+            "totalMs": 138.63499999046326
           },
           "spec": {
             "label": "toothbrush",
@@ -1325,8 +1329,8 @@
               "jar",
               "thing"
             ],
-            "ms": 123.29999995231628,
-            "totalMs": 157.40499997138977
+            "ms": 122.38999998569489,
+            "totalMs": 159.2849999666214
           },
           "spec": {
             "label": "pills",
@@ -1365,8 +1369,8 @@
               "e-reader",
               "thing"
             ],
-            "ms": 41.2150000333786,
-            "totalMs": 79.10000002384186
+            "ms": 40.9300000667572,
+            "totalMs": 75.36000001430511
           },
           "spec": {
             "label": "book",
@@ -1402,8 +1406,8 @@
               "ladle",
               "scissors"
             ],
-            "ms": 112.66000008583069,
-            "totalMs": 142.2700001001358
+            "ms": 114.50499999523163,
+            "totalMs": 144.8050000667572
           },
           "spec": {
             "label": "spoon",
@@ -1435,8 +1439,8 @@
               "foot",
               "thing"
             ],
-            "ms": 81.79999995231628,
-            "totalMs": 113.17499995231628
+            "ms": 83.75999999046326,
+            "totalMs": 116.34500002861023
           },
           "spec": {
             "label": "shoe",
@@ -1473,8 +1477,8 @@
               "fork",
               "thing"
             ],
-            "ms": 40.144999980926514,
-            "totalMs": 70.46000015735626
+            "ms": 42.06500005722046,
+            "totalMs": 74.84499990940094
           },
           "spec": {
             "label": "keys",
@@ -1511,8 +1515,8 @@
               "fork",
               "thing"
             ],
-            "ms": 39.66000008583069,
-            "totalMs": 70.4650000333786
+            "ms": 41.06000006198883,
+            "totalMs": 74.93499994277954
           },
           "spec": {
             "label": "chair",
@@ -1547,8 +1551,8 @@
               "lemon",
               "thing"
             ],
-            "ms": 41.795000076293945,
-            "totalMs": 73.8400000333786
+            "ms": 41.855000019073486,
+            "totalMs": 81.17999994754791
           },
           "spec": {
             "label": "banana",
@@ -1583,8 +1587,8 @@
               "coffee",
               "bowl"
             ],
-            "ms": 111.80999994277954,
-            "totalMs": 147.54999995231628
+            "ms": 115.53999996185303,
+            "totalMs": 148.57500004768372
           },
           "spec": {
             "label": "cup",
@@ -1622,8 +1626,8 @@
               "monitor",
               "computer"
             ],
-            "ms": 110.0900000333786,
-            "totalMs": 141.79499995708466
+            "ms": 113.125,
+            "totalMs": 145.78000009059906
           },
           "spec": {
             "label": "laptop",
@@ -1660,8 +1664,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 40.13000011444092,
-            "totalMs": 71.075000166893
+            "ms": 41.43500006198883,
+            "totalMs": 73.17500007152557
           },
           "spec": {
             "label": "mouse",
@@ -1697,8 +1701,8 @@
               "notebook",
               "tablet stand"
             ],
-            "ms": 120.84500002861023,
-            "totalMs": 153.76499998569489
+            "ms": 118.8050000667572,
+            "totalMs": 151.11000001430511
           },
           "spec": {
             "label": "laptop",
@@ -1735,8 +1739,8 @@
               "tv",
               "computer"
             ],
-            "ms": 110.54500007629395,
-            "totalMs": 143.95500004291534
+            "ms": 112.76000010967255,
+            "totalMs": 146.12000012397766
           },
           "spec": {
             "label": "monitor",
@@ -1773,8 +1777,8 @@
               "orange",
               "thing"
             ],
-            "ms": 40.28500008583069,
-            "totalMs": 70.90500009059906
+            "ms": 40.144999980926514,
+            "totalMs": 71.30499994754791
           },
           "spec": {
             "label": "apple",
@@ -1807,8 +1811,8 @@
               "lime",
               "thing"
             ],
-            "ms": 40.389999985694885,
-            "totalMs": 70.52999985218048
+            "ms": 40.299999952316284,
+            "totalMs": 69.65499997138977
           },
           "spec": {
             "label": "phone",
@@ -1845,8 +1849,8 @@
               "drum",
               "thing"
             ],
-            "ms": 40.34499990940094,
-            "totalMs": 69.82500004768372
+            "ms": 40.15499997138977,
+            "totalMs": 69.86500000953674
           },
           "spec": {
             "label": "mug",
@@ -1883,8 +1887,8 @@
               "hand",
               "person"
             ],
-            "ms": 111.47000002861023,
-            "totalMs": 141.78999996185303
+            "ms": 110.76999998092651,
+            "totalMs": 140.49000000953674
           },
           "spec": {
             "label": "keys",
@@ -1916,8 +1920,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 84.78999996185303,
-            "totalMs": 114.66999995708466
+            "ms": 82.48000001907349,
+            "totalMs": 112.51000010967255
           },
           "spec": {
             "label": "theremin",
@@ -1945,8 +1949,8 @@
             "empty": true,
             "level": 2,
             "choices": [],
-            "ms": 158.23500001430511,
-            "totalMs": 193.41500008106232
+            "ms": 161.66499996185303,
+            "totalMs": 195.49000000953674
           },
           "spec": {
             "label": "sextant",
@@ -1979,8 +1983,8 @@
               "pie",
               "clock"
             ],
-            "ms": 117.36500000953674,
-            "totalMs": 151.29499995708466
+            "ms": 116.81000006198883,
+            "totalMs": 151.97500002384186
           },
           "spec": {
             "label": "astrolabe",
@@ -2010,9 +2014,9 @@
             "auto": 0.84,
             "wrongAuto": 0.16,
             "notSure": 0.12,
-            "avgMs": 72.59219997406007,
-            "p95Ms": 124.94999992847443,
-            "avgTotalMs": 105.88419999599456,
+            "avgMs": 72.62019999980926,
+            "p95Ms": 122.47499990463257,
+            "avgTotalMs": 105.69119999408721,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2028,9 +2032,9 @@
             "auto": 0.8,
             "wrongAuto": 0.12,
             "notSure": 0.12,
-            "avgMs": 78.49760001659394,
-            "p95Ms": 160.95500004291534,
-            "avgTotalMs": 112.11279998779297,
+            "avgMs": 78.04519999504089,
+            "p95Ms": 157.88999998569489,
+            "avgTotalMs": 111.21559999465943,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2046,9 +2050,9 @@
             "auto": 0.8,
             "wrongAuto": 0.12,
             "notSure": 0.12,
-            "avgMs": 78.24920000076294,
-            "p95Ms": 161.7699999809265,
-            "avgTotalMs": 112.16100001335144,
+            "avgMs": 78.07519998073577,
+            "p95Ms": 162.49500000476837,
+            "avgTotalMs": 110.936399974823,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2064,9 +2068,9 @@
             "auto": 0.8,
             "wrongAuto": 0.08,
             "notSure": 0.12,
-            "avgMs": 81.26760000228882,
-            "p95Ms": 163.75,
-            "avgTotalMs": 114.943600025177,
+            "avgMs": 80.5180000257492,
+            "p95Ms": 158.45000004768372,
+            "avgTotalMs": 113.3168000125885,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2082,9 +2086,9 @@
             "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 82.78780000686646,
-            "p95Ms": 160.35000002384186,
-            "avgTotalMs": 116.56920001983643,
+            "avgMs": 82.79659998893737,
+            "p95Ms": 159.62000000476837,
+            "avgTotalMs": 115.88879999160767,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2100,9 +2104,9 @@
             "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 88.75800000190735,
-            "p95Ms": 161.41999995708466,
-            "avgTotalMs": 122.61940000534058,
+            "avgMs": 88.28599998950958,
+            "p95Ms": 155.5899999141693,
+            "avgTotalMs": 121.1605999994278,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2118,9 +2122,9 @@
             "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 91.48139999389649,
-            "p95Ms": 160.3049999475479,
-            "avgTotalMs": 124.97240002632141,
+            "avgMs": 91.09999999046326,
+            "p95Ms": 167.5699999332428,
+            "avgTotalMs": 123.81460000514984,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2136,9 +2140,9 @@
             "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 96.20480000019073,
-            "p95Ms": 165.5549999475479,
-            "avgTotalMs": 129.46940001010896,
+            "avgMs": 95.71020000457764,
+            "p95Ms": 158.5700000524521,
+            "avgTotalMs": 128.323200006485,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2154,9 +2158,9 @@
             "auto": 0.48,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 116.64320000171661,
-            "p95Ms": 183.32500004768372,
-            "avgTotalMs": 150.7571999883652,
+            "avgMs": 121.51579998970031,
+            "p95Ms": 197.7300000190735,
+            "avgTotalMs": 155.92359998703003,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2173,9 +2177,9 @@
           "auto": 0.68,
           "wrongAuto": 0.04,
           "notSure": 0.12,
-          "avgMs": 96.20480000019073,
-          "p95Ms": 165.5549999475479,
-          "avgTotalMs": 129.46940001010896,
+          "avgMs": 95.71020000457764,
+          "p95Ms": 158.5700000524521,
+          "avgTotalMs": 128.323200006485,
           "sources": {
             "vocab": 22,
             "none": 3
@@ -4982,7 +4986,549 @@
         "matched": 1,
         "falseMatched": 0,
         "n": 25,
-        "avgMs": 42.408199982643126
+        "avgMs": 43.21960000991821
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.84,
+        "auto": 0.68,
+        "wrongAuto": 0.04,
+        "notSure": 0.12,
+        "avgMs": 92.57980001449585,
+        "p95Ms": 176.82999992370605,
+        "avgTotalMs": 126.18300002098084,
+        "sources": {
+          "vocab": 22,
+          "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.72,
+        "auto": 0.6,
+        "wrongAuto": 0.08,
+        "notSure": 0.2,
+        "avgMs": 97.58259999752045,
+        "p95Ms": 136.22000002861023,
+        "avgTotalMs": 134.25920000076295,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.32,
+        "top3": 0.4,
+        "auto": 0.16,
+        "wrongAuto": 0,
+        "notSure": 0.44,
+        "avgMs": 111.7448000049591,
+        "p95Ms": 153.6449999809265,
+        "avgTotalMs": 150.8478000020981,
+        "sources": {
+          "vocab": 14,
+          "none": 11
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.72,
+        "auto": 0.56,
+        "wrongAuto": 0.08,
+        "notSure": 0.16,
+        "avgMs": 113.18599999904633,
+        "p95Ms": 213.27499997615814,
+        "avgTotalMs": 148.9738000154495,
+        "sources": {
+          "vocab": 21,
+          "none": 4
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.64,
+        "top3": 0.68,
+        "auto": 0.56,
+        "wrongAuto": 0.04,
+        "notSure": 0.16,
+        "avgMs": 104.84000000476837,
+        "p95Ms": 160.84500002861023,
+        "avgTotalMs": 143.8304000043869,
+        "sources": {
+          "vocab": 21,
+          "none": 4
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.6,
+        "auto": 0.4,
+        "wrongAuto": 0.04,
+        "notSure": 0.24,
+        "avgMs": 148.9261999988556,
+        "p95Ms": 240.16999995708466,
+        "avgTotalMs": 187.08439999580384,
+        "sources": {
+          "vocab": 19,
+          "none": 6
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.64,
+        "auto": 0.44,
+        "wrongAuto": 0.04,
+        "notSure": 0.28,
+        "avgMs": 153.12019999980927,
+        "p95Ms": 248.80999994277954,
+        "avgTotalMs": 195.53180000782012,
+        "sources": {
+          "vocab": 18,
+          "none": 7
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.8,
+        "auto": 0.64,
+        "wrongAuto": 0.04,
+        "notSure": 0.08,
+        "avgMs": 87.67260002613068,
+        "p95Ms": 151.66499996185303,
+        "avgTotalMs": 120.81000001907348,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.2,
+        "top3": 0.24,
+        "auto": 0.04,
+        "wrongAuto": 0,
+        "notSure": 0.52,
+        "avgMs": 116.7064000082016,
+        "p95Ms": 162.28999996185303,
+        "avgTotalMs": 155.0920000076294,
+        "sources": {
+          "vocab": 12,
+          "none": 13
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.84,
+        "auto": 0.6,
+        "wrongAuto": 0.04,
+        "notSure": 0.08,
+        "avgMs": 105.43019998550415,
+        "p95Ms": 195.95999991893768,
+        "avgTotalMs": 138.87679999351502,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.64,
+        "auto": 0.6,
+        "wrongAuto": 0.04,
+        "notSure": 0.12,
+        "avgMs": 108.50539999961853,
+        "p95Ms": 165.74000000953674,
+        "avgTotalMs": 146.84439999580383,
+        "sources": {
+          "vocab": 22,
+          "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.4,
+        "top3": 0.4,
+        "auto": 0.28,
+        "wrongAuto": 0,
+        "notSure": 0.4,
+        "avgMs": 121.83819999217987,
+        "p95Ms": 168.70000004768372,
+        "avgTotalMs": 160.79179998397828,
+        "sources": {
+          "vocab": 15,
+          "none": 10
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.72,
+        "auto": 0.6,
+        "wrongAuto": 0.08,
+        "notSure": 0.16,
+        "avgMs": 99.32299999713898,
+        "p95Ms": 156.26499998569489,
+        "avgTotalMs": 132.55840001583098,
+        "sources": {
+          "vocab": 21,
+          "none": 4
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.64,
+        "auto": 0.6,
+        "wrongAuto": 0.04,
+        "notSure": 0.2,
+        "avgMs": 112.12020000457764,
+        "p95Ms": 157.37000000476837,
+        "avgTotalMs": 153.53259999752044,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.6,
+        "auto": 0.44,
+        "wrongAuto": 0.04,
+        "notSure": 0.2,
+        "avgMs": 136.11899998664856,
+        "p95Ms": 183.41999995708466,
+        "avgTotalMs": 169.4609999895096,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.52,
+        "top3": 0.64,
+        "auto": 0.4,
+        "wrongAuto": 0.04,
+        "notSure": 0.28,
+        "avgMs": 117.86979998111725,
+        "p95Ms": 178.0199999809265,
+        "avgTotalMs": 151.12179999351503,
+        "sources": {
+          "vocab": 18,
+          "none": 7
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.84,
+        "auto": 0.64,
+        "wrongAuto": 0.04,
+        "notSure": 0.08,
+        "avgMs": 94.06739999294281,
+        "p95Ms": 151.88499999046326,
+        "avgTotalMs": 127.20339999198913,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.2,
+        "top3": 0.32,
+        "auto": 0.08,
+        "wrongAuto": 0,
+        "notSure": 0.48,
+        "avgMs": 133.97620000362397,
+        "p95Ms": 187.68500006198883,
+        "avgTotalMs": 176.3354000043869,
+        "sources": {
+          "vocab": 13,
+          "none": 12
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.84,
+        "auto": 0.64,
+        "wrongAuto": 0.04,
+        "notSure": 0.08,
+        "avgMs": 159.21059999465942,
+        "p95Ms": 315.5400000810623,
+        "avgTotalMs": 192.45179998397828,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.64,
+        "top3": 0.72,
+        "auto": 0.6,
+        "wrongAuto": 0.04,
+        "notSure": 0.04,
+        "avgMs": 168.3980000257492,
+        "p95Ms": 250.92500007152557,
+        "avgTotalMs": 203.5741999912262,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.4,
+        "top3": 0.44,
+        "auto": 0.28,
+        "wrongAuto": 0,
+        "notSure": 0.44,
+        "avgMs": 188.92520001411438,
+        "p95Ms": 250.17499995231628,
+        "avgTotalMs": 223.8198000097275,
+        "sources": {
+          "vocab": 14,
+          "none": 11
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.68,
+        "auto": 0.64,
+        "wrongAuto": 0.08,
+        "notSure": 0.2,
+        "avgMs": 156.47880000591277,
+        "p95Ms": 231.37999999523163,
+        "avgTotalMs": 189.9366000032425,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.64,
+        "auto": 0.56,
+        "wrongAuto": 0.04,
+        "notSure": 0.2,
+        "avgMs": 164.193400015831,
+        "p95Ms": 261.7300000190735,
+        "avgTotalMs": 197.31360001564025,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.6,
+        "auto": 0.48,
+        "wrongAuto": 0,
+        "notSure": 0.2,
+        "avgMs": 213.9557999944687,
+        "p95Ms": 306.0700000524521,
+        "avgTotalMs": 247.34160000801086,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.56,
+        "auto": 0.44,
+        "wrongAuto": 0.08,
+        "notSure": 0.28,
+        "avgMs": 169.20659999847413,
+        "p95Ms": 270.90500009059906,
+        "avgTotalMs": 202.3569999885559,
+        "sources": {
+          "vocab": 18,
+          "none": 7
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.68,
+        "top3": 0.76,
+        "auto": 0.64,
+        "wrongAuto": 0.04,
+        "notSure": 0.12,
+        "avgMs": 145.65839999198914,
+        "p95Ms": 232.28999996185303,
+        "avgTotalMs": 178.77459999084473,
+        "sources": {
+          "vocab": 22,
+          "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance+flip",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.32,
+        "top3": 0.36,
+        "auto": 0.12,
+        "wrongAuto": 0,
+        "notSure": 0.44,
+        "avgMs": 198.1421999979019,
+        "p95Ms": 286.6099998950958,
+        "avgTotalMs": 231.5613999938965,
+        "sources": {
+          "vocab": 14,
+          "none": 11
+        }
       }
     }
   ]

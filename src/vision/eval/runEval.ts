@@ -1,6 +1,7 @@
 import { detectImageFrame, initDetector } from "../../lib/detect";
 import { hasClaude } from "../../lib/claude";
 import { aimPoint, aimZone, rankCandidates, type Candidate, type Point } from "../core/aim";
+import { CONDITIONS, degrade, type Condition } from "../core/degrade";
 import { DEFAULT_NAMING, type NamingConfig } from "../core/escalate";
 import {
   personalSweep,
@@ -17,6 +18,7 @@ import {
 } from "../core/evalScore";
 import { DEFAULT_PERSONAL, nearestPersonal, type PersonalEntry, type PersonalMatchConfig } from "../core/personalMatch";
 import { rankFrames, sharpness } from "../core/sharpness";
+import { ENHANCE_DEFAULT, TTA_DEFAULT, type NamerOptions } from "../namer";
 import { askClaude, nameTarget, type NamingResult } from "../naming";
 import { teachSample } from "../personal";
 import { initSiglip, siglipState } from "../siglip";
@@ -30,8 +32,22 @@ export interface EvalOptions {
   sweep: boolean;
   personal: boolean;
   claude: boolean;
+  conditions: boolean;
   onProgress?: (text: string) => void;
 }
+
+export interface ConditionReport {
+  folder: string;
+  variant: string;
+  condition: Condition;
+  summary: EvalSummary;
+}
+
+export const VARIANTS: { name: string; namer: Pick<NamerOptions, "enhance" | "tta"> }[] = [
+  { name: "plain", namer: { enhance: false, tta: false } },
+  { name: "enhance", namer: { enhance: true, tta: false } },
+  { name: "enhance+flip", namer: { enhance: true, tta: true } },
+];
 
 export interface FolderReport {
   folder: string;
@@ -56,10 +72,12 @@ export interface EvalReport {
   startedAt: string;
   ms: number;
   naming: NamingConfig;
+  defaults: { enhance: boolean; tta: boolean };
   missing: string[];
   folders: FolderReport[];
   sweeps: { folder: string; rows: SweepRow[]; picked: SweepRow | null }[];
   personal: PersonalReport[];
+  conditions: ConditionReport[];
 }
 
 interface Prepared {
@@ -141,11 +159,12 @@ async function runCase(
   cfg: NamingConfig,
   personal: PersonalEntry[],
   claude: boolean,
-  personalCfg?: PersonalMatchConfig
+  personalCfg?: PersonalMatchConfig,
+  namer: Pick<NamerOptions, "enhance" | "tta"> = {}
 ): Promise<CaseResult> {
   const res = await nameTarget(
     { image: p.image, candidates, aim },
-    { startLevel: 0, maxOptions: 4, cfg, namer: { personal, personalCfg } }
+    { startLevel: 0, maxOptions: 4, cfg, namer: { personal, personalCfg, ...namer } }
   );
   let best = res.best.label;
   let source = res.best.capture.source;
@@ -288,10 +307,12 @@ export async function runEval(opts: EvalOptions): Promise<EvalReport> {
     startedAt: new Date().toISOString(),
     ms: 0,
     naming: DEFAULT_NAMING,
+    defaults: { enhance: ENHANCE_DEFAULT, tta: TTA_DEFAULT },
     missing: [],
     folders: [],
     sweeps: [],
     personal: [],
+    conditions: [],
   };
   for (const dir of opts.dirs) {
     const labels = await loadLabels(dir);
@@ -334,6 +355,24 @@ export async function runEval(opts: EvalOptions): Promise<EvalReport> {
       report.sweeps.push({ folder: dir, rows, picked: pickLowConfidence(rows) });
     }
     if (opts.personal) report.personal.push(await evalPersonal(dir, prepared, progress));
+    if (opts.conditions) {
+      for (const variant of VARIANTS) {
+        for (const condition of CONDITIONS) {
+          const cases: { result: CaseResult; spec: LabelSpec }[] = [];
+          for (const [i, p] of prepared.entries()) {
+            progress(`${dir}: ${condition} / ${variant.name} ${p.file}`);
+            const d = degrade(p.image, condition, aimFor(p, "centre"), i + 1);
+            const { candidates, ms } = candidatesFor(d.image, d.aim);
+            const view: Prepared = { ...p, image: d.image };
+            cases.push({
+              result: await runCase(view, d.aim, candidates, ms, DEFAULT_NAMING, [], false, undefined, variant.namer),
+              spec: p.spec,
+            });
+          }
+          report.conditions.push({ folder: dir, variant: variant.name, condition, summary: summarizeCases(cases) });
+        }
+      }
+    }
   }
   report.ms = performance.now() - t0;
   progress("done");

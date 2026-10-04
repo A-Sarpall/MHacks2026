@@ -1,6 +1,6 @@
 # Cue recognition eval
 
-## webgpu (2026-10-04, 44 s)
+## webgpu (2026-10-04, 163 s)
 
 No labels.json in: test-images-public
 
@@ -8,11 +8,11 @@ No labels.json in: test-images-public
 
 | | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
 |---|---|---|---|---|---|---|---|---|---|
-| all | 25 | 76% | 84% | 68% | 4% | 12% | 90 / 160 | 129 | vocab 22, none 3 |
-| single | 13 | 92% | 92% | 77% | 0% | 8% | 85 / 126 | 132 | vocab 12, none 1 |
-| cluttered | 5 | 60% | 100% | 60% | 20% | 0% | 96 / 177 | 129 | vocab 5 |
-| held | 4 | 100% | 100% | 100% | 0% | 0% | 76 / 113 | 106 | vocab 4 |
-| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 67% | 119 / 160 | 152 | none 2, vocab 1 |
+| all | 25 | 76% | 84% | 68% | 4% | 12% | 90 / 164 | 129 | vocab 22, none 3 |
+| single | 13 | 92% | 92% | 77% | 0% | 8% | 85 / 131 | 130 | vocab 12, none 1 |
+| cluttered | 5 | 60% | 100% | 60% | 20% | 0% | 96 / 178 | 128 | vocab 5 |
+| held | 4 | 100% | 100% | 100% | 0% | 0% | 76 / 111 | 106 | vocab 4 |
+| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 67% | 121 / 164 | 153 | none 2, vocab 1 |
 
 | image | expected | answer | score | | choices |
 |---|---|---|---|---|---|
@@ -46,11 +46,11 @@ No labels.json in: test-images-public
 
 | | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
 |---|---|---|---|---|---|---|---|---|---|
-| all | 25 | 80% | 80% | 76% | 0% | 8% | 87 / 126 | 119 | vocab 23, none 2 |
-| single | 13 | 85% | 85% | 85% | 0% | 0% | 84 / 126 | 117 | vocab 13 |
-| cluttered | 5 | 100% | 100% | 80% | 0% | 0% | 99 / 121 | 132 | vocab 5 |
+| all | 25 | 80% | 80% | 76% | 0% | 8% | 88 / 127 | 120 | vocab 23, none 2 |
+| single | 13 | 85% | 85% | 85% | 0% | 0% | 84 / 127 | 118 | vocab 13 |
+| cluttered | 5 | 100% | 100% | 80% | 0% | 0% | 100 / 119 | 133 | vocab 5 |
 | held | 4 | 100% | 100% | 100% | 0% | 0% | 58 / 111 | 88 | vocab 4 |
-| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 67% | 120 / 158 | 153 | none 2, vocab 1 |
+| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 67% | 120 / 162 | 153 | none 2, vocab 1 |
 
 | image | expected | answer | score | | choices |
 |---|---|---|---|---|---|
@@ -84,21 +84,35 @@ No labels.json in: test-images-public
 
 | threshold | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
 |---|---|---|---|---|---|---|---|---|---|
-| 0.15 | 25 | 72% | 76% | 84% | 16% | 12% | 73 / 125 | 106 | vocab 22, none 3 |
-| 0.2 | 25 | 72% | 80% | 80% | 12% | 12% | 78 / 161 | 112 | vocab 22, none 3 |
-| 0.25 | 25 | 72% | 80% | 80% | 12% | 12% | 78 / 162 | 112 | vocab 22, none 3 |
-| 0.3 | 25 | 76% | 84% | 80% | 8% | 12% | 81 / 164 | 115 | vocab 22, none 3 |
-| 0.35 | 25 | 76% | 84% | 68% | 4% | 12% | 83 / 160 | 117 | vocab 22, none 3 |
-| 0.4 | 25 | 76% | 84% | 68% | 4% | 12% | 89 / 161 | 123 | vocab 22, none 3 |
-| 0.45 | 25 | 76% | 84% | 68% | 4% | 12% | 91 / 160 | 125 | vocab 22, none 3 |
-| 0.5 | 25 | 76% | 84% | 68% | 4% | 12% | 96 / 166 | 129 | vocab 22, none 3 |
-| 0.6 | 25 | 72% | 84% | 48% | 4% | 12% | 117 / 183 | 151 | vocab 22, none 3 |
+| 0.15 | 25 | 72% | 76% | 84% | 16% | 12% | 73 / 122 | 106 | vocab 22, none 3 |
+| 0.2 | 25 | 72% | 80% | 80% | 12% | 12% | 78 / 158 | 111 | vocab 22, none 3 |
+| 0.25 | 25 | 72% | 80% | 80% | 12% | 12% | 78 / 162 | 111 | vocab 22, none 3 |
+| 0.3 | 25 | 76% | 84% | 80% | 8% | 12% | 81 / 158 | 113 | vocab 22, none 3 |
+| 0.35 | 25 | 76% | 84% | 68% | 4% | 12% | 83 / 160 | 116 | vocab 22, none 3 |
+| 0.4 | 25 | 76% | 84% | 68% | 4% | 12% | 88 / 156 | 121 | vocab 22, none 3 |
+| 0.45 | 25 | 76% | 84% | 68% | 4% | 12% | 91 / 168 | 124 | vocab 22, none 3 |
+| 0.5 | 25 | 76% | 84% | 68% | 4% | 12% | 96 / 159 | 128 | vocab 22, none 3 |
+| 0.6 | 25 | 72% | 84% | 48% | 4% | 12% | 122 / 198 | 156 | vocab 22, none 3 |
 
 Picked: 0.5
 
+### test-images, degraded conditions (centre aim): top-1 / wrong auto / auto / naming ms
+
+| condition | plain | enhance | enhance+flip |
+|---|---|---|---|
+| clean | 76% / 4% / 68% / 93 | 76% / 4% / 60% / 105 | 76% / 4% / 64% / 159 |
+| dark | 56% / 8% / 60% / 98 | 60% / 4% / 60% / 109 | 64% / 4% / 60% / 168 |
+| very-dark | 32% / 0% / 16% / 112 | 40% / 0% / 28% / 122 | 40% / 0% / 28% / 189 |
+| bright | 60% / 8% / 56% / 113 | 60% / 8% / 60% / 99 | 60% / 8% / 64% / 156 |
+| noisy | 64% / 4% / 56% / 105 | 60% / 4% / 60% / 112 | 60% / 4% / 56% / 164 |
+| blurry | 56% / 4% / 40% / 149 | 56% / 4% / 44% / 136 | 60% / 0% / 48% / 214 |
+| close | 56% / 4% / 44% / 153 | 52% / 4% / 40% / 118 | 56% / 8% / 44% / 169 |
+| tilted | 72% / 4% / 64% / 88 | 72% / 4% / 64% / 94 | 68% / 4% / 64% / 146 |
+| dark-blurry | 20% / 0% / 4% / 117 | 20% / 0% / 8% / 134 | 32% / 0% / 12% / 198 |
+
 ### test-images, personal objects (25 taught from augmented views)
 
-Picked threshold 0.92, margin 0.04; full pipeline with it: matched 100%, false matches 0%, naming 42 ms
+Picked threshold 0.92, margin 0.04; full pipeline with it: matched 100%, false matches 0%, naming 43 ms
 
 Own-object cosine: min 0.975, median 0.987. Best other-object cosine: max 0.904, median 0.844.
 
@@ -130,7 +144,7 @@ Own-object cosine: min 0.975, median 0.987. Best other-object cosine: max 0.904,
 | ood-sextant-01.jpg | 0.989 | held-keys-01.jpg | 0.867 |
 | ood-astrolabe-01.jpg | 0.991 | ood-theremin-01.jpg | 0.806 |
 
-## wasm (2026-10-04, 204 s)
+## wasm (2026-10-04, 729 s)
 
 No labels.json in: test-images-public
 
@@ -138,11 +152,11 @@ No labels.json in: test-images-public
 
 | | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
 |---|---|---|---|---|---|---|---|---|---|
-| all | 25 | 88% | 88% | 80% | 0% | 4% | 473 / 1064 | 517 | vocab 24, none 1 |
-| single | 13 | 100% | 100% | 92% | 0% | 0% | 428 / 784 | 480 | vocab 13 |
-| cluttered | 5 | 100% | 100% | 80% | 0% | 0% | 571 / 1269 | 609 | vocab 5 |
-| held | 4 | 100% | 100% | 100% | 0% | 0% | 264 / 266 | 299 | vocab 4 |
-| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 33% | 782 / 1064 | 820 | none 1, vocab 2 |
+| all | 25 | 88% | 88% | 80% | 0% | 4% | 472 / 1019 | 518 | vocab 24, none 1 |
+| single | 13 | 100% | 100% | 92% | 0% | 0% | 430 / 792 | 482 | vocab 13 |
+| cluttered | 5 | 100% | 100% | 80% | 0% | 0% | 571 / 1262 | 611 | vocab 5 |
+| held | 4 | 100% | 100% | 100% | 0% | 0% | 264 / 265 | 301 | vocab 4 |
+| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 33% | 767 / 1019 | 805 | none 1, vocab 2 |
 
 | image | expected | answer | score | | choices |
 |---|---|---|---|---|---|
@@ -176,11 +190,11 @@ No labels.json in: test-images-public
 
 | | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
 |---|---|---|---|---|---|---|---|---|---|
-| all | 25 | 84% | 88% | 88% | 4% | 0% | 456 / 843 | 496 | vocab 25 |
-| single | 13 | 100% | 100% | 100% | 0% | 0% | 421 / 781 | 461 | vocab 13 |
-| cluttered | 5 | 80% | 100% | 100% | 20% | 0% | 496 / 843 | 535 | vocab 5 |
-| held | 4 | 100% | 100% | 100% | 0% | 0% | 272 / 272 | 311 | vocab 4 |
-| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 0% | 785 / 1041 | 828 | vocab 3 |
+| all | 25 | 84% | 88% | 88% | 4% | 0% | 442 / 760 | 480 | vocab 25 |
+| single | 13 | 100% | 100% | 100% | 0% | 0% | 415 / 760 | 454 | vocab 13 |
+| cluttered | 5 | 80% | 100% | 100% | 20% | 0% | 457 / 751 | 496 | vocab 5 |
+| held | 4 | 100% | 100% | 100% | 0% | 0% | 264 / 265 | 300 | vocab 4 |
+| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 0% | 767 / 1020 | 808 | vocab 3 |
 
 | image | expected | answer | score | | choices |
 |---|---|---|---|---|---|
@@ -214,21 +228,35 @@ No labels.json in: test-images-public
 
 | threshold | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
 |---|---|---|---|---|---|---|---|---|---|
-| 0.15 | 25 | 84% | 84% | 96% | 12% | 4% | 358 / 764 | 397 | vocab 24, none 1 |
-| 0.2 | 25 | 88% | 88% | 92% | 4% | 4% | 417 / 765 | 457 | vocab 24, none 1 |
-| 0.25 | 25 | 88% | 88% | 84% | 0% | 4% | 446 / 1027 | 486 | vocab 24, none 1 |
-| 0.3 | 25 | 88% | 88% | 84% | 0% | 4% | 451 / 1045 | 490 | vocab 24, none 1 |
-| 0.35 | 25 | 88% | 88% | 80% | 0% | 4% | 467 / 1032 | 507 | vocab 24, none 1 |
-| 0.4 | 25 | 88% | 88% | 80% | 0% | 4% | 484 / 1059 | 525 | vocab 24, none 1 |
-| 0.45 | 25 | 88% | 88% | 76% | 0% | 4% | 532 / 1264 | 572 | vocab 24, none 1 |
-| 0.5 | 25 | 84% | 88% | 76% | 4% | 4% | 572 / 1263 | 612 | vocab 24, none 1 |
-| 0.6 | 25 | 84% | 88% | 68% | 0% | 4% | 612 / 1250 | 651 | vocab 24, none 1 |
+| 0.15 | 25 | 84% | 84% | 96% | 12% | 4% | 361 / 758 | 400 | vocab 24, none 1 |
+| 0.2 | 25 | 88% | 88% | 92% | 4% | 4% | 429 / 800 | 468 | vocab 24, none 1 |
+| 0.25 | 25 | 88% | 88% | 84% | 0% | 4% | 451 / 1015 | 489 | vocab 24, none 1 |
+| 0.3 | 25 | 88% | 88% | 84% | 0% | 4% | 446 / 1045 | 485 | vocab 24, none 1 |
+| 0.35 | 25 | 88% | 88% | 80% | 0% | 4% | 468 / 1027 | 506 | vocab 24, none 1 |
+| 0.4 | 25 | 88% | 88% | 80% | 0% | 4% | 470 / 1059 | 509 | vocab 24, none 1 |
+| 0.45 | 25 | 88% | 88% | 76% | 0% | 4% | 548 / 1307 | 588 | vocab 24, none 1 |
+| 0.5 | 25 | 84% | 88% | 76% | 4% | 4% | 583 / 1284 | 623 | vocab 24, none 1 |
+| 0.6 | 25 | 84% | 88% | 68% | 0% | 4% | 618 / 1272 | 658 | vocab 24, none 1 |
 
 Picked: 0.3
 
+### test-images, degraded conditions (centre aim): top-1 / wrong auto / auto / naming ms
+
+| condition | plain | enhance | enhance+flip |
+|---|---|---|---|
+| clean | 88% / 0% / 80% / 486 | 80% / 4% / 80% / 512 | 84% / 4% / 84% / 902 |
+| dark | 84% / 4% / 76% / 531 | 72% / 16% / 80% / 488 | 76% / 8% / 76% / 894 |
+| very-dark | 56% / 8% / 44% / 611 | 56% / 12% / 64% / 597 | 60% / 4% / 60% / 1119 |
+| bright | 76% / 8% / 76% / 543 | 72% / 8% / 76% / 534 | 72% / 12% / 80% / 988 |
+| noisy | 76% / 4% / 80% / 515 | 72% / 8% / 80% / 510 | 72% / 8% / 76% / 993 |
+| blurry | 68% / 20% / 72% / 662 | 64% / 12% / 72% / 680 | 68% / 12% / 72% / 1191 |
+| close | 64% / 12% / 76% / 611 | 60% / 12% / 68% / 631 | 56% / 16% / 72% / 1100 |
+| tilted | 84% / 4% / 84% / 445 | 80% / 4% / 80% / 455 | 80% / 4% / 80% / 856 |
+| dark-blurry | 56% / 4% / 40% / 705 | 60% / 0% / 44% / 753 | 60% / 0% / 44% / 1342 |
+
 ### test-images, personal objects (25 taught from augmented views)
 
-Picked threshold 0.92, margin 0.04; full pipeline with it: matched 100%, false matches 0%, naming 265 ms
+Picked threshold 0.92, margin 0.04; full pipeline with it: matched 100%, false matches 0%, naming 271 ms
 
 Own-object cosine: min 0.944, median 0.978. Best other-object cosine: max 0.864, median 0.750.
 

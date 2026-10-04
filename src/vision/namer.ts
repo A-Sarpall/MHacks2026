@@ -1,5 +1,6 @@
 import { identifyFromImage } from "../lib/identify";
 import type { Box, CapturedObject, LabelGuess } from "../lib/types";
+import { DEFAULT_ENHANCE, averageEmbeddings, mirrored, prepareCrop, type EnhanceConfig } from "./core/enhance";
 import { everydayLabel } from "./core/imagenetMap";
 import {
   matchPersonal,
@@ -27,7 +28,13 @@ export interface NamerOptions {
   topK?: number;
   personal?: PersonalEntry[];
   personalCfg?: PersonalMatchConfig;
+  enhance?: boolean | EnhanceConfig;
+  tta?: boolean;
 }
+
+const QUERY = typeof window === "undefined" ? new URLSearchParams() : new URLSearchParams(window.location.search);
+export const ENHANCE_DEFAULT = QUERY.get("enhance") === "1";
+export const TTA_DEFAULT = QUERY.get("tta") === "1";
 
 function dedupe(guesses: LabelGuess[]): LabelGuess[] {
   const seen = new Set<string>();
@@ -75,9 +82,14 @@ export async function nameCrops(
   });
   const vocab = vocabIndex();
   if (!isSiglipReady() || !vocab) return local;
+  const enhance = opts.enhance ?? ENHANCE_DEFAULT;
+  const enhanceCfg = typeof enhance === "object" ? enhance : enhance ? DEFAULT_ENHANCE : null;
+  const prepared = local.map((l) => (enhanceCfg ? prepareCrop(l.crop, enhanceCfg) : l.crop));
+  const tta = opts.tta ?? TTA_DEFAULT;
   let vectors: Float32Array[];
   try {
-    vectors = await embedImages(local.map((l) => l.crop));
+    const raw = await embedImages(tta ? prepared.flatMap((c) => [c, mirrored(c)]) : prepared);
+    vectors = tta ? prepared.map((_, i) => averageEmbeddings([raw[2 * i], raw[2 * i + 1]])) : raw;
   } catch (err) {
     console.warn("[namer] SigLIP failed, using the fallback classifier", err);
     return local;
