@@ -437,9 +437,21 @@ export default function App() {
 
   const sendPain = useCallback(
     async (level: number | null) => {
-      await reportPain(level);
+      const text = level === null ? "I'm in pain. I can't say how much." : `I'm in pain. It's ${level} out of 10.`;
+      const pmNow = pmRef.current;
+      let names: string[] = [];
+      if (pmNow.targets.length > 0) names = await pmNow.sendToTargets(text);
+      try {
+        await reportPain(level);
+      } catch (err) {
+        if (names.length === 0) throw err;
+        console.warn("[care] pain report not delivered to the care agent", err);
+      }
       feedbackRef.current("select");
-      showToast("Your caregiver is being told");
+      setSpokenLog((log) => [...log, { text, at: Date.now() }]);
+      setPainOpen(false);
+      const scale = level === null ? "pain, level not given" : `pain ${level}/10`;
+      showToast(names.length > 0 ? `Sent to ${names.join(", ")}: ${scale}` : `Your caregiver is being told: ${scale}`);
     },
     [showToast]
   );
@@ -1020,6 +1032,20 @@ export default function App() {
               onCancel={() => endScan()}
             />
           )}
+          {overstimulated && (
+            <div className="w-full max-w-2xl flex items-center justify-between gap-3 rounded-2xl border-2 border-red-400 bg-red-50 px-5 py-4">
+              <div className="text-2xl font-bold text-red-900" data-testid="overstimulated-status">
+                {ACTIVE_PROFILE.overstimulated.badge}
+              </div>
+              <button
+                onClick={() => setOverstimulated(false)}
+                className="min-h-11 px-4 py-2 rounded-xl border-2 border-red-400 bg-white text-base font-semibold text-red-900"
+                data-testid="clear-status"
+              >
+                {ACTIVE_PROFILE.overstimulated.clear}
+              </button>
+            </div>
+          )}
           {painOpen && <PainPanel level={painLevel} onLevel={setPainLevel} onSend={sendPain} onClose={() => setPainOpen(false)} />}
           {pm.target ? <PrivateBar pm={pm} /> : <ContactPicker pm={pm} />}
           <IncomingCard pm={pm} />
@@ -1091,7 +1117,7 @@ export default function App() {
         </div>
         <SpokenBanner
           spoken={spokenLog.length > 0 ? spokenLog[spokenLog.length - 1].text : null}
-          overstimulated={overstimulated}
+          overstimulated={false}
           badge={ACTIVE_PROFILE.overstimulated.badge}
           clearLabel={ACTIVE_PROFILE.overstimulated.clear}
           onClearStatus={() => setOverstimulated(false)}
