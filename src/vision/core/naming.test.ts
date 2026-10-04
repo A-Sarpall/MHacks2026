@@ -39,6 +39,16 @@ describe("vocabulary scoring", () => {
     expect(top[0].label).toBe("cup");
   });
 
+  it("reorders with a boost without changing the probabilities", () => {
+    const v = new Float32Array([0.7, 0, 0.714]);
+    const plain = index.top(v, 4);
+    const boosted = index.top(v, 4, (l) => (l === "cup" ? 0.1 : 0));
+    expect(plain[0].label).toBe("chair");
+    expect(boosted[0].label).toBe("cup");
+    const prob = (list: typeof plain, l: string) => list.find((t) => t.label === l)?.prob;
+    for (const l of ["cup", "chair", "fish"]) expect(prob(boosted, l)).toBeCloseTo(prob(plain, l)!, 9);
+  });
+
   it("rejects embeddings that don't match the labels", () => {
     expect(() => new VocabIndex(rows, new Float32Array(5), 3, 100)).toThrow();
   });

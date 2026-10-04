@@ -54,7 +54,7 @@ Stream sources keep the last 10 upright frames in `core/frameBuffer.ts` with the
 
 ## Naming: centre first, widen only when unsure (`core/escalate.ts`, `naming.ts`)
 
-For now Qu assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence`, placeholder 0.35 until the eval tunes it):
+For now Qu assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence` = 0.35, chosen by the eval; see below):
 
 | Level | Crops | When |
 |---|---|---|
@@ -62,7 +62,7 @@ For now Qu assumes the user points straight at the object: the aim point is the 
 | 1 | the smallest detected box covering the centre + a wider centre crop (65 %) | centre crop unsure, or the user retakes |
 | 2 | every other detected object | still unsure, or a second retake |
 
-Whole-frame detection keeps running (stream) or runs on the still, and supplies the level 1–2 boxes. If the best answer is confident and came from the centre/wide/covering box, it becomes a tile directly (other answers become the "fix the name" chips). Otherwise the choices go to the **scanner** instead of guessing (even a single unsure choice is confirmed there: hold = yes, double = retake). Guesses below a minimum score (`minShow`, placeholder 12 %) aren't offered unless the detector is fairly sure the object is there (`minDetector`, 50 %); if nothing clears the bar, the user gets "Not sure what that is. Try again or move closer" and an error buzz instead of a near-random word. Confidence is judged only on the pointed-at crops, and the choices are ordered by how likely they are to be what the user pointed at, not by how confident the name is: centre / covering-box / wide crops first (most confident of those leading), then other objects nearest the centre first. Choices with the same name are merged, and at most N are shown ("choices", default 4). If the object under the centre is tiny (< 1 % of the frame), a "Move closer" hint is shown; there's no special handling for far objects yet.
+Whole-frame detection keeps running (stream) or runs on the still, and supplies the level 1–2 boxes. If the best answer is confident and came from the centre/wide/covering box, it becomes a tile directly (other answers become the "fix the name" chips). Otherwise the choices go to the **scanner** instead of guessing (even a single unsure choice is confirmed there: hold = yes, double = retake). Guesses below a minimum score (`minShow`, 12 %: on the eval set correct names scored from 13 %) aren't offered unless the detector is fairly sure the object is there (`minDetector`, 50 %); if nothing clears the bar, the user gets "Not sure what that is. Try again or move closer" and an error buzz instead of a near-random word. Confidence is judged only on the pointed-at crops, and the choices are ordered by how likely they are to be what the user pointed at, not by how confident the name is: centre / covering-box / wide crops first (most confident of those leading), then other objects nearest the centre first. Choices with the same name are merged, and at most N are shown ("choices", default 4). If the object under the centre is tiny (< 1 % of the frame), a "Move closer" hint is shown; there's no special handling for far objects yet.
 
 ## Naming model: SigLIP 2 + daily-living vocabulary
 
@@ -73,6 +73,24 @@ Every crop is named by **SigLIP 2** (`onnx-community/siglip2-base-patch16-224-ON
 - **Scores:** `confidence` is a softmax over the vocabulary with SigLIP 2's learned scale (e^4.72 ≈ 113); top 3 become the name + "fix the name" chips. When unsure, the scanner also offers the next SigLIP guesses for the pointed-at crop, so even an object outside the vocabulary gets real choices.
 - **Fallback:** if SigLIP isn't loaded or fails, the old EfficientNet/ImageNet classifier is used, cleaned by `core/imagenetMap.ts`: place/scene labels are dropped and over-specific ones mapped to everyday words (tabby → cat, quilt → blanket, notebook → laptop, dog breeds → dog). Claude refinement still runs on top when a key is set.
 - **Speed (headless Chrome, M-series Mac):** ~0.1 s per press on WebGPU (0.2 s when it widens), 0.3–0.9 s on WASM with cross-origin isolation (`vite.config.ts` sets COOP/COEP so WASM can use threads; ~3× faster than without).
+
+## Personal objects (`personal.ts`, `core/personalMatch.ts`)
+
+A caregiver can teach Cue a specific object ("Mom's mug"): "Teach objects…" in the Camera & ring panel. Take 3–5 photos (ring click / Space = photo, double / D = undo, hold / H = save), type a name, save. Each photo stores two SigLIP 2 image embeddings: the centre crop and the smallest detected box under the aim point. Objects live in IndexedDB (`cue-personal` → `objects`: id, name, embeddings, thumbnail, createdAt, model) with an in-memory cache and change events; the same screen lists, renames and deletes them. Objects taught with a different model are kept but not matched.
+
+At capture, every crop's embedding is compared with the taught objects first (cosine, nearest photo per object). A match needs cosine ≥ 0.92 and a lead of ≥ 0.04 over the next taught object (picked by the eval: above every score between two different objects on WebGPU and WASM; see `DECISIONS.md`); its confidence is mapped to 0.6–1, so it is committed without the scanner, labelled with the taught name (source `personal`, tile says "taught"), and the vocabulary's top 3 become the "fix the name" chips. Claude refinement is skipped for taught names so it can't overwrite them. The console logs `[personal]` with the nearest cosine for each crop.
+
+## Unsure answers: Claude fallback (`naming.ts` → `askClaude`)
+
+When the pointed-at crops are below `lowConfidence`, the result is marked low and the scanner opens with the on-device choices as before. If a Claude key is set, the lead crop is also sent to the existing Haiku vision path (`identifyWithClaude`, 6 s timeout) with the on-device guesses as hints; its free-form name is inserted right after the highlighted choice (so the highlight doesn't jump) and shown as "Claude's guess". If nothing on-device was worth showing, Cue asks Claude first and offers its answer for confirmation (hold = yes, double = retake) before falling back to "Not sure what that is". Choices confirmed in the scanner are not re-named by Claude afterwards; confident on-device names still get the existing Claude refinement.
+
+## Selection history (`history.ts`, `core/history.ts`)
+
+Every tile the user ends up with is logged in localStorage (`cue.vision.history.v1`, last 2000): label, source (`personal` / `vocab` / `fallback` = Claude or the old classifier / `manual`), timestamp, and time of day (morning 5–12, afternoon 12–17, evening 17–22, night). No images. A later Claude refinement or a "fix the name" correction updates the same entry instead of adding a new one.
+
+The log nudges the vocabulary ranking: each pick weighs `0.5^(age / 14 days)`, ×1.5 if it was made at the same time of day; a label's boost is `0.006 × (1 − e^(−weight / 3))` in cosine units (one recent pick ≈ 0.002, so it only reorders near-ties). The boost changes the order only; the confidence shown and used for "unsure" stays the model's own. Personal objects aren't boosted.
+
+For other services (e.g. a future caregiver agent): `historyLog()`, `historySummary({ since })` (per label: count, last time, counts by source and time of day), `onHistoryChange(cb)`, `clearHistory()`.
 
 ## Ring button mappings (`input/mappings.ts`)
 
@@ -163,10 +181,27 @@ node scripts/mock-ring.mjs --dir test-images --port 8181 --still   # one burst p
 
 Then open `http://localhost:5173/?source=ws&url=ws://localhost:8181/&button=ws` (add `&mode=still` for still mode) and type `c`, `d` or `h` + Enter in the mock's terminal to press the ring button. Mock options: `--frame-delay MS` (simulate slow transfer), `--single` (firmware that ignores burst count), `--sequential` (cycle through images), `--drop-after N` (drop the connection to test reconnects).
 
-## Adding new hardware
+## Evaluation (`eval/`, `core/evalScore.ts`, `scripts/eval.mjs`)
 
-1. Add `sources/MyCameraSource.ts` implementing `FrameSource` (copy `WebSocketSource.ts` for networked boards). Report status through `StatusEmitter`; use `collectBurst` / `withTimeout` so captures never hang.
-2. If the button arrives separately, add a class to `input/inputs.ts` implementing `ButtonInput`.
-3. Register it: `SourceKind` in `sources/types.ts`, `SOURCE_KINDS` in `settings.ts`, `createSource()` in `sources/index.ts` (buttons: the switch in `useVisionIO.ts`).
-4. Select it in the "Camera & ring" panel or with `?source=...`, then set rotation/flip for each hand.
-5. Run "Calibrate aim…" once per hand. If the hardware can buzz or beep, implement `feedback(kind)` on the source or button so the user gets "on target" and "got it".
+`npm run eval` starts Vite, opens `/?eval=1` in headless Chrome once on WebGPU and once on WASM (`?siglip=wasm`), and writes `eval-results/webgpu.json`, `wasm.json` and `summary.md`. The page runs each image through the ring's still-mode building blocks: `FileSource` → `captureFrames` → `orientFrame` → sharpness ranking → `detectImageFrame` → `rankCandidates` → `nameTarget` (the same naming code `App` calls). Only `CameraView`'s painting/freezing glue is skipped. Taught objects and the selection history are left out so results don't depend on the browser's stored data.
+
+Input: a folder with `labels.json` mapping each image to `{ "label", "accept": [synonyms], "aim": [x, y] (0–1, optional), "tags": [...] }`. `test-images/` (25 CC0 photos: single, cluttered, held, out-of-vocabulary) is the default; `test-images-public/` (e.g. ~100 VizWiz/ORBIT images) is picked up automatically when it exists, and `--dirs a,b` chooses others. Each folder is reported separately, with the centre as aim point (what the ring does today) and with the labelled aim point (a calibrated user), per tag.
+
+Reported: top-1 and top-3 (labels or accepted synonyms, plural-insensitive), auto-commit rate (sure → tile without asking), **wrong auto-commits** (the costly error: a wrong word spoken without confirmation), "not sure" rate, naming latency (avg/p95) and capture-to-name latency, and which source answered. Then:
+
+- **Confidence sweep**: `lowConfidence` from 0.15 to 0.6. The picker takes the lowest wrong-auto rate any threshold reaches, then the most automation, then the higher threshold; across backends it uses the mean.
+- **Personal objects**: every image is taught from 3 augmented views (zoom, shift, rotation, lighting) and queried with a 4th. For each threshold/margin it measures true matches, false matches (the object wasn't taught but matched something else) and confusions; the picker requires zero false matches and confusions on every backend. The chosen setting is then re-checked through `nameTarget`.
+
+Options: `--backends webgpu,wasm`, `--dirs`, `--no-sweep`, `--no-personal`, `--claude` (also ask Claude for unsure answers; needs a key), `--headed`, `--report-only` (rebuild `summary.md` from the JSON).
+
+## Connecting new hardware
+
+Recognition never imports hardware code: it takes an upright image plus an aim point. A new ring only needs a source (camera), maybe a button, orientation and calibration.
+
+1. **Camera.** Add `sources/MyRingSource.ts` implementing `FrameSource` (`sources/types.ts`). For a networked board copy `WebSocketSource.ts`; for Bluetooth copy `BleStillSource.ts` and put the real UUIDs in `RING_BLE` (`bleLink.ts`). Set `mode` to `"still"` if the camera only takes pictures on a press (implement `capture()` and ideally `captureBurst(n)`), or `"stream"` if it pushes frames (`onFrame`). Report connection state with `StatusEmitter` (`connecting / live / reconnecting / error`), reconnect on drop-outs without a reload, and use `collectBurst` / `withTimeout` so a capture rejects instead of hanging.
+2. **Button.** If the button comes over a different link, add a class to `input/inputs.ts` implementing `ButtonInput` that turns the hardware's events into `click` / `double` / `hold`. If the ring can buzz or beep, implement `feedback(kind)` (`on-target`, `captured`, `highlight`, `select`, `error`) on the source or the button. Keyboard (Space / D / H) always keeps working.
+3. **Register it** in three places: `SourceKind` in `sources/types.ts`, `SOURCE_KINDS` in `settings.ts`, and `createSource()` in `sources/index.ts` (buttons: the switch in `useVisionIO.ts`).
+4. **Select it** in the "Camera & ring" panel or with `?source=<kind>` (plus e.g. `&url=`, `&mode=still`, `&button=`).
+5. **Orientation.** Mount the ring, open the preview, and set "Rotate" / "Flip image" in the panel until the picture is upright (or `?rotate=90&flip=1`). This is saved per source and per hand; update `HAND_PRESETS` in `sources/orient.ts` once you know how the ring sits on each hand.
+6. **Calibration.** "Calibrate aim…" → point at the pink target 3–5 times (or tap the object) for each hand, then tick "use it". Saved per source + hand.
+7. **Check it.** Run the mock (`scripts/mock-ring.mjs`) to compare against the reference protocol, then point at a few objects; `[capture]` and `[naming]` console lines show burst timing, sharpness, and what was named. If the new camera's images look different from a webcam's (fisheye, low light), capture a few dozen labelled photos into a folder with a `labels.json` and run `npm run eval -- --dirs that-folder` to re-check the thresholds.

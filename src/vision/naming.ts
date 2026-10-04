@@ -1,3 +1,5 @@
+import { hasClaude } from "../lib/claude";
+import { identifyWithClaude } from "../lib/identify";
 import type { CapturedObject, LabelGuess } from "../lib/types";
 import { aimPoint, type Candidate, type Point } from "./core/aim";
 import {
@@ -145,4 +147,41 @@ export function withAlternatives(chosen: NamedOption, others: NamedOption[]): Ca
     return true;
   });
   return { ...chosen.capture, alternatives };
+}
+
+export async function askClaude(lead: NamedOption, others: NamedOption[] = [], timeoutMs = 6000): Promise<NamedOption | null> {
+  if (!hasClaude()) return null;
+  const hints = [...new Set([lead.label, ...others.map((o) => o.label), ...lead.capture.alternatives.map((a) => a.label)])];
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<null>((resolve) => {
+    timer = setTimeout(() => resolve(null), timeoutMs);
+  });
+  try {
+    const label = await Promise.race([identifyWithClaude(lead.crop, hints), timeout]);
+    if (!label) return null;
+    return {
+      key: "claude",
+      label,
+      score: 0,
+      rung: lead.rung,
+      crop: lead.crop,
+      embedding: lead.embedding,
+      capture: {
+        ...lead.capture,
+        id: `${lead.capture.id}-claude`,
+        label,
+        confidence: 0,
+        source: "claude",
+        refining: false,
+        alternatives: hints
+          .filter((h) => h !== label)
+          .map((h) => ({ label: h, score: 0, source: "vocab" as const })),
+      },
+    };
+  } catch (err) {
+    console.warn("[naming] Claude fallback failed", err);
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
 }

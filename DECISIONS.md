@@ -210,3 +210,77 @@ ImageNet labels fit AAC badly ("restaurant", "tabby", "quilt"). A vocabulary we 
 **Implication**
 
 `vite.config.ts` sends COOP/COEP (`credentialless`) headers so WASM inference can use threads (~3× faster on CPU). WebGPU and WASM give noticeably different scores on some images (e.g. "mug" vs "travel mug"), so the eval should report both. The confidence threshold must be re-tuned for SigLIP scores in Phase 7.
+
+---
+
+### 2026-10-03 — Personal objects are matched before the vocabulary
+
+**Decision**
+
+A caregiver teaches an object with 3–5 photos and a name. Each photo stores SigLIP 2 image embeddings of the centre crop and of the smallest detected box under the aim point, in IndexedDB. At capture each crop is compared with every taught object (cosine to its nearest stored view); a match needs cosine ≥ 0.92 and a lead of ≥ 0.04 over the next taught object. A match becomes the tile's name with confidence 0.6–1 (no scanner), the vocabulary's top 3 become the "fix the name" chips, and Claude refinement is skipped so it can't overwrite the taught name.
+
+**Reason**
+
+The names that matter most to a user ("Mom's mug", "my walker") aren't in any vocabulary. Reusing the SigLIP image embedding costs nothing extra at capture (one dot product per stored view). A margin over the runner-up keeps two similar taught objects from being confused.
+
+**Alternatives considered**
+
+- Fine-tuning or a separate few-shot model — heavy, not feasible in the browser
+- Adding taught names as extra text labels — text can't capture "this particular mug"
+
+**Implication**
+
+Thresholds come from the eval (see the eval entry). Embeddings are tied to the model (`model` field); objects taught with another model are kept but not matched until re-taught.
+
+---
+
+### 2026-10-03 — Unsure answers ask Claude; confirmed selections are logged and slightly boost ranking
+
+**Decision**
+
+When the pointed-at crops are below the confidence threshold the result stays an unsure set of choices; with a Claude key the lead crop also goes to the existing Haiku vision path (6 s timeout) and its name is added as one more choice (or offered alone for confirmation when nothing on-device was worth showing). Every tile is logged locally (label, source personal/vocab/fallback/manual, time, time of day; no images) and corrections update the same entry. Recent and frequent picks (14-day half-life, ×1.5 at the same time of day) add at most 0.006 cosine to a label's rank; the boost changes the order of the top 3 only, never the confidence.
+
+**Reason**
+
+Claude is good at free-form names for objects outside the vocabulary, but a confident-sounding wrong name is the worst outcome, so it is only ever offered as a choice. Users name the same few things repeatedly; a small, capped nudge helps near-ties without letting habit turn a wrong guess into a confident one.
+
+**Alternatives considered**
+
+- Replacing the on-device answer with Claude's — loses the "choices, not one confident answer" rule
+- Boosting the confidence as well as the order — could push a wrong label over the auto-commit threshold
+
+**Implication**
+
+`history.ts` exposes `historyLog()` / `historySummary()` for a future caregiver service. Choices confirmed in the scanner are no longer re-named by Claude afterwards.
+
+---
+
+### 2026-10-03 — Thresholds picked by the eval harness
+
+**Decision**
+
+`npm run eval` runs the labelled images through the ring's still-mode code path on WebGPU and WASM and sweeps the thresholds. Chosen on `test-images/` (25 CC0 photos):
+
+- `lowConfidence` = **0.35** (unchanged from the placeholder, now measured). Mean over both backends at 0.35: 72 % of presses become a tile directly with 6 % wrong auto-commits (WebGPU 4 %, WASM 8 %), against 8 % at 0.30 and 12 % at 0.25. Above 0.35 wrong auto-commits don't fall any further (the remaining errors score 43–90 %), only the auto-commit rate does.
+- Personal objects: threshold **0.92**, margin **0.04** (was 0.85 / 0.02). The closest pair of *different* objects scored 0.904 on WebGPU (two sets of car keys; a spoon and a remote on similar plain backgrounds) and 0.864 on WASM. With the old 0.85 / 0.02, 20 % of untaught objects would have been named as a taught one on WebGPU (4 % on WASM). 0.90 / 0.04 is the lowest setting with zero false matches on both backends, but only the margin keeps it clear of the 0.904 pair; 0.92 sits above every different-object score at any margin, and the augmented positives (all ≥ 0.94) can't tell the two apart.
+- `minShow` stays 12 %: correct names scored from 13 %; out-of-vocabulary objects scored 8–39 %, but all of them were unsure and went to the scanner or "not sure", never straight to a tile.
+
+**Results** (centre aim, as the ring does today; full tables in `eval-results/summary.md`)
+
+| Backend | top-1 | top-3 | auto | wrong auto | not sure | naming avg / p95 | capture-to-name |
+|---|---|---|---|---|---|---|---|
+| WebGPU | 76 % | 84 % | 64 % | 4 % | 12 % | 89 / 166 ms | 128 ms |
+| WASM | 80 % | 88 % | 80 % | 8 % | 4 % | 497 / 1046 ms | 543 ms |
+
+All answers came from the vocabulary (personal objects and history are excluded from this run). Personal objects through the same pipeline at 0.92 / 0.04: 100 % of taught objects recognised, 0 % false matches, 42 ms (WebGPU) / 268 ms (WASM).
+
+**Reason**
+
+The costly error for this user group is a wrong word committed without asking, so thresholds minimise wrong auto-commits first and only then maximise automation. A user runs one backend, so the confidence threshold uses the mean over backends; personal false matches must be zero on every backend.
+
+**Limitations**
+
+- 25 placeholder photos is far too few; one image moves a rate by 4 %. Re-run once `test-images-public/` (VizWiz/ORBIT slice) and real ring photos exist.
+- The remaining wrong auto-commits are vocabulary problems, not thresholds: "prayer book" and "travel mug" are too specific, and the keyboard of a laptop is named "keyboard". Merging over-specific labels into their everyday parent would help more than any threshold.
+- The personal "own object" scores come from augmented copies of one photo (0.94–0.99), which is optimistic; a real webcam re-capture of a taught object scored 0.92–0.97, so some real objects will narrowly miss at 0.92 and fall back to the vocabulary (safe, but less helpful). Teach 5 photos from varied angles.
+- WebGPU and WASM produce noticeably different scores with the 4-bit model (e.g. "mug" vs "travel mug"), so thresholds should be re-checked if the model or its quantisation changes.

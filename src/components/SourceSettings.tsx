@@ -30,6 +30,7 @@ interface Props {
   buttonStatus: StatusInfo | null;
   calibration: StoredCalibration | null;
   onCalibrate: () => void;
+  onPersonal?: () => void;
 }
 
 const blur = (e: { currentTarget: HTMLElement }) => e.currentTarget.blur();
@@ -42,6 +43,7 @@ export function SourceSettings({
   buttonStatus,
   calibration,
   onCalibrate,
+  onPersonal,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [pairError, setPairError] = useState("");
@@ -357,6 +359,18 @@ export function SourceSettings({
             >
               Calibrate aim…
             </button>
+            {onPersonal && (
+              <button
+                onClick={(e) => {
+                  onPersonal();
+                  blur(e);
+                }}
+                className="px-2 py-0.5 rounded border border-gray-200 hover:bg-gray-50"
+                data-testid="personal-open"
+              >
+                Teach objects…
+              </button>
+            )}
             <label className="flex items-center gap-1 cursor-pointer">
               <input
                 type="checkbox"

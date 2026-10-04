@@ -38,19 +38,21 @@ export class VocabIndex {
 
   top(v: Float32Array, k = 3, boost?: (label: string) => number): VocabMatch[] {
     const cos = this.cosines(v);
-    const best = new Map<string, { row: number; cos: number }>();
+    const best = new Map<string, { row: number; cos: number; rank: number }>();
     let max = -Infinity;
     for (let r = 0; r < cos.length; r++) {
-      const c = cos[r] + (boost ? boost(this.rows[r].label) : 0);
-      cos[r] = c;
+      const c = cos[r];
       if (c > max) max = c;
       const prev = best.get(this.rows[r].label);
-      if (!prev || c > prev.cos) best.set(this.rows[r].label, { row: r, cos: c });
+      if (!prev || c > prev.cos) best.set(this.rows[r].label, { row: r, cos: c, rank: 0 });
     }
     let sum = 0;
-    for (const { cos: c } of best.values()) sum += Math.exp(this.scale * (c - max));
+    for (const [label, b] of best) {
+      sum += Math.exp(this.scale * (b.cos - max));
+      b.rank = b.cos + (boost ? boost(label) : 0);
+    }
     return [...best.entries()]
-      .sort((a, b) => b[1].cos - a[1].cos)
+      .sort((a, b) => b[1].rank - a[1].rank)
       .slice(0, k)
       .map(([label, { row, cos: c }]) => ({
         label,

@@ -28,10 +28,12 @@ import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
 import { Scanner } from "./components/Scanner";
-import { RUNG_TEXT, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
+import { RUNG_TEXT, askClaude, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
+import { correctSelection, historyBoost, recordSelection } from "./vision/history";
 import { RING_HINTS, commandFor, type RingMode } from "./vision/input/mappings";
 import { SourceSettings } from "./components/SourceSettings";
 import { Calibration, type CalibrationHandle } from "./components/Calibration";
+import { PersonalObjects, type PersonalObjectsHandle } from "./components/PersonalObjects";
 import {
   isStillSource,
   loadSourceSettings,
@@ -92,9 +94,14 @@ export default function App() {
   const calibratingRef = useRef(calibrating);
   calibratingRef.current = calibrating;
   const calibRef = useRef<CalibrationHandle>(null);
+  const [teaching, setTeaching] = useState(false);
+  const teachingRef = useRef(teaching);
+  teachingRef.current = teaching;
+  const teachRef = useRef<PersonalObjectsHandle>(null);
   const feedbackRef = useRef<(kind: FeedbackKind) => void>(() => {});
   const [scan, setScan] = useState<{ options: NamedOption[]; index: number; level: number } | null>(null);
   const scanRef = useRef(scan);
+  const scanSeq = useRef(0);
   scanRef.current = scan;
   const reviewRef = useRef<{ until: number; level: number } | null>(null);
   const [hint, setHint] = useState<{ text: string; key: number } | null>(null);
@@ -154,18 +161,21 @@ export default function App() {
   );
 
   const commitCapture = useCallback(
-    async (capture: CapturedObject, crop: HTMLCanvasElement) => {
+    async (capture: CapturedObject, crop: HTMLCanvasElement, confirmed = false) => {
+      // Keep the full-size crop: a tile only has a 160 px thumbnail, too small to read a medicine label.
       cropsRef.current.set(capture.id, crop);
       if (cropsRef.current.size > 12) cropsRef.current.delete(cropsRef.current.keys().next().value!);
-      dispatch({ type: "ADD_CAPTURE", capture });
+      recordSelection({ id: capture.id, label: capture.label, source: capture.source });
+      const refine = hasClaude() && !confirmed && capture.source !== "personal" && capture.source !== "claude";
+      dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
       );
       const isMed = isMedicationLabel(capture.label);
       if (isMed) void runMedCheck({ image: canvasToJpegBase64(crop) });
-      if (sayNameRef.current && !hasClaude() && !isMed) tts.speak(capture.label).catch(() => {});
-      if (!hasClaude()) return;
+      if (sayNameRef.current && !refine && !isMed) tts.speak(capture.label).catch(() => {});
+      if (!refine) return;
 
       dispatch({ type: "SET_STATUS", status: "identifying" });
       try {
@@ -183,6 +193,7 @@ export default function App() {
             }
           : {};
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { ...patch, refining: false } });
+        if (label) correctSelection(capture.id, label, "claude");
         if (label && label !== capture.label) showToast(`Claude says: ${label}`);
         if (sayNameRef.current) tts.speak(label ?? capture.label).catch(() => {});
       } catch (err) {
@@ -205,6 +216,7 @@ export default function App() {
   );
 
   const endScan = useCallback((unfreezeAfterMs = 0) => {
+    scanSeq.current++;
     setScan(null);
     setTimeout(() => cameraRef.current?.unfreeze(), unfreezeAfterMs);
   }, []);
@@ -232,6 +244,7 @@ export default function App() {
           const res = await nameTarget(target, {
             startLevel: level,
             maxOptions: settingsRef.current.maxCandidates,
+            namer: { boost: historyBoost() },
           }).finally(() => dispatch({ type: "SET_STATUS", status: "idle" }));
           console.info(
             "[naming]",
@@ -245,6 +258,21 @@ export default function App() {
             })
           );
           if (res.tooSmall) setHint({ text: "Move closer", key: Date.now() });
+          const seq = ++scanSeq.current;
+          if (res.empty && hasClaude()) {
+            setHint({ text: "Not sure. Asking Claude…", key: Date.now() });
+            dispatch({ type: "SET_STATUS", status: "identifying" });
+            const guess = await askClaude(res.best, res.options).finally(() =>
+              dispatch({ type: "SET_STATUS", status: "idle" })
+            );
+            if (seq !== scanSeq.current) return;
+            console.info("[naming] fallback", JSON.stringify({ claude: guess?.label ?? null }));
+            if (guess) {
+              setHint(null);
+              setScan({ options: [guess], index: 0, level: res.level });
+              return;
+            }
+          }
           if (res.empty) {
             feedbackRef.current("error");
             setHint({ text: "Not sure what that is. Try again or move closer", key: Date.now() });
@@ -258,6 +286,16 @@ export default function App() {
             return;
           }
           setScan({ options: res.options, index: 0, level: res.level });
+          if (!hasClaude()) return;
+          const guess = await askClaude(res.best, res.options);
+          console.info("[naming] fallback", JSON.stringify({ claude: guess?.label ?? null }));
+          if (!guess || seq !== scanSeq.current) return;
+          setScan((s) => {
+            if (!s || s.options.some((o) => o.label.toLowerCase() === guess.label.toLowerCase())) return s;
+            const options = [...s.options];
+            options.splice(s.index + 1, 0, guess);
+            return { ...s, options };
+          });
         })
         .catch((err: unknown) => {
           console.warn("[capture]", err);
@@ -274,7 +312,7 @@ export default function App() {
       if (!s) return;
       const chosen = s.options[index ?? s.index];
       feedbackRef.current("select");
-      void commitCapture(withAlternatives(chosen, s.options), chosen.crop);
+      void commitCapture(withAlternatives(chosen, s.options), chosen.crop, true);
       endScan(600);
     },
     [commitCapture, endScan]
@@ -361,6 +399,12 @@ export default function App() {
             setPainOpen(false);
             break;
         }
+        return;
+      }
+      if (teachingRef.current) {
+        if (action === "click") teachRef.current?.press();
+        if (action === "double") teachRef.current?.undo();
+        if (action === "hold") teachRef.current?.save();
         return;
       }
       const mode = ringMode();
@@ -657,7 +701,10 @@ export default function App() {
                 key: o.key,
                 label: o.label,
                 thumbnail: o.capture.thumbnail,
-                detail: `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
+                detail:
+                  o.capture.source === "claude"
+                    ? `Claude's guess · ${RUNG_TEXT[o.rung.kind]}`
+                    : `${Math.round(o.score * 100)}% sure · ${RUNG_TEXT[o.rung.kind]}`,
               }))}
               index={scan.index}
               hint={RING_HINTS[sourceSettings.autoScan ? "autoscan" : "scanning"]}
@@ -688,7 +735,24 @@ export default function App() {
             buttonStatus={ringStatus}
             calibration={calibration}
             onCalibrate={() => setCalibrating(true)}
+            onPersonal={() => setTeaching(true)}
           />
+          {teaching && (
+            <PersonalObjects
+              ref={teachRef}
+              ready={siglip.status === "ready"}
+              capture={async () => {
+                const t = await cameraRef.current?.capture();
+                cameraRef.current?.unfreeze();
+                return t ?? null;
+              }}
+              onSaved={(obj) => {
+                feedbackRef.current("select");
+                showToast(`Learned: ${obj.name}`);
+              }}
+              onClose={() => setTeaching(false)}
+            />
+          )}
           {calibrating && (
             <Calibration
               ref={calibRef}
@@ -724,6 +788,7 @@ export default function App() {
             selectedTileIds={state.selectedTileIds}
             onToggle={(id) => dispatch({ type: "TOGGLE_TILE", id })}
             onRename={(id, label) => {
+              correctSelection(id, label, "manual");
               dispatch({
                 type: "UPDATE_CAPTURE",
                 id,

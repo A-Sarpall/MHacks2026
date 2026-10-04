@@ -1,0 +1,5005 @@
+{
+  "device": "wasm",
+  "claude": false,
+  "startedAt": "2026-10-03T23:34:55.270Z",
+  "ms": 210725.78999996185,
+  "naming": {
+    "centreFrac": 0.35,
+    "wideFrac": 0.65,
+    "lowConfidence": 0.35,
+    "tinyAreaFrac": 0.01,
+    "widePenalty": 0.1,
+    "minShow": 0.12,
+    "minDetector": 0.5
+  },
+  "missing": [
+    "test-images-public"
+  ],
+  "folders": [
+    {
+      "folder": "test-images",
+      "aimMode": "centre",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.8,
+        "wrongAuto": 0.08,
+        "notSure": 0.04,
+        "avgMs": 496.70920000553133,
+        "p95Ms": 1045.8150000572205,
+        "avgTotalMs": 543.3807999801636,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      },
+      "byTag": {
+        "single": {
+          "n": 13,
+          "top1": 0.8461538461538461,
+          "top3": 1,
+          "auto": 0.9230769230769231,
+          "wrongAuto": 0.15384615384615385,
+          "notSure": 0,
+          "avgMs": 432.1219230798575,
+          "p95Ms": 802.085000038147,
+          "avgTotalMs": 485.7219230303398,
+          "sources": {
+            "vocab": 13
+          }
+        },
+        "cluttered": {
+          "n": 5,
+          "top1": 1,
+          "top3": 1,
+          "auto": 0.8,
+          "wrongAuto": 0,
+          "notSure": 0,
+          "avgMs": 564.8519999980927,
+          "p95Ms": 1257.7949999570847,
+          "avgTotalMs": 604.2179999828338,
+          "sources": {
+            "vocab": 5
+          }
+        },
+        "held": {
+          "n": 4,
+          "top1": 1,
+          "top3": 1,
+          "auto": 1,
+          "wrongAuto": 0,
+          "notSure": 0,
+          "avgMs": 404.86875000596046,
+          "p95Ms": 818.5700000524521,
+          "avgTotalMs": 442.826249986887,
+          "sources": {
+            "vocab": 4
+          }
+        },
+        "out-of-vocab": {
+          "n": 3,
+          "top1": 0,
+          "top3": 0,
+          "auto": 0,
+          "wrongAuto": 0,
+          "notSure": 0.3333333333333333,
+          "avgMs": 785.4700000286102,
+          "p95Ms": 1045.8150000572205,
+          "avgTotalMs": 825.9133334159851,
+          "sources": {
+            "none": 1,
+            "vocab": 2
+          }
+        }
+      },
+      "cases": [
+        {
+          "result": {
+            "file": "mug-01.jpg",
+            "expected": "mug",
+            "tags": [
+              "single"
+            ],
+            "best": "travel mug",
+            "bestScore": 0.4260208384523966,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "travel mug",
+              "mug",
+              "coffee",
+              "thing"
+            ],
+            "ms": 287.33000004291534,
+            "totalMs": 505.8750001192093
+          },
+          "spec": {
+            "label": "mug",
+            "accept": [
+              "cup",
+              "coffee mug",
+              "coffee cup"
+            ],
+            "aim": [
+              0.45,
+              0.52
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "water-bottle-01.jpg",
+            "expected": "water bottle",
+            "tags": [
+              "single"
+            ],
+            "best": "water bottle",
+            "bestScore": 0.9188892055690816,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "water bottle",
+              "sippy cup",
+              "urinal bottle",
+              "bottle"
+            ],
+            "ms": 780.5049999952316,
+            "totalMs": 821.7699999809265
+          },
+          "spec": {
+            "label": "water bottle",
+            "accept": [
+              "bottle"
+            ],
+            "aim": [
+              0.6,
+              0.5
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "glasses-01.jpg",
+            "expected": "glasses",
+            "tags": [
+              "single"
+            ],
+            "best": "glasses",
+            "bestScore": 0.5938525719740664,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "glasses",
+              "reading glasses",
+              "sunglasses",
+              "thing"
+            ],
+            "ms": 274.4150000810623,
+            "totalMs": 317.3600000143051
+          },
+          "spec": {
+            "label": "glasses",
+            "accept": [
+              "eyeglasses",
+              "spectacles"
+            ],
+            "aim": [
+              0.42,
+              0.45
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "phone-01.jpg",
+            "expected": "phone",
+            "tags": [
+              "single"
+            ],
+            "best": "phone",
+            "bestScore": 0.5965379789255655,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "phone",
+              "keyboard",
+              "calculator",
+              "thing"
+            ],
+            "ms": 272.3799999952316,
+            "totalMs": 312.5349998474121
+          },
+          "spec": {
+            "label": "phone",
+            "accept": [
+              "smartphone",
+              "cell phone",
+              "mobile phone",
+              "iphone"
+            ],
+            "aim": [
+              0.4,
+              0.45
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "remote-01.jpg",
+            "expected": "remote",
+            "tags": [
+              "single"
+            ],
+            "best": "remote",
+            "bestScore": 0.9465478966995077,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "remote",
+              "magnifying glass",
+              "game controller",
+              "smart speaker"
+            ],
+            "ms": 802.085000038147,
+            "totalMs": 841.2249999046326
+          },
+          "spec": {
+            "label": "remote",
+            "accept": [
+              "remote control",
+              "tv remote",
+              "controller"
+            ],
+            "aim": [
+              0.55,
+              0.5
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "toothbrush-01.jpg",
+            "expected": "toothbrush",
+            "tags": [
+              "single"
+            ],
+            "best": "toothbrush",
+            "bestScore": 0.4602214456901496,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "toothbrush",
+              "electric toothbrush",
+              "toilet brush",
+              "thing"
+            ],
+            "ms": 310.75999999046326,
+            "totalMs": 349.2349998950958
+          },
+          "spec": {
+            "label": "toothbrush",
+            "accept": [
+              "toothpaste"
+            ],
+            "aim": [
+              0.35,
+              0.6
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "pill-bottle-01.jpg",
+            "expected": "pills",
+            "tags": [
+              "single"
+            ],
+            "best": "pills",
+            "bestScore": 0.4321182091744812,
+            "source": "vocab",
+            "low": true,
+            "empty": false,
+            "level": 2,
+            "choices": [
+              "pills",
+              "pill bottle",
+              "pill organizer",
+              "thing"
+            ],
+            "ms": 794.9599999189377,
+            "totalMs": 835.1999999284744
+          },
+          "spec": {
+            "label": "pills",
+            "accept": [
+              "pill bottle",
+              "pill container",
+              "medicine",
+              "tablets",
+              "container"
+            ],
+            "aim": [
+              0.47,
+              0.5
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "book-01.jpg",
+            "expected": "book",
+            "tags": [
+              "single"
+            ],
+            "best": "prayer book",
+            "bestScore": 0.899702423140133,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "prayer book",
+              "book",
+              "e-reader",
+              "thing"
+            ],
+            "ms": 265.4449999332428,
+            "totalMs": 308.6799998283386
+          },
+          "spec": {
+            "label": "book",
+            "accept": [
+              "bible"
+            ],
+            "aim": [
+              0.5,
+              0.63
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "spoon-01.jpg",
+            "expected": "spoon",
+            "tags": [
+              "single"
+            ],
+            "best": "spoon",
+            "bestScore": 0.9087717637600046,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "spoon",
+              "oxygen tubing",
+              "weighted utensils",
+              "spatula",
+              "scissors"
+            ],
+            "ms": 761.2350000143051,
+            "totalMs": 793.9999998807907
+          },
+          "spec": {
+            "label": "spoon",
+            "accept": [
+              "teaspoon"
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "shoe-01.jpg",
+            "expected": "shoe",
+            "tags": [
+              "single"
+            ],
+            "best": "sneakers",
+            "bestScore": 0.44437936267824274,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "sneakers",
+              "shoes",
+              "shoelaces",
+              "thing"
+            ],
+            "ms": 268.3200000524521,
+            "totalMs": 309.6250001192093
+          },
+          "spec": {
+            "label": "shoe",
+            "accept": [
+              "sneaker",
+              "trainer",
+              "running shoe"
+            ],
+            "aim": [
+              0.48,
+              0.55
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "keys-01.jpg",
+            "expected": "keys",
+            "tags": [
+              "single"
+            ],
+            "best": "keys",
+            "bestScore": 0.6379493804074587,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "keys",
+              "key ring",
+              "padlock",
+              "thing"
+            ],
+            "ms": 266.16999995708466,
+            "totalMs": 304.3700000047684
+          },
+          "spec": {
+            "label": "keys",
+            "accept": [
+              "key",
+              "car keys",
+              "car key"
+            ],
+            "aim": [
+              0.5,
+              0.45
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "chair-01.jpg",
+            "expected": "chair",
+            "tags": [
+              "single"
+            ],
+            "best": "chair",
+            "bestScore": 0.35863285864991745,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "chair",
+              "stool",
+              "armchair",
+              "thing"
+            ],
+            "ms": 266.77500009536743,
+            "totalMs": 305.875
+          },
+          "spec": {
+            "label": "chair",
+            "accept": [
+              "wooden chair"
+            ],
+            "aim": [
+              0.4,
+              0.55
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "banana-01.jpg",
+            "expected": "banana",
+            "tags": [
+              "single"
+            ],
+            "best": "banana",
+            "bestScore": 0.9370472511176579,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "banana",
+              "basket",
+              "fruit bowl",
+              "thing"
+            ],
+            "ms": 267.20499992370605,
+            "totalMs": 308.63499987125397
+          },
+          "spec": {
+            "label": "banana",
+            "accept": [
+              "bananas"
+            ],
+            "aim": [
+              0.55,
+              0.62
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-desk-cup-01.jpg",
+            "expected": "cup",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "coffee",
+            "bestScore": 0.4887425173099256,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "coffee",
+              "hot chocolate",
+              "cup",
+              "thing"
+            ],
+            "ms": 267.95500004291534,
+            "totalMs": 308.25499987602234
+          },
+          "spec": {
+            "label": "cup",
+            "accept": [
+              "mug",
+              "coffee cup",
+              "coffee",
+              "cappuccino"
+            ],
+            "aim": [
+              0.5,
+              0.62
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-desk-laptop-01.jpg",
+            "expected": "laptop",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "laptop",
+            "bestScore": 0.7350340527486775,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "laptop",
+              "tablet",
+              "computer",
+              "monitor"
+            ],
+            "ms": 765.289999961853,
+            "totalMs": 802.5750000476837
+          },
+          "spec": {
+            "label": "laptop",
+            "accept": [
+              "computer",
+              "macbook",
+              "notebook"
+            ],
+            "aim": [
+              0.5,
+              0.6
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-desk-mouse-01.jpg",
+            "expected": "mouse",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "computer mouse",
+            "bestScore": 0.8482093024085322,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "computer mouse",
+              "keyboard",
+              "placemat",
+              "thing"
+            ],
+            "ms": 266.20500004291534,
+            "totalMs": 309.38499999046326
+          },
+          "spec": {
+            "label": "mouse",
+            "accept": [
+              "computer mouse",
+              "mouse pad"
+            ],
+            "aim": [
+              0.49,
+              0.53
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-table-laptop-01.jpg",
+            "expected": "laptop",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "laptop",
+            "bestScore": 0.45284656294962483,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "laptop",
+              "keyboard",
+              "notebook",
+              "thing"
+            ],
+            "ms": 267.0149999856949,
+            "totalMs": 303.5499999523163
+          },
+          "spec": {
+            "label": "laptop",
+            "accept": [
+              "computer",
+              "notebook",
+              "netbook"
+            ],
+            "aim": [
+              0.48,
+              0.45
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-desk-monitor-01.jpg",
+            "expected": "monitor",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "monitor",
+            "bestScore": 0.3106603957860874,
+            "source": "vocab",
+            "low": true,
+            "empty": false,
+            "level": 2,
+            "choices": [
+              "monitor",
+              "sticky notes",
+              "keyboard",
+              "sippy cup",
+              "computer",
+              "desk",
+              "thing"
+            ],
+            "ms": 1257.7949999570847,
+            "totalMs": 1297.3250000476837
+          },
+          "spec": {
+            "label": "monitor",
+            "accept": [
+              "computer",
+              "screen",
+              "computer monitor"
+            ],
+            "aim": [
+              0.33,
+              0.47
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "held-apple-01.jpg",
+            "expected": "apple",
+            "tags": [
+              "held"
+            ],
+            "best": "apple",
+            "bestScore": 0.9322803507655585,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "apple",
+              "peach",
+              "orange",
+              "thing"
+            ],
+            "ms": 266.3949999809265,
+            "totalMs": 305.09499990940094
+          },
+          "spec": {
+            "label": "apple",
+            "accept": [],
+            "aim": [
+              0.5,
+              0.6
+            ],
+            "tags": [
+              "held"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "held-phone-01.jpg",
+            "expected": "phone",
+            "tags": [
+              "held"
+            ],
+            "best": "phone",
+            "bestScore": 0.8115827571630926,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "phone",
+              "tablet",
+              "hand",
+              "thing"
+            ],
+            "ms": 266.7150000333786,
+            "totalMs": 304.6100000143051
+          },
+          "spec": {
+            "label": "phone",
+            "accept": [
+              "smartphone",
+              "cell phone",
+              "mobile phone"
+            ],
+            "aim": [
+              0.4,
+              0.45
+            ],
+            "tags": [
+              "held"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "held-mug-01.jpg",
+            "expected": "mug",
+            "tags": [
+              "held"
+            ],
+            "best": "mug",
+            "bestScore": 0.5308263927253686,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "mug",
+              "hot chocolate",
+              "travel mug",
+              "cup"
+            ],
+            "ms": 818.5700000524521,
+            "totalMs": 856.335000038147
+          },
+          "spec": {
+            "label": "mug",
+            "accept": [
+              "cup",
+              "coffee mug",
+              "coffee cup"
+            ],
+            "aim": [
+              0.6,
+              0.6
+            ],
+            "tags": [
+              "held"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "held-keys-01.jpg",
+            "expected": "keys",
+            "tags": [
+              "held"
+            ],
+            "best": "keys",
+            "bestScore": 0.4158702319910427,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "keys",
+              "key ring",
+              "padlock",
+              "thing"
+            ],
+            "ms": 267.79499995708466,
+            "totalMs": 305.2649999856949
+          },
+          "spec": {
+            "label": "keys",
+            "accept": [
+              "key",
+              "car key",
+              "car keys"
+            ],
+            "aim": [
+              0.58,
+              0.6
+            ],
+            "tags": [
+              "held"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "ood-theremin-01.jpg",
+            "expected": "theremin",
+            "tags": [
+              "out-of-vocab"
+            ],
+            "best": "door handle",
+            "bestScore": 0.08921608759689902,
+            "source": "vocab",
+            "low": true,
+            "empty": true,
+            "level": 2,
+            "choices": [],
+            "ms": 540.420000076294,
+            "totalMs": 576.9650001525879
+          },
+          "spec": {
+            "label": "theremin",
+            "accept": [],
+            "aim": [
+              0.55,
+              0.68
+            ],
+            "tags": [
+              "out-of-vocab"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "ood-sextant-01.jpg",
+            "expected": "sextant",
+            "tags": [
+              "out-of-vocab"
+            ],
+            "best": "tape measure",
+            "bestScore": 0.1908815403739478,
+            "source": "vocab",
+            "low": true,
+            "empty": false,
+            "level": 2,
+            "choices": [
+              "tape measure",
+              "ruler",
+              "magnifying glass",
+              "thing"
+            ],
+            "ms": 1045.8150000572205,
+            "totalMs": 1086.3700000047684
+          },
+          "spec": {
+            "label": "sextant",
+            "accept": [],
+            "aim": [
+              0.5,
+              0.55
+            ],
+            "tags": [
+              "out-of-vocab"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "ood-astrolabe-01.jpg",
+            "expected": "astrolabe",
+            "tags": [
+              "out-of-vocab"
+            ],
+            "best": "clock",
+            "bestScore": 0.22081330909330915,
+            "source": "vocab",
+            "low": true,
+            "empty": false,
+            "level": 2,
+            "choices": [
+              "clock",
+              "ruler",
+              "CD"
+            ],
+            "ms": 770.1749999523163,
+            "totalMs": 814.4050000905991
+          },
+          "spec": {
+            "label": "astrolabe",
+            "accept": [],
+            "aim": [
+              0.52,
+              0.58
+            ],
+            "tags": [
+              "out-of-vocab"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "folder": "test-images",
+      "aimMode": "labelled",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.88,
+        "auto": 0.88,
+        "wrongAuto": 0.12,
+        "notSure": 0,
+        "avgMs": 432.21399998664856,
+        "p95Ms": 794.4650000333786,
+        "avgTotalMs": 472.4601999855042,
+        "sources": {
+          "vocab": 25
+        }
+      },
+      "byTag": {
+        "single": {
+          "n": 13,
+          "top1": 0.7692307692307693,
+          "top3": 1,
+          "auto": 1,
+          "wrongAuto": 0.23076923076923078,
+          "notSure": 0,
+          "avgMs": 386.80076922820166,
+          "p95Ms": 794.4650000333786,
+          "avgTotalMs": 427.81730766479785,
+          "sources": {
+            "vocab": 13
+          }
+        },
+        "cluttered": {
+          "n": 5,
+          "top1": 1,
+          "top3": 1,
+          "auto": 1,
+          "wrongAuto": 0,
+          "notSure": 0,
+          "avgMs": 367.97599997520445,
+          "p95Ms": 758.4850000143051,
+          "avgTotalMs": 407.68399999141695,
+          "sources": {
+            "vocab": 5
+          }
+        },
+        "held": {
+          "n": 4,
+          "top1": 1,
+          "top3": 1,
+          "auto": 1,
+          "wrongAuto": 0,
+          "notSure": 0,
+          "avgMs": 395.05624997615814,
+          "p95Ms": 770.4349999427795,
+          "avgTotalMs": 433.7062499821186,
+          "sources": {
+            "vocab": 4
+          }
+        },
+        "out-of-vocab": {
+          "n": 3,
+          "top1": 0,
+          "top3": 0,
+          "auto": 0,
+          "wrongAuto": 0,
+          "notSure": 0,
+          "avgMs": 785.6116666396459,
+          "p95Ms": 1042.719999909401,
+          "avgTotalMs": 825.5450000365576,
+          "sources": {
+            "vocab": 3
+          }
+        }
+      },
+      "cases": [
+        {
+          "result": {
+            "file": "mug-01.jpg",
+            "expected": "mug",
+            "tags": [
+              "single"
+            ],
+            "best": "travel mug",
+            "bestScore": 0.689663577447972,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "travel mug",
+              "mug",
+              "coffee",
+              "thing"
+            ],
+            "ms": 270.9450000524521,
+            "totalMs": 320.2200001478195
+          },
+          "spec": {
+            "label": "mug",
+            "accept": [
+              "cup",
+              "coffee mug",
+              "coffee cup"
+            ],
+            "aim": [
+              0.45,
+              0.52
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "water-bottle-01.jpg",
+            "expected": "water bottle",
+            "tags": [
+              "single"
+            ],
+            "best": "water bottle",
+            "bestScore": 0.9188892055690816,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "water bottle",
+              "sippy cup",
+              "urinal bottle",
+              "bottle"
+            ],
+            "ms": 758.5599999427795,
+            "totalMs": 798.4249999523163
+          },
+          "spec": {
+            "label": "water bottle",
+            "accept": [
+              "bottle"
+            ],
+            "aim": [
+              0.6,
+              0.5
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "glasses-01.jpg",
+            "expected": "glasses",
+            "tags": [
+              "single"
+            ],
+            "best": "glasses",
+            "bestScore": 0.5361611010149692,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "glasses",
+              "sunglasses",
+              "reading glasses",
+              "thing"
+            ],
+            "ms": 268.1749999523163,
+            "totalMs": 311.0149999856949
+          },
+          "spec": {
+            "label": "glasses",
+            "accept": [
+              "eyeglasses",
+              "spectacles"
+            ],
+            "aim": [
+              0.42,
+              0.45
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "phone-01.jpg",
+            "expected": "phone",
+            "tags": [
+              "single"
+            ],
+            "best": "phone",
+            "bestScore": 0.5673236462006315,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "phone",
+              "DVD",
+              "letter",
+              "thing"
+            ],
+            "ms": 273.21999990940094,
+            "totalMs": 312.55999982357025
+          },
+          "spec": {
+            "label": "phone",
+            "accept": [
+              "smartphone",
+              "cell phone",
+              "mobile phone",
+              "iphone"
+            ],
+            "aim": [
+              0.4,
+              0.45
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "remote-01.jpg",
+            "expected": "remote",
+            "tags": [
+              "single"
+            ],
+            "best": "remote",
+            "bestScore": 0.9465478966995077,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "remote",
+              "smart speaker",
+              "game controller"
+            ],
+            "ms": 794.4650000333786,
+            "totalMs": 834.4899998903275
+          },
+          "spec": {
+            "label": "remote",
+            "accept": [
+              "remote control",
+              "tv remote",
+              "controller"
+            ],
+            "aim": [
+              0.55,
+              0.5
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "toothbrush-01.jpg",
+            "expected": "toothbrush",
+            "tags": [
+              "single"
+            ],
+            "best": "toothbrush",
+            "bestScore": 0.6902899912527919,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "toothbrush",
+              "toothpaste",
+              "electric toothbrush",
+              "thing"
+            ],
+            "ms": 268.68999993801117,
+            "totalMs": 305.7499998807907
+          },
+          "spec": {
+            "label": "toothbrush",
+            "accept": [
+              "toothpaste"
+            ],
+            "aim": [
+              0.35,
+              0.6
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "pill-bottle-01.jpg",
+            "expected": "pills",
+            "tags": [
+              "single"
+            ],
+            "best": "baby food",
+            "bestScore": 0.35387065119662686,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "baby food",
+              "pill bottle",
+              "peanut butter",
+              "thing"
+            ],
+            "ms": 271.84500002861023,
+            "totalMs": 310.86499989032745
+          },
+          "spec": {
+            "label": "pills",
+            "accept": [
+              "pill bottle",
+              "pill container",
+              "medicine",
+              "tablets",
+              "container"
+            ],
+            "aim": [
+              0.47,
+              0.5
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "book-01.jpg",
+            "expected": "book",
+            "tags": [
+              "single"
+            ],
+            "best": "prayer book",
+            "bestScore": 0.8526538047030545,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "prayer book",
+              "book",
+              "e-reader",
+              "thing"
+            ],
+            "ms": 266.2350000143051,
+            "totalMs": 307.7099999189377
+          },
+          "spec": {
+            "label": "book",
+            "accept": [
+              "bible"
+            ],
+            "aim": [
+              0.5,
+              0.63
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "spoon-01.jpg",
+            "expected": "spoon",
+            "tags": [
+              "single"
+            ],
+            "best": "spoon",
+            "bestScore": 0.9087717637600046,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "spoon",
+              "oxygen tubing",
+              "weighted utensils",
+              "spatula",
+              "scissors"
+            ],
+            "ms": 777.1100000143051,
+            "totalMs": 815.1549999713898
+          },
+          "spec": {
+            "label": "spoon",
+            "accept": [
+              "teaspoon"
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "shoe-01.jpg",
+            "expected": "shoe",
+            "tags": [
+              "single"
+            ],
+            "best": "sneakers",
+            "bestScore": 0.3983330320839206,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "sneakers",
+              "shoes",
+              "shoelaces",
+              "thing"
+            ],
+            "ms": 270.61500000953674,
+            "totalMs": 308.65000009536743
+          },
+          "spec": {
+            "label": "shoe",
+            "accept": [
+              "sneaker",
+              "trainer",
+              "running shoe"
+            ],
+            "aim": [
+              0.48,
+              0.55
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "keys-01.jpg",
+            "expected": "keys",
+            "tags": [
+              "single"
+            ],
+            "best": "keys",
+            "bestScore": 0.6900253134663343,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "keys",
+              "key ring",
+              "padlock",
+              "thing"
+            ],
+            "ms": 270.460000038147,
+            "totalMs": 314.99000012874603
+          },
+          "spec": {
+            "label": "keys",
+            "accept": [
+              "key",
+              "car keys",
+              "car key"
+            ],
+            "aim": [
+              0.5,
+              0.45
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "chair-01.jpg",
+            "expected": "chair",
+            "tags": [
+              "single"
+            ],
+            "best": "chair",
+            "bestScore": 0.4601919459983372,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "chair",
+              "stool",
+              "armchair",
+              "thing"
+            ],
+            "ms": 271.6449999809265,
+            "totalMs": 312.7649999856949
+          },
+          "spec": {
+            "label": "chair",
+            "accept": [
+              "wooden chair"
+            ],
+            "aim": [
+              0.4,
+              0.55
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "banana-01.jpg",
+            "expected": "banana",
+            "tags": [
+              "single"
+            ],
+            "best": "banana",
+            "bestScore": 0.9869817283248138,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "banana",
+              "fruit bowl",
+              "mango",
+              "thing"
+            ],
+            "ms": 266.4450000524521,
+            "totalMs": 309.02999997138977
+          },
+          "spec": {
+            "label": "banana",
+            "accept": [
+              "bananas"
+            ],
+            "aim": [
+              0.55,
+              0.62
+            ],
+            "tags": [
+              "single"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-desk-cup-01.jpg",
+            "expected": "cup",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "coffee",
+            "bestScore": 0.35634170014577177,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "coffee",
+              "hot chocolate",
+              "tea",
+              "thing"
+            ],
+            "ms": 268.6099998950958,
+            "totalMs": 310.8949998617172
+          },
+          "spec": {
+            "label": "cup",
+            "accept": [
+              "mug",
+              "coffee cup",
+              "coffee",
+              "cappuccino"
+            ],
+            "aim": [
+              0.5,
+              0.62
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-desk-laptop-01.jpg",
+            "expected": "laptop",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "laptop",
+            "bestScore": 0.7350340527486775,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "laptop",
+              "tablet",
+              "computer",
+              "monitor"
+            ],
+            "ms": 758.4850000143051,
+            "totalMs": 796.1799999475479
+          },
+          "spec": {
+            "label": "laptop",
+            "accept": [
+              "computer",
+              "macbook",
+              "notebook"
+            ],
+            "aim": [
+              0.5,
+              0.6
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-desk-mouse-01.jpg",
+            "expected": "mouse",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "computer mouse",
+            "bestScore": 0.8624314081405259,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "computer mouse",
+              "keyboard",
+              "placemat",
+              "thing"
+            ],
+            "ms": 267.18999993801117,
+            "totalMs": 306.00999999046326
+          },
+          "spec": {
+            "label": "mouse",
+            "accept": [
+              "computer mouse",
+              "mouse pad"
+            ],
+            "aim": [
+              0.49,
+              0.53
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-table-laptop-01.jpg",
+            "expected": "laptop",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "laptop",
+            "bestScore": 0.6755823667914659,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "laptop",
+              "keyboard",
+              "notebook",
+              "thing"
+            ],
+            "ms": 273.4800000190735,
+            "totalMs": 312.3600000143051
+          },
+          "spec": {
+            "label": "laptop",
+            "accept": [
+              "computer",
+              "notebook",
+              "netbook"
+            ],
+            "aim": [
+              0.48,
+              0.45
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "cluttered-desk-monitor-01.jpg",
+            "expected": "monitor",
+            "tags": [
+              "cluttered"
+            ],
+            "best": "monitor",
+            "bestScore": 0.7794188292026065,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "monitor",
+              "computer",
+              "window",
+              "thing"
+            ],
+            "ms": 272.11500000953674,
+            "totalMs": 312.97500014305115
+          },
+          "spec": {
+            "label": "monitor",
+            "accept": [
+              "computer",
+              "screen",
+              "computer monitor"
+            ],
+            "aim": [
+              0.33,
+              0.47
+            ],
+            "tags": [
+              "cluttered"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "held-apple-01.jpg",
+            "expected": "apple",
+            "tags": [
+              "held"
+            ],
+            "best": "apple",
+            "bestScore": 0.9272820316915595,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "apple",
+              "peach",
+              "orange",
+              "thing"
+            ],
+            "ms": 271.93499994277954,
+            "totalMs": 312.82999992370605
+          },
+          "spec": {
+            "label": "apple",
+            "accept": [],
+            "aim": [
+              0.5,
+              0.6
+            ],
+            "tags": [
+              "held"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "held-phone-01.jpg",
+            "expected": "phone",
+            "tags": [
+              "held"
+            ],
+            "best": "phone",
+            "bestScore": 0.7898701583906017,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "phone",
+              "tablet",
+              "hand",
+              "thing"
+            ],
+            "ms": 269.210000038147,
+            "totalMs": 309.50999999046326
+          },
+          "spec": {
+            "label": "phone",
+            "accept": [
+              "smartphone",
+              "cell phone",
+              "mobile phone"
+            ],
+            "aim": [
+              0.4,
+              0.45
+            ],
+            "tags": [
+              "held"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "held-mug-01.jpg",
+            "expected": "mug",
+            "tags": [
+              "held"
+            ],
+            "best": "mug",
+            "bestScore": 0.4433349931390836,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 0,
+            "choices": [
+              "mug",
+              "travel mug",
+              "cup",
+              "thing"
+            ],
+            "ms": 268.6449999809265,
+            "totalMs": 305.460000038147
+          },
+          "spec": {
+            "label": "mug",
+            "accept": [
+              "cup",
+              "coffee mug",
+              "coffee cup"
+            ],
+            "aim": [
+              0.6,
+              0.6
+            ],
+            "tags": [
+              "held"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "held-keys-01.jpg",
+            "expected": "keys",
+            "tags": [
+              "held"
+            ],
+            "best": "keys",
+            "bestScore": 0.7544326428536751,
+            "source": "vocab",
+            "low": false,
+            "empty": false,
+            "level": 1,
+            "choices": [
+              "keys",
+              "key ring",
+              "hand",
+              "thing"
+            ],
+            "ms": 770.4349999427795,
+            "totalMs": 807.0249999761581
+          },
+          "spec": {
+            "label": "keys",
+            "accept": [
+              "key",
+              "car key",
+              "car keys"
+            ],
+            "aim": [
+              0.58,
+              0.6
+            ],
+            "tags": [
+              "held"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "ood-theremin-01.jpg",
+            "expected": "theremin",
+            "tags": [
+              "out-of-vocab"
+            ],
+            "best": "radio",
+            "bestScore": 0.3904028598934382,
+            "source": "vocab",
+            "low": true,
+            "empty": false,
+            "level": 2,
+            "choices": [
+              "radio",
+              "light switch",
+              "record player",
+              "speaker",
+              "thing"
+            ],
+            "ms": 540.375,
+            "totalMs": 581.0150001049042
+          },
+          "spec": {
+            "label": "theremin",
+            "accept": [],
+            "aim": [
+              0.55,
+              0.68
+            ],
+            "tags": [
+              "out-of-vocab"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "ood-sextant-01.jpg",
+            "expected": "sextant",
+            "tags": [
+              "out-of-vocab"
+            ],
+            "best": "tape measure",
+            "bestScore": 0.1470099243853454,
+            "source": "vocab",
+            "low": true,
+            "empty": false,
+            "level": 2,
+            "choices": [
+              "tape measure",
+              "ironing board",
+              "iron",
+              "thing"
+            ],
+            "ms": 1042.719999909401,
+            "totalMs": 1081.625
+          },
+          "spec": {
+            "label": "sextant",
+            "accept": [],
+            "aim": [
+              0.5,
+              0.55
+            ],
+            "tags": [
+              "out-of-vocab"
+            ]
+          }
+        },
+        {
+          "result": {
+            "file": "ood-astrolabe-01.jpg",
+            "expected": "astrolabe",
+            "tags": [
+              "out-of-vocab"
+            ],
+            "best": "clock",
+            "bestScore": 0.22081330909330915,
+            "source": "vocab",
+            "low": true,
+            "empty": false,
+            "level": 2,
+            "choices": [
+              "clock",
+              "ruler",
+              "CD"
+            ],
+            "ms": 773.7400000095367,
+            "totalMs": 813.9950000047684
+          },
+          "spec": {
+            "label": "astrolabe",
+            "accept": [],
+            "aim": [
+              0.52,
+              0.58
+            ],
+            "tags": [
+              "out-of-vocab"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sweeps": [
+    {
+      "folder": "test-images",
+      "rows": [
+        {
+          "threshold": 0.15,
+          "summary": {
+            "n": 25,
+            "top1": 0.76,
+            "top3": 0.84,
+            "auto": 0.96,
+            "wrongAuto": 0.2,
+            "notSure": 0.04,
+            "avgMs": 361.3772000026703,
+            "p95Ms": 767.3600000143051,
+            "avgTotalMs": 401.03199998378756,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        },
+        {
+          "threshold": 0.2,
+          "summary": {
+            "n": 25,
+            "top1": 0.8,
+            "top3": 0.88,
+            "auto": 0.92,
+            "wrongAuto": 0.12,
+            "notSure": 0.04,
+            "avgMs": 417.7457999992371,
+            "p95Ms": 762.0349999666214,
+            "avgTotalMs": 456.9309999847412,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        },
+        {
+          "threshold": 0.25,
+          "summary": {
+            "n": 25,
+            "top1": 0.8,
+            "top3": 0.88,
+            "auto": 0.84,
+            "wrongAuto": 0.08,
+            "notSure": 0.04,
+            "avgMs": 447.4397999954224,
+            "p95Ms": 1038.679999947548,
+            "avgTotalMs": 487.11659998893737,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        },
+        {
+          "threshold": 0.3,
+          "summary": {
+            "n": 25,
+            "top1": 0.8,
+            "top3": 0.88,
+            "auto": 0.84,
+            "wrongAuto": 0.08,
+            "notSure": 0.04,
+            "avgMs": 452.9025999927521,
+            "p95Ms": 1050.6999999284744,
+            "avgTotalMs": 492.51599998950957,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        },
+        {
+          "threshold": 0.35,
+          "summary": {
+            "n": 25,
+            "top1": 0.8,
+            "top3": 0.88,
+            "auto": 0.8,
+            "wrongAuto": 0.08,
+            "notSure": 0.04,
+            "avgMs": 489.67019999980926,
+            "p95Ms": 1015.0400000810623,
+            "avgTotalMs": 529.4045999765397,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        },
+        {
+          "threshold": 0.4,
+          "summary": {
+            "n": 25,
+            "top1": 0.8,
+            "top3": 0.88,
+            "auto": 0.76,
+            "wrongAuto": 0.08,
+            "notSure": 0.04,
+            "avgMs": 524.6999999904633,
+            "p95Ms": 1242.9100000858307,
+            "avgTotalMs": 564.7415999650955,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        },
+        {
+          "threshold": 0.45,
+          "summary": {
+            "n": 25,
+            "top1": 0.8,
+            "top3": 0.88,
+            "auto": 0.72,
+            "wrongAuto": 0.08,
+            "notSure": 0.04,
+            "avgMs": 581.7598000001907,
+            "p95Ms": 1265.125,
+            "avgTotalMs": 621.9137999773026,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        },
+        {
+          "threshold": 0.5,
+          "summary": {
+            "n": 25,
+            "top1": 0.76,
+            "top3": 0.88,
+            "auto": 0.68,
+            "wrongAuto": 0.12,
+            "notSure": 0.04,
+            "avgMs": 643.1900000143052,
+            "p95Ms": 1246.164999961853,
+            "avgTotalMs": 682.3615999794006,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        },
+        {
+          "threshold": 0.6,
+          "summary": {
+            "n": 25,
+            "top1": 0.76,
+            "top3": 0.88,
+            "auto": 0.52,
+            "wrongAuto": 0.08,
+            "notSure": 0.04,
+            "avgMs": 705.4697999858856,
+            "p95Ms": 1268.039999961853,
+            "avgTotalMs": 745.6157999753952,
+            "sources": {
+              "vocab": 24,
+              "none": 1
+            }
+          }
+        }
+      ],
+      "picked": {
+        "threshold": 0.3,
+        "summary": {
+          "n": 25,
+          "top1": 0.8,
+          "top3": 0.88,
+          "auto": 0.84,
+          "wrongAuto": 0.08,
+          "notSure": 0.04,
+          "avgMs": 452.9025999927521,
+          "p95Ms": 1050.6999999284744,
+          "avgTotalMs": 492.51599998950957,
+          "sources": {
+            "vocab": 24,
+            "none": 1
+          }
+        }
+      }
+    }
+  ],
+  "personal": [
+    {
+      "folder": "test-images",
+      "objects": 25,
+      "sweep": [
+        {
+          "threshold": 0.7,
+          "margin": 0,
+          "trueMatch": 1,
+          "falseMatch": 0.8,
+          "confused": 0
+        },
+        {
+          "threshold": 0.7,
+          "margin": 0.01,
+          "trueMatch": 1,
+          "falseMatch": 0.76,
+          "confused": 0
+        },
+        {
+          "threshold": 0.7,
+          "margin": 0.02,
+          "trueMatch": 1,
+          "falseMatch": 0.64,
+          "confused": 0
+        },
+        {
+          "threshold": 0.7,
+          "margin": 0.04,
+          "trueMatch": 1,
+          "falseMatch": 0.4,
+          "confused": 0
+        },
+        {
+          "threshold": 0.75,
+          "margin": 0,
+          "trueMatch": 1,
+          "falseMatch": 0.48,
+          "confused": 0
+        },
+        {
+          "threshold": 0.75,
+          "margin": 0.01,
+          "trueMatch": 1,
+          "falseMatch": 0.48,
+          "confused": 0
+        },
+        {
+          "threshold": 0.75,
+          "margin": 0.02,
+          "trueMatch": 1,
+          "falseMatch": 0.4,
+          "confused": 0
+        },
+        {
+          "threshold": 0.75,
+          "margin": 0.04,
+          "trueMatch": 1,
+          "falseMatch": 0.32,
+          "confused": 0
+        },
+        {
+          "threshold": 0.8,
+          "margin": 0,
+          "trueMatch": 1,
+          "falseMatch": 0.2,
+          "confused": 0
+        },
+        {
+          "threshold": 0.8,
+          "margin": 0.01,
+          "trueMatch": 1,
+          "falseMatch": 0.2,
+          "confused": 0
+        },
+        {
+          "threshold": 0.8,
+          "margin": 0.02,
+          "trueMatch": 1,
+          "falseMatch": 0.2,
+          "confused": 0
+        },
+        {
+          "threshold": 0.8,
+          "margin": 0.04,
+          "trueMatch": 1,
+          "falseMatch": 0.16,
+          "confused": 0
+        },
+        {
+          "threshold": 0.82,
+          "margin": 0,
+          "trueMatch": 1,
+          "falseMatch": 0.16,
+          "confused": 0
+        },
+        {
+          "threshold": 0.82,
+          "margin": 0.01,
+          "trueMatch": 1,
+          "falseMatch": 0.16,
+          "confused": 0
+        },
+        {
+          "threshold": 0.82,
+          "margin": 0.02,
+          "trueMatch": 1,
+          "falseMatch": 0.16,
+          "confused": 0
+        },
+        {
+          "threshold": 0.82,
+          "margin": 0.04,
+          "trueMatch": 1,
+          "falseMatch": 0.12,
+          "confused": 0
+        },
+        {
+          "threshold": 0.85,
+          "margin": 0,
+          "trueMatch": 1,
+          "falseMatch": 0.04,
+          "confused": 0
+        },
+        {
+          "threshold": 0.85,
+          "margin": 0.01,
+          "trueMatch": 1,
+          "falseMatch": 0.04,
+          "confused": 0
+        },
+        {
+          "threshold": 0.85,
+          "margin": 0.02,
+          "trueMatch": 1,
+          "falseMatch": 0.04,
+          "confused": 0
+        },
+        {
+          "threshold": 0.85,
+          "margin": 0.04,
+          "trueMatch": 1,
+          "falseMatch": 0.04,
+          "confused": 0
+        },
+        {
+          "threshold": 0.87,
+          "margin": 0,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.87,
+          "margin": 0.01,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.87,
+          "margin": 0.02,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.87,
+          "margin": 0.04,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.9,
+          "margin": 0,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.9,
+          "margin": 0.01,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.9,
+          "margin": 0.02,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.9,
+          "margin": 0.04,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.92,
+          "margin": 0,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.92,
+          "margin": 0.01,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.92,
+          "margin": 0.02,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        },
+        {
+          "threshold": 0.92,
+          "margin": 0.04,
+          "trueMatch": 1,
+          "falseMatch": 0,
+          "confused": 0
+        }
+      ],
+      "picked": {
+        "threshold": 0.92,
+        "margin": 0.04,
+        "trueMatch": 1,
+        "falseMatch": 0,
+        "confused": 0
+      },
+      "queries": [
+        {
+          "file": "mug-01.jpg",
+          "own": 0.9840350926931806,
+          "others": [
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.7213137099604316
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6575102758007768
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6570815539815761
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6508870710875412
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6482212651023369
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6424320391102821
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6416176185713148
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6411939657506182
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6294735685626047
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6214119477477923
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6175328051426526
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.61357015764556
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6098281963969143
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6041741179363168
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5978111674749996
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.597379975421539
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.5900477731634194
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.5825783345519208
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5789597419530699
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5704003432478085
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5519758094987371
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5374316199923939
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5348370989884818
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.49644258761610466
+            }
+          ]
+        },
+        {
+          "file": "water-bottle-01.jpg",
+          "own": 0.9600167377741456,
+          "others": [
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6043569550965382
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5372736611800275
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.5335633390657362
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5334448966476848
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.5330468069576672
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.5274648655243019
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.5256772425266136
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.5249674675115448
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.5248612099316434
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.5240038689822281
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.5206040738406851
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5177364187477504
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.5165320163092326
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.5164658772990077
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.5153028503032601
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.5133770310428352
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.510984841432852
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.5079321729237042
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5072038428848301
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5068480659436482
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.504058460207903
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.4977306541469824
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.4815153618803067
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.47909269650339126
+            }
+          ]
+        },
+        {
+          "file": "glasses-01.jpg",
+          "own": 0.9648671240980908,
+          "others": [
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.7048877559975095
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6913279931945359
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6913120084056076
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6908004072645676
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6755418233966918
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6736932494152519
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6605840789246977
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6432093343209766
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6415607319029131
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6411046453780165
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6400486346684354
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6373959680858706
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6314459782085741
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6205561268464704
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6182030704893298
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6099045226249012
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6013909987804968
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5935549469387233
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5907925750424173
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5858488812200302
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5845882105698317
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5707474000740417
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5604133648706734
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5600710082289502
+            }
+          ]
+        },
+        {
+          "file": "phone-01.jpg",
+          "own": 0.9674258447140112,
+          "others": [
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.8157906615994264
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.7691108633859544
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.740487635259715
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.7285176756031667
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.720271095856408
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.7143569562874296
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.697157759588578
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.694718511833943
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.684095100218802
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6716313203913962
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6615567338501783
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6607013529715221
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6505325132123588
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.643728143453907
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6435571075999045
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6299288572348636
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.613027844298923
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6092273648614087
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6041889896379546
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6036787311187706
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5995599922141603
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5716224876987792
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5709138468392545
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5348272004152118
+            }
+          ]
+        },
+        {
+          "file": "remote-01.jpg",
+          "own": 0.9807064956470539,
+          "others": [
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.8264483551992875
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.770238621986014
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.7669768963514186
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.7542202442625547
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.741557067426708
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.7287218918449083
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.727600376878295
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.7266940111259422
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.7021644838503475
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.7013357536400593
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.7013290912576331
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6801861407395011
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6770714992162673
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6728680937584799
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6711944764115085
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6601491857051512
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.646898980164385
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.6390558125873633
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6316270360565114
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6292856151225763
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6243342590004661
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6153896579241308
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5728974612447187
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5629435139608433
+            }
+          ]
+        },
+        {
+          "file": "toothbrush-01.jpg",
+          "own": 0.982393697196646,
+          "others": [
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.7130501076994872
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.7119572846051863
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.7013843887697337
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6990136853856967
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6970745858761334
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6962164849023219
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6846139897134227
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6826241394902989
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.677759271045542
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6675747833407786
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6654521261670632
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6651846815501345
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6648345007956264
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6639567419002307
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6627339418497511
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6579671704408533
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6473086209700999
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.642704477305356
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.63411422492838
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.633040544577206
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.6301897692236018
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5809960895636412
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5781724825396576
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5485549893177982
+            }
+          ]
+        },
+        {
+          "file": "pill-bottle-01.jpg",
+          "own": 0.9598729718366716,
+          "others": [
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6663730384037605
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6644181029202043
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6559333168950305
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6413511272156294
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6342311452213255
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6329534569802067
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6276563342115651
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.614388099448148
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6125032395553128
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6101744248658937
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6082584221106164
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6059847261253177
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6057189030803887
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5974981394276239
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.5853060154083408
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.5791971183444867
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5774170659665473
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.5678677151321901
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5676459758679985
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5623908011669845
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.561228588000502
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5460446129646082
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5404209307277213
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5198084405947946
+            }
+          ]
+        },
+        {
+          "file": "book-01.jpg",
+          "own": 0.968919835977464,
+          "others": [
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.7305541076176116
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6938126831937517
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6830046838057597
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6707046202620481
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6621377754386026
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6595177657729611
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6584663586436627
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6545003790993265
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6540619743103715
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6505752348484036
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6479355929870741
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6404950711615953
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6403254816171335
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6398361197755261
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6318618315765945
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.6260364629870823
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6227611087455865
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6221417959658817
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6181234393488498
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6076242155935161
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5872112033905872
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5868688029350915
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.565881642433232
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5541448815323344
+            }
+          ]
+        },
+        {
+          "file": "spoon-01.jpg",
+          "own": 0.9739258361388154,
+          "others": [
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.8244705256942121
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.7914500505516826
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.7267114473950819
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.7181845641576227
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.7078887907364555
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.7066052930067743
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.7028811177568222
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6886945037196343
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6656347970157205
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6638307199017315
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6575298405692761
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6449315760487677
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6431124102543113
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6428188410329791
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6399255184471754
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6293685870039315
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6091579649987885
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6087782756553788
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6051445436516274
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6042492231908874
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5933808636842423
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5933049687557757
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.570312198838062
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5215265175819918
+            }
+          ]
+        },
+        {
+          "file": "shoe-01.jpg",
+          "own": 0.9799700221910392,
+          "others": [
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6197997627076908
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.61101391063324
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5974564096536482
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.5958940153748332
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.5896204555641825
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.5860715393771292
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5859183044453216
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.5781357012367512
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.5777707821690661
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.5761226413127537
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.5753945492401439
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.5728089709155822
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.5691820163192901
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.5605737608205869
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.5595717418115402
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.5526333606374652
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.5465877156615463
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.544427460929802
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5358907126245188
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5344702952229293
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5188801193536169
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5186303290353143
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5156146683244042
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5104441432824961
+            }
+          ]
+        },
+        {
+          "file": "keys-01.jpg",
+          "own": 0.9791209160782124,
+          "others": [
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.8285810744287339
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.7579565253630518
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.7539245762247853
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.7506084876178643
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.7128337959019017
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.7080390413125891
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.7050536668688631
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.7028273953281864
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.7017006849993747
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6968041008256366
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.691039938271011
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6732265120335538
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6731311752655139
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6637043928159266
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6532733253225188
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.6454580185733455
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6450454361486947
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.6394025955411511
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6382481770329391
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6355035333699008
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6291794810404986
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6275579604778813
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6023354234855709
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.564535066670347
+            }
+          ]
+        },
+        {
+          "file": "chair-01.jpg",
+          "own": 0.983386242925292,
+          "others": [
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.7870351324437178
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.7020503543526047
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6949053177690222
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6892017459897394
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6863656305352912
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6741359401777495
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.668515239610196
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6614945888002383
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6561749179203805
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6536635286518372
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6485349003571018
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6452188254392021
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.6446638801564167
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6341559116146941
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6249065068732638
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6240538693659669
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6173884911517153
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6131048796235637
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6105277160373355
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.5991336098473908
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5946790567566154
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5905661663142839
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.5886319379574951
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5391785518215506
+            }
+          ]
+        },
+        {
+          "file": "banana-01.jpg",
+          "own": 0.9835970549772202,
+          "others": [
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.7761404575717398
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6738302049645103
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6466113593316
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6444265262477997
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6403820520751418
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6351297868511044
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6308142444887294
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6306396881959144
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.6301908667365931
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6211819472999297
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6173487248993812
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6121509995966538
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6077451925895146
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6052093766583448
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.597552620824569
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.5957637091230132
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.5937464320901628
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5908360141373388
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.579872128535701
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5736979356726173
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.5701420453096162
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5635819214876453
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5063277956374795
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.4970362873140795
+            }
+          ]
+        },
+        {
+          "file": "cluttered-desk-cup-01.jpg",
+          "own": 0.9814426242720526,
+          "others": [
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6897078921516446
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6875321620841301
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6863536971149212
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6842405666191008
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.668078504635543
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.6621615539602836
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6568927203632786
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6533521959653149
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6470519802463178
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6466985376193465
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6423704194398847
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6383282727192127
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6286221343883861
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6188211912818982
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6186394112319668
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6071995395822037
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6038841011644915
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.601453111851672
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5934623219734403
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5823224375719238
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5710148976641878
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.5593283835060768
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.532359775902524
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5228987634270743
+            }
+          ]
+        },
+        {
+          "file": "cluttered-desk-laptop-01.jpg",
+          "own": 0.9921663536639146,
+          "others": [
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.7984116727535152
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.7275279537120868
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.7225098070096826
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.7175476645881043
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6917371504674595
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6805605238199328
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.669832970973913
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6664117528156706
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6655867443977339
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6636646694717973
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6539272118716442
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6168725308374334
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6067138060675813
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6063900832915398
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.6043996406183872
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6017185496995894
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5991839629984002
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5916785822237121
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.5913833688555022
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.5801357796050478
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5692244216351204
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.563552542652069
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.558207849447862
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5340554798531376
+            }
+          ]
+        },
+        {
+          "file": "cluttered-desk-mouse-01.jpg",
+          "own": 0.9895471081471898,
+          "others": [
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.7553330823551563
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.7189832958975396
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.7119120335221382
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.7064358682850056
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.7018484316504441
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6952340178397121
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6827668013648011
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6742070417332726
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6673154536232102
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6590392847187571
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6523500011044939
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.641943382266594
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6390640906400122
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6332772924059771
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.616400507921034
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6130699358935483
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6101610464110705
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6073905313214794
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.6004591501378748
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5937895202326484
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5881616865758722
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5876050527683045
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.576603313101601
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5145469580574499
+            }
+          ]
+        },
+        {
+          "file": "cluttered-table-laptop-01.jpg",
+          "own": 0.963932787817281,
+          "others": [
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.749562832256319
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.724815535349627
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.7221680809653583
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.675484752067824
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6652023568471003
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6529594834803664
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6507405225371405
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6483304368204593
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6426798537503884
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6264556038518941
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6140859150049791
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6130450756043269
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6042639000665584
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.5941561582751923
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.5920677169464901
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5862494648126502
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.5813847369873004
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.5607675715849842
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5522583764818424
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5452723962635705
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5444946980238784
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5440454383818861
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5341763087428081
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.49940551877456457
+            }
+          ]
+        },
+        {
+          "file": "cluttered-desk-monitor-01.jpg",
+          "own": 0.967479881805384,
+          "others": [
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.7487287994230907
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.7271483262913288
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6823057607578812
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6794588194320785
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6564253620791526
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6517668020708156
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6428239833683431
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6399942650913135
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6391777439926252
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6369560590083813
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6361227582363991
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6358261720816901
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6139732429605934
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.6117655116857346
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6082761939241597
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5957708002208594
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.5951300241201232
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5949930361810053
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.5887203981759924
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.587722473177044
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5792201665628984
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5759899115496893
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5651458306602654
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5338890682375151
+            }
+          ]
+        },
+        {
+          "file": "held-apple-01.jpg",
+          "own": 0.9861159296136423,
+          "others": [
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.7666749881524676
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.7169810324190679
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.7009811060901175
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6887270130805384
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6810984811518068
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6761010824478546
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6748560337748684
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6718932621158962
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6709279483426689
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6517038384262779
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6513838390652174
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6508655171013445
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6467637126776846
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6466536762042486
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6397415299494205
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6364867836519352
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6137491010411952
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6051011782091563
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5973678855740996
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5930403359110615
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5923577462265163
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.5914280712698688
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5715871048105098
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5386862441246251
+            }
+          ]
+        },
+        {
+          "file": "held-phone-01.jpg",
+          "own": 0.96495831805093,
+          "others": [
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.7910672729923092
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.7787542413455792
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.7393954168826794
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.709483151455929
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.7072731967337524
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6952649151598945
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6927690237779635
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6833972234004307
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6699926418026043
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6626836604193209
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.655724139182867
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6229944225468812
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6209853594381104
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.620641273395635
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6127752435412513
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6096425355451945
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.609007430710042
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.6051540245592055
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6000153477132848
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5987812391530356
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5960110845415789
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5659648588098869
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5412287637459998
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5146656638908694
+            }
+          ]
+        },
+        {
+          "file": "held-mug-01.jpg",
+          "own": 0.9674632537822757,
+          "others": [
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.7300488291698197
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6943186352617436
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6662094775739081
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6554402770677898
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6529272196302367
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6470343416738877
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6372698557820343
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6362715845946224
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6309933159195134
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6309657072025506
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6255330212288928
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.625294613204533
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6240350778632333
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6236956997251133
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6158941701123958
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.6133976739475455
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6126481831908047
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5752334686854033
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.5702929886427344
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5681847806812971
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.5678207344910083
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5560101093954584
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5116571775003083
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.5045568547740424
+            }
+          ]
+        },
+        {
+          "file": "held-keys-01.jpg",
+          "own": 0.9807077222003556,
+          "others": [
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.8635458789067568
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.7486279085014989
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.7284638767600602
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.7101006142696293
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.7071779802173759
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6930044678383871
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6929057122865825
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6855815827669421
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6750046511922988
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.674394607457933
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.6597157995544398
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.645544071164081
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6447001422104912
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6417462573487754
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6395065976355109
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6378845374703392
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.631963997244978
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6264987420731406
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.6183682966436994
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.6092377400131858
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6067668053493165
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5904254211850551
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.5831677768018109
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5299392976082178
+            }
+          ]
+        },
+        {
+          "file": "ood-theremin-01.jpg",
+          "own": 0.943600592653235,
+          "others": [
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.7552776880611098
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.7387340938153277
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.7075596279791722
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6990129237473703
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.694297057559512
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6917209290308756
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.6783255710301166
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.6537082712171276
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.6514032305792329
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6442456044717971
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6439337585778026
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6318117139534891
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.6275258821261392
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6249936446034534
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.6185239217642957
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.6158648221092242
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.6110340365818944
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.6047058091174863
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.597430489642135
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5869900383529852
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5833626301873497
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5684533632353853
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.567602304291155
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5576997390350197
+            }
+          ]
+        },
+        {
+          "file": "ood-sextant-01.jpg",
+          "own": 0.9620313913812476,
+          "others": [
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.6696017645425062
+            },
+            {
+              "file": "ood-astrolabe-01.jpg",
+              "cos": 0.6678472143385782
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6665078870253324
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6454917083336098
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6355752182549621
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6284554491373743
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6129926264669661
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5956419412958402
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.5883039096342321
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.586578256189078
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.5831085231626485
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.5816535649439474
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.5811474505362517
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5788302509339388
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.5778024668125952
+            },
+            {
+              "file": "book-01.jpg",
+              "cos": 0.5722955018298278
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.5651598164100087
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.5574898663931643
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5430584974255964
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5262953313674391
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.5154821918511977
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5102937708583082
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5035611897905782
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.49271888584445367
+            }
+          ]
+        },
+        {
+          "file": "ood-astrolabe-01.jpg",
+          "own": 0.9777840464655267,
+          "others": [
+            {
+              "file": "book-01.jpg",
+              "cos": 0.7150118452212115
+            },
+            {
+              "file": "ood-sextant-01.jpg",
+              "cos": 0.6711987355882453
+            },
+            {
+              "file": "keys-01.jpg",
+              "cos": 0.6459905407169976
+            },
+            {
+              "file": "ood-theremin-01.jpg",
+              "cos": 0.6446824529873646
+            },
+            {
+              "file": "cluttered-desk-laptop-01.jpg",
+              "cos": 0.6369233282785389
+            },
+            {
+              "file": "remote-01.jpg",
+              "cos": 0.6260361471106844
+            },
+            {
+              "file": "held-apple-01.jpg",
+              "cos": 0.6257946106865403
+            },
+            {
+              "file": "spoon-01.jpg",
+              "cos": 0.6223070048755525
+            },
+            {
+              "file": "phone-01.jpg",
+              "cos": 0.6221586439440762
+            },
+            {
+              "file": "chair-01.jpg",
+              "cos": 0.6193352542862417
+            },
+            {
+              "file": "cluttered-desk-mouse-01.jpg",
+              "cos": 0.6134588068491251
+            },
+            {
+              "file": "cluttered-desk-cup-01.jpg",
+              "cos": 0.5980677079044417
+            },
+            {
+              "file": "held-keys-01.jpg",
+              "cos": 0.5951662041834906
+            },
+            {
+              "file": "held-phone-01.jpg",
+              "cos": 0.5941281858889981
+            },
+            {
+              "file": "toothbrush-01.jpg",
+              "cos": 0.5763069606360965
+            },
+            {
+              "file": "cluttered-desk-monitor-01.jpg",
+              "cos": 0.5738888954005015
+            },
+            {
+              "file": "banana-01.jpg",
+              "cos": 0.5727342421626377
+            },
+            {
+              "file": "glasses-01.jpg",
+              "cos": 0.5704855458366455
+            },
+            {
+              "file": "cluttered-table-laptop-01.jpg",
+              "cos": 0.5678173810721985
+            },
+            {
+              "file": "shoe-01.jpg",
+              "cos": 0.5613086653094597
+            },
+            {
+              "file": "mug-01.jpg",
+              "cos": 0.5599462093316442
+            },
+            {
+              "file": "pill-bottle-01.jpg",
+              "cos": 0.5332442059316274
+            },
+            {
+              "file": "water-bottle-01.jpg",
+              "cos": 0.5282609755072873
+            },
+            {
+              "file": "held-mug-01.jpg",
+              "cos": 0.5146769921468439
+            }
+          ]
+        }
+      ],
+      "pipeline": {
+        "cfg": {
+          "threshold": 0.92,
+          "margin": 0.04,
+          "minConfidence": 0.6
+        },
+        "matched": 1,
+        "falseMatched": 0,
+        "n": 25,
+        "avgMs": 268.1094000196457
+      }
+    }
+  ]
+}
