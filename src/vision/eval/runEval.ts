@@ -19,7 +19,7 @@ import {
 import { DEFAULT_PERSONAL, nearestPersonal, type PersonalEntry, type PersonalMatchConfig } from "../core/personalMatch";
 import { rankFrames, sharpness } from "../core/sharpness";
 import { GENERIC_WORDS, VOCABULARY } from "../../data/vocabulary";
-import { ENHANCE_DEFAULT, TTA_DEFAULT, type NamerOptions } from "../namer";
+import { ENHANCE_DEFAULT, ROTATIONS_DEFAULT, TTA_DEFAULT, type NamerOptions, type RotationMode } from "../namer";
 import { askClaude, nameTarget, type NamingResult } from "../naming";
 import { teachSample } from "../personal";
 import { initSiglip, siglipState } from "../siglip";
@@ -44,10 +44,10 @@ export interface ConditionReport {
   summary: EvalSummary;
 }
 
-export const VARIANTS: { name: string; namer: Pick<NamerOptions, "enhance" | "tta"> }[] = [
-  { name: "plain", namer: { enhance: false, tta: false } },
-  { name: "enhance", namer: { enhance: true, tta: false } },
-  { name: "enhance+flip", namer: { enhance: true, tta: true } },
+export const VARIANTS: { name: string; namer: Pick<NamerOptions, "enhance" | "tta" | "rotations"> }[] = [
+  { name: "plain", namer: { enhance: false, tta: false, rotations: false } },
+  { name: "rot-margin", namer: { enhance: false, tta: false, rotations: "margin" } },
+  { name: "enhance", namer: { enhance: true, tta: false, rotations: false } },
 ];
 
 export interface FolderReport {
@@ -73,7 +73,7 @@ export interface EvalReport {
   startedAt: string;
   ms: number;
   naming: NamingConfig;
-  defaults: { enhance: boolean; tta: boolean };
+  defaults: { enhance: boolean; tta: boolean; rotations: RotationMode };
   missing: string[];
   folders: FolderReport[];
   sweeps: { folder: string; rows: SweepRow[]; picked: SweepRow | null }[];
@@ -173,7 +173,7 @@ async function runCase(
   personal: PersonalEntry[],
   claude: boolean,
   personalCfg?: PersonalMatchConfig,
-  namer: Pick<NamerOptions, "enhance" | "tta"> = {}
+  namer: Pick<NamerOptions, "enhance" | "tta" | "rotations"> = {}
 ): Promise<CaseResult> {
   const res = await nameTarget(
     { image: p.image, candidates, aim, sharpness: p.sharpness },
@@ -324,7 +324,7 @@ export async function runEval(opts: EvalOptions): Promise<EvalReport> {
     startedAt: new Date().toISOString(),
     ms: 0,
     naming: DEFAULT_NAMING,
-    defaults: { enhance: ENHANCE_DEFAULT, tta: TTA_DEFAULT },
+    defaults: { enhance: ENHANCE_DEFAULT, tta: TTA_DEFAULT, rotations: ROTATIONS_DEFAULT },
     missing: [],
     folders: [],
     sweeps: [],

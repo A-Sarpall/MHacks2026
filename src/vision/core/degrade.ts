@@ -1,6 +1,31 @@
-export type Condition = "clean" | "dark" | "very-dark" | "bright" | "noisy" | "blurry" | "close" | "tilted" | "dark-blurry";
+export type Condition =
+  | "clean"
+  | "dark"
+  | "very-dark"
+  | "bright"
+  | "noisy"
+  | "blurry"
+  | "close"
+  | "tilted"
+  | "dark-blurry"
+  | "sideways"
+  | "upside-down"
+  | "mirrored";
 
-export const CONDITIONS: Condition[] = ["clean", "dark", "very-dark", "bright", "noisy", "blurry", "close", "tilted", "dark-blurry"];
+export const CONDITIONS: Condition[] = [
+  "clean",
+  "dark",
+  "very-dark",
+  "bright",
+  "noisy",
+  "blurry",
+  "close",
+  "tilted",
+  "dark-blurry",
+  "sideways",
+  "upside-down",
+  "mirrored",
+];
 
 export interface Point {
   x: number;
@@ -44,10 +69,29 @@ export function motionBlur(ctx: CanvasRenderingContext2D, src: CanvasImageSource
 export function degrade(image: HTMLCanvasElement, condition: Condition, aim: Point, seed = 1): { image: HTMLCanvasElement; aim: Point } {
   const { width: w, height: h } = image;
   const out = document.createElement("canvas");
-  out.width = w;
-  out.height = h;
+  const swap = condition === "sideways";
+  out.width = swap ? h : w;
+  out.height = swap ? w : h;
   const ctx = out.getContext("2d", { willReadFrequently: true })!;
   switch (condition) {
+    case "sideways":
+      ctx.translate(h, 0);
+      ctx.rotate(Math.PI / 2);
+      ctx.drawImage(image, 0, 0);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      return { image: out, aim: { x: h - aim.y, y: aim.x } };
+    case "upside-down":
+      ctx.translate(w, h);
+      ctx.rotate(Math.PI);
+      ctx.drawImage(image, 0, 0);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      return { image: out, aim: { x: w - aim.x, y: h - aim.y } };
+    case "mirrored":
+      ctx.translate(w, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(image, 0, 0);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      return { image: out, aim: { x: w - aim.x, y: aim.y } };
     case "clean":
       ctx.drawImage(image, 0, 0);
       break;

@@ -1,8 +1,8 @@
 {
   "device": "webgpu",
   "claude": false,
-  "startedAt": "2026-10-04T04:27:25.289Z",
-  "ms": 182301.43499994278,
+  "startedAt": "2026-10-04T05:08:03.748Z",
+  "ms": 232142.1700000763,
   "naming": {
     "centreFrac": 0.35,
     "wideFrac": 0.65,
@@ -17,7 +17,8 @@
   },
   "defaults": {
     "enhance": false,
-    "tta": false
+    "tta": false,
+    "rotations": false
   },
   "missing": [
     "test-images-public"
@@ -36,9 +37,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 2926.9478257543897,
-        "avgMs": 96.52159999847412,
-        "p95Ms": 165.625,
-        "avgTotalMs": 140.35739998340605,
+        "avgMs": 93.54759999275207,
+        "p95Ms": 160.8550000190735,
+        "avgTotalMs": 131.87159999847412,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -55,9 +56,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2379.668821201704,
-          "avgMs": 87.94884613844064,
-          "p95Ms": 135.57999992370605,
-          "avgTotalMs": 140.79423073621896,
+          "avgMs": 85.22038460694827,
+          "p95Ms": 129.36500000953674,
+          "avgTotalMs": 130.73346155423386,
           "sources": {
             "vocab": 12,
             "none": 1
@@ -73,9 +74,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 3843.913506556457,
-          "avgMs": 102.13900001049042,
-          "p95Ms": 185.6050000190735,
-          "avgTotalMs": 136.83299999237062,
+          "avgMs": 98.23299999237061,
+          "p95Ms": 178.17499995231628,
+          "avgTotalMs": 129.41999998092652,
           "sources": {
             "vocab": 5
           }
@@ -90,9 +91,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2342.1232945655747,
-          "avgMs": 96.8250000178814,
-          "p95Ms": 118.1599999666214,
-          "avgTotalMs": 129.9087499976158,
+          "avgMs": 94.4862499833107,
+          "p95Ms": 115.35500001907349,
+          "avgTotalMs": 123.48374998569489,
           "sources": {
             "vocab": 4
           }
@@ -107,9 +108,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 123.903333346049,
-          "p95Ms": 165.625,
-          "avgTotalMs": 158.27000002066293,
+          "avgMs": 120.57166667779286,
+          "p95Ms": 160.8550000190735,
+          "avgTotalMs": 152.07333330313364,
           "sources": {
             "none": 2,
             "vocab": 1
@@ -140,8 +141,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 52.68999993801117,
-            "totalMs": 322.50999987125397
+            "ms": 49.27999997138977,
+            "totalMs": 255.97500002384186
           },
           "spec": {
             "label": "mug",
@@ -182,8 +183,8 @@
               "cup",
               "thing"
             ],
-            "ms": 127.73000001907349,
-            "totalMs": 166.65500009059906
+            "ms": 121.27499997615814,
+            "totalMs": 155.08500003814697
           },
           "spec": {
             "label": "water bottle",
@@ -222,8 +223,8 @@
               "glass",
               "thing"
             ],
-            "ms": 45.6599999666214,
-            "totalMs": 82.01500010490417
+            "ms": 42.92999994754791,
+            "totalMs": 75.59499990940094
           },
           "spec": {
             "label": "glasses",
@@ -263,8 +264,8 @@
               "remote",
               "cell phone"
             ],
-            "ms": 121.625,
-            "totalMs": 156.60000002384186
+            "ms": 129.36500000953674,
+            "totalMs": 161.2700001001358
           },
           "spec": {
             "label": "phone",
@@ -306,8 +307,8 @@
               "lighter",
               "knife"
             ],
-            "ms": 120.97000002861023,
-            "totalMs": 152.8050000667572
+            "ms": 121.10000002384186,
+            "totalMs": 152.58500003814697
           },
           "spec": {
             "label": "remote",
@@ -348,8 +349,8 @@
               "comb",
               "thing"
             ],
-            "ms": 131.4800000190735,
-            "totalMs": 165.62999999523163
+            "ms": 124.91499996185303,
+            "totalMs": 155.67500007152557
           },
           "spec": {
             "label": "toothbrush",
@@ -383,8 +384,8 @@
             "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 135.57999992370605,
-            "totalMs": 173.10999989509583
+            "ms": 127.07500004768372,
+            "totalMs": 160.35000002384186
           },
           "spec": {
             "label": "pills",
@@ -427,8 +428,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 43.18499994277954,
-            "totalMs": 77.61999988555908
+            "ms": 41.72500002384186,
+            "totalMs": 79.65500009059906
           },
           "spec": {
             "label": "book",
@@ -468,8 +469,8 @@
               "ladle",
               "scissors"
             ],
-            "ms": 119.17000007629395,
-            "totalMs": 149.93999993801117
+            "ms": 113.3400000333786,
+            "totalMs": 142.05000007152557
           },
           "spec": {
             "label": "spoon",
@@ -505,8 +506,8 @@
               "foot",
               "thing"
             ],
-            "ms": 42.1599999666214,
-            "totalMs": 76.47499990463257
+            "ms": 41.34500002861023,
+            "totalMs": 72.49500000476837
           },
           "spec": {
             "label": "shoe",
@@ -547,8 +548,8 @@
               "fork",
               "thing"
             ],
-            "ms": 41.52999997138977,
-            "totalMs": 74.80499982833862
+            "ms": 40.22500002384186,
+            "totalMs": 70.1800000667572
           },
           "spec": {
             "label": "keys",
@@ -588,8 +589,8 @@
               "stool",
               "table"
             ],
-            "ms": 117.15499997138977,
-            "totalMs": 151.26499998569489
+            "ms": 111.9799998998642,
+            "totalMs": 143.4449998140335
           },
           "spec": {
             "label": "chair",
@@ -628,8 +629,8 @@
               "lemon",
               "thing"
             ],
-            "ms": 44.39999997615814,
-            "totalMs": 80.89499998092651
+            "ms": 43.30999994277954,
+            "totalMs": 75.17499995231628
           },
           "spec": {
             "label": "banana",
@@ -668,8 +669,8 @@
               "coffee",
               "bowl"
             ],
-            "ms": 122.52999997138977,
-            "totalMs": 156.24499988555908
+            "ms": 119.89999997615814,
+            "totalMs": 151.1599999666214
           },
           "spec": {
             "label": "cup",
@@ -711,8 +712,8 @@
               "monitor",
               "computer"
             ],
-            "ms": 115.98500001430511,
-            "totalMs": 150.47000002861023
+            "ms": 110.59500002861023,
+            "totalMs": 142.2700001001358
           },
           "spec": {
             "label": "laptop",
@@ -753,8 +754,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 42.825000047683716,
-            "totalMs": 77.40000009536743
+            "ms": 41,
+            "totalMs": 71.33499991893768
           },
           "spec": {
             "label": "mouse",
@@ -794,8 +795,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 43.75,
-            "totalMs": 78.50999999046326
+            "ms": 41.49500000476837,
+            "totalMs": 72.375
           },
           "spec": {
             "label": "laptop",
@@ -838,8 +839,8 @@
               "computer",
               "thing"
             ],
-            "ms": 185.6050000190735,
-            "totalMs": 221.53999996185303
+            "ms": 178.17499995231628,
+            "totalMs": 209.95999991893768
           },
           "spec": {
             "label": "monitor",
@@ -880,8 +881,8 @@
               "orange",
               "thing"
             ],
-            "ms": 115.40500009059906,
-            "totalMs": 149.1049998998642
+            "ms": 115.35500001907349,
+            "totalMs": 145.01500010490417
           },
           "spec": {
             "label": "apple",
@@ -918,8 +919,8 @@
               "finger",
               "thing"
             ],
-            "ms": 42.36500000953674,
-            "totalMs": 75.70500004291534
+            "ms": 41.34500002861023,
+            "totalMs": 70.51499998569489
           },
           "spec": {
             "label": "phone",
@@ -959,8 +960,8 @@
               "cup",
               "coffee"
             ],
-            "ms": 111.37000000476837,
-            "totalMs": 144.08500003814697
+            "ms": 109.08499991893768,
+            "totalMs": 138.12000000476837
           },
           "spec": {
             "label": "mug",
@@ -1001,8 +1002,8 @@
               "hand",
               "person"
             ],
-            "ms": 118.1599999666214,
-            "totalMs": 150.74000000953674
+            "ms": 112.1599999666214,
+            "totalMs": 140.2849998474121
           },
           "spec": {
             "label": "keys",
@@ -1038,8 +1039,8 @@
             "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 83.86000001430511,
-            "totalMs": 116.63999998569489
+            "ms": 83.42499995231628,
+            "totalMs": 113.54499995708466
           },
           "spec": {
             "label": "theremin",
@@ -1071,8 +1072,8 @@
             "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 165.625,
-            "totalMs": 199.7300000190735
+            "ms": 160.8550000190735,
+            "totalMs": 192.25999999046326
           },
           "spec": {
             "label": "sextant",
@@ -1109,8 +1110,8 @@
               "pie",
               "clock"
             ],
-            "ms": 122.22500002384186,
-            "totalMs": 158.44000005722046
+            "ms": 117.43500006198883,
+            "totalMs": 150.41499996185303
           },
           "spec": {
             "label": "astrolabe",
@@ -1139,9 +1140,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 2926.9478257543897,
-        "avgMs": 89.96700000286103,
-        "p95Ms": 133.67499995231628,
-        "avgTotalMs": 123.91060000896454,
+        "avgMs": 87.94119999408721,
+        "p95Ms": 126.26999998092651,
+        "avgTotalMs": 119.78700000762939,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -1158,9 +1159,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2379.668821201704,
-          "avgMs": 86.91653846777402,
-          "p95Ms": 133.67499995231628,
-          "avgTotalMs": 121.66307692344373,
+          "avgMs": 84.07153846667363,
+          "p95Ms": 126.26999998092651,
+          "avgTotalMs": 116.54961541065803,
           "sources": {
             "vocab": 13
           }
@@ -1175,9 +1176,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 3843.913506556457,
-          "avgMs": 103.06500000953675,
-          "p95Ms": 123.45000004768372,
-          "avgTotalMs": 137.02600002288818,
+          "avgMs": 100.61299996376037,
+          "p95Ms": 119.16499996185303,
+          "avgTotalMs": 132.6039999961853,
           "sources": {
             "vocab": 5
           }
@@ -1192,9 +1193,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2342.1232945655747,
-          "avgMs": 58.375,
-          "p95Ms": 111.05000007152557,
-          "avgTotalMs": 89.25374999642372,
+          "avgMs": 58.827499985694885,
+          "p95Ms": 113.28999996185303,
+          "avgTotalMs": 87.69249999523163,
           "sources": {
             "vocab": 4
           }
@@ -1209,9 +1210,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 123.47833331425984,
-          "p95Ms": 164.8049999475479,
-          "avgTotalMs": 158.00000003973642,
+          "avgMs": 122.40833334128062,
+          "p95Ms": 164.65000009536743,
+          "avgTotalMs": 155.24666663010916,
           "sources": {
             "none": 2,
             "vocab": 1
@@ -1241,8 +1242,8 @@
               "cup",
               "coffee"
             ],
-            "ms": 133.67499995231628,
-            "totalMs": 179.29500007629395
+            "ms": 121.35000002384186,
+            "totalMs": 160.35500013828278
           },
           "spec": {
             "label": "mug",
@@ -1283,8 +1284,8 @@
               "ticket",
               "thing"
             ],
-            "ms": 113.66499996185303,
-            "totalMs": 151.38500010967255
+            "ms": 109.55999994277954,
+            "totalMs": 143.13499999046326
           },
           "spec": {
             "label": "water bottle",
@@ -1323,8 +1324,8 @@
               "glass",
               "thing"
             ],
-            "ms": 41.75,
-            "totalMs": 77.29000008106232
+            "ms": 42.300000071525574,
+            "totalMs": 74.06499993801117
           },
           "spec": {
             "label": "glasses",
@@ -1364,8 +1365,8 @@
               "remote",
               "cell phone"
             ],
-            "ms": 114.1599999666214,
-            "totalMs": 149.31000006198883
+            "ms": 111.1599999666214,
+            "totalMs": 143.30000007152557
           },
           "spec": {
             "label": "phone",
@@ -1407,8 +1408,8 @@
               "lighter",
               "knife"
             ],
-            "ms": 115.35500001907349,
-            "totalMs": 146.04500007629395
+            "ms": 113.6949999332428,
+            "totalMs": 142.73500001430511
           },
           "spec": {
             "label": "remote",
@@ -1449,8 +1450,8 @@
               "paintbrush",
               "thing"
             ],
-            "ms": 114.36500000953674,
-            "totalMs": 148.81499993801117
+            "ms": 110.01499998569489,
+            "totalMs": 141.20500004291534
           },
           "spec": {
             "label": "toothbrush",
@@ -1489,8 +1490,8 @@
               "jar",
               "thing"
             ],
-            "ms": 124.79500007629395,
-            "totalMs": 159.6449999809265
+            "ms": 126.26999998092651,
+            "totalMs": 159.98500001430511
           },
           "spec": {
             "label": "pills",
@@ -1533,8 +1534,8 @@
               "e-reader",
               "thing"
             ],
-            "ms": 41.25,
-            "totalMs": 74.93999993801117
+            "ms": 41.15499997138977,
+            "totalMs": 78.77499997615814
           },
           "spec": {
             "label": "book",
@@ -1574,8 +1575,8 @@
               "ladle",
               "scissors"
             ],
-            "ms": 117.37000000476837,
-            "totalMs": 146.93999981880188
+            "ms": 112.24000000953674,
+            "totalMs": 141.24000000953674
           },
           "spec": {
             "label": "spoon",
@@ -1611,8 +1612,8 @@
               "foot",
               "thing"
             ],
-            "ms": 85.24500000476837,
-            "totalMs": 118.049999833107
+            "ms": 82.85000002384186,
+            "totalMs": 114.11500000953674
           },
           "spec": {
             "label": "shoe",
@@ -1653,8 +1654,8 @@
               "fork",
               "thing"
             ],
-            "ms": 41.514999985694885,
-            "totalMs": 73.00499987602234
+            "ms": 40.200000047683716,
+            "totalMs": 70.58000004291534
           },
           "spec": {
             "label": "keys",
@@ -1695,8 +1696,8 @@
               "fork",
               "thing"
             ],
-            "ms": 43.53000009059906,
-            "totalMs": 77.22500014305115
+            "ms": 40.40000009536743,
+            "totalMs": 71.61500000953674
           },
           "spec": {
             "label": "chair",
@@ -1735,8 +1736,8 @@
               "lemon",
               "thing"
             ],
-            "ms": 43.24000000953674,
-            "totalMs": 79.67500007152557
+            "ms": 41.735000014305115,
+            "totalMs": 74.04000008106232
           },
           "spec": {
             "label": "banana",
@@ -1775,8 +1776,8 @@
               "coffee",
               "bowl"
             ],
-            "ms": 120.7150000333786,
-            "totalMs": 154.5900000333786
+            "ms": 119.16499996185303,
+            "totalMs": 151.34500002861023
           },
           "spec": {
             "label": "cup",
@@ -1818,8 +1819,8 @@
               "monitor",
               "computer"
             ],
-            "ms": 119.875,
-            "totalMs": 153.20500016212463
+            "ms": 114.04499995708466,
+            "totalMs": 146.63000011444092
           },
           "spec": {
             "label": "laptop",
@@ -1860,8 +1861,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 42.18499994277954,
-            "totalMs": 76.62000000476837
+            "ms": 40.769999980926514,
+            "totalMs": 72.04499995708466
           },
           "spec": {
             "label": "mouse",
@@ -1901,8 +1902,8 @@
               "notebook",
               "tablet stand"
             ],
-            "ms": 123.45000004768372,
-            "totalMs": 157.79999995231628
+            "ms": 118.26999998092651,
+            "totalMs": 149.87999999523163
           },
           "spec": {
             "label": "laptop",
@@ -1943,8 +1944,8 @@
               "tv",
               "computer"
             ],
-            "ms": 109.10000002384186,
-            "totalMs": 142.91499996185303
+            "ms": 110.81499993801117,
+            "totalMs": 143.11999988555908
           },
           "spec": {
             "label": "monitor",
@@ -1985,8 +1986,8 @@
               "orange",
               "thing"
             ],
-            "ms": 40.52499997615814,
-            "totalMs": 71.9449999332428
+            "ms": 41.05499994754791,
+            "totalMs": 70.64499998092651
           },
           "spec": {
             "label": "apple",
@@ -2023,8 +2024,8 @@
               "lime",
               "thing"
             ],
-            "ms": 40.62000000476837,
-            "totalMs": 71.97000002861023
+            "ms": 40.49000000953674,
+            "totalMs": 69.36000001430511
           },
           "spec": {
             "label": "phone",
@@ -2065,8 +2066,8 @@
               "drum",
               "thing"
             ],
-            "ms": 41.30499994754791,
-            "totalMs": 72.13999998569489
+            "ms": 40.47500002384186,
+            "totalMs": 69.49000000953674
           },
           "spec": {
             "label": "mug",
@@ -2107,8 +2108,8 @@
               "hand",
               "person"
             ],
-            "ms": 111.05000007152557,
-            "totalMs": 140.96000003814697
+            "ms": 113.28999996185303,
+            "totalMs": 141.27499997615814
           },
           "spec": {
             "label": "keys",
@@ -2144,8 +2145,8 @@
             "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 82.88499999046326,
-            "totalMs": 114.92499995231628
+            "ms": 83.82499992847443,
+            "totalMs": 114.91499996185303
           },
           "spec": {
             "label": "theremin",
@@ -2177,8 +2178,8 @@
             "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 164.8049999475479,
-            "totalMs": 200.00999999046326
+            "ms": 164.65000009536743,
+            "totalMs": 197.57500004768372
           },
           "spec": {
             "label": "sextant",
@@ -2215,8 +2216,8 @@
               "pie",
               "clock"
             ],
-            "ms": 122.74500000476837,
-            "totalMs": 159.06500017642975
+            "ms": 118.75,
+            "totalMs": 153.2499998807907
           },
           "spec": {
             "label": "astrolabe",
@@ -2249,9 +2250,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 78.97059998512267,
-            "p95Ms": 135.49500000476837,
-            "avgTotalMs": 114.62279997825623,
+            "avgMs": 73.3198000049591,
+            "p95Ms": 125.23500001430511,
+            "avgTotalMs": 105.31400001525878,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2270,9 +2271,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 156.16780001163482,
-            "p95Ms": 530.8500000238419,
-            "avgTotalMs": 205.65719999313353,
+            "avgMs": 78.77079999923706,
+            "p95Ms": 160.91499996185303,
+            "avgTotalMs": 110.63960000038146,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2291,9 +2292,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 149.48659999370574,
-            "p95Ms": 295.0149999856949,
-            "avgTotalMs": 205.14539999485015,
+            "avgMs": 78.27439999580383,
+            "p95Ms": 161.95500004291534,
+            "avgTotalMs": 109.87259999275207,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2312,9 +2313,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 94.80239999294281,
-            "p95Ms": 177.18500006198883,
-            "avgTotalMs": 133.6777999973297,
+            "avgMs": 82.40880001544953,
+            "p95Ms": 163.71000003814697,
+            "avgTotalMs": 114.32000002861022,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2333,9 +2334,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 89.99439998626708,
-            "p95Ms": 174.27500009536743,
-            "avgTotalMs": 126.76259997844696,
+            "avgMs": 83.39859998703002,
+            "p95Ms": 161.54500007629395,
+            "avgTotalMs": 114.99539999485016,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2354,9 +2355,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 99.02860001087188,
-            "p95Ms": 187.3400000333786,
-            "avgTotalMs": 136.36819999217988,
+            "avgMs": 88.69039999485015,
+            "p95Ms": 161.9099999666214,
+            "avgTotalMs": 120.24580001831055,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2375,9 +2376,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 109.0754000043869,
-            "p95Ms": 194.3199999332428,
-            "avgTotalMs": 148.38639999866484,
+            "avgMs": 91.29119998931884,
+            "p95Ms": 160.1600000858307,
+            "avgTotalMs": 122.84420001506805,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2396,9 +2397,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 112.15019999980926,
-            "p95Ms": 188.72000002861023,
-            "avgTotalMs": 151.0541999721527,
+            "avgMs": 95.96120000839234,
+            "p95Ms": 161.67000007629395,
+            "avgTotalMs": 127.50800001621246,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2417,9 +2418,9 @@
             "broad": 0.16,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 125.44659999370575,
-            "p95Ms": 198.94999992847443,
-            "avgTotalMs": 162.57979998111725,
+            "avgMs": 114.60660000801086,
+            "p95Ms": 180.88999998569489,
+            "avgTotalMs": 146.12040000915528,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2439,9 +2440,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 112.15019999980926,
-          "p95Ms": 188.72000002861023,
-          "avgTotalMs": 151.0541999721527,
+          "avgMs": 95.96120000839234,
+          "p95Ms": 161.67000007629395,
+          "avgTotalMs": 127.50800001621246,
           "sources": {
             "vocab": 22,
             "none": 3
@@ -5248,7 +5249,7 @@
         "matched": 1,
         "falseMatched": 0,
         "n": 25,
-        "avgMs": 45.713200001716615
+        "avgMs": 41.69080001354217
       }
     }
   ],
@@ -5267,9 +5268,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 2942.1173949141275,
-        "avgMs": 99.30779999256134,
-        "p95Ms": 178.0350000858307,
-        "avgTotalMs": 136.29919998168944,
+        "avgMs": 91.68040000915528,
+        "p95Ms": 166.04499995708466,
+        "avgTotalMs": 123.66120002269744,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -5290,9 +5291,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 652.4400341464548,
-        "avgMs": 104.91659998893738,
-        "p95Ms": 159.8400000333786,
-        "avgTotalMs": 141.32639996528624,
+        "avgMs": 101.10119999885559,
+        "p95Ms": 153.83000004291534,
+        "avgTotalMs": 135.18280000209808,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5313,9 +5314,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 957.4226254472544,
-        "avgMs": 106.60079998970032,
-        "p95Ms": 165.0900000333786,
-        "avgTotalMs": 141.49139998435973,
+        "avgMs": 108.27080000400544,
+        "p95Ms": 160.0699999332428,
+        "avgTotalMs": 142.1666000175476,
         "sources": {
           "vocab": 14,
           "none": 11
@@ -5336,9 +5337,9 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 2660.0666847161624,
-        "avgMs": 98.79240000724792,
-        "p95Ms": 132.15000009536743,
-        "avgTotalMs": 135.24200001716613,
+        "avgMs": 92.44639999866486,
+        "p95Ms": 137.00999999046326,
+        "avgTotalMs": 124.5432000207901,
         "sources": {
           "vocab": 21,
           "none": 4
@@ -5359,9 +5360,9 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 7782.621993216299,
-        "avgMs": 107.46080000400543,
-        "p95Ms": 164.16499996185303,
-        "avgTotalMs": 144.76539999485016,
+        "avgMs": 101.54660000801087,
+        "p95Ms": 152.88499999046326,
+        "avgTotalMs": 135.741600022316,
         "sources": {
           "vocab": 21,
           "none": 4
@@ -5382,9 +5383,9 @@
         "broad": 0.2,
         "blurry": 0.96,
         "medianSharpness": 86.33651983604263,
-        "avgMs": 147.0794000005722,
-        "p95Ms": 207.82500004768372,
-        "avgTotalMs": 188.33859999656678,
+        "avgMs": 126.5998000049591,
+        "p95Ms": 177.67500007152557,
+        "avgTotalMs": 159.33240002155304,
         "sources": {
           "vocab": 19,
           "none": 6
@@ -5405,9 +5406,9 @@
         "broad": 0.04,
         "blurry": 0.12,
         "medianSharpness": 1200.2486640736952,
-        "avgMs": 116.7069999885559,
-        "p95Ms": 179.01499998569489,
-        "avgTotalMs": 155.79439997196198,
+        "avgMs": 101.31240001678466,
+        "p95Ms": 154.57500004768372,
+        "avgTotalMs": 133.25080001354218,
         "sources": {
           "vocab": 18,
           "none": 7
@@ -5428,9 +5429,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 2679.2194262990006,
-        "avgMs": 102.3395999956131,
-        "p95Ms": 178.34499990940094,
-        "avgTotalMs": 141.83479998111724,
+        "avgMs": 90.17339998722076,
+        "p95Ms": 155.91499996185303,
+        "avgTotalMs": 122.22619999408722,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5451,12 +5452,357 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 338.8866238546703,
-        "avgMs": 120.1798000049591,
-        "p95Ms": 158.99000000953674,
-        "avgTotalMs": 157.0140000152588,
+        "avgMs": 118.26480000972748,
+        "p95Ms": 157.7850000858307,
+        "avgTotalMs": 151.25020001411437,
         "sources": {
           "vocab": 12,
           "none": 13
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "sideways",
+      "summary": {
+        "n": 25,
+        "top1": 0.52,
+        "top3": 0.6,
+        "auto": 0.56,
+        "wrongAuto": 0.08,
+        "notSure": 0.2,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2940.9100279378727,
+        "avgMs": 101.8958000087738,
+        "p95Ms": 154.57499992847443,
+        "avgTotalMs": 134.8326000022888,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "upside-down",
+      "summary": {
+        "n": 25,
+        "top1": 0.48,
+        "top3": 0.6,
+        "auto": 0.56,
+        "wrongAuto": 0.16,
+        "notSure": 0.08,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2941.1069229372506,
+        "avgMs": 107.01460001945496,
+        "p95Ms": 152.3200000524521,
+        "avgTotalMs": 138.923600025177,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "mirrored",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.84,
+        "auto": 0.64,
+        "wrongAuto": 0.04,
+        "notSure": 0.08,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2944.2335328383433,
+        "avgMs": 93.90819999694824,
+        "p95Ms": 174.75999999046326,
+        "avgTotalMs": 125.74460001468658,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.84,
+        "auto": 0.68,
+        "wrongAuto": 0.04,
+        "notSure": 0.12,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2942.1173949141275,
+        "avgMs": 275.36919998645783,
+        "p95Ms": 485.85000002384186,
+        "avgTotalMs": 307.5034000015259,
+        "sources": {
+          "vocab": 22,
+          "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.72,
+        "auto": 0.56,
+        "wrongAuto": 0.08,
+        "notSure": 0.2,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 652.4400341464548,
+        "avgMs": 283.51460000038145,
+        "p95Ms": 453.45500004291534,
+        "avgTotalMs": 315.5727999973297,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.24,
+        "top3": 0.36,
+        "auto": 0.28,
+        "wrongAuto": 0.04,
+        "notSure": 0.4,
+        "broad": 0.12,
+        "blurry": 0,
+        "medianSharpness": 957.4226254472544,
+        "avgMs": 306.6757999897003,
+        "p95Ms": 469.9299999475479,
+        "avgTotalMs": 338.77099999427793,
+        "sources": {
+          "vocab": 15,
+          "none": 10
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.68,
+        "auto": 0.68,
+        "wrongAuto": 0.12,
+        "notSure": 0.16,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2660.0666847161624,
+        "avgMs": 285.56839999675753,
+        "p95Ms": 434.72500002384186,
+        "avgTotalMs": 319.5146000051498,
+        "sources": {
+          "vocab": 21,
+          "none": 4
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.68,
+        "auto": 0.56,
+        "wrongAuto": 0.04,
+        "notSure": 0.16,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 7782.621993216299,
+        "avgMs": 289.08559999465945,
+        "p95Ms": 459.74000000953674,
+        "avgTotalMs": 322.01380001544953,
+        "sources": {
+          "vocab": 21,
+          "none": 4
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.36,
+        "top3": 0.64,
+        "auto": 0.04,
+        "wrongAuto": 0,
+        "notSure": 0.2,
+        "broad": 0.24,
+        "blurry": 0.96,
+        "medianSharpness": 86.33651983604263,
+        "avgMs": 388.83219999313354,
+        "p95Ms": 576.335000038147,
+        "avgTotalMs": 422.17239997386935,
+        "sources": {
+          "vocab": 20,
+          "none": 5
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.44,
+        "top3": 0.6,
+        "auto": 0.48,
+        "wrongAuto": 0.12,
+        "notSure": 0.28,
+        "broad": 0.08,
+        "blurry": 0.12,
+        "medianSharpness": 1200.2486640736952,
+        "avgMs": 284.38099999427794,
+        "p95Ms": 472.77500009536743,
+        "avgTotalMs": 317.6011999845505,
+        "sources": {
+          "vocab": 18,
+          "none": 7
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.76,
+        "auto": 0.6,
+        "wrongAuto": 0.04,
+        "notSure": 0.04,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2679.2194262990006,
+        "avgMs": 272.0642000007629,
+        "p95Ms": 476.1799999475479,
+        "avgTotalMs": 305.14900001525876,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.16,
+        "top3": 0.24,
+        "auto": 0.12,
+        "wrongAuto": 0.04,
+        "notSure": 0.44,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 338.8866238546703,
+        "avgMs": 342.2796000099182,
+        "p95Ms": 474.6750000715256,
+        "avgTotalMs": 375.0706000137329,
+        "sources": {
+          "vocab": 14,
+          "none": 11
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "sideways",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.72,
+        "auto": 0.6,
+        "wrongAuto": 0.08,
+        "notSure": 0.16,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2940.9100279378727,
+        "avgMs": 270.26300000190736,
+        "p95Ms": 461.914999961853,
+        "avgTotalMs": 303.26120001792907,
+        "sources": {
+          "vocab": 21,
+          "none": 4
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "upside-down",
+      "summary": {
+        "n": 25,
+        "top1": 0.64,
+        "top3": 0.72,
+        "auto": 0.6,
+        "wrongAuto": 0.08,
+        "notSure": 0.08,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2941.1069229372506,
+        "avgMs": 276.3548000001907,
+        "p95Ms": 470.68499994277954,
+        "avgTotalMs": 309.30280000686645,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "mirrored",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.8,
+        "auto": 0.64,
+        "wrongAuto": 0.04,
+        "notSure": 0.08,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2944.2335328383433,
+        "avgMs": 289.3354000043869,
+        "p95Ms": 561.9399999380112,
+        "avgTotalMs": 322.18800001621247,
+        "sources": {
+          "vocab": 23,
+          "none": 2
         }
       }
     },
@@ -5474,9 +5820,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 2942.1173949141275,
-        "avgMs": 114.24640000343322,
-        "p95Ms": 207.6599999666214,
-        "avgTotalMs": 151.4548000049591,
+        "avgMs": 105.78820000648498,
+        "p95Ms": 191.13000011444092,
+        "avgTotalMs": 139.33180000305177,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5497,9 +5843,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 652.4400341464548,
-        "avgMs": 108.55559999465942,
-        "p95Ms": 164.39999997615814,
-        "avgTotalMs": 145.9499999856949,
+        "avgMs": 100.18679999351501,
+        "p95Ms": 144.54999995231628,
+        "avgTotalMs": 132.76800000667572,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -5520,9 +5866,9 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 957.4226254472544,
-        "avgMs": 113.94780000209808,
-        "p95Ms": 153.63499999046326,
-        "avgTotalMs": 148.3931999874115,
+        "avgMs": 112.86660000801086,
+        "p95Ms": 143.10000002384186,
+        "avgTotalMs": 145.9570000219345,
         "sources": {
           "vocab": 15,
           "none": 10
@@ -5543,9 +5889,9 @@
         "broad": 0.12,
         "blurry": 0,
         "medianSharpness": 2660.0666847161624,
-        "avgMs": 105.205,
-        "p95Ms": 172.31000006198883,
-        "avgTotalMs": 141.229799990654,
+        "avgMs": 101.9973999929428,
+        "p95Ms": 166.64999997615814,
+        "avgTotalMs": 135.6811999988556,
         "sources": {
           "vocab": 21,
           "none": 4
@@ -5566,9 +5912,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 7782.621993216299,
-        "avgMs": 112.62160001277924,
-        "p95Ms": 173.00499999523163,
-        "avgTotalMs": 149.4064000082016,
+        "avgMs": 105.47359999656678,
+        "p95Ms": 165.39999997615814,
+        "avgTotalMs": 138.3508000087738,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5589,9 +5935,9 @@
         "broad": 0.2,
         "blurry": 0.96,
         "medianSharpness": 86.33651983604263,
-        "avgMs": 147.57359998703004,
-        "p95Ms": 202.88499999046326,
-        "avgTotalMs": 185.60039998054503,
+        "avgMs": 137.9983999967575,
+        "p95Ms": 191.64999997615814,
+        "avgTotalMs": 171.68920001506805,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5612,9 +5958,9 @@
         "broad": 0,
         "blurry": 0.12,
         "medianSharpness": 1200.2486640736952,
-        "avgMs": 120.10639998912811,
-        "p95Ms": 190.11500000953674,
-        "avgTotalMs": 157.65299999713898,
+        "avgMs": 111.56040001392364,
+        "p95Ms": 172.1800000667572,
+        "avgTotalMs": 145.6742000246048,
         "sources": {
           "vocab": 18,
           "none": 7
@@ -5635,9 +5981,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 2679.2194262990006,
-        "avgMs": 107.11660001277923,
-        "p95Ms": 185.91999995708466,
-        "avgTotalMs": 143.5070000076294,
+        "avgMs": 97.65419998645783,
+        "p95Ms": 169.16999995708466,
+        "avgTotalMs": 131.1546000146866,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5658,9 +6004,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 338.8866238546703,
-        "avgMs": 137.92379999637603,
-        "p95Ms": 197.29499995708466,
-        "avgTotalMs": 176.09899998664855,
+        "avgMs": 123.22140000343323,
+        "p95Ms": 178.40499997138977,
+        "avgTotalMs": 155.9314000082016,
         "sources": {
           "vocab": 13,
           "none": 12
@@ -5669,182 +6015,21 @@
     },
     {
       "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "clean",
+      "variant": "enhance",
+      "condition": "sideways",
       "summary": {
         "n": 25,
-        "top1": 0.72,
-        "top3": 0.84,
-        "auto": 0.68,
-        "wrongAuto": 0.04,
-        "notSure": 0.08,
-        "broad": 0.04,
-        "blurry": 0,
-        "medianSharpness": 2942.1173949141275,
-        "avgMs": 178.60160000801088,
-        "p95Ms": 335.1449999809265,
-        "avgTotalMs": 213.93299998760224,
-        "sources": {
-          "vocab": 23,
-          "none": 2
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "dark",
-      "summary": {
-        "n": 25,
-        "top1": 0.64,
-        "top3": 0.72,
+        "top1": 0.56,
+        "top3": 0.64,
         "auto": 0.6,
-        "wrongAuto": 0.04,
-        "notSure": 0.04,
-        "broad": 0,
-        "blurry": 0,
-        "medianSharpness": 652.4400341464548,
-        "avgMs": 186.62859998226165,
-        "p95Ms": 265.61500000953674,
-        "avgTotalMs": 223.76259995937346,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "very-dark",
-      "summary": {
-        "n": 25,
-        "top1": 0.4,
-        "top3": 0.44,
-        "auto": 0.32,
-        "wrongAuto": 0.04,
-        "notSure": 0.44,
-        "broad": 0,
-        "blurry": 0,
-        "medianSharpness": 957.4226254472544,
-        "avgMs": 191.7520000076294,
-        "p95Ms": 255.97500002384186,
-        "avgTotalMs": 228.25720002174378,
-        "sources": {
-          "vocab": 14,
-          "none": 11
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "bright",
-      "summary": {
-        "n": 25,
-        "top1": 0.52,
-        "top3": 0.68,
-        "auto": 0.64,
         "wrongAuto": 0.08,
-        "notSure": 0.2,
+        "notSure": 0.12,
         "broad": 0.08,
         "blurry": 0,
-        "medianSharpness": 2660.0666847161624,
-        "avgMs": 192.82359999656677,
-        "p95Ms": 327.67000007629395,
-        "avgTotalMs": 230.6691999864578,
-        "sources": {
-          "vocab": 20,
-          "none": 5
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "noisy",
-      "summary": {
-        "n": 25,
-        "top1": 0.52,
-        "top3": 0.64,
-        "auto": 0.56,
-        "wrongAuto": 0.04,
-        "notSure": 0.2,
-        "broad": 0.12,
-        "blurry": 0,
-        "medianSharpness": 7782.621993216299,
-        "avgMs": 197.89059999465942,
-        "p95Ms": 298.89999997615814,
-        "avgTotalMs": 235.90799999713897,
-        "sources": {
-          "vocab": 20,
-          "none": 5
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "blurry",
-      "summary": {
-        "n": 25,
-        "top1": 0.44,
-        "top3": 0.6,
-        "auto": 0.04,
-        "wrongAuto": 0,
-        "notSure": 0.2,
-        "broad": 0.2,
-        "blurry": 0.96,
-        "medianSharpness": 86.33651983604263,
-        "avgMs": 250.91939998626708,
-        "p95Ms": 355.7300000190735,
-        "avgTotalMs": 288.7085999727249,
-        "sources": {
-          "vocab": 20,
-          "none": 5
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "close",
-      "summary": {
-        "n": 25,
-        "top1": 0.52,
-        "top3": 0.56,
-        "auto": 0.44,
-        "wrongAuto": 0.08,
-        "notSure": 0.28,
-        "broad": 0.04,
-        "blurry": 0.12,
-        "medianSharpness": 1200.2486640736952,
-        "avgMs": 197.83659999847413,
-        "p95Ms": 307.61499989032745,
-        "avgTotalMs": 234.63919998168944,
-        "sources": {
-          "vocab": 18,
-          "none": 7
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "tilted",
-      "summary": {
-        "n": 25,
-        "top1": 0.68,
-        "top3": 0.76,
-        "auto": 0.6,
-        "wrongAuto": 0.04,
-        "notSure": 0.12,
-        "broad": 0,
-        "blurry": 0,
-        "medianSharpness": 2679.2194262990006,
-        "avgMs": 177.64519999504088,
-        "p95Ms": 252.8550000190735,
-        "avgTotalMs": 214.3905999851227,
+        "medianSharpness": 2940.9100279378727,
+        "avgMs": 108.10799999713898,
+        "p95Ms": 176.8949999809265,
+        "avgTotalMs": 141.9133999967575,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -5853,24 +6038,47 @@
     },
     {
       "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "dark-blurry",
+      "variant": "enhance",
+      "condition": "upside-down",
       "summary": {
         "n": 25,
-        "top1": 0.28,
-        "top3": 0.36,
-        "auto": 0.12,
-        "wrongAuto": 0,
-        "notSure": 0.44,
+        "top1": 0.48,
+        "top3": 0.64,
+        "auto": 0.44,
+        "wrongAuto": 0.08,
+        "notSure": 0.08,
         "broad": 0.08,
         "blurry": 0,
-        "medianSharpness": 338.8866238546703,
-        "avgMs": 219.45559998989106,
-        "p95Ms": 313.43499994277954,
-        "avgTotalMs": 256.4605999898911,
+        "medianSharpness": 2941.1069229372506,
+        "avgMs": 121.85819999694824,
+        "p95Ms": 191.02500009536743,
+        "avgTotalMs": 155.55059999465942,
         "sources": {
-          "vocab": 14,
-          "none": 11
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "mirrored",
+      "summary": {
+        "n": 25,
+        "top1": 0.68,
+        "top3": 0.84,
+        "auto": 0.68,
+        "wrongAuto": 0.04,
+        "notSure": 0.08,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2944.2335328383433,
+        "avgMs": 100.25879999160766,
+        "p95Ms": 192.47500002384186,
+        "avgTotalMs": 134.08519999980928,
+        "sources": {
+          "vocab": 23,
+          "none": 2
         }
       }
     }

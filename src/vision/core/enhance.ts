@@ -140,3 +140,17 @@ export function averageEmbeddings(vectors: Float32Array[]): Float32Array {
   for (let i = 0; i < out.length; i++) out[i] /= n;
   return out;
 }
+
+export function rotated(crop: HTMLCanvasElement, quarterTurns: number): HTMLCanvasElement {
+  const q = ((quarterTurns % 4) + 4) % 4;
+  if (q === 0) return crop;
+  const out = document.createElement("canvas");
+  const swap = q % 2 === 1;
+  out.width = swap ? crop.height : crop.width;
+  out.height = swap ? crop.width : crop.height;
+  const ctx = out.getContext("2d")!;
+  ctx.translate(out.width / 2, out.height / 2);
+  ctx.rotate((q * Math.PI) / 2);
+  ctx.drawImage(crop, -crop.width / 2, -crop.height / 2);
+  return out;
+}

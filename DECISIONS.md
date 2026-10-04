@@ -391,3 +391,34 @@ Motion blur made SigLIP confidently wrong (20 % wrong tiles on WASM), which no c
 - Sharpness is content-dependent: a thin object on a plain background scores low when sharp (the toothbrush photo is at 330, every other clean photo ≥ 960). On the real ring this means such captures may go to the scanner, which is the preferred failure. Sensor noise masks blur, so dark + blurred captures are not gated and rely on the threshold.
 - An out-of-vocabulary object can now get a broad tile ("electronics" for a theremin at 67 %) where it used to get "not sure"; the eval counts that as wrong because the object has no category. Acceptable under "broad over specific", but worth watching on the public image set.
 - The "close" (zoomed-in) condition gates 12 % of captures because zooming removes detail; a real close-up from the ring will be sharper than an upscaled crop.
+
+
+---
+
+### 2026-10-04 — Finger roll: software rotation search measured and left off; recommend a tilt sensor
+
+**Decision**
+
+Measured what SigLIP does with frames that arrive rotated past the per-hand orientation setting, and tried four ways of searching over quarter-turns in software (`NamerOptions.rotations`: best / avg / unsure / margin). None ship by default. The eval's degraded-conditions mode now includes sideways, upside-down and mirrored frames so this stays measured.
+
+**Results** (25 placeholder photos, WebGPU, top-1 / wrong tiles without asking / naming ms)
+
+| Frame | plain | rotate with margin |
+|---|---|---|
+| upright | 76 % / 4 % / 93 | 76 % / 4 % / 281 |
+| tilted 18° | 72 % / 4 % | 72 % / 4 % |
+| mirrored | 72 % / 4 % | 72 % / 4 % |
+| sideways | 52 % / 8 % | 60 % / 8 % |
+| upside-down | 48 % / **16 %** | 64 % / 8 % |
+| zoomed in | 52 % / 8 % | 44 % / 12 % |
+| over-bright | 56 % / 8 % | 60 % / 12 % |
+
+Keeping the most confident turn: upright 72 % / 8 %. Averaging the four embeddings: upright 48 %. Rotating only when unsure: same rotated gains as margin, upright unchanged, but +4 points of wrong tiles on most other degraded frames (dark, over-bright, noisy, zoomed, tilted), 235 ms.
+
+**Reason**
+
+A finger-mounted camera rolls with the hand, so the mounting setting cannot make frames upright. Small roll and mirroring cost little, but a quarter or half turn costs 24–28 points and, upside-down, produces confident wrong words. Searching rotations in software recovers much of that, but the model is sometimes more confident on a wrong turn, so every variant either hurts clean photos or adds wrong tiles under other degradations, and all cost 2.5–3× naming time (WebGPU) or ~2 s (WASM). The margin variant is the best of them and is kept behind `?rotations=margin` for re-testing on real ring photos.
+
+**Recommendation**
+
+Put a tilt sensor on the ring and send gravity direction with each frame. `orientFrame` already handles any quarter-turn per frame, so this gives correct orientation at zero naming cost and no guessing. Proposed wire additions: Wi-Fi `{"type":"orientation","rotation":0|90|180|270}` before a frame; Bluetooth a rotation byte in the image header. To be agreed with the hardware plan before building.

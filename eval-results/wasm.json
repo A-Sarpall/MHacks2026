@@ -1,8 +1,8 @@
 {
   "device": "wasm",
   "claude": false,
-  "startedAt": "2026-10-04T04:30:28.400Z",
-  "ms": 959692.5849999189,
+  "startedAt": "2026-10-04T05:11:57.753Z",
+  "ms": 1200025.9600000381,
   "naming": {
     "centreFrac": 0.35,
     "wideFrac": 0.65,
@@ -17,7 +17,8 @@
   },
   "defaults": {
     "enhance": false,
-    "tta": false
+    "tta": false,
+    "rotations": false
   },
   "missing": [
     "test-images-public"
@@ -36,9 +37,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 2926.9478257543897,
-        "avgMs": 751.2175999975204,
-        "p95Ms": 1731.1449999809265,
-        "avgTotalMs": 808.4177999925613,
+        "avgMs": 539.4348000001908,
+        "p95Ms": 1281.7599999904633,
+        "avgTotalMs": 587.0441999959945,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -55,9 +56,9 @@
           "broad": 0.07692307692307693,
           "blurry": 0,
           "medianSharpness": 2379.668821201704,
-          "avgMs": 741.2303846157514,
-          "p95Ms": 1759.545000076294,
-          "avgTotalMs": 809.7392307611613,
+          "avgMs": 513.2161538325823,
+          "p95Ms": 1286.9349999427795,
+          "avgTotalMs": 568.5419230644519,
           "sources": {
             "vocab": 13
           }
@@ -72,9 +73,9 @@
           "broad": 0.2,
           "blurry": 0,
           "medianSharpness": 3843.913506556457,
-          "avgMs": 776.305999994278,
-          "p95Ms": 1731.1449999809265,
-          "avgTotalMs": 823.1829999923706,
+          "avgMs": 577.7660000085831,
+          "p95Ms": 1281.7599999904633,
+          "avgTotalMs": 616.3170000076294,
           "sources": {
             "vocab": 5
           }
@@ -89,9 +90,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2342.1232945655747,
-          "avgMs": 524.9462499916553,
-          "p95Ms": 1031.8600000143051,
-          "avgTotalMs": 567.4199999570847,
+          "avgMs": 392.7612500190735,
+          "p95Ms": 764.375,
+          "avgTotalMs": 431.07249999046326,
           "sources": {
             "vocab": 4
           }
@@ -106,9 +107,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 1054.3766666650772,
-          "p95Ms": 1403.9499999284744,
-          "avgTotalMs": 1099.4133333762486,
+          "avgMs": 784.7283333539963,
+          "p95Ms": 1038.4800000190735,
+          "avgTotalMs": 826.3950000206629,
           "sources": {
             "none": 1,
             "vocab": 2
@@ -140,8 +141,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 429.88499999046326,
-            "totalMs": 743.9449999332428
+            "ms": 289.77999997138977,
+            "totalMs": 526.5599998235703
           },
           "spec": {
             "label": "mug",
@@ -182,8 +183,8 @@
               "urinal bottle",
               "bottle"
             ],
-            "ms": 1281.4800000190735,
-            "totalMs": 1334.3749998807907
+            "ms": 789.5,
+            "totalMs": 832.4850000143051
           },
           "spec": {
             "label": "water bottle",
@@ -222,8 +223,8 @@
               "glasses case",
               "thing"
             ],
-            "ms": 448.7450000047684,
-            "totalMs": 500.664999961853
+            "ms": 275.24000000953674,
+            "totalMs": 315.8050000667572
           },
           "spec": {
             "label": "glasses",
@@ -263,8 +264,8 @@
               "calculator",
               "thing"
             ],
-            "ms": 445.4599999189377,
-            "totalMs": 494.9150000810623
+            "ms": 277.2999999523163,
+            "totalMs": 317.20500004291534
           },
           "spec": {
             "label": "phone",
@@ -305,8 +306,8 @@
               "speaker",
               "game controller"
             ],
-            "ms": 1152.929999947548,
-            "totalMs": 1196.5749999284744
+            "ms": 793.8949999809265,
+            "totalMs": 830.9750000238419
           },
           "spec": {
             "label": "remote",
@@ -347,8 +348,8 @@
               "toothpaste",
               "thing"
             ],
-            "ms": 399.625,
-            "totalMs": 453.99000000953674
+            "ms": 277.6749999523163,
+            "totalMs": 314.43999993801117
           },
           "spec": {
             "label": "toothbrush",
@@ -387,8 +388,8 @@
               "pill organizer",
               "thing"
             ],
-            "ms": 1158.460000038147,
-            "totalMs": 1208.1450001001358
+            "ms": 798.5249999761581,
+            "totalMs": 837.8899999856949
           },
           "spec": {
             "label": "pills",
@@ -432,8 +433,8 @@
               "rosary",
               "thing"
             ],
-            "ms": 375.0049999952316,
-            "totalMs": 423.1200000047684
+            "ms": 275.1599999666214,
+            "totalMs": 315.1650000810623
           },
           "spec": {
             "label": "book",
@@ -473,8 +474,8 @@
               "spatula",
               "scissors"
             ],
-            "ms": 1078.405000090599,
-            "totalMs": 1123.8799999952316
+            "ms": 785.2400000095367,
+            "totalMs": 822.670000076294
           },
           "spec": {
             "label": "spoon",
@@ -510,8 +511,8 @@
               "ball",
               "thing"
             ],
-            "ms": 367.0499999523163,
-            "totalMs": 413.3250000476837
+            "ms": 275.68500006198883,
+            "totalMs": 322.5349999666214
           },
           "spec": {
             "label": "shoe",
@@ -552,8 +553,8 @@
               "can opener",
               "thing"
             ],
-            "ms": 370.710000038147,
-            "totalMs": 412.3200000524521
+            "ms": 273.40499997138977,
+            "totalMs": 311.50999999046326
           },
           "spec": {
             "label": "keys",
@@ -597,8 +598,8 @@
               "high chair",
               "thing"
             ],
-            "ms": 1759.545000076294,
-            "totalMs": 1803.2850000858307
+            "ms": 1286.9349999427795,
+            "totalMs": 1326.2149999141693
           },
           "spec": {
             "label": "chair",
@@ -637,8 +638,8 @@
               "fruit bowl",
               "thing"
             ],
-            "ms": 368.6949999332428,
-            "totalMs": 418.0699998140335
+            "ms": 273.47000002861023,
+            "totalMs": 317.5899999141693
           },
           "spec": {
             "label": "banana",
@@ -677,8 +678,8 @@
               "cup",
               "thing"
             ],
-            "ms": 367.9800000190735,
-            "totalMs": 414.6300001144409
+            "ms": 276.9800000190735,
+            "totalMs": 318.38499999046326
           },
           "spec": {
             "label": "cup",
@@ -720,8 +721,8 @@
               "computer",
               "monitor"
             ],
-            "ms": 1049.7250000238419,
-            "totalMs": 1095.5699999332428
+            "ms": 780.4350000619888,
+            "totalMs": 817.9249999523163
           },
           "spec": {
             "label": "laptop",
@@ -762,8 +763,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 366.38499999046326,
-            "totalMs": 408.6200000047684
+            "ms": 274.36499989032745,
+            "totalMs": 310.3900001049042
           },
           "spec": {
             "label": "mouse",
@@ -803,8 +804,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 366.29499995708466,
-            "totalMs": 417.1100000143051
+            "ms": 275.2900000810623,
+            "totalMs": 313.52999997138977
           },
           "spec": {
             "label": "laptop",
@@ -848,8 +849,8 @@
               "desk",
               "thing"
             ],
-            "ms": 1731.1449999809265,
-            "totalMs": 1779.9849998950958
+            "ms": 1281.7599999904633,
+            "totalMs": 1321.3550000190735
           },
           "spec": {
             "label": "monitor",
@@ -890,8 +891,8 @@
               "orange",
               "thing"
             ],
-            "ms": 358.22000002861023,
-            "totalMs": 401.0699999332428
+            "ms": 267.56500005722046,
+            "totalMs": 306.1650000810623
           },
           "spec": {
             "label": "apple",
@@ -928,8 +929,8 @@
               "hand",
               "thing"
             ],
-            "ms": 352.1299999952316,
-            "totalMs": 397.1100000143051
+            "ms": 269.6449999809265,
+            "totalMs": 307.25
           },
           "spec": {
             "label": "phone",
@@ -969,8 +970,8 @@
               "hot chocolate",
               "cup"
             ],
-            "ms": 1031.8600000143051,
-            "totalMs": 1072.6499999761581
+            "ms": 764.375,
+            "totalMs": 802.2649999856949
           },
           "spec": {
             "label": "mug",
@@ -1011,8 +1012,8 @@
               "remote",
               "thing"
             ],
-            "ms": 357.5749999284744,
-            "totalMs": 398.84999990463257
+            "ms": 269.460000038147,
+            "totalMs": 308.6099998950958
           },
           "spec": {
             "label": "keys",
@@ -1048,8 +1049,8 @@
             "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 718.8300000429153,
-            "totalMs": 759.1750000715256
+            "ms": 539.7300000190735,
+            "totalMs": 575.8949999809265
           },
           "spec": {
             "label": "theremin",
@@ -1086,8 +1087,8 @@
               "magnifying glass",
               "thing"
             ],
-            "ms": 1403.9499999284744,
-            "totalMs": 1450.2150000333786
+            "ms": 1038.4800000190735,
+            "totalMs": 1080.0049999952316
           },
           "spec": {
             "label": "sextant",
@@ -1123,8 +1124,8 @@
               "ruler",
               "CD"
             ],
-            "ms": 1040.3500000238419,
-            "totalMs": 1088.8500000238419
+            "ms": 775.9750000238419,
+            "totalMs": 823.2850000858307
           },
           "spec": {
             "label": "astrolabe",
@@ -1153,9 +1154,9 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 2926.9478257543897,
-        "avgMs": 609.6535999917984,
-        "p95Ms": 1118.6449999809265,
-        "avgTotalMs": 654.5831999874115,
+        "avgMs": 458.2323999977112,
+        "p95Ms": 860.7200000286102,
+        "avgTotalMs": 497.6176000070572,
         "sources": {
           "vocab": 25
         }
@@ -1171,9 +1172,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2379.668821201704,
-          "avgMs": 562.9211538479879,
-          "p95Ms": 1043.6949999332428,
-          "avgTotalMs": 607.3607692351708,
+          "avgMs": 424.0903846025467,
+          "p95Ms": 781.0100001096725,
+          "avgTotalMs": 463.1819230776567,
           "sources": {
             "vocab": 13
           }
@@ -1188,9 +1189,9 @@
           "broad": 0.2,
           "blurry": 0,
           "medianSharpness": 3843.913506556457,
-          "avgMs": 660.5419999599457,
-          "p95Ms": 1118.6449999809265,
-          "avgTotalMs": 706.5669999837876,
+          "avgMs": 493.01900000572203,
+          "p95Ms": 860.7200000286102,
+          "avgTotalMs": 533.3339999914169,
           "sources": {
             "vocab": 5
           }
@@ -1205,9 +1206,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2342.1232945655747,
-          "avgMs": 362.8749999701977,
-          "p95Ms": 367.86500000953674,
-          "avgTotalMs": 408.0699999034405,
+          "avgMs": 271.86500000953674,
+          "p95Ms": 272.64999997615814,
+          "avgTotalMs": 309.5887500047684,
           "sources": {
             "vocab": 4
           }
@@ -1222,9 +1223,9 @@
           "broad": 0,
           "blurry": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 1056.3850000301998,
-          "p95Ms": 1413.2050000429153,
-          "avgTotalMs": 1101.2583333651226,
+          "avgMs": 796.6933333476385,
+          "p95Ms": 1061.2350000143051,
+          "avgTotalMs": 838.016666730245,
           "sources": {
             "vocab": 3
           }
@@ -1255,8 +1256,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 353.08000004291534,
-            "totalMs": 401.6750000715256
+            "ms": 270.93499994277954,
+            "totalMs": 318.27499985694885
           },
           "spec": {
             "label": "mug",
@@ -1297,8 +1298,8 @@
               "urinal bottle",
               "bottle"
             ],
-            "ms": 1022.8199999332428,
-            "totalMs": 1070.8299998044968
+            "ms": 769.1749999523163,
+            "totalMs": 809.4799998998642
           },
           "spec": {
             "label": "water bottle",
@@ -1337,8 +1338,8 @@
               "glasses case",
               "thing"
             ],
-            "ms": 352.1050000190735,
-            "totalMs": 397.2650001049042
+            "ms": 269.00999999046326,
+            "totalMs": 307.30999994277954
           },
           "spec": {
             "label": "glasses",
@@ -1378,8 +1379,8 @@
               "letter",
               "thing"
             ],
-            "ms": 351.8799999952316,
-            "totalMs": 398.1400001049042
+            "ms": 267.88499999046326,
+            "totalMs": 304.91999995708466
           },
           "spec": {
             "label": "phone",
@@ -1420,8 +1421,8 @@
               "speaker",
               "game controller"
             ],
-            "ms": 1037.1150000095367,
-            "totalMs": 1076.8149999380112
+            "ms": 769.3899999856949,
+            "totalMs": 805.4850000143051
           },
           "spec": {
             "label": "remote",
@@ -1462,8 +1463,8 @@
               "dental floss",
               "thing"
             ],
-            "ms": 349.8250000476837,
-            "totalMs": 392.6299999952316
+            "ms": 268.6599999666214,
+            "totalMs": 305.5900000333786
           },
           "spec": {
             "label": "toothbrush",
@@ -1503,8 +1504,8 @@
               "medicine",
               "thing"
             ],
-            "ms": 1043.6949999332428,
-            "totalMs": 1087.460000038147
+            "ms": 781.0100001096725,
+            "totalMs": 820.950000166893
           },
           "spec": {
             "label": "pills",
@@ -1548,8 +1549,8 @@
               "newspaper",
               "thing"
             ],
-            "ms": 350.9249999523163,
-            "totalMs": 397.30999994277954
+            "ms": 270.9449999332428,
+            "totalMs": 312.3000000715256
           },
           "spec": {
             "label": "book",
@@ -1589,8 +1590,8 @@
               "spatula",
               "scissors"
             ],
-            "ms": 1035.530000090599,
-            "totalMs": 1074.554999947548
+            "ms": 771.5849999189377,
+            "totalMs": 806.4450000524521
           },
           "spec": {
             "label": "spoon",
@@ -1626,8 +1627,8 @@
               "long shoehorn",
               "thing"
             ],
-            "ms": 361.710000038147,
-            "totalMs": 406.86500012874603
+            "ms": 267.75,
+            "totalMs": 308.539999961853
           },
           "spec": {
             "label": "shoe",
@@ -1668,8 +1669,8 @@
               "bottle opener",
               "thing"
             ],
-            "ms": 348.22499990463257,
-            "totalMs": 393.4099999666214
+            "ms": 269.0500000715256,
+            "totalMs": 307.2900000810623
           },
           "spec": {
             "label": "keys",
@@ -1710,8 +1711,8 @@
               "step stool",
               "thing"
             ],
-            "ms": 356.90500009059906,
-            "totalMs": 399.79500007629395
+            "ms": 268.43499994277954,
+            "totalMs": 306.18999993801117
           },
           "spec": {
             "label": "chair",
@@ -1750,8 +1751,8 @@
               "mango",
               "thing"
             ],
-            "ms": 354.1599999666214,
-            "totalMs": 398.93999993801117
+            "ms": 269.34500002861023,
+            "totalMs": 308.5900000333786
           },
           "spec": {
             "label": "banana",
@@ -1791,8 +1792,8 @@
               "mug",
               "bowl"
             ],
-            "ms": 1046.5249999761581,
-            "totalMs": 1090.6450001001358
+            "ms": 860.7200000286102,
+            "totalMs": 898.1050000190735
           },
           "spec": {
             "label": "cup",
@@ -1834,8 +1835,8 @@
               "computer",
               "monitor"
             ],
-            "ms": 1118.6449999809265,
-            "totalMs": 1163.2399998903275
+            "ms": 783.1100000143051,
+            "totalMs": 819.2549998760223
           },
           "spec": {
             "label": "laptop",
@@ -1876,8 +1877,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 402.6999999284744,
-            "totalMs": 449.3200000524521
+            "ms": 274.33000004291534,
+            "totalMs": 317.88500010967255
           },
           "spec": {
             "label": "mouse",
@@ -1917,8 +1918,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 367.38499999046326,
-            "totalMs": 413.0499999523163
+            "ms": 271.99000000953674,
+            "totalMs": 315.8399999141693
           },
           "spec": {
             "label": "laptop",
@@ -1959,8 +1960,8 @@
               "window",
               "thing"
             ],
-            "ms": 367.45499992370605,
-            "totalMs": 416.57999992370605
+            "ms": 274.9449999332428,
+            "totalMs": 315.585000038147
           },
           "spec": {
             "label": "monitor",
@@ -2001,8 +2002,8 @@
               "orange",
               "thing"
             ],
-            "ms": 367.54499995708466,
-            "totalMs": 409.47499990463257
+            "ms": 272.2999999523163,
+            "totalMs": 308.2699999809265
           },
           "spec": {
             "label": "apple",
@@ -2039,8 +2040,8 @@
               "watch",
               "thing"
             ],
-            "ms": 367.86500000953674,
-            "totalMs": 412.5199999809265
+            "ms": 271.875,
+            "totalMs": 310.09500002861023
           },
           "spec": {
             "label": "phone",
@@ -2081,8 +2082,8 @@
               "tea",
               "thing"
             ],
-            "ms": 365.539999961853,
-            "totalMs": 414.91999983787537
+            "ms": 270.63500010967255,
+            "totalMs": 307.79500007629395
           },
           "spec": {
             "label": "mug",
@@ -2123,8 +2124,8 @@
               "can opener",
               "thing"
             ],
-            "ms": 350.5499999523163,
-            "totalMs": 395.36499989032745
+            "ms": 272.64999997615814,
+            "totalMs": 312.1949999332428
           },
           "spec": {
             "label": "keys",
@@ -2167,8 +2168,8 @@
               "speaker",
               "thing"
             ],
-            "ms": 720.6850000619888,
-            "totalMs": 761.295000076294
+            "ms": 545.3250000476837,
+            "totalMs": 580.4900000095367
           },
           "spec": {
             "label": "theremin",
@@ -2205,8 +2206,8 @@
               "iron",
               "thing"
             ],
-            "ms": 1413.2050000429153,
-            "totalMs": 1459.5650000572205
+            "ms": 1061.2350000143051,
+            "totalMs": 1103.445000052452
           },
           "spec": {
             "label": "sextant",
@@ -2242,8 +2243,8 @@
               "ruler",
               "CD"
             ],
-            "ms": 1035.2649999856949,
-            "totalMs": 1082.914999961853
+            "ms": 783.5199999809265,
+            "totalMs": 830.115000128746
           },
           "spec": {
             "label": "astrolabe",
@@ -2276,9 +2277,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 479.88940001010894,
-            "p95Ms": 1037.8150000572205,
-            "avgTotalMs": 524.5247999954223,
+            "avgMs": 367.5533999967575,
+            "p95Ms": 787.2050000429153,
+            "avgTotalMs": 406.8349999856949,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2297,9 +2298,9 @@
             "broad": 0,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 568.3084000062943,
-            "p95Ms": 1056.125,
-            "avgTotalMs": 613.8864000034332,
+            "avgMs": 433.46300000190735,
+            "p95Ms": 792.8150000572205,
+            "avgTotalMs": 473.8472000074387,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2318,9 +2319,9 @@
             "broad": 0.04,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 618.9467999982834,
-            "p95Ms": 1416.0849999189377,
-            "avgTotalMs": 664.9162000083924,
+            "avgMs": 467.44039999961853,
+            "p95Ms": 1114.9750000238419,
+            "avgTotalMs": 507.8792000007629,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2339,9 +2340,9 @@
             "broad": 0.04,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 601.8281999921799,
-            "p95Ms": 1404.3149999380112,
-            "avgTotalMs": 646.7409999990464,
+            "avgMs": 462.2575999927521,
+            "p95Ms": 1097.6949999332428,
+            "avgTotalMs": 502.70840000629426,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2360,9 +2361,9 @@
             "broad": 0.04,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 631.9706000041962,
-            "p95Ms": 1416.835000038147,
-            "avgTotalMs": 676.4798000001907,
+            "avgMs": 495.5806000041962,
+            "p95Ms": 1076.625,
+            "avgTotalMs": 536.2506000232696,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2381,9 +2382,9 @@
             "broad": 0.04,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 634.9401999950409,
-            "p95Ms": 1417.5950000286102,
-            "avgTotalMs": 679.8113999986649,
+            "avgMs": 487.80079998016356,
+            "p95Ms": 1074.9800000190735,
+            "avgTotalMs": 528.3758000040054,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2402,9 +2403,9 @@
             "broad": 0.08,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 725.1087999963761,
-            "p95Ms": 1703.2450000047684,
-            "avgTotalMs": 770.2215999937057,
+            "avgMs": 545.9202000141144,
+            "p95Ms": 1280.2250000238419,
+            "avgTotalMs": 585.6237999963761,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2423,9 +2424,9 @@
             "broad": 0.08,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 777.4423999929428,
-            "p95Ms": 1713.3999999761581,
-            "avgTotalMs": 822.5486000013351,
+            "avgMs": 583.4117999982834,
+            "p95Ms": 1280.5,
+            "avgTotalMs": 624.4844000005722,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2444,9 +2445,9 @@
             "broad": 0.16,
             "blurry": 0,
             "medianSharpness": 2926.9478257543897,
-            "avgMs": 827.645599989891,
-            "p95Ms": 1706.7000000476837,
-            "avgTotalMs": 873.7903999853135,
+            "avgMs": 614.9863999986649,
+            "p95Ms": 1270.0299999713898,
+            "avgTotalMs": 654.6511999988556,
             "sources": {
               "vocab": 24,
               "none": 1
@@ -2466,9 +2467,9 @@
           "broad": 0.04,
           "blurry": 0,
           "medianSharpness": 2926.9478257543897,
-          "avgMs": 634.9401999950409,
-          "p95Ms": 1417.5950000286102,
-          "avgTotalMs": 679.8113999986649,
+          "avgMs": 487.80079998016356,
+          "p95Ms": 1074.9800000190735,
+          "avgTotalMs": 528.3758000040054,
           "sources": {
             "vocab": 24,
             "none": 1
@@ -5275,7 +5276,7 @@
         "matched": 1,
         "falseMatched": 0,
         "n": 25,
-        "avgMs": 360.2468000078201
+        "avgMs": 275.6845999956131
       }
     }
   ],
@@ -5294,9 +5295,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 2942.1173949141275,
-        "avgMs": 716.1121999979019,
-        "p95Ms": 1707.5249999761581,
-        "avgTotalMs": 764.2835999965667,
+        "avgMs": 528.7309999895095,
+        "p95Ms": 1250.8100000619888,
+        "avgTotalMs": 571.3857999944687,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5317,9 +5318,9 @@
         "broad": 0.12,
         "blurry": 0,
         "medianSharpness": 652.4400341464548,
-        "avgMs": 727.503799982071,
-        "p95Ms": 1388.4800000190735,
-        "avgTotalMs": 774.405799984932,
+        "avgMs": 717.4499999952317,
+        "p95Ms": 1666.6949999332428,
+        "avgTotalMs": 761.3708000040054,
         "sources": {
           "vocab": 25
         }
@@ -5339,9 +5340,9 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 957.4226254472544,
-        "avgMs": 851.5555999994278,
-        "p95Ms": 1396.125,
-        "avgTotalMs": 897.6230000019074,
+        "avgMs": 840.7790000152588,
+        "p95Ms": 1413.755000114441,
+        "avgTotalMs": 885.8582000112533,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5362,9 +5363,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 2660.0666847161624,
-        "avgMs": 757.415600013733,
-        "p95Ms": 1411.7699999809265,
-        "avgTotalMs": 804.9066000318527,
+        "avgMs": 727.6151999950409,
+        "p95Ms": 1318.2250000238419,
+        "avgTotalMs": 773.055799999237,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5385,9 +5386,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 7782.621993216299,
-        "avgMs": 702.8175999832154,
-        "p95Ms": 1322.0599999427795,
-        "avgTotalMs": 748.7187999916076,
+        "avgMs": 684.8055999994278,
+        "p95Ms": 1283.3100000619888,
+        "avgTotalMs": 728.3354000043869,
         "sources": {
           "vocab": 25
         }
@@ -5407,9 +5408,9 @@
         "broad": 0.28,
         "blurry": 0.96,
         "medianSharpness": 86.33651983604263,
-        "avgMs": 924.2580000114441,
-        "p95Ms": 1664.7400000095367,
-        "avgTotalMs": 972.2752000141144,
+        "avgMs": 886.176799993515,
+        "p95Ms": 1596.9700000286102,
+        "avgTotalMs": 929.7550000047684,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5430,9 +5431,9 @@
         "broad": 0.12,
         "blurry": 0.12,
         "medianSharpness": 1200.2486640736952,
-        "avgMs": 820.2569999980926,
-        "p95Ms": 1352.420000076294,
-        "avgTotalMs": 867.7805999946594,
+        "avgMs": 774.400400018692,
+        "p95Ms": 1180.3900001049042,
+        "avgTotalMs": 817.2576000356675,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5453,9 +5454,9 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 2679.2194262990006,
-        "avgMs": 635.0861999940872,
-        "p95Ms": 1008.4850000143051,
-        "avgTotalMs": 681.277000002861,
+        "avgMs": 503.17959998607637,
+        "p95Ms": 965.3899999856949,
+        "avgTotalMs": 543.6423999929428,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5476,12 +5477,348 @@
         "broad": 0.12,
         "blurry": 0,
         "medianSharpness": 338.8866238546703,
-        "avgMs": 910.8815999937058,
-        "p95Ms": 1340.6050000190735,
-        "avgTotalMs": 957.0657999849319,
+        "avgMs": 714.0193999958038,
+        "p95Ms": 1046.4000000953674,
+        "avgTotalMs": 754.2709999799729,
         "sources": {
           "vocab": 22,
           "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "sideways",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.88,
+        "auto": 0.72,
+        "wrongAuto": 0.04,
+        "notSure": 0,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2940.9100279378727,
+        "avgMs": 529.5630000019073,
+        "p95Ms": 1021.8650000095367,
+        "avgTotalMs": 569.1367999982834,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "upside-down",
+      "summary": {
+        "n": 25,
+        "top1": 0.6,
+        "top3": 0.76,
+        "auto": 0.84,
+        "wrongAuto": 0.2,
+        "notSure": 0,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 2941.1069229372506,
+        "avgMs": 517.3980000019073,
+        "p95Ms": 1020.5149999856949,
+        "avgTotalMs": 557.200800023079,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "plain",
+      "condition": "mirrored",
+      "summary": {
+        "n": 25,
+        "top1": 0.8,
+        "top3": 0.88,
+        "auto": 0.88,
+        "wrongAuto": 0.04,
+        "notSure": 0,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2944.2335328383433,
+        "avgMs": 515.045599989891,
+        "p95Ms": 806.3550000190735,
+        "avgTotalMs": 554.7599999952316,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "clean",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.84,
+        "auto": 0.88,
+        "wrongAuto": 0.08,
+        "notSure": 0.04,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 2942.1173949141275,
+        "avgMs": 1746.847199997902,
+        "p95Ms": 4620.289999961853,
+        "avgTotalMs": 1788.9366000080108,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.68,
+        "top3": 0.84,
+        "auto": 0.84,
+        "wrongAuto": 0.08,
+        "notSure": 0,
+        "broad": 0.12,
+        "blurry": 0,
+        "medianSharpness": 652.4400341464548,
+        "avgMs": 1750.2106000232698,
+        "p95Ms": 2827.0350000858307,
+        "avgTotalMs": 1791.1442000293732,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "very-dark",
+      "summary": {
+        "n": 25,
+        "top1": 0.56,
+        "top3": 0.68,
+        "auto": 0.64,
+        "wrongAuto": 0.16,
+        "notSure": 0.08,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 957.4226254472544,
+        "avgMs": 2230.950600013733,
+        "p95Ms": 3700.1849999427795,
+        "avgTotalMs": 2273.402600007057,
+        "sources": {
+          "vocab": 23,
+          "none": 2
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "bright",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.88,
+        "auto": 0.76,
+        "wrongAuto": 0.08,
+        "notSure": 0.04,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2660.0666847161624,
+        "avgMs": 1928.9177999925614,
+        "p95Ms": 3689.1999999284744,
+        "avgTotalMs": 1971.9699999904633,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "noisy",
+      "summary": {
+        "n": 25,
+        "top1": 0.64,
+        "top3": 0.76,
+        "auto": 0.84,
+        "wrongAuto": 0.12,
+        "notSure": 0,
+        "broad": 0.12,
+        "blurry": 0,
+        "medianSharpness": 7782.621993216299,
+        "avgMs": 1826.4083999872207,
+        "p95Ms": 2793.5950000286102,
+        "avgTotalMs": 1867.6417999887467,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.44,
+        "top3": 0.76,
+        "auto": 0.04,
+        "wrongAuto": 0,
+        "notSure": 0.04,
+        "broad": 0.28,
+        "blurry": 0.96,
+        "medianSharpness": 86.33651983604263,
+        "avgMs": 2396.9244000148774,
+        "p95Ms": 3716.014999985695,
+        "avgTotalMs": 2441.0408000087737,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "close",
+      "summary": {
+        "n": 25,
+        "top1": 0.48,
+        "top3": 0.76,
+        "auto": 0.64,
+        "wrongAuto": 0.16,
+        "notSure": 0.04,
+        "broad": 0.12,
+        "blurry": 0.12,
+        "medianSharpness": 1200.2486640736952,
+        "avgMs": 2155.5964000129698,
+        "p95Ms": 3694.2050000429153,
+        "avgTotalMs": 2198.1268000078203,
+        "sources": {
+          "vocab": 24,
+          "none": 1
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "tilted",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.88,
+        "auto": 0.92,
+        "wrongAuto": 0.16,
+        "notSure": 0,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2679.2194262990006,
+        "avgMs": 1595.4747999954225,
+        "p95Ms": 2841.664999961853,
+        "avgTotalMs": 1638.5839999866485,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "dark-blurry",
+      "summary": {
+        "n": 25,
+        "top1": 0.44,
+        "top3": 0.52,
+        "auto": 0.48,
+        "wrongAuto": 0.2,
+        "notSure": 0.12,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 338.8866238546703,
+        "avgMs": 2421.8222000265123,
+        "p95Ms": 3693.4249999523163,
+        "avgTotalMs": 2463.146400036812,
+        "sources": {
+          "vocab": 22,
+          "none": 3
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "sideways",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.84,
+        "auto": 0.8,
+        "wrongAuto": 0.08,
+        "notSure": 0,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2940.9100279378727,
+        "avgMs": 1562.5115999937057,
+        "p95Ms": 3680.8799999952316,
+        "avgTotalMs": 1604.5999999904632,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "upside-down",
+      "summary": {
+        "n": 25,
+        "top1": 0.68,
+        "top3": 0.84,
+        "auto": 0.92,
+        "wrongAuto": 0.16,
+        "notSure": 0,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 2941.1069229372506,
+        "avgMs": 1643.6049999809266,
+        "p95Ms": 2843.805000066757,
+        "avgTotalMs": 1686.8029999732971,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "rot-margin",
+      "condition": "mirrored",
+      "summary": {
+        "n": 25,
+        "top1": 0.76,
+        "top3": 0.88,
+        "auto": 0.92,
+        "wrongAuto": 0.12,
+        "notSure": 0,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2944.2335328383433,
+        "avgMs": 1710.8910000276564,
+        "p95Ms": 2839.7850000858307,
+        "avgTotalMs": 1754.4234000492097,
+        "sources": {
+          "vocab": 25
         }
       }
     },
@@ -5499,9 +5836,9 @@
         "broad": 0,
         "blurry": 0,
         "medianSharpness": 2942.1173949141275,
-        "avgMs": 698.030200009346,
-        "p95Ms": 1672.8450000286102,
-        "avgTotalMs": 744.5872000122071,
+        "avgMs": 546.2605999994278,
+        "p95Ms": 1295.9500000476837,
+        "avgTotalMs": 589.045999994278,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5522,9 +5859,9 @@
         "broad": 0.12,
         "blurry": 0,
         "medianSharpness": 652.4400341464548,
-        "avgMs": 626.7326000165939,
-        "p95Ms": 1063.195000052452,
-        "avgTotalMs": 672.2320000219345,
+        "avgMs": 496.19280000686643,
+        "p95Ms": 837.6399999856949,
+        "avgTotalMs": 537.0296000051499,
         "sources": {
           "vocab": 25
         }
@@ -5544,9 +5881,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 957.4226254472544,
-        "avgMs": 780.680799999237,
-        "p95Ms": 1129.5199999809265,
-        "avgTotalMs": 826.4414000034333,
+        "avgMs": 607.842000002861,
+        "p95Ms": 861.0049999952316,
+        "avgTotalMs": 647.7192000102997,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5567,9 +5904,9 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 2660.0666847161624,
-        "avgMs": 685.6652000141144,
-        "p95Ms": 1000.585000038147,
-        "avgTotalMs": 731.9242000150681,
+        "avgMs": 563.9580000019073,
+        "p95Ms": 804.2600001096725,
+        "avgTotalMs": 604.0473999929428,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5590,9 +5927,9 @@
         "broad": 0.12,
         "blurry": 0,
         "medianSharpness": 7782.621993216299,
-        "avgMs": 609.4485999965668,
-        "p95Ms": 1194.9649999141693,
-        "avgTotalMs": 653.675,
+        "avgMs": 537.6461999988555,
+        "p95Ms": 1056.594999909401,
+        "avgTotalMs": 577.7732000017166,
         "sources": {
           "vocab": 25
         }
@@ -5612,9 +5949,9 @@
         "broad": 0.32,
         "blurry": 0.96,
         "medianSharpness": 86.33651983604263,
-        "avgMs": 849.7246000003814,
-        "p95Ms": 1552.0049999952316,
-        "avgTotalMs": 895.1484000110627,
+        "avgMs": 703.9738000202179,
+        "p95Ms": 1059.875,
+        "avgTotalMs": 743.7818000173569,
         "sources": {
           "vocab": 25
         }
@@ -5634,9 +5971,9 @@
         "broad": 0.16,
         "blurry": 0.12,
         "medianSharpness": 1200.2486640736952,
-        "avgMs": 745.9704000043869,
-        "p95Ms": 1240.0199999809265,
-        "avgTotalMs": 791.1188000011445,
+        "avgMs": 628.9634000015259,
+        "p95Ms": 1057.625,
+        "avgTotalMs": 668.6118000030517,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5657,9 +5994,9 @@
         "broad": 0.04,
         "blurry": 0,
         "medianSharpness": 2679.2194262990006,
-        "avgMs": 625.9200000047683,
-        "p95Ms": 1010.0199999809265,
-        "avgTotalMs": 672.103799996376,
+        "avgMs": 496.1489999961853,
+        "p95Ms": 812.4050000905991,
+        "avgTotalMs": 537.2543999910355,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5680,9 +6017,9 @@
         "broad": 0.08,
         "blurry": 0,
         "medianSharpness": 338.8866238546703,
-        "avgMs": 972.7195999860763,
-        "p95Ms": 1397.664999961853,
-        "avgTotalMs": 1019.0873999977111,
+        "avgMs": 754.1190000009536,
+        "p95Ms": 1069.6349999904633,
+        "avgTotalMs": 794.1008000040055,
         "sources": {
           "vocab": 21,
           "none": 4
@@ -5691,205 +6028,67 @@
     },
     {
       "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "clean",
+      "variant": "enhance",
+      "condition": "sideways",
+      "summary": {
+        "n": 25,
+        "top1": 0.72,
+        "top3": 0.88,
+        "auto": 0.72,
+        "wrongAuto": 0.04,
+        "notSure": 0,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2940.9100279378727,
+        "avgMs": 516.5601999998092,
+        "p95Ms": 1058.0049999952316,
+        "avgTotalMs": 556.5460000181198,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "upside-down",
+      "summary": {
+        "n": 25,
+        "top1": 0.64,
+        "top3": 0.76,
+        "auto": 0.8,
+        "wrongAuto": 0.2,
+        "notSure": 0,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2941.1069229372506,
+        "avgMs": 504.87960000038146,
+        "p95Ms": 899.2749999761581,
+        "avgTotalMs": 545.6140000152587,
+        "sources": {
+          "vocab": 25
+        }
+      }
+    },
+    {
+      "folder": "test-images",
+      "variant": "enhance",
+      "condition": "mirrored",
       "summary": {
         "n": 25,
         "top1": 0.8,
         "top3": 0.88,
-        "auto": 0.8,
-        "wrongAuto": 0,
-        "notSure": 0,
-        "broad": 0.04,
-        "blurry": 0,
-        "medianSharpness": 2942.1173949141275,
-        "avgMs": 1293.8380000019074,
-        "p95Ms": 3045.295000076294,
-        "avgTotalMs": 1342.6956000041962,
-        "sources": {
-          "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "dark",
-      "summary": {
-        "n": 25,
-        "top1": 0.72,
-        "top3": 0.8,
-        "auto": 0.8,
-        "wrongAuto": 0.08,
-        "notSure": 0,
-        "broad": 0.08,
-        "blurry": 0,
-        "medianSharpness": 652.4400341464548,
-        "avgMs": 1203.512599992752,
-        "p95Ms": 1990.5749999284744,
-        "avgTotalMs": 1250.2563999795914,
-        "sources": {
-          "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "very-dark",
-      "summary": {
-        "n": 25,
-        "top1": 0.6,
-        "top3": 0.64,
-        "auto": 0.6,
-        "wrongAuto": 0.04,
-        "notSure": 0.08,
-        "broad": 0,
-        "blurry": 0,
-        "medianSharpness": 957.4226254472544,
-        "avgMs": 1420.877599992752,
-        "p95Ms": 1957.4750000238419,
-        "avgTotalMs": 1469.5544000053405,
-        "sources": {
-          "vocab": 23,
-          "none": 2
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "bright",
-      "summary": {
-        "n": 25,
-        "top1": 0.72,
-        "top3": 0.88,
-        "auto": 0.76,
-        "wrongAuto": 0.12,
-        "notSure": 0.04,
-        "broad": 0,
-        "blurry": 0,
-        "medianSharpness": 2660.0666847161624,
-        "avgMs": 1285.144399986267,
-        "p95Ms": 2029.4900000095367,
-        "avgTotalMs": 1333.4427999782563,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "noisy",
-      "summary": {
-        "n": 25,
-        "top1": 0.72,
-        "top3": 0.84,
-        "auto": 0.76,
+        "auto": 0.88,
         "wrongAuto": 0.04,
         "notSure": 0,
         "broad": 0.04,
         "blurry": 0,
-        "medianSharpness": 7782.621993216299,
-        "avgMs": 1321.7262000226974,
-        "p95Ms": 2447.180000066757,
-        "avgTotalMs": 1369.255600028038,
+        "medianSharpness": 2944.2335328383433,
+        "avgMs": 540.1764000082017,
+        "p95Ms": 834.6349999904633,
+        "avgTotalMs": 581.1340000152588,
         "sources": {
           "vocab": 25
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "blurry",
-      "summary": {
-        "n": 25,
-        "top1": 0.4,
-        "top3": 0.8,
-        "auto": 0.04,
-        "wrongAuto": 0,
-        "notSure": 0.04,
-        "broad": 0.32,
-        "blurry": 0.96,
-        "medianSharpness": 86.33651983604263,
-        "avgMs": 1579.0236000061036,
-        "p95Ms": 2426.8300000429153,
-        "avgTotalMs": 1626.831399998665,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "close",
-      "summary": {
-        "n": 25,
-        "top1": 0.52,
-        "top3": 0.76,
-        "auto": 0.56,
-        "wrongAuto": 0.16,
-        "notSure": 0.04,
-        "broad": 0.04,
-        "blurry": 0.12,
-        "medianSharpness": 1200.2486640736952,
-        "avgMs": 1445.7463999938964,
-        "p95Ms": 2421.0350000858307,
-        "avgTotalMs": 1495.3256000137328,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "tilted",
-      "summary": {
-        "n": 25,
-        "top1": 0.76,
-        "top3": 0.88,
-        "auto": 0.8,
-        "wrongAuto": 0.04,
-        "notSure": 0.04,
-        "broad": 0.04,
-        "blurry": 0,
-        "medianSharpness": 2679.2194262990006,
-        "avgMs": 1122.7852000236512,
-        "p95Ms": 1784.0950000286102,
-        "avgTotalMs": 1169.4016000318527,
-        "sources": {
-          "vocab": 24,
-          "none": 1
-        }
-      }
-    },
-    {
-      "folder": "test-images",
-      "variant": "enhance+flip",
-      "condition": "dark-blurry",
-      "summary": {
-        "n": 25,
-        "top1": 0.56,
-        "top3": 0.64,
-        "auto": 0.56,
-        "wrongAuto": 0.04,
-        "notSure": 0.24,
-        "broad": 0.08,
-        "blurry": 0,
-        "medianSharpness": 338.8866238546703,
-        "avgMs": 1376.115600013733,
-        "p95Ms": 1978.1200000047684,
-        "avgTotalMs": 1419.338400015831,
-        "sources": {
-          "vocab": 19,
-          "none": 6
         }
       }
     }
