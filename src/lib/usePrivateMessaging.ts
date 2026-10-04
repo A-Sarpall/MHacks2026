@@ -37,7 +37,9 @@ export function usePrivateMessaging() {
   }, []);
   const [chosenOnce, setChosenOnce] = useState(() => {
     try {
-      return localStorage.getItem("cue.contacts.selected.v1") !== null;
+      const raw = localStorage.getItem("cue.contacts.selected.v1");
+      const parsed: unknown = raw ? JSON.parse(raw) : null;
+      return Array.isArray(parsed) && parsed.length > 0;
     } catch {
       return false;
     }
