@@ -1,0 +1,6668 @@
+{
+  "generatedAt": "2026-10-04T14:59:31.106Z",
+  "states": [
+    "nothing-captured",
+    "captured-no-intent",
+    "intent-chosen",
+    "builder-slot-filled",
+    "overstimulated",
+    "help-panel",
+    "incoming-message"
+  ],
+  "viewports": [
+    {
+      "name": "iphone-393x852",
+      "width": 393,
+      "height": 852
+    },
+    {
+      "name": "iphone-375x667",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "name": "ipad-portrait-820x1180",
+      "width": 820,
+      "height": 1180
+    },
+    {
+      "name": "ipad-landscape-1180x820",
+      "width": 1180,
+      "height": 820
+    }
+  ],
+  "checks": [
+    "scroll",
+    "blocks",
+    "targets",
+    "text",
+    "motion",
+    "timers"
+  ],
+  "passed": 10,
+  "failed": 18,
+  "results": [
+    {
+      "state": "nothing-captured",
+      "viewport": "iphone-393x852",
+      "reached": true,
+      "screenshot": "eval-results/layout/nothing-captured-iphone-393x852.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 393x852 in 393x852"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 0"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 393,
+        "innerHeight": 852,
+        "scrollHeight": 852,
+        "scrollWidth": 393,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 438,
+              "bottom": 578,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 346,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 354,
+              "bottom": 406,
+              "left": 12,
+              "right": 193
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 174,
+              "right": 308
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 86,
+              "right": 166
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 586,
+              "bottom": 700,
+              "left": 12,
+              "right": 381
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=spoken-text]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=candidates]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 0,
+        "scrollers": [],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "nothing-captured",
+      "viewport": "iphone-375x667",
+      "reached": true,
+      "screenshot": "eval-results/layout/nothing-captured-iphone-375x667.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 375x667 in 375x667"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 0"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 375,
+        "innerHeight": 667,
+        "scrollHeight": 667,
+        "scrollWidth": 375,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 392,
+              "bottom": 518,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 332,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 340,
+              "bottom": 384,
+              "left": 12,
+              "right": 184
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 156,
+              "right": 290
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 68,
+              "right": 148
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 526,
+              "bottom": 624,
+              "left": 12,
+              "right": 363
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=spoken-text]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=candidates]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 0,
+        "scrollers": [],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 14
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "nothing-captured",
+      "viewport": "ipad-portrait-820x1180",
+      "reached": true,
+      "screenshot": "eval-results/layout/nothing-captured-ipad-portrait-820x1180.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 820x1180 in 820x1180"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 0"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 820,
+        "innerHeight": 1180,
+        "scrollHeight": 1180,
+        "scrollWidth": 820,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 509,
+              "bottom": 657,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 405,
+              "left": 186,
+              "right": 634
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 413,
+              "bottom": 477,
+              "left": 16,
+              "right": 406
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 589,
+              "right": 723
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 501,
+              "right": 581
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 693,
+              "bottom": 831,
+              "left": 16,
+              "right": 804
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=spoken-text]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=candidates]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 0,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "nothing-captured",
+      "viewport": "ipad-landscape-1180x820",
+      "reached": true,
+      "screenshot": "eval-results/layout/nothing-captured-ipad-landscape-1180x820.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 1180x820 in 1180x820"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 0"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 1180,
+        "innerHeight": 820,
+        "scrollHeight": 820,
+        "scrollWidth": 1180,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 492,
+              "bottom": 630,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 400,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 408,
+              "bottom": 460,
+              "left": 30,
+              "right": 247
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 949,
+              "right": 1083
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 861,
+              "right": 941
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 139,
+              "left": 488,
+              "right": 1150
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=spoken-text]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=candidates]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 0,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "captured-no-intent",
+      "viewport": "iphone-393x852",
+      "reached": true,
+      "screenshot": "eval-results/layout/captured-no-intent-iphone-393x852.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 393x852 in 393x852"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 3"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 393,
+        "innerHeight": 852,
+        "scrollHeight": 852,
+        "scrollWidth": 393,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 245,
+              "bottom": 385,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 213,
+              "left": 12,
+              "right": 193
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 174,
+              "right": 308
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 86,
+              "right": 166
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 381
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 393,
+              "bottom": 507,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 515,
+              "bottom": 692,
+              "left": 12,
+              "right": 381
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 3,
+        "scrollers": [],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "captured-no-intent",
+      "viewport": "iphone-375x667",
+      "reached": true,
+      "screenshot": "eval-results/layout/captured-no-intent-iphone-375x667.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 375x667 in 375x667"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 3"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 375,
+        "innerHeight": 667,
+        "scrollHeight": 667,
+        "scrollWidth": 375,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 213,
+              "bottom": 339,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 205,
+              "left": 12,
+              "right": 184
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 156,
+              "right": 290
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 68,
+              "right": 148
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 363
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 347,
+              "bottom": 445,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 453,
+              "bottom": 614,
+              "left": 12,
+              "right": 363
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 3,
+        "scrollers": [],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 14
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "captured-no-intent",
+      "viewport": "ipad-portrait-820x1180",
+      "reached": true,
+      "screenshot": "eval-results/layout/captured-no-intent-ipad-portrait-820x1180.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 820x1180 in 820x1180"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 3"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 820,
+        "innerHeight": 1180,
+        "scrollHeight": 1180,
+        "scrollWidth": 820,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 281,
+              "bottom": 429,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 16,
+              "right": 160
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 249,
+              "left": 16,
+              "right": 406
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 589,
+              "right": 723
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 501,
+              "right": 581
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 168,
+              "right": 294
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 302,
+              "right": 804
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 465,
+              "bottom": 603,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 611,
+              "bottom": 819,
+              "left": 16,
+              "right": 804
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 3,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "captured-no-intent",
+      "viewport": "ipad-landscape-1180x820",
+      "reached": true,
+      "screenshot": "eval-results/layout/captured-no-intent-ipad-landscape-1180x820.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 1180x820 in 1180x820"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 3"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 1180,
+        "innerHeight": 820,
+        "scrollHeight": 820,
+        "scrollWidth": 1180,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 269,
+              "bottom": 407,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 30,
+              "right": 174
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 237,
+              "left": 30,
+              "right": 247
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 949,
+              "right": 1083
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 861,
+              "right": 941
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 182,
+              "right": 308
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 316,
+              "right": 472
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 139,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 266,
+              "left": 488,
+              "right": 1150
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 3,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "intent-chosen",
+      "viewport": "iphone-393x852",
+      "reached": true,
+      "screenshot": "eval-results/layout/intent-chosen-iphone-393x852.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 393x852 in 393x852; scrollers: div[candidates] 172/153"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 4/4"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[build-option] \"want\" 16px; button[build-option] \"need\" 16px; button[build-option] \"would like\" 16px; button[build-option] \"will drink from\" 16px; button[build-option] \"need to fill\" 16px; button[build-option] \"want to wash\" 16px; button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 393,
+        "innerHeight": 852,
+        "scrollHeight": 852,
+        "scrollWidth": 393,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 245,
+              "bottom": 385,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 213,
+              "left": 12,
+              "right": 193
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 174,
+              "right": 308
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 86,
+              "right": 166
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 381
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 393,
+              "bottom": 507,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 691,
+              "bottom": 844,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 395,
+              "bottom": 447,
+              "left": 14,
+              "right": 132
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 515,
+              "bottom": 683,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 515,
+              "bottom": 567,
+              "left": 12,
+              "right": 294
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 519,
+              "bottom": 563,
+              "left": 33,
+              "right": 77
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 515,
+              "bottom": 567,
+              "left": 302,
+              "right": 381
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 573,
+              "bottom": 625,
+              "left": 12,
+              "right": 131
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 4,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 172,
+            "clientHeight": 153,
+            "scrollWidth": 369,
+            "clientWidth": 369,
+            "hides": []
+          }
+        ],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "would like",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "will drink from",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need to fill",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want to wash",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "intent-chosen",
+      "viewport": "iphone-375x667",
+      "reached": true,
+      "screenshot": "eval-results/layout/intent-chosen-iphone-375x667.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 153/46"
+        },
+        "blocks": {
+          "pass": false,
+          "detail": "all blocks in view; candidates fully visible 2/4"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[build-option] \"want\" 14px; button[build-option] \"need\" 14px; button[build-option] \"would like\" 14px; button[build-option] \"will drink from\" 14px; button[build-option] \"need to fill\" 14px; button[build-option] \"want to wash\" 14px; button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 375,
+        "innerHeight": 667,
+        "scrollHeight": 667,
+        "scrollWidth": 375,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 213,
+              "bottom": 339,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 205,
+              "left": 12,
+              "right": 184
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 156,
+              "right": 290
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 68,
+              "right": 148
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 363
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 347,
+              "bottom": 445,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 613,
+              "bottom": 659,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 349,
+              "bottom": 393,
+              "left": 14,
+              "right": 126
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 453,
+              "bottom": 605,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 453,
+              "bottom": 505,
+              "left": 12,
+              "right": 276
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 457,
+              "bottom": 501,
+              "left": 33,
+              "right": 77
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 453,
+              "bottom": 505,
+              "left": 284,
+              "right": 363
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 511,
+              "bottom": 555,
+              "left": 12,
+              "right": 125
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 2,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 153,
+            "clientHeight": 46,
+            "scrollWidth": 351,
+            "clientWidth": 351,
+            "hides": []
+          }
+        ],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "would like",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "will drink from",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need to fill",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want to wash",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 14
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "intent-chosen",
+      "viewport": "ipad-portrait-820x1180",
+      "reached": true,
+      "screenshot": "eval-results/layout/intent-chosen-ipad-portrait-820x1180.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 820x1180 in 820x1180"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 6/4"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 820,
+        "innerHeight": 1180,
+        "scrollHeight": 1180,
+        "scrollWidth": 820,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 281,
+              "bottom": 429,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 16,
+              "right": 160
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 249,
+              "left": 16,
+              "right": 406
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 589,
+              "right": 723
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 501,
+              "right": 581
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 168,
+              "right": 294
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 302,
+              "right": 804
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 465,
+              "bottom": 603,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 823,
+              "bottom": 1031,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 467,
+              "bottom": 531,
+              "left": 18,
+              "right": 275
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 611,
+              "bottom": 815,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 611,
+              "bottom": 675,
+              "left": 16,
+              "right": 717
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 621,
+              "bottom": 665,
+              "left": 37,
+              "right": 81
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 611,
+              "bottom": 675,
+              "left": 725,
+              "right": 804
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 681,
+              "bottom": 745,
+              "left": 16,
+              "right": 275
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 6,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "intent-chosen",
+      "viewport": "ipad-landscape-1180x820",
+      "reached": true,
+      "screenshot": "eval-results/layout/intent-chosen-ipad-landscape-1180x820.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 1180x820 in 1180x820"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 6/4"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 1180,
+        "innerHeight": 820,
+        "scrollHeight": 820,
+        "scrollWidth": 1180,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 269,
+              "bottom": 407,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 30,
+              "right": 174
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 237,
+              "left": 30,
+              "right": 247
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 949,
+              "right": 1083
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 861,
+              "right": 941
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 182,
+              "right": 308
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 316,
+              "right": 472
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 139,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 323,
+              "bottom": 442,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 71,
+              "bottom": 137,
+              "left": 490,
+              "right": 594
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 315,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 199,
+              "left": 488,
+              "right": 1063
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 151,
+              "bottom": 195,
+              "left": 509,
+              "right": 553
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 199,
+              "left": 1071,
+              "right": 1150
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 205,
+              "bottom": 257,
+              "left": 488,
+              "right": 704
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 6,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "builder-slot-filled",
+      "viewport": "iphone-393x852",
+      "reached": true,
+      "screenshot": "eval-results/layout/builder-slot-filled-iphone-393x852.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 393x852 in 393x852; scrollers: div[candidates] 172/153"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 4/4"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[build-option] \"now\" 16px; button[build-option] \"please\" 16px; button[build-option] \"later\" 16px; button[build-option] \"today\" 16px; button[build-option] \"with coffee\" 16px; button[build-option] \"nothing\" 16px; button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 393,
+        "innerHeight": 852,
+        "scrollHeight": 852,
+        "scrollWidth": 393,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 245,
+              "bottom": 385,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 213,
+              "left": 12,
+              "right": 193
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 174,
+              "right": 308
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 86,
+              "right": 166
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 381
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 393,
+              "bottom": 507,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 691,
+              "bottom": 844,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 395,
+              "bottom": 447,
+              "left": 14,
+              "right": 132
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 515,
+              "bottom": 683,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 515,
+              "bottom": 567,
+              "left": 12,
+              "right": 294
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 519,
+              "bottom": 563,
+              "left": 33,
+              "right": 90
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 515,
+              "bottom": 567,
+              "left": 302,
+              "right": 381
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 573,
+              "bottom": 625,
+              "left": 12,
+              "right": 131
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 4,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 172,
+            "clientHeight": 153,
+            "scrollWidth": 369,
+            "clientWidth": 369,
+            "hides": []
+          }
+        ],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "now",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "please",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "later",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "today",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "with coffee",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "nothing",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "builder-slot-filled",
+      "viewport": "iphone-375x667",
+      "reached": true,
+      "screenshot": "eval-results/layout/builder-slot-filled-iphone-375x667.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 153/46"
+        },
+        "blocks": {
+          "pass": false,
+          "detail": "all blocks in view; candidates fully visible 2/4"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[build-option] \"now\" 14px; button[build-option] \"please\" 14px; button[build-option] \"later\" 14px; button[build-option] \"today\" 14px; button[build-option] \"with coffee\" 14px; button[build-option] \"nothing\" 14px; button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 375,
+        "innerHeight": 667,
+        "scrollHeight": 667,
+        "scrollWidth": 375,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 213,
+              "bottom": 339,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 205,
+              "left": 12,
+              "right": 184
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 156,
+              "right": 290
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 68,
+              "right": 148
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 363
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 347,
+              "bottom": 445,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 613,
+              "bottom": 659,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 349,
+              "bottom": 393,
+              "left": 14,
+              "right": 126
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 453,
+              "bottom": 605,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 453,
+              "bottom": 505,
+              "left": 12,
+              "right": 276
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 457,
+              "bottom": 501,
+              "left": 33,
+              "right": 90
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 453,
+              "bottom": 505,
+              "left": 284,
+              "right": 363
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 511,
+              "bottom": 555,
+              "left": 12,
+              "right": 125
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 2,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 153,
+            "clientHeight": 46,
+            "scrollWidth": 351,
+            "clientWidth": 351,
+            "hides": []
+          }
+        ],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "now",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "please",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "later",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "today",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "with coffee",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "nothing",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 14
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "builder-slot-filled",
+      "viewport": "ipad-portrait-820x1180",
+      "reached": true,
+      "screenshot": "eval-results/layout/builder-slot-filled-ipad-portrait-820x1180.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 820x1180 in 820x1180"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 6/4"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 820,
+        "innerHeight": 1180,
+        "scrollHeight": 1180,
+        "scrollWidth": 820,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 281,
+              "bottom": 429,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 16,
+              "right": 160
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 249,
+              "left": 16,
+              "right": 406
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 589,
+              "right": 723
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 501,
+              "right": 581
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 168,
+              "right": 294
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 302,
+              "right": 804
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 465,
+              "bottom": 603,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 823,
+              "bottom": 1031,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 467,
+              "bottom": 531,
+              "left": 18,
+              "right": 275
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 611,
+              "bottom": 815,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 611,
+              "bottom": 675,
+              "left": 16,
+              "right": 717
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 621,
+              "bottom": 665,
+              "left": 37,
+              "right": 94
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 611,
+              "bottom": 675,
+              "left": 725,
+              "right": 804
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 681,
+              "bottom": 745,
+              "left": 16,
+              "right": 275
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 6,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "builder-slot-filled",
+      "viewport": "ipad-landscape-1180x820",
+      "reached": true,
+      "screenshot": "eval-results/layout/builder-slot-filled-ipad-landscape-1180x820.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 1180x820 in 1180x820"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 6/4"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 1180,
+        "innerHeight": 820,
+        "scrollHeight": 820,
+        "scrollWidth": 1180,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 269,
+              "bottom": 407,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 30,
+              "right": 174
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 237,
+              "left": 30,
+              "right": 247
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 949,
+              "right": 1083
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 861,
+              "right": 941
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 182,
+              "right": 308
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 316,
+              "right": 472
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 139,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 323,
+              "bottom": 442,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 71,
+              "bottom": 137,
+              "left": 490,
+              "right": 594
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 315,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 199,
+              "left": 488,
+              "right": 1063
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 151,
+              "bottom": 195,
+              "left": 509,
+              "right": 566
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 199,
+              "left": 1071,
+              "right": 1150
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 205,
+              "bottom": 257,
+              "left": 488,
+              "right": 704
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 6,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "overstimulated",
+      "viewport": "iphone-393x852",
+      "reached": true,
+      "screenshot": "eval-results/layout/overstimulated-iphone-393x852.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 393x852 in 393x852"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 0"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 393,
+        "innerHeight": 852,
+        "scrollHeight": 852,
+        "scrollWidth": 393,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 385,
+              "bottom": 525,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 189,
+              "left": 12,
+              "right": 172
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 301,
+              "bottom": 353,
+              "left": 12,
+              "right": 193
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 156,
+              "right": 308
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 67,
+              "right": 148
+            }
+          },
+          {
+            "name": "overstimulated status",
+            "sel": "[data-testid=overstimulated-status]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 217,
+              "bottom": 273,
+              "left": 30,
+              "right": 261
+            }
+          },
+          {
+            "name": "clear status",
+            "sel": "[data-testid=clear-status]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 211,
+              "bottom": 279,
+              "left": 273,
+              "right": 363
+            }
+          },
+          {
+            "name": "badge pressed",
+            "sel": "[data-testid=capacity-badge][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 156,
+              "right": 308
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=intents]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=candidates]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 0,
+        "scrollers": [],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "overstimulated",
+      "viewport": "iphone-375x667",
+      "reached": true,
+      "screenshot": "eval-results/layout/overstimulated-iphone-375x667.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 375x667 in 375x667"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 0"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 375,
+        "innerHeight": 667,
+        "scrollHeight": 667,
+        "scrollWidth": 375,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 369,
+              "bottom": 495,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 189,
+              "left": 12,
+              "right": 172
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 317,
+              "bottom": 361,
+              "left": 12,
+              "right": 184
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 138,
+              "right": 290
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 49,
+              "right": 130
+            }
+          },
+          {
+            "name": "overstimulated status",
+            "sel": "[data-testid=overstimulated-status]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 211,
+              "bottom": 295,
+              "left": 30,
+              "right": 243
+            }
+          },
+          {
+            "name": "clear status",
+            "sel": "[data-testid=clear-status]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 219,
+              "bottom": 287,
+              "left": 255,
+              "right": 345
+            }
+          },
+          {
+            "name": "badge pressed",
+            "sel": "[data-testid=capacity-badge][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 138,
+              "right": 290
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=intents]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=candidates]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 0,
+        "scrollers": [],
+        "small": [],
+        "smallText": [
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 14
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "overstimulated",
+      "viewport": "ipad-portrait-820x1180",
+      "reached": true,
+      "screenshot": "eval-results/layout/overstimulated-ipad-portrait-820x1180.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 820x1180 in 820x1180"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 0"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 820,
+        "innerHeight": 1180,
+        "scrollHeight": 1180,
+        "scrollWidth": 820,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 373,
+              "bottom": 521,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 189,
+              "left": 16,
+              "right": 176
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 277,
+              "bottom": 341,
+              "left": 16,
+              "right": 406
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 571,
+              "right": 723
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 482,
+              "right": 563
+            }
+          },
+          {
+            "name": "overstimulated status",
+            "sel": "[data-testid=overstimulated-status]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 217,
+              "bottom": 249,
+              "left": 34,
+              "right": 539
+            }
+          },
+          {
+            "name": "clear status",
+            "sel": "[data-testid=clear-status]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 211,
+              "bottom": 255,
+              "left": 653,
+              "right": 786
+            }
+          },
+          {
+            "name": "badge pressed",
+            "sel": "[data-testid=capacity-badge][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 571,
+              "right": 723
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=intents]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=candidates]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 0,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "overstimulated",
+      "viewport": "ipad-landscape-1180x820",
+      "reached": true,
+      "screenshot": "eval-results/layout/overstimulated-ipad-landscape-1180x820.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 1180x820 in 1180x820"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 0"
+        },
+        "targets": {
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 1180,
+        "innerHeight": 820,
+        "scrollHeight": 820,
+        "scrollWidth": 1180,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 385,
+              "bottom": 523,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 189,
+              "left": 30,
+              "right": 190
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 301,
+              "bottom": 353,
+              "left": 30,
+              "right": 247
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 931,
+              "right": 1083
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 842,
+              "right": 923
+            }
+          },
+          {
+            "name": "overstimulated status",
+            "sel": "[data-testid=overstimulated-status]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 213,
+              "bottom": 277,
+              "left": 48,
+              "right": 348
+            }
+          },
+          {
+            "name": "clear status",
+            "sel": "[data-testid=clear-status]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 211,
+              "bottom": 279,
+              "left": 360,
+              "right": 454
+            }
+          },
+          {
+            "name": "badge pressed",
+            "sel": "[data-testid=capacity-badge][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 931,
+              "right": 1083
+            }
+          }
+        ],
+        "absent": [
+          {
+            "sel": "[data-testid=intents]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=build]",
+            "present": false
+          },
+          {
+            "sel": "[data-testid=candidates]",
+            "present": false
+          }
+        ],
+        "candidatesVisible": 0,
+        "scrollers": [],
+        "small": [],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "help-panel",
+      "viewport": "iphone-393x852",
+      "reached": true,
+      "screenshot": "eval-results/layout/help-panel-iphone-393x852.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 393x852 in 393x852; scrollers: div[candidates] 172/4"
+        },
+        "blocks": {
+          "pass": false,
+          "detail": "not fully in view: candidates (853-857px); candidates fully visible 0/4"
+        },
+        "targets": {
+          "pass": false,
+          "detail": "button in [help-panel] \"Close\" 36x32"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button in [help-panel] \"Close\" 16px; button[build-option] \"want\" 16px; button[build-option] \"need\" 16px; button[build-option] \"would like\" 16px; button[build-option] \"will drink from\" 16px; button[build-option] \"need to fill\" 16px; button[build-option] \"want to wash\" 16px; button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 393,
+        "innerHeight": 852,
+        "scrollHeight": 852,
+        "scrollWidth": 393,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 407,
+              "bottom": 547,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 323,
+              "bottom": 375,
+              "left": 12,
+              "right": 193
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 174,
+              "right": 308
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 86,
+              "right": 166
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 381
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 555,
+              "bottom": 669,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 853,
+              "bottom": 857,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 557,
+              "bottom": 609,
+              "left": 14,
+              "right": 132
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 677,
+              "bottom": 845,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 677,
+              "bottom": 729,
+              "left": 12,
+              "right": 294
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 681,
+              "bottom": 725,
+              "left": 33,
+              "right": 77
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 677,
+              "bottom": 729,
+              "left": 302,
+              "right": 381
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 735,
+              "bottom": 787,
+              "left": 12,
+              "right": 131
+            }
+          },
+          {
+            "name": "help panel",
+            "sel": "[data-testid=help-panel]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 315,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "help say button",
+            "sel": "[data-testid=help-panel] button",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 179,
+              "bottom": 211,
+              "left": 327,
+              "right": 363
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 0,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 172,
+            "clientHeight": 4,
+            "scrollWidth": 369,
+            "clientWidth": 369,
+            "hides": []
+          }
+        ],
+        "small": [
+          {
+            "el": "button in [help-panel]",
+            "text": "Close",
+            "w": 36,
+            "h": 32
+          }
+        ],
+        "smallText": [
+          {
+            "sel": "[data-testid=help-panel] button",
+            "el": "button in [help-panel]",
+            "text": "Close",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "would like",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "will drink from",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need to fill",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want to wash",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "help-panel",
+      "viewport": "iphone-375x667",
+      "reached": true,
+      "screenshot": "eval-results/layout/help-panel-iphone-375x667.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 153/4"
+        },
+        "blocks": {
+          "pass": false,
+          "detail": "not fully in view: candidates (775-779px), builder (615-767px), build option (673-717px); candidates fully visible 0/4"
+        },
+        "targets": {
+          "pass": false,
+          "detail": "button in [help-panel] \"Close\" 36x32"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button in [help-panel] \"Close\" 16px; button[build-option] \"want\" 14px; button[build-option] \"need\" 14px; button[build-option] \"would like\" 14px; button[build-option] \"will drink from\" 14px; button[build-option] \"need to fill\" 14px; button[build-option] \"want to wash\" 14px; button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 375,
+        "innerHeight": 667,
+        "scrollHeight": 667,
+        "scrollWidth": 375,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 375,
+              "bottom": 501,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 323,
+              "bottom": 367,
+              "left": 12,
+              "right": 184
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 156,
+              "right": 290
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 68,
+              "right": 148
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 363
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 509,
+              "bottom": 607,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 775,
+              "bottom": 779,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 511,
+              "bottom": 555,
+              "left": 14,
+              "right": 126
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 615,
+              "bottom": 767,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 615,
+              "bottom": 667,
+              "left": 12,
+              "right": 276
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 619,
+              "bottom": 663,
+              "left": 33,
+              "right": 77
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 615,
+              "bottom": 667,
+              "left": 284,
+              "right": 363
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 673,
+              "bottom": 717,
+              "left": 12,
+              "right": 125
+            }
+          },
+          {
+            "name": "help panel",
+            "sel": "[data-testid=help-panel]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 315,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "help say button",
+            "sel": "[data-testid=help-panel] button",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 179,
+              "bottom": 211,
+              "left": 309,
+              "right": 345
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 0,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 153,
+            "clientHeight": 4,
+            "scrollWidth": 351,
+            "clientWidth": 351,
+            "hides": []
+          }
+        ],
+        "small": [
+          {
+            "el": "button in [help-panel]",
+            "text": "Close",
+            "w": 36,
+            "h": 32
+          }
+        ],
+        "smallText": [
+          {
+            "sel": "[data-testid=help-panel] button",
+            "el": "button in [help-panel]",
+            "text": "Close",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "would like",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "will drink from",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need to fill",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want to wash",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 14
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "help-panel",
+      "viewport": "ipad-portrait-820x1180",
+      "reached": true,
+      "screenshot": "eval-results/layout/help-panel-ipad-portrait-820x1180.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 820x1180 in 820x1180; scrollers: div[candidates] 208/187"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 4/4"
+        },
+        "targets": {
+          "pass": false,
+          "detail": "button in [help-panel] \"Close\" 36x32"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button in [help-panel] \"Close\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 820,
+        "innerHeight": 1180,
+        "scrollHeight": 1180,
+        "scrollWidth": 820,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 443,
+              "bottom": 591,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 16,
+              "right": 160
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 347,
+              "bottom": 411,
+              "left": 16,
+              "right": 406
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 589,
+              "right": 723
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 501,
+              "right": 581
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 168,
+              "right": 294
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 302,
+              "right": 804
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 627,
+              "bottom": 765,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 985,
+              "bottom": 1172,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 629,
+              "bottom": 693,
+              "left": 18,
+              "right": 275
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 773,
+              "bottom": 977,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 773,
+              "bottom": 837,
+              "left": 16,
+              "right": 717
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 783,
+              "bottom": 827,
+              "left": 37,
+              "right": 81
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 773,
+              "bottom": 837,
+              "left": 725,
+              "right": 804
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 843,
+              "bottom": 907,
+              "left": 16,
+              "right": 275
+            }
+          },
+          {
+            "name": "help panel",
+            "sel": "[data-testid=help-panel]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 339,
+              "left": 16,
+              "right": 688
+            }
+          },
+          {
+            "name": "help say button",
+            "sel": "[data-testid=help-panel] button",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 203,
+              "bottom": 235,
+              "left": 634,
+              "right": 670
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 4,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 208,
+            "clientHeight": 187,
+            "scrollWidth": 788,
+            "clientWidth": 788,
+            "hides": []
+          }
+        ],
+        "small": [
+          {
+            "el": "button in [help-panel]",
+            "text": "Close",
+            "w": 36,
+            "h": 32
+          }
+        ],
+        "smallText": [
+          {
+            "sel": "[data-testid=help-panel] button",
+            "el": "button in [help-panel]",
+            "text": "Close",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "help-panel",
+      "viewport": "ipad-landscape-1180x820",
+      "reached": true,
+      "screenshot": "eval-results/layout/help-panel-ipad-landscape-1180x820.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 1180x820 in 1180x820"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 6/4"
+        },
+        "targets": {
+          "pass": false,
+          "detail": "button in [help-panel] \"Close\" 36x32"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button in [help-panel] \"Close\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 1180,
+        "innerHeight": 820,
+        "scrollHeight": 820,
+        "scrollWidth": 1180,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 431,
+              "bottom": 569,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 30,
+              "right": 174
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 347,
+              "bottom": 399,
+              "left": 30,
+              "right": 247
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 949,
+              "right": 1083
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 861,
+              "right": 941
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 182,
+              "right": 308
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 316,
+              "right": 472
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 139,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 323,
+              "bottom": 442,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 71,
+              "bottom": 137,
+              "left": 490,
+              "right": 594
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 315,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 199,
+              "left": 488,
+              "right": 1063
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 151,
+              "bottom": 195,
+              "left": 509,
+              "right": 553
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 199,
+              "left": 1071,
+              "right": 1150
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 205,
+              "bottom": 257,
+              "left": 488,
+              "right": 704
+            }
+          },
+          {
+            "name": "help panel",
+            "sel": "[data-testid=help-panel]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 339,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "help say button",
+            "sel": "[data-testid=help-panel] button",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 203,
+              "bottom": 235,
+              "left": 417,
+              "right": 454
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 6,
+        "scrollers": [],
+        "small": [
+          {
+            "el": "button in [help-panel]",
+            "text": "Close",
+            "w": 36,
+            "h": 32
+          }
+        ],
+        "smallText": [
+          {
+            "sel": "[data-testid=help-panel] button",
+            "el": "button in [help-panel]",
+            "text": "Close",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "incoming-message",
+      "viewport": "iphone-393x852",
+      "reached": true,
+      "screenshot": "eval-results/layout/incoming-message-iphone-393x852.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 393x852 in 393x852; scrollers: div[candidates] 172/4"
+        },
+        "blocks": {
+          "pass": false,
+          "detail": "not fully in view: candidates (948-952px), builder (772-940px), build option (830-882px); candidates fully visible 0/4"
+        },
+        "targets": {
+          "pass": false,
+          "detail": "button in [incoming-card] \"Close\" 36x32"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[build-option] \"want\" 16px; button[build-option] \"need\" 16px; button[build-option] \"would like\" 16px; button[build-option] \"will drink from\" 16px; button[build-option] \"need to fill\" 16px; button[build-option] \"want to wash\" 16px; button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 393,
+        "innerHeight": 852,
+        "scrollHeight": 852,
+        "scrollWidth": 393,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 502,
+              "bottom": 642,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 390,
+              "bottom": 442,
+              "left": 12,
+              "right": 193
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 174,
+              "right": 308
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 86,
+              "right": 166
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 381
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 650,
+              "bottom": 764,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 948,
+              "bottom": 952,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 652,
+              "bottom": 704,
+              "left": 14,
+              "right": 132
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 772,
+              "bottom": 940,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 772,
+              "bottom": 824,
+              "left": 12,
+              "right": 294
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 776,
+              "bottom": 820,
+              "left": 33,
+              "right": 77
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 772,
+              "bottom": 824,
+              "left": 302,
+              "right": 381
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 830,
+              "bottom": 882,
+              "left": 12,
+              "right": 131
+            }
+          },
+          {
+            "name": "incoming card",
+            "sel": "[data-testid=incoming-card]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 382,
+              "left": 12,
+              "right": 381
+            }
+          },
+          {
+            "name": "incoming text",
+            "sel": "[data-testid=incoming-card] p.text-2xl",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 199,
+              "bottom": 232,
+              "left": 30,
+              "right": 150
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 0,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 172,
+            "clientHeight": 4,
+            "scrollWidth": 369,
+            "clientWidth": 369,
+            "hides": []
+          }
+        ],
+        "small": [
+          {
+            "el": "button in [incoming-card]",
+            "text": "Close",
+            "w": 36,
+            "h": 32
+          }
+        ],
+        "smallText": [
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "would like",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "will drink from",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need to fill",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want to wash",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 16
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 16
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "incoming-message",
+      "viewport": "iphone-375x667",
+      "reached": true,
+      "screenshot": "eval-results/layout/incoming-message-iphone-375x667.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 153/4"
+        },
+        "blocks": {
+          "pass": false,
+          "detail": "not fully in view: intents (628-726px), candidates (894-898px), chosen intent (630-674px), builder (734-886px), build strip (734-786px), build slot (738-782px), build say (734-786px), build option (792-836px); candidates fully visible 0/4"
+        },
+        "targets": {
+          "pass": false,
+          "detail": "button in [incoming-card] \"Close\" 36x32"
+        },
+        "text": {
+          "pass": false,
+          "detail": "button[build-option] \"want\" 14px; button[build-option] \"need\" 14px; button[build-option] \"would like\" 14px; button[build-option] \"will drink from\" 14px; button[build-option] \"need to fill\" 14px; button[build-option] \"want to wash\" 14px; button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 375,
+        "innerHeight": 667,
+        "scrollHeight": 667,
+        "scrollWidth": 375,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 494,
+              "bottom": 620,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 12,
+              "right": 124
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 390,
+              "bottom": 434,
+              "left": 12,
+              "right": 184
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 156,
+              "right": 290
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 68,
+              "right": 148
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 153,
+              "left": 132,
+              "right": 239
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 108,
+              "bottom": 130,
+              "left": 247,
+              "right": 363
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 628,
+              "bottom": 726,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 894,
+              "bottom": 898,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 630,
+              "bottom": 674,
+              "left": 14,
+              "right": 126
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 734,
+              "bottom": 886,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 734,
+              "bottom": 786,
+              "left": 12,
+              "right": 276
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 738,
+              "bottom": 782,
+              "left": 33,
+              "right": 77
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 734,
+              "bottom": 786,
+              "left": 284,
+              "right": 363
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": false,
+            "rect": {
+              "top": 792,
+              "bottom": 836,
+              "left": 12,
+              "right": 125
+            }
+          },
+          {
+            "name": "incoming card",
+            "sel": "[data-testid=incoming-card]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 161,
+              "bottom": 382,
+              "left": 12,
+              "right": 363
+            }
+          },
+          {
+            "name": "incoming text",
+            "sel": "[data-testid=incoming-card] p.text-2xl",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 199,
+              "bottom": 232,
+              "left": 30,
+              "right": 150
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 0,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 153,
+            "clientHeight": 4,
+            "scrollWidth": 351,
+            "clientWidth": 351,
+            "hides": []
+          }
+        ],
+        "small": [
+          {
+            "el": "button in [incoming-card]",
+            "text": "Close",
+            "w": 36,
+            "h": 32
+          }
+        ],
+        "smallText": [
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "would like",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "will drink from",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "need to fill",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=build-option]",
+            "el": "button[build-option]",
+            "text": "want to wash",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need a break",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "It's too loud",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Stop",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "Please wait",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I'm overstimulated",
+            "size": 14
+          },
+          {
+            "sel": "[data-testid=quick-phrase]",
+            "el": "button[quick-phrase]",
+            "text": "I need help",
+            "size": 14
+          }
+        ],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "incoming-message",
+      "viewport": "ipad-portrait-820x1180",
+      "reached": true,
+      "screenshot": "eval-results/layout/incoming-message-ipad-portrait-820x1180.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 820x1180 in 820x1180; scrollers: div[candidates] 208/180"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 4/4"
+        },
+        "targets": {
+          "pass": false,
+          "detail": "button in [incoming-card] \"Close\" 36x32"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 820,
+        "innerHeight": 1180,
+        "scrollHeight": 1180,
+        "scrollWidth": 820,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 450,
+              "bottom": 598,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 16,
+              "right": 160
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 350,
+              "bottom": 414,
+              "left": 16,
+              "right": 406
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 589,
+              "right": 723
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 501,
+              "right": 581
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 168,
+              "right": 294
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 302,
+              "right": 804
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 634,
+              "bottom": 772,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 992,
+              "bottom": 1172,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 636,
+              "bottom": 700,
+              "left": 18,
+              "right": 275
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 780,
+              "bottom": 984,
+              "left": 16,
+              "right": 804
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 780,
+              "bottom": 844,
+              "left": 16,
+              "right": 717
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 790,
+              "bottom": 834,
+              "left": 37,
+              "right": 81
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 780,
+              "bottom": 844,
+              "left": 725,
+              "right": 804
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 850,
+              "bottom": 914,
+              "left": 16,
+              "right": 275
+            }
+          },
+          {
+            "name": "incoming card",
+            "sel": "[data-testid=incoming-card]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 342,
+              "left": 16,
+              "right": 688
+            }
+          },
+          {
+            "name": "incoming text",
+            "sel": "[data-testid=incoming-card] p.text-2xl",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 223,
+              "bottom": 256,
+              "left": 34,
+              "right": 154
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 4,
+        "scrollers": [
+          {
+            "el": "div[candidates]",
+            "scrollHeight": 208,
+            "clientHeight": 180,
+            "scrollWidth": 788,
+            "clientWidth": 788,
+            "hides": []
+          }
+        ],
+        "small": [
+          {
+            "el": "button in [incoming-card]",
+            "text": "Close",
+            "w": 36,
+            "h": 32
+          }
+        ],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    },
+    {
+      "state": "incoming-message",
+      "viewport": "ipad-landscape-1180x820",
+      "reached": true,
+      "screenshot": "eval-results/layout/incoming-message-ipad-landscape-1180x820.png",
+      "checks": {
+        "scroll": {
+          "pass": true,
+          "detail": "page 1180x820 in 1180x820"
+        },
+        "blocks": {
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 6/4"
+        },
+        "targets": {
+          "pass": false,
+          "detail": "button in [incoming-card] \"Close\" 36x32"
+        },
+        "text": {
+          "pass": true,
+          "detail": "all sentence text >= 18px"
+        },
+        "motion": {
+          "pass": true,
+          "detail": "no animation or transform/opacity transition"
+        },
+        "timers": {
+          "pass": true,
+          "detail": "no DOM changes in 6 s"
+        }
+      },
+      "raw": {
+        "innerWidth": 1180,
+        "innerHeight": 820,
+        "scrollHeight": 820,
+        "scrollWidth": 1180,
+        "blocks": [
+          {
+            "name": "quick phrases",
+            "sel": "[data-testid=quick-phrases]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 502,
+              "bottom": 640,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "camera",
+            "sel": "[data-testid=camera-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 30,
+              "right": 174
+            }
+          },
+          {
+            "name": "output buttons",
+            "sel": "[data-testid=deliver-speech], [data-testid=deliver-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 414,
+              "bottom": 466,
+              "left": 30,
+              "right": 247
+            }
+          },
+          {
+            "name": "capacity badge",
+            "sel": "[data-testid=capacity-badge]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 949,
+              "right": 1083
+            }
+          },
+          {
+            "name": "view toggle",
+            "sel": "[data-testid=view-toggle]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 8,
+              "bottom": 52,
+              "left": 861,
+              "right": 941
+            }
+          },
+          {
+            "name": "object thumb",
+            "sel": "[data-testid=object-thumb]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 177,
+              "left": 182,
+              "right": 308
+            }
+          },
+          {
+            "name": "said line",
+            "sel": "[data-testid=spoken-text]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 119,
+              "bottom": 144,
+              "left": 316,
+              "right": 472
+            }
+          },
+          {
+            "name": "intents",
+            "sel": "[data-testid=intents]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 69,
+              "bottom": 139,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "candidates",
+            "sel": "[data-testid=candidates]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 323,
+              "bottom": 442,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "chosen intent",
+            "sel": "[data-testid=intent][aria-pressed=true]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 71,
+              "bottom": 137,
+              "left": 490,
+              "right": 594
+            }
+          },
+          {
+            "name": "builder",
+            "sel": "[data-testid=build]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 315,
+              "left": 488,
+              "right": 1150
+            }
+          },
+          {
+            "name": "build strip",
+            "sel": "[data-testid=build-strip]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 199,
+              "left": 488,
+              "right": 1063
+            }
+          },
+          {
+            "name": "build slot",
+            "sel": "[data-testid=build-slot]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 151,
+              "bottom": 195,
+              "left": 509,
+              "right": 553
+            }
+          },
+          {
+            "name": "build say",
+            "sel": "[data-testid=build-say]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 147,
+              "bottom": 199,
+              "left": 1071,
+              "right": 1150
+            }
+          },
+          {
+            "name": "build option",
+            "sel": "[data-testid=build-option]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 205,
+              "bottom": 257,
+              "left": 488,
+              "right": 704
+            }
+          },
+          {
+            "name": "incoming card",
+            "sel": "[data-testid=incoming-card]",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 185,
+              "bottom": 406,
+              "left": 30,
+              "right": 472
+            }
+          },
+          {
+            "name": "incoming text",
+            "sel": "[data-testid=incoming-card] p.text-2xl",
+            "found": true,
+            "inView": true,
+            "rect": {
+              "top": 223,
+              "bottom": 256,
+              "left": 48,
+              "right": 168
+            }
+          }
+        ],
+        "absent": [],
+        "candidatesVisible": 6,
+        "scrollers": [],
+        "small": [
+          {
+            "el": "button in [incoming-card]",
+            "text": "Close",
+            "w": 36,
+            "h": 32
+          }
+        ],
+        "smallText": [],
+        "motion": [],
+        "mutations": [],
+        "reloads": []
+      }
+    }
+  ]
+}
