@@ -12,6 +12,7 @@ const flag = (name) => argv.includes(`--${name}`);
 const backends = opt("backends", "webgpu,wasm").split(",");
 const dirs = opt("dirs", "test-images,test-images-public");
 const outDir = opt("out", "eval-results");
+const port = Number(opt("port", "5199"));
 
 const pct = (x) => `${Math.round(x * 100)}%`;
 const row = (name, s) =>
@@ -89,7 +90,7 @@ if (flag("report-only")) {
   process.exit(0);
 }
 
-const server = await createServer({ logLevel: "warn", server: { port: 5199 } });
+const server = await createServer({ logLevel: "warn", server: { port } });
 await server.listen();
 const base = server.resolvedUrls.local[0];
 const browser = await chromium.launch({

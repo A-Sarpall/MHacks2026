@@ -39,3 +39,9 @@ server/contacts.json
 
 # Cloned-voice audio (a real person's voice): regenerate with `npm run voice -- reactions`
 public/reactions/
+
+# Eval caches and raw public test images
+.cache-phase1/
+test-images-public/raw/
+test-images-public/dev-*/
+test-images-public/dev-sample*/

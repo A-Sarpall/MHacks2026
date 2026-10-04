@@ -1,0 +1,3650 @@
+{
+ "apple-01.jpg": {
+  "label": "apple",
+  "accept": [],
+  "aim": [
+   0.501,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ]
+ },
+ "apple-03.jpg": {
+  "label": "apple",
+  "accept": [],
+  "aim": [
+   0.533,
+   0.418
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ]
+ },
+ "vizwiz-apple-00689.jpg": {
+  "label": "apple",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "fruit"
+  ]
+ },
+ "vizwiz-baby-food-00943.jpg": {
+  "label": "baby food",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "backpack-01.jpg": {
+  "label": "backpack",
+  "accept": [
+   "bag"
+  ],
+  "aim": [
+   0.493,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "vizwiz-backpack-00499.jpg": {
+  "label": "backpack",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "clothes & accessories"
+  ]
+ },
+ "banana-04.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.5,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "fruit"
+  ]
+ },
+ "banana-01.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.4,
+   0.586
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ]
+ },
+ "banana-06.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.4,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "fruit"
+  ]
+ },
+ "banana-05.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.5,
+   0.462
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "fruit"
+  ]
+ },
+ "banana-02.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.6,
+   0.591
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ]
+ },
+ "bed-12.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.462,
+   0.593
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "bed-04.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.498,
+   0.545
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "bed-03.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.505,
+   0.492
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "bed-10.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.4,
+   0.514
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "bed-11.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.504,
+   0.569
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "bed-06.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.488,
+   0.557
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "bed-01.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.499,
+   0.492
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "bed-05.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.448,
+   0.563
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-bed-00316.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "bed-09.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.405,
+   0.592
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-beer-00319.jpg": {
+  "label": "beer",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-blanket-00757.jpg": {
+  "label": "blanket",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "book-01.jpg": {
+  "label": "book",
+  "accept": [
+   "books"
+  ],
+  "aim": [
+   0.503,
+   0.568
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "office & reading"
+  ]
+ },
+ "book-02.jpg": {
+  "label": "book",
+  "accept": [
+   "books"
+  ],
+  "aim": [
+   0.402,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "office & reading"
+  ]
+ },
+ "bowl-12.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.407
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "bowl-04.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.525,
+   0.479
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "bowl-02.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.502,
+   0.534
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "bowl-09.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.561,
+   0.508
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "bowl-01.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.501
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "bowl-07.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.543,
+   0.478
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "bowl-05.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.511,
+   0.552
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "bowl-10.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.441,
+   0.465
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-box-01128.jpg": {
+  "label": "box",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-box-00401.jpg": {
+  "label": "box",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "broccoli-03.jpg": {
+  "label": "broccoli",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "vegetables"
+  ]
+ },
+ "broccoli-01.jpg": {
+  "label": "broccoli",
+  "accept": [],
+  "aim": [
+   0.59,
+   0.55
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "vegetables"
+  ]
+ },
+ "cake-07.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.402,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "cake-03.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.476,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "vizwiz-cake-01066.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "cake-05.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.534
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "cake-02.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.455,
+   0.434
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "cake-01.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.487,
+   0.446
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ]
+ },
+ "vizwiz-can-00840.jpg": {
+  "label": "can",
+  "accept": [
+   "soup can"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-can-01184.jpg": {
+  "label": "can",
+  "accept": [],
+  "aim": [
+   0.444,
+   0.646
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-carpet-00984.jpg": {
+  "label": "carpet",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "carrot-01.jpg": {
+  "label": "carrot",
+  "accept": [
+   "carrots"
+  ],
+  "aim": [
+   0.545,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "vegetables"
+  ]
+ },
+ "carrot-03.jpg": {
+  "label": "carrot",
+  "accept": [
+   "carrots"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "vegetables"
+  ]
+ },
+ "carrot-02.jpg": {
+  "label": "carrot",
+  "accept": [
+   "carrots"
+  ],
+  "aim": [
+   0.5,
+   0.567
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "vegetables"
+  ]
+ },
+ "cat-10.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.428,
+   0.545
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ]
+ },
+ "cat-11.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.428,
+   0.549
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ]
+ },
+ "cat-01.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.476,
+   0.506
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "cat-02.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.527,
+   0.517
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "cat-05.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.478,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "cat-12.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.446
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ]
+ },
+ "cat-03.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.502,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ]
+ },
+ "cat-07.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.402,
+   0.403
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "chair-10.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.428,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ]
+ },
+ "chair-07.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.406,
+   0.588
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "chair-08.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.594,
+   0.402
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "chair-01.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.505,
+   0.51
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "chair-02.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.516,
+   0.502
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "chair-04.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.562,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-chair-00859.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "chair-05.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.562,
+   0.576
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "clock-01.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.436,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ]
+ },
+ "clock-04.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.479
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ]
+ },
+ "clock-03.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.488
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ]
+ },
+ "clock-05.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.444,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-coffee-00937.jpg": {
+  "label": "coffee",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-coffee-00561.jpg": {
+  "label": "coffee",
+  "accept": [],
+  "aim": [
+   0.208,
+   0.256
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-coffee-maker-00085.jpg": {
+  "label": "coffee maker",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-computer-mouse-00672.jpg": {
+  "label": "computer mouse",
+  "accept": [
+   "mouse"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-conditioner-00177.jpg": {
+  "label": "conditioner",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-conditioner-00384.jpg": {
+  "label": "conditioner",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-cookie-00772.jpg": {
+  "label": "cookie",
+  "accept": [],
+  "aim": [
+   0.311,
+   0.196
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "vizwiz-corn-01008.jpg": {
+  "label": "corn",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "vegetables"
+  ]
+ },
+ "vizwiz-crackers-00558.jpg": {
+  "label": "crackers",
+  "accept": [],
+  "aim": [
+   0.189,
+   0.711
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "cup-03.jpg": {
+  "label": "cup",
+  "accept": [
+   "mug",
+   "coffee cup"
+  ],
+  "aim": [
+   0.45,
+   0.42
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-cup-00857.jpg": {
+  "label": "cup",
+  "accept": [
+   "coffee cup"
+  ],
+  "aim": [
+   0.487,
+   0.558
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "cup-01.jpg": {
+  "label": "cup",
+  "accept": [
+   "mug",
+   "coffee cup"
+  ],
+  "aim": [
+   0.57,
+   0.544
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-cup-00247.jpg": {
+  "label": "cup",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-deodorant-00556.jpg": {
+  "label": "deodorant",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "dog-11.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.583
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "dog-04.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.591,
+   0.578
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "vizwiz-dog-00025.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "pets & animals"
+  ]
+ },
+ "dog-09.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.548,
+   0.471
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "dog-08.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.432
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ]
+ },
+ "dog-12.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.556,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "dog-07.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.469,
+   0.479
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "dog-02.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.401,
+   0.503
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ]
+ },
+ "vizwiz-dog-00318.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "pets & animals"
+  ]
+ },
+ "dog-01.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.507
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ]
+ },
+ "donut-02.jpg": {
+  "label": "donut",
+  "accept": [
+   "doughnut"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ]
+ },
+ "donut-01.jpg": {
+  "label": "donut",
+  "accept": [
+   "doughnut"
+  ],
+  "aim": [
+   0.5,
+   0.569
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "vizwiz-door-00190.jpg": {
+  "label": "door",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-dresser-00569.jpg": {
+  "label": "dresser",
+  "accept": [],
+  "aim": [
+   0.485,
+   0.466
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-drying-rack-00329.jpg": {
+  "label": "drying rack",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "cleaning & laundry"
+  ]
+ },
+ "vizwiz-finger-00182.jpg": {
+  "label": "finger",
+  "accept": [],
+  "aim": [
+   0.404,
+   0.49
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "people & body"
+  ]
+ },
+ "vizwiz-flower-00395.jpg": {
+  "label": "flower",
+  "accept": [],
+  "aim": [
+   0.461,
+   0.638
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "outdoors & travel"
+  ]
+ },
+ "vizwiz-foot-01040.jpg": {
+  "label": "foot",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "people & body"
+  ]
+ },
+ "vizwiz-foot-00080.jpg": {
+  "label": "foot",
+  "accept": [],
+  "aim": [
+   0.452,
+   0.564
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "people & body"
+  ]
+ },
+ "fork-01.jpg": {
+  "label": "fork",
+  "accept": [],
+  "aim": [
+   0.534,
+   0.499
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ]
+ },
+ "fridge-10.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.402
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "fridge-06.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.564,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ]
+ },
+ "fridge-05.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.4,
+   0.594
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ]
+ },
+ "fridge-01.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.503,
+   0.498
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "fridge-04.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.57
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "fridge-08.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "fridge-09.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "fridge-12.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.587,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-glass-00808.jpg": {
+  "label": "glass",
+  "accept": [],
+  "aim": [
+   0.559,
+   0.552
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-glass-00952.jpg": {
+  "label": "glass",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-hair-00530.jpg": {
+  "label": "hair",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "people & body"
+  ]
+ },
+ "vizwiz-heater-01064.jpg": {
+  "label": "heater",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-heater-00502.jpg": {
+  "label": "heater",
+  "accept": [],
+  "aim": [
+   0.527,
+   0.475
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-hot-chocolate-00198.jpg": {
+  "label": "hot chocolate",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-jar-01056.jpg": {
+  "label": "jar",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-juice-00422.jpg": {
+  "label": "juice",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-ketchup-00112.jpg": {
+  "label": "ketchup",
+  "accept": [],
+  "aim": [
+   0.638,
+   0.49
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "vizwiz-ketchup-00220.jpg": {
+  "label": "ketchup",
+  "accept": [
+   "ketchup bottle"
+  ],
+  "aim": [
+   0.437,
+   0.66
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "vizwiz-keyboard-00221.jpg": {
+  "label": "keyboard",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "keyboard-03.jpg": {
+  "label": "keyboard",
+  "accept": [
+   "computer keyboard"
+  ],
+  "aim": [
+   0.494,
+   0.578
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-keyboard-00187.jpg": {
+  "label": "keyboard",
+  "accept": [],
+  "aim": [
+   0.442,
+   0.433
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-keyboard-00828.jpg": {
+  "label": "keyboard",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "keyboard-01.jpg": {
+  "label": "keyboard",
+  "accept": [
+   "computer keyboard"
+  ],
+  "aim": [
+   0.45,
+   0.518
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-keyboard-00128.jpg": {
+  "label": "keyboard",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "knife-01.jpg": {
+  "label": "knife",
+  "accept": [],
+  "aim": [
+   0.504,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "knife-03.jpg": {
+  "label": "knife",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.579
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "laptop-07.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.404,
+   0.53
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "laptop-04.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.599,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "laptop-05.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-laptop-01164.jpg": {
+  "label": "laptop",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "laptop-06.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.581,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "laptop-02.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.404,
+   0.541
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "laptop-03.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.428,
+   0.402
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-lighter-00806.jpg": {
+  "label": "lighter",
+  "accept": [],
+  "aim": [
+   0.386,
+   0.527
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "tools & household"
+  ]
+ },
+ "vizwiz-lotion-01072.jpg": {
+  "label": "lotion",
+  "accept": [],
+  "aim": [
+   0.499,
+   0.284
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-lotion-00026.jpg": {
+  "label": "lotion",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-magnifying-glass-01105.jpg": {
+  "label": "magnifying glass",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "office & reading"
+  ]
+ },
+ "vizwiz-mailbox-00117.jpg": {
+  "label": "mailbox",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-medicine-00339.jpg": {
+  "label": "medicine",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "health & medical"
+  ]
+ },
+ "microwave-01.jpg": {
+  "label": "microwave",
+  "accept": [
+   "microwave oven"
+  ],
+  "aim": [
+   0.499,
+   0.491
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "microwave-02.jpg": {
+  "label": "microwave",
+  "accept": [
+   "microwave oven"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-milk-00704.jpg": {
+  "label": "milk",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-money-00473.jpg": {
+  "label": "money",
+  "accept": [
+   "dollar",
+   "dollar bill"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ]
+ },
+ "vizwiz-money-00791.jpg": {
+  "label": "money",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ]
+ },
+ "vizwiz-monitor-00663.jpg": {
+  "label": "monitor",
+  "accept": [
+   "computer monitor"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-mug-00104.jpg": {
+  "label": "mug",
+  "accept": [
+   "coffee mug"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-mustard-01033.jpg": {
+  "label": "mustard",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "orange-01.jpg": {
+  "label": "orange",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ]
+ },
+ "orange-02.jpg": {
+  "label": "orange",
+  "accept": [],
+  "aim": [
+   0.532,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ]
+ },
+ "oven-06.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.473,
+   0.423
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "oven-04.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.444,
+   0.527
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "oven-05.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.6,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "oven-07.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.447,
+   0.561
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "oven-02.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.5,
+   0.492
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "oven-01.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-paper-00483.jpg": {
+  "label": "paper",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "office & reading"
+  ]
+ },
+ "vizwiz-pear-00245.jpg": {
+  "label": "pear",
+  "accept": [],
+  "aim": [
+   0.509,
+   0.517
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "fruit"
+  ]
+ },
+ "vizwiz-pen-00570.jpg": {
+  "label": "pen",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "office & reading"
+  ]
+ },
+ "person-12.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.529,
+   0.496
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ]
+ },
+ "person-06.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.503,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ]
+ },
+ "person-09.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.476,
+   0.49
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ]
+ },
+ "person-10.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.507,
+   0.524
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ]
+ },
+ "person-04.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.508,
+   0.498
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ]
+ },
+ "person-05.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.503,
+   0.494
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ]
+ },
+ "person-02.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.5,
+   0.494
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "people & body"
+  ]
+ },
+ "person-08.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.501,
+   0.503
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ]
+ },
+ "vizwiz-phone-00562.jpg": {
+  "label": "phone",
+  "accept": [
+   "iphone",
+   "smartphone",
+   "cell phone"
+  ],
+  "aim": [
+   0.566,
+   0.513
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ]
+ },
+ "vizwiz-phone-01124.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone",
+   "smartphone"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ]
+ },
+ "vizwiz-phone-00274.jpg": {
+  "label": "phone",
+  "accept": [
+   "iphone",
+   "cell phone",
+   "cellphone",
+   "smartphone"
+  ],
+  "aim": [
+   0.19,
+   0.653
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ]
+ },
+ "phone-02.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone",
+   "mobile phone",
+   "smartphone",
+   "cellphone"
+  ],
+  "aim": [
+   0.43,
+   0.467
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ]
+ },
+ "phone-01.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone",
+   "mobile phone",
+   "smartphone",
+   "cellphone"
+  ],
+  "aim": [
+   0.5,
+   0.575
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ]
+ },
+ "vizwiz-phone-01130.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone",
+   "cellphone"
+  ],
+  "aim": [
+   0.453,
+   0.591
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ]
+ },
+ "vizwiz-picture-00559.jpg": {
+  "label": "picture",
+  "accept": [],
+  "aim": [
+   0.347,
+   0.531
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-pill-bottle-00089.jpg": {
+  "label": "pill bottle",
+  "accept": [],
+  "aim": [
+   0.589,
+   0.228
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "health & medical"
+  ]
+ },
+ "vizwiz-pills-01113.jpg": {
+  "label": "pills",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "health & medical"
+  ]
+ },
+ "vizwiz-pineapple-00804.jpg": {
+  "label": "pineapple",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "fruit"
+  ]
+ },
+ "pizza-10.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.563,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "pizza-08.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.508,
+   0.507
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "pizza-02.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.502,
+   0.487
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "pizza-12.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.46,
+   0.534
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "pizza-09.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.589,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "pizza-11.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.407,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "pizza-01.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ]
+ },
+ "pizza-07.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.531,
+   0.522
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "plant-03.jpg": {
+  "label": "plant",
+  "accept": [
+   "potted plant",
+   "houseplant"
+  ],
+  "aim": [
+   0.583,
+   0.481
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "plant-01.jpg": {
+  "label": "plant",
+  "accept": [
+   "potted plant",
+   "houseplant"
+  ],
+  "aim": [
+   0.44,
+   0.496
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "plant-04.jpg": {
+  "label": "plant",
+  "accept": [
+   "potted plant",
+   "houseplant"
+  ],
+  "aim": [
+   0.597,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-popcorn-00412.jpg": {
+  "label": "popcorn",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "vizwiz-radio-00642.jpg": {
+  "label": "radio",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-remote-00012.jpg": {
+  "label": "remote",
+  "accept": [
+   "remote control",
+   "tv remote"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-remote-00387.jpg": {
+  "label": "remote",
+  "accept": [
+   "tv remote",
+   "remote control"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "remote-01.jpg": {
+  "label": "remote",
+  "accept": [
+   "remote control",
+   "tv remote"
+  ],
+  "aim": [
+   0.426,
+   0.549
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-remote-00439.jpg": {
+  "label": "remote",
+  "accept": [
+   "tv remote",
+   "remote control"
+  ],
+  "aim": [
+   0.396,
+   0.54
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "sandwich-08.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.548,
+   0.517
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "sandwich-05.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.534,
+   0.514
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "sandwich-12.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.563,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "sandwich-07.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "sandwich-04.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.531,
+   0.527
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "sandwich-02.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.567,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "sandwich-06.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.498,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "sandwich-01.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.482,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ]
+ },
+ "scissors-01.jpg": {
+  "label": "scissors",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.522
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "tools & household"
+  ]
+ },
+ "vizwiz-scissors-00315.jpg": {
+  "label": "scissors",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "tools & household"
+  ]
+ },
+ "vizwiz-shampoo-00096.jpg": {
+  "label": "shampoo",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-shampoo-00631.jpg": {
+  "label": "shampoo",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-shaving-cream-00733.jpg": {
+  "label": "shaving cream",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-shaving-cream-00244.jpg": {
+  "label": "shaving cream",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-shoes-00005.jpg": {
+  "label": "shoes",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "clothes & accessories"
+  ]
+ },
+ "sink-04.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-sink-00897.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "sink-01.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": [
+   0.413,
+   0.568
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ]
+ },
+ "sink-03.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": [
+   0.501,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-soap-00460.jpg": {
+  "label": "soap",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-soda-01042.jpg": {
+  "label": "soda",
+  "accept": [
+   "pepsi"
+  ],
+  "aim": [
+   0.535,
+   0.495
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-soda-01207.jpg": {
+  "label": "soda",
+  "accept": [
+   "pepsi"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "sofa-01.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.4,
+   0.495
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "sofa-08.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.5,
+   0.554
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "sofa-06.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.499,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "sofa-04.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.4,
+   0.593
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "sofa-03.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.501,
+   0.588
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "sofa-11.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.6,
+   0.556
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "sofa-07.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.532,
+   0.586
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "sofa-05.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.508,
+   0.59
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "sofa-10.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.572,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-soup-00995.jpg": {
+  "label": "soup",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "vizwiz-spinach-01009.jpg": {
+  "label": "spinach",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "vegetables"
+  ]
+ },
+ "spoon-02.jpg": {
+  "label": "spoon",
+  "accept": [],
+  "aim": [
+   0.421,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ]
+ },
+ "spoon-01.jpg": {
+  "label": "spoon",
+  "accept": [],
+  "aim": [
+   0.496,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-spray-bottle-00364.jpg": {
+  "label": "spray bottle",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "cleaning & laundry"
+  ]
+ },
+ "vizwiz-stairs-00699.jpg": {
+  "label": "stairs",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-stove-00678.jpg": {
+  "label": "stove",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-sugar-00134.jpg": {
+  "label": "sugar",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ },
+ "suitcase-03.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.542,
+   0.49
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ]
+ },
+ "suitcase-05.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.5,
+   0.588
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "personal items"
+  ]
+ },
+ "suitcase-02.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.519,
+   0.429
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ]
+ },
+ "suitcase-01.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.501,
+   0.502
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ]
+ },
+ "vizwiz-tablet-00105.jpg": {
+  "label": "tablet",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ]
+ },
+ "teddy-bear-05.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.485,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "leisure & play"
+  ]
+ },
+ "teddy-bear-06.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.5,
+   0.512
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "leisure & play"
+  ]
+ },
+ "teddy-bear-02.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.403,
+   0.539
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "leisure & play"
+  ]
+ },
+ "teddy-bear-04.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "leisure & play"
+  ]
+ },
+ "vizwiz-tissues-00108.jpg": {
+  "label": "tissues",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "toaster-01.jpg": {
+  "label": "toaster",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.56
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-toilet-paper-00523.jpg": {
+  "label": "toilet paper",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ]
+ },
+ "toothbrush-01.jpg": {
+  "label": "toothbrush",
+  "accept": [],
+  "aim": [
+   0.446,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "bathroom & hygiene"
+  ]
+ },
+ "vizwiz-toy-00367.jpg": {
+  "label": "toy",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "leisure & play"
+  ]
+ },
+ "tv-10.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "electronics & media"
+  ]
+ },
+ "tv-08.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "electronics & media"
+  ]
+ },
+ "tv-05.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.58,
+   0.404
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "tv-04.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.464
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "tv-01.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.542,
+   0.503
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "vizwiz-tv-00130.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ]
+ },
+ "tv-07.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "tv-06.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ]
+ },
+ "umbrella-11.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.508,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "umbrella-10.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.448,
+   0.444
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "umbrella-02.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.588,
+   0.47
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "umbrella-03.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.56,
+   0.42
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "umbrella-12.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.547,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "umbrella-01.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.518,
+   0.554
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "umbrella-06.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.549,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "umbrella-07.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ]
+ },
+ "vase-02.jpg": {
+  "label": "vase",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.556
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ]
+ },
+ "vase-04.jpg": {
+  "label": "vase",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.578
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ]
+ },
+ "vase-01.jpg": {
+  "label": "vase",
+  "accept": [],
+  "aim": [
+   0.479,
+   0.483
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ]
+ },
+ "vizwiz-water-00659.jpg": {
+  "label": "water",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "water-bottle-01.jpg": {
+  "label": "water bottle",
+  "accept": [
+   "bottle"
+  ],
+  "aim": [
+   0.469,
+   0.584
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "drinks"
+  ]
+ },
+ "vizwiz-water-bottle-00049.jpg": {
+  "label": "water bottle",
+  "accept": [],
+  "aim": [
+   0.483,
+   0.663
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-wine-00669.jpg": {
+  "label": "wine",
+  "accept": [],
+  "aim": [
+   0.537,
+   0.683
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-wine-00946.jpg": {
+  "label": "wine",
+  "accept": [
+   "wine bottle"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-wine-01068.jpg": {
+  "label": "wine",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ]
+ },
+ "vizwiz-wine-glass-00403.jpg": {
+  "label": "wine glass",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ]
+ },
+ "wine-glass-02.jpg": {
+  "label": "wine glass",
+  "accept": [
+   "glass"
+  ],
+  "aim": [
+   0.5,
+   0.43
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ]
+ },
+ "vizwiz-yogurt-01051.jpg": {
+  "label": "yogurt",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ]
+ }
+}

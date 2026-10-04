@@ -1,0 +1,6223 @@
+{
+ "apple-01.jpg": {
+  "label": "apple",
+  "accept": [],
+  "aim": [
+   0.501,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "149a9d5dd174bddfebc93bad0ef0b54f0eebd203",
+  "licence": "Attribution License"
+ },
+ "apple-03.jpg": {
+  "label": "apple",
+  "accept": [],
+  "aim": [
+   0.533,
+   0.418
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "51eff55f2a8ca4d8bd7d29f71bea584711b3ad12",
+  "licence": "Attribution License"
+ },
+ "apple-02.jpg": {
+  "label": "apple",
+  "accept": [],
+  "aim": [
+   0.4,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "5477552d317001a41db43c1e14a4fd33672cd140",
+  "licence": "Attribution License"
+ },
+ "vizwiz-apple-00689.jpg": {
+  "label": "apple",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "cf4bf8a320c31ca246ea75ea6b7ff327916d4c69",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-baby-food-00943.jpg": {
+  "label": "baby food",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "2edaa3906bdc712a7952675abb2818c853514b76",
+  "licence": "CC BY 4.0"
+ },
+ "backpack-01.jpg": {
+  "label": "backpack",
+  "accept": [
+   "bag"
+  ],
+  "aim": [
+   0.493,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "05218a9f4d9abd755250ee3ad09611a4c4942700",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-backpack-00499.jpg": {
+  "label": "backpack",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "ffea69ebdf2b61b32a1d781df21411ddf1032e25",
+  "licence": "CC BY 4.0"
+ },
+ "banana-04.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.5,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "58976a166fb39421a36badb78d5c6accfdf0a72b",
+  "licence": "Attribution License"
+ },
+ "banana-01.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.4,
+   0.586
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "75b3cb4107495029f80cf48eb4bc0209431f703d",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "banana-07.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.5,
+   0.483
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "fruit"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "800dd5a3322d459d1246f543436ee8aaca140e7c",
+  "licence": "Attribution License"
+ },
+ "banana-06.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.4,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "8b4d9eb539734b8c10e70a6068986062d320a636",
+  "licence": "Attribution License"
+ },
+ "banana-05.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.5,
+   0.462
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "96593a42a36177216490ae6792dcff6cfd71cf7c",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "banana-03.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.518,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "ecacd47d1fdef77f5d441ace8981765b4de2030e",
+  "licence": "Attribution License"
+ },
+ "banana-02.jpg": {
+  "label": "banana",
+  "accept": [
+   "bananas"
+  ],
+  "aim": [
+   0.6,
+   0.591
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "fefcef11265c69032952289636e0aaa3f5d0612a",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "bed-12.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.462,
+   0.593
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "251dab29e16d196c965f84b58032b11f6b7203fa",
+  "licence": "Attribution License"
+ },
+ "bed-04.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.498,
+   0.545
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "2d6b4ca8f2ef37f7cbbbe9b0858733f24801c8cf",
+  "licence": "Attribution License"
+ },
+ "bed-07.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.508,
+   0.59
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "3c2683c98adf86112cea279ce871da015f79d5fa",
+  "licence": "Attribution License"
+ },
+ "bed-03.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.505,
+   0.492
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "3d25e28793fb016e880a3c61920f328c4798d612",
+  "licence": "Attribution License"
+ },
+ "bed-10.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.4,
+   0.514
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "79321f9dcca8e5d466cd41b23e6cd9184c5bbc0b",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "bed-02.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.499,
+   0.49
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "cb43fb8b3307226defd11ec8f352c6fa771be1f1",
+  "licence": "Attribution License"
+ },
+ "bed-11.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.504,
+   0.569
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "cd125e60c7ba4148ec00bc00caa2b300ea2147ac",
+  "licence": "Attribution License"
+ },
+ "bed-06.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.488,
+   0.557
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "d46859a295dd9e2dc154321593da56fd938cbaa6",
+  "licence": "Attribution License"
+ },
+ "vizwiz-bed-00409.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "da760d138c1e4a9bae69b7a3f5ae26949b76472a",
+  "licence": "CC BY 4.0"
+ },
+ "bed-01.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.499,
+   0.492
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "e414fab9a8f7a1be3ce30cf4d0afe1a27ba91b88",
+  "licence": "Attribution License"
+ },
+ "bed-05.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.448,
+   0.563
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "e99849c81f64eecffaeab4c25786b5a7149b87c4",
+  "licence": "Attribution License"
+ },
+ "bed-08.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.402,
+   0.591
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "edac829387c6d1c7ff4955e4cb7b12c272c7282c",
+  "licence": "Attribution License"
+ },
+ "vizwiz-bed-00316.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "edbd691c79d5f396e7b2614583d480b359a95b9a",
+  "licence": "CC BY 4.0"
+ },
+ "bed-09.jpg": {
+  "label": "bed",
+  "accept": [],
+  "aim": [
+   0.405,
+   0.592
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "fcf5638f89910c21836acab7176eeebcadc411d2",
+  "licence": "Attribution License"
+ },
+ "vizwiz-beer-00319.jpg": {
+  "label": "beer",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "5bc9e891e5e8b199db1aec052ff0956177a2e2d6",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-blanket-00757.jpg": {
+  "label": "blanket",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "f6f48c5c400c55f1a7f9bee35642e1b45d203ffe",
+  "licence": "CC BY 4.0"
+ },
+ "book-01.jpg": {
+  "label": "book",
+  "accept": [
+   "books"
+  ],
+  "aim": [
+   0.503,
+   0.568
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "office & reading"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "21eaf056d33719de0c9c3c662c41f396e178c761",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "book-02.jpg": {
+  "label": "book",
+  "accept": [
+   "books"
+  ],
+  "aim": [
+   0.402,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "office & reading"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "aa92ead8093bbc3e7fc16bf6b91e2a23850975bc",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "bowl-12.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.407
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "2ccc04f274f88fb0dbe9c3a220fb7c7dd64c8a6d",
+  "licence": "Attribution License"
+ },
+ "bowl-04.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.525,
+   0.479
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "39135d65a97b049d7e8f490c5fce67b65c578eab",
+  "licence": "Attribution License"
+ },
+ "bowl-11.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.499,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "4b73d0c2be1091cba320eaa0f8a74761eab38354",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "bowl-02.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.502,
+   0.534
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "504a6427b06bd2c7aa24d5cf7b973b84491ba391",
+  "licence": "Attribution License"
+ },
+ "bowl-09.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.561,
+   0.508
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "689ac298cd76e23bf1ca31fa683f458dce13ab89",
+  "licence": "Attribution License"
+ },
+ "bowl-06.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.516,
+   0.56
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "6900213f2539241cbb3e9049d5d69e4772d2736a",
+  "licence": "Attribution License"
+ },
+ "bowl-01.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.501
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "7e5a6f5684ce1dfd4b47ddb2627ae3e7a2bfeeb5",
+  "licence": "Attribution License"
+ },
+ "bowl-07.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.543,
+   0.478
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "86989f978db04ad752d4610d2facd3a77ffdd283",
+  "licence": "Attribution License"
+ },
+ "bowl-03.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.503,
+   0.483
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "9c0997b4cfef92c4a862d093355d05a77037fe7a",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "bowl-05.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.511,
+   0.552
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "b87df4cfce5b9ed1c6c46eb16ee19d3191e1efd5",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "bowl-10.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.441,
+   0.465
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "dbb09d8932bfc0030eee0340e39fd73b6a9cc7e7",
+  "licence": "Attribution License"
+ },
+ "bowl-08.jpg": {
+  "label": "bowl",
+  "accept": [],
+  "aim": [
+   0.502,
+   0.535
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "fba5c3241251758de59db66a79c5bb972f45dc59",
+  "licence": "Attribution License"
+ },
+ "vizwiz-box-01128.jpg": {
+  "label": "box",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "14691207ee8027145c9a845eea01d35ab5c655a0",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-box-00401.jpg": {
+  "label": "box",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "1fd75dbdea7840d1fea11393ecae6b1a9a1158ef",
+  "licence": "CC BY 4.0"
+ },
+ "broccoli-03.jpg": {
+  "label": "broccoli",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "vegetables"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "06e568b5f89cc633a2aa9835c1ffac719f204314",
+  "licence": "Attribution License"
+ },
+ "broccoli-01.jpg": {
+  "label": "broccoli",
+  "accept": [],
+  "aim": [
+   0.59,
+   0.55
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "vegetables"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "1599a4044fbbca11141e4aa090b0081d3c86cfb3",
+  "licence": "Attribution License"
+ },
+ "broccoli-02.jpg": {
+  "label": "broccoli",
+  "accept": [],
+  "aim": [
+   0.575,
+   0.533
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "vegetables"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "c184a0ee00f8c513a77a39908981df0383e4d4f2",
+  "licence": "Attribution License"
+ },
+ "cake-07.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.402,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "0a467ca3149729a7477095d5a8e137664f07b099",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "cake-03.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.476,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "128e2005d75cf82a21777019ddc5d3a4eea25891",
+  "licence": "Attribution License"
+ },
+ "cake-06.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.551
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "2ea17da7c84a8b72a5d0ea377066afc3ce22d1f1",
+  "licence": "Attribution License"
+ },
+ "vizwiz-cake-01066.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "62dd3d3b14d195de7cca66d78ba5eafdda2b82c3",
+  "licence": "CC BY 4.0"
+ },
+ "cake-05.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.534
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "81e45916a95aff9271168b198a216523e2e0d8d4",
+  "licence": "Attribution License"
+ },
+ "cake-04.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.454
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "8ca2c8088f405fe90d7e52a475349c59257be45b",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "cake-02.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.455,
+   0.434
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "d9e5718416345186f241f0c7f7b3fd76704288c0",
+  "licence": "Attribution License"
+ },
+ "cake-01.jpg": {
+  "label": "cake",
+  "accept": [],
+  "aim": [
+   0.487,
+   0.446
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f2b3b03f62e71c93aeb78d706de8408614dad21f",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-can-00840.jpg": {
+  "label": "can",
+  "accept": [
+   "soup can"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "6b03b24df21d97b563cfadd685454ff126c54c8d",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-can-01184.jpg": {
+  "label": "can",
+  "accept": [],
+  "aim": [
+   0.444,
+   0.646
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "7a88cd681fd4c06d5f4c3e9ed59fbf8e20629a23",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-can-00377.jpg": {
+  "label": "can",
+  "accept": [
+   "soda can"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "b7417733ce90d6b40407d68c674230e7eaace743",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-carpet-00984.jpg": {
+  "label": "carpet",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "349c8d0b57114099d792783b541d6e95d139c93f",
+  "licence": "CC BY 4.0"
+ },
+ "carrot-01.jpg": {
+  "label": "carrot",
+  "accept": [
+   "carrots"
+  ],
+  "aim": [
+   0.545,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "vegetables"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "1f2fce8829e76d507e91934ac89bf0f78041bd73",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "carrot-03.jpg": {
+  "label": "carrot",
+  "accept": [
+   "carrots"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "vegetables"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "51dcb238d86b0e1172b1a5acd95edc73ff334ae2",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "carrot-04.jpg": {
+  "label": "carrot",
+  "accept": [
+   "carrots"
+  ],
+  "aim": [
+   0.561,
+   0.528
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "vegetables"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "65e8e59983ded5e8e3444c191492260f073be843",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "carrot-02.jpg": {
+  "label": "carrot",
+  "accept": [
+   "carrots"
+  ],
+  "aim": [
+   0.5,
+   0.567
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "vegetables"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "b2a7779dcf53c4a7e11c1dae2ff0585b61ee52d6",
+  "licence": "Attribution License"
+ },
+ "cat-10.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.428,
+   0.545
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "027cca7a8f80db9407d4589991e7a5ea55fe2d50",
+  "licence": "Attribution License"
+ },
+ "cat-11.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.428,
+   0.549
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "0f57b0cb0b6e352d1c4247d2548a27bf251e4428",
+  "licence": "Attribution License"
+ },
+ "cat-08.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.438,
+   0.43
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "12cc5a0af8dbc1a8b8cf27b7ecd4f5d4215e4f26",
+  "licence": "Attribution License"
+ },
+ "cat-01.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.476,
+   0.506
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "15dbd0bbbdae37457b6a87536a245afaf1d2b721",
+  "licence": "Attribution License"
+ },
+ "cat-02.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.527,
+   0.517
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "18c1b74a537d92371bf464b99c1d6d181240a4eb",
+  "licence": "Attribution License"
+ },
+ "cat-04.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.538,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "272a12ec932f6aead958d7e79e1dbd36be63be9d",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "cat-05.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.478,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "55f92071cddafcb09e1e470cc96bcb79d83a7b5c",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "cat-12.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.446
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "7aa4b999b8a7faabf5084d17bb319d567b7e423d",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "cat-09.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.4,
+   0.593
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "8e8b62974840ed0e6c45a478d46d42d71b28cea3",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "cat-03.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.502,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "bae8a78cee95818155e0fe64eb6d30e6785bd043",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "cat-07.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.402,
+   0.403
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "d6f3f2dbb80b09022b89af2a46f91a2fded654de",
+  "licence": "Attribution License"
+ },
+ "cat-06.jpg": {
+  "label": "cat",
+  "accept": [],
+  "aim": [
+   0.485,
+   0.592
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "ef0ec6bc098d42a9d9fb3d6b006897e080770861",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "chair-10.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.428,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "0c48156627934563a3c0ce263fa8b6d57f2b0176",
+  "licence": "Attribution License"
+ },
+ "chair-07.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.406,
+   0.588
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "3171db02d615a5f7fd8f5358f6fcbb98cee21253",
+  "licence": "Attribution License"
+ },
+ "chair-03.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.417,
+   0.531
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "3ef3c2292a6923ef61c28d42dac0b552a1db15bf",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "chair-08.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.594,
+   0.402
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "482fbd8ffb6d40aef372bf33fe70f63923c09af0",
+  "licence": "Attribution License"
+ },
+ "chair-01.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.505,
+   0.51
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "6820913386d94a266f319a86b889f4e6b8eef548",
+  "licence": "Attribution License"
+ },
+ "chair-09.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "6d6965bff8fb1adc8dc45dd50bc67cf855e4c589",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "chair-02.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.516,
+   0.502
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "7fca7284ececbab0d1b149e40b39bdec0f1154f1",
+  "licence": "Attribution License"
+ },
+ "chair-04.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.562,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "ac8ff6c18a42dff233befc2b14499d3c6ef45dfa",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "chair-06.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.515,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "c1078f1d98cae0dd8657cb89d20aa4ef2a56855b",
+  "licence": "Attribution License"
+ },
+ "vizwiz-chair-00859.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "d6eac19ace128dffd831285861fe90840577f9cc",
+  "licence": "CC BY 4.0"
+ },
+ "chair-05.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.562,
+   0.576
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "e352c723083c40132a8eb8339d03e4f7b2a0483a",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "chair-11.jpg": {
+  "label": "chair",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.538
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "f0df596f57a67fdc4f449eea0f7833e3431f5bd5",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "clock-01.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.436,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "2eb79eb94d36066e48cf9dd7c3a43d2c3e0732a8",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "clock-04.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.479
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "3adb7098b5269dc27bea64ec71dc3c45e1387e4f",
+  "licence": "Attribution License"
+ },
+ "clock-02.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.4,
+   0.529
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "413df10cd01bf06afbe246f387f13c46b26b52b1",
+  "licence": "Attribution License"
+ },
+ "clock-03.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.488
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "746a5f402cfdc0a0b1300ed3b36e442886190a88",
+  "licence": "Attribution License"
+ },
+ "clock-05.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": [
+   0.444,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "894c09636c56dd12f60dc1e2fc92342550c5958b",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-clock-01070.jpg": {
+  "label": "clock",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "89a0ab742ffe3fb8d6794bdf756c9eff393045fa",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-coffee-00937.jpg": {
+  "label": "coffee",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "9b9f8f538dd80a581eb0e65e5ff2fbdc740b7b95",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-coffee-00561.jpg": {
+  "label": "coffee",
+  "accept": [],
+  "aim": [
+   0.208,
+   0.256
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "b85f3d2c6dfe5aa3ebcbc10368b3dfaa4303dcf2",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-coffee-maker-00085.jpg": {
+  "label": "coffee maker",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "3d64dee7154fa1b8f0e35d834d224e43e787f455",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-computer-mouse-00672.jpg": {
+  "label": "computer mouse",
+  "accept": [
+   "mouse"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "5c62d1a0bb4bb9f4e2b3ea85f1b8def2e65c6ebf",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-conditioner-00177.jpg": {
+  "label": "conditioner",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "61d42d36d4f44ecaab3d9b3e3b6aa11f39209140",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-conditioner-00384.jpg": {
+  "label": "conditioner",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "8a132e41003290c1254a7489279f43f8b83e1c65",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-cookie-00772.jpg": {
+  "label": "cookie",
+  "accept": [],
+  "aim": [
+   0.311,
+   0.196
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "f6cc65f461feeda7f92d0d03be117f1ef2c65f46",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-corn-01008.jpg": {
+  "label": "corn",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "vegetables"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "2a38a89cc35ee7c990257a6b23b58faeb0f28942",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-crackers-00558.jpg": {
+  "label": "crackers",
+  "accept": [],
+  "aim": [
+   0.189,
+   0.711
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "8e52b4afa4e9522baaf90d36f338cd98f7c30c0f",
+  "licence": "CC BY 4.0"
+ },
+ "cup-03.jpg": {
+  "label": "cup",
+  "accept": [
+   "mug",
+   "coffee cup"
+  ],
+  "aim": [
+   0.45,
+   0.42
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "8cbc21c30cbb2c174e731e76216e191ac45660ed",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-cup-00857.jpg": {
+  "label": "cup",
+  "accept": [
+   "coffee cup"
+  ],
+  "aim": [
+   0.487,
+   0.558
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "a627ed0498ae8befd56854d7612ff41ea5163231",
+  "licence": "CC BY 4.0"
+ },
+ "cup-02.jpg": {
+  "label": "cup",
+  "accept": [
+   "mug",
+   "coffee cup"
+  ],
+  "aim": [
+   0.499,
+   0.544
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "a6476f6c55d7f2af8a7df036bc3bb744b1596b84",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "cup-01.jpg": {
+  "label": "cup",
+  "accept": [
+   "mug",
+   "coffee cup"
+  ],
+  "aim": [
+   0.57,
+   0.544
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "a9a095fd107ba2b417fc01c508cf0fc94b8836e2",
+  "licence": "Attribution License"
+ },
+ "vizwiz-cup-00247.jpg": {
+  "label": "cup",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "c0d83b8a52e3cdaa6dd4667005b41dccf2c0469c",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-deodorant-00556.jpg": {
+  "label": "deodorant",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "e0fa2e7c362bab2b9ca16be8e19de3065e0c5fac",
+  "licence": "CC BY 4.0"
+ },
+ "dog-11.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.583
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "00c3c28cd36635d9a1559d115ace35be7f306500",
+  "licence": "Attribution License"
+ },
+ "dog-04.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.591,
+   0.578
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "061740372c7c22ca2c9d1b86800647aab610736a",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "dog-10.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.532,
+   0.531
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "284cf0986f12cad698e6efb6991b8af424465453",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-dog-00025.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "28934efa4c27ac812865f6216c4b0042705a1f0f",
+  "licence": "CC BY 4.0"
+ },
+ "dog-09.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.548,
+   0.471
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "3925a66874a067cce660e7d149107c1fe1fee0dc",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "dog-05.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.402,
+   0.492
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "4ffcff873853dcb372924d5e6951c0dedcb85dce",
+  "licence": "Attribution License"
+ },
+ "dog-08.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.432
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "652d462ce67cdf04f959f4a6ca70b95384e98147",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "dog-12.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.556,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "83736186fff84d47a6ade83de9cae7053c3f0f64",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-dog-00160.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "pets & animals"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "86eb54534ddb5b4c5816d99be0c0678722bcbcc6",
+  "licence": "CC BY 4.0"
+ },
+ "dog-07.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.469,
+   0.479
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "881e9aa6461e5f3479140515e2241b754711f075",
+  "licence": "Attribution License"
+ },
+ "dog-02.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.401,
+   0.503
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "91e867a736d8aaf7d2135f06c9968a77aba35d0d",
+  "licence": "Attribution License"
+ },
+ "vizwiz-dog-00613.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.089,
+   0.408
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "pets & animals"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "bc50f429b334e554fe5ba0d05b401b28073b8947",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-dog-00318.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "da44393537d5a4bcebf956bb2155f3b87125caff",
+  "licence": "CC BY 4.0"
+ },
+ "dog-01.jpg": {
+  "label": "dog",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.507
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "pets & animals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "e66eec81f695f14d221271b7d936b23cb0e2f0d2",
+  "licence": "Attribution License"
+ },
+ "donut-02.jpg": {
+  "label": "donut",
+  "accept": [
+   "doughnut"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "582ff9d32823e43121d2c93ded0fb3948ef35e23",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "donut-01.jpg": {
+  "label": "donut",
+  "accept": [
+   "doughnut"
+  ],
+  "aim": [
+   0.5,
+   0.569
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "8209e23df2ce9cf41b96da44de7ee0e3f3af7c5e",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-door-00190.jpg": {
+  "label": "door",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "638c5b733cf30714b944e3ff6a366ddbaffde04e",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-dresser-00569.jpg": {
+  "label": "dresser",
+  "accept": [],
+  "aim": [
+   0.485,
+   0.466
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "e4bae8abc0dc2e036197ccfa6cb78d2e8ff7c91d",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-drying-rack-00329.jpg": {
+  "label": "drying rack",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "cleaning & laundry"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "e9bd830ff036a7ac8d701dd3845db0f5e34b32fc",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-finger-00182.jpg": {
+  "label": "finger",
+  "accept": [],
+  "aim": [
+   0.404,
+   0.49
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "c4e785da17b11f352f9ff89a5c58e14cdeca80c4",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-flower-00395.jpg": {
+  "label": "flower",
+  "accept": [],
+  "aim": [
+   0.461,
+   0.638
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "outdoors & travel"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "f60429ee4464d59e5139ddddf66991e3138c390b",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-foot-01040.jpg": {
+  "label": "foot",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "10004ed20db24ede4f8bf8d86674dd42b8ffdcc5",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-foot-00080.jpg": {
+  "label": "foot",
+  "accept": [],
+  "aim": [
+   0.452,
+   0.564
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "ed0325fad7549a696c20929d4c3174bd0e1b8ff3",
+  "licence": "CC BY 4.0"
+ },
+ "fork-01.jpg": {
+  "label": "fork",
+  "accept": [],
+  "aim": [
+   0.534,
+   0.499
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "2bedd54881044a3f6ea8421b6ba791683657fa78",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "fridge-10.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.402
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "2312e25b7c966f94afca790e09054df13936277b",
+  "licence": "Attribution License"
+ },
+ "fridge-06.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.564,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "701cb6cfc645f54fe6a906b46b8b95f508f74a6b",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "fridge-03.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.4,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "70b676881210566636166e1c617820e52cecd648",
+  "licence": "Attribution License"
+ },
+ "fridge-05.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.4,
+   0.594
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "a324e574cd54dac3c08b526be249b795eddb2c44",
+  "licence": "Attribution License"
+ },
+ "fridge-01.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.503,
+   0.498
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "b203ce6129c4c3e5a124e03d07ad70db23c8884d",
+  "licence": "Attribution License"
+ },
+ "fridge-07.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.579
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "b5e95c662d96f23835ecc2ba9da5820beddec816",
+  "licence": "Attribution License"
+ },
+ "fridge-04.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.57
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "bf703e97351a50e4f311bfa161210f7817c0f26a",
+  "licence": "Attribution License"
+ },
+ "fridge-08.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "e68a9516713e78a4b83cb7487340d2b5381b39b4",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "fridge-02.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.563,
+   0.493
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "e99d75fa47d1c947474376113c3adcf783d87ea9",
+  "licence": "Attribution License"
+ },
+ "fridge-09.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f35dee862375015978e9190c7342b7230e5bcb6a",
+  "licence": "Attribution License"
+ },
+ "fridge-12.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.587,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f56be54398d1c3924aee515a55ce69ad0d75256f",
+  "licence": "Attribution License"
+ },
+ "fridge-11.jpg": {
+  "label": "fridge",
+  "accept": [
+   "refrigerator"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "f5d0fc08c9746980022d998758b2d057ac89fc2c",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "vizwiz-glass-00808.jpg": {
+  "label": "glass",
+  "accept": [],
+  "aim": [
+   0.559,
+   0.552
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "bde0ee3ed2d3f1d7e1489f859ff95eb8d38fb72d",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-glass-00952.jpg": {
+  "label": "glass",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "c7e175780c600e961defd5d710679fe62a7753ce",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-hair-00530.jpg": {
+  "label": "hair",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "6e67c7e24b66a57a86a9d08a1503e8537da51a3f",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-heater-01064.jpg": {
+  "label": "heater",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "6e437dd669acc63ceb23901eb80abc01c6eb0fb9",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-heater-00502.jpg": {
+  "label": "heater",
+  "accept": [],
+  "aim": [
+   0.527,
+   0.475
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "ca333a349acd71806798dc54b27f5452ce502ec8",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-hot-chocolate-00198.jpg": {
+  "label": "hot chocolate",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "ecb2a3ecd6b38078ab7fa5d7409fa3662c11abbe",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-jar-01056.jpg": {
+  "label": "jar",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "382eaeca4247d766d8bcbb44c08d801b313b4b0f",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-juice-00422.jpg": {
+  "label": "juice",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "3c6ecc6a0fb254ff8e598d70e392b68c26241296",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-ketchup-00112.jpg": {
+  "label": "ketchup",
+  "accept": [],
+  "aim": [
+   0.638,
+   0.49
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "b4da488e307a2c774a4549929bdbe379fe9fc7b6",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-ketchup-00220.jpg": {
+  "label": "ketchup",
+  "accept": [
+   "ketchup bottle"
+  ],
+  "aim": [
+   0.437,
+   0.66
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "e9234fad052d0787945b58bb39f3563f699e3900",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-keyboard-00221.jpg": {
+  "label": "keyboard",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "7f07d09189b07b318528b09783507df124633e09",
+  "licence": "CC BY 4.0"
+ },
+ "keyboard-03.jpg": {
+  "label": "keyboard",
+  "accept": [
+   "computer keyboard"
+  ],
+  "aim": [
+   0.494,
+   0.578
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "8c178b3e0f9b5d57b9c1cd8d357e29c537c94ecb",
+  "licence": "Attribution License"
+ },
+ "vizwiz-keyboard-00493.jpg": {
+  "label": "keyboard",
+  "accept": [
+   "computer keyboard"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "a2d4ae9b6e538e70333a9b80b41a087276f4d2fa",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-keyboard-00187.jpg": {
+  "label": "keyboard",
+  "accept": [],
+  "aim": [
+   0.442,
+   0.433
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "b6a67a87322d2211e786469241292c69e21c9ec1",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-keyboard-00828.jpg": {
+  "label": "keyboard",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "be16d3f1b2c58f1b2ee9b6c52a049c0c0fc2d86e",
+  "licence": "CC BY 4.0"
+ },
+ "keyboard-02.jpg": {
+  "label": "keyboard",
+  "accept": [
+   "computer keyboard"
+  ],
+  "aim": [
+   0.435,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "c4b205d692e5e448a3a2daf25cd139ce4d9829ba",
+  "licence": "Attribution License"
+ },
+ "keyboard-01.jpg": {
+  "label": "keyboard",
+  "accept": [
+   "computer keyboard"
+  ],
+  "aim": [
+   0.45,
+   0.518
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c87b1d1e0b1750f517a34d8e022ec03ace7dd67b",
+  "licence": "Attribution License"
+ },
+ "vizwiz-keyboard-00128.jpg": {
+  "label": "keyboard",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "f51140b06a73214b2c4844363b89b426f42614fd",
+  "licence": "CC BY 4.0"
+ },
+ "knife-01.jpg": {
+  "label": "knife",
+  "accept": [],
+  "aim": [
+   0.504,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "060e7dab4ccfd870baf30c6f45d67f02d20c8ac2",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "knife-03.jpg": {
+  "label": "knife",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.579
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "279d4960ce39172952dc1a516924efca012dff88",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "knife-02.jpg": {
+  "label": "knife",
+  "accept": [],
+  "aim": [
+   0.42,
+   0.408
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "5732ea5cc9ff89b7f5896c8263128d536e7d683e",
+  "licence": "Attribution License"
+ },
+ "laptop-07.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.404,
+   0.53
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "05d8eda34d577237a2b868e8aaa364139831406d",
+  "licence": "Attribution License"
+ },
+ "laptop-04.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.599,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "44d3134d9d7de67a1fee0941603191d05dc4edf3",
+  "licence": "Attribution License"
+ },
+ "vizwiz-laptop-00592.jpg": {
+  "label": "laptop",
+  "accept": [
+   "laptop computer"
+  ],
+  "aim": [
+   0.445,
+   0.442
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "4c152ee2cc4875ca76adeb4b046dca1e9b4177b4",
+  "licence": "CC BY 4.0"
+ },
+ "laptop-05.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "4d54e39ad36dec4ee70bb9b48cf1fd293011a9b6",
+  "licence": "Attribution License"
+ },
+ "vizwiz-laptop-01164.jpg": {
+  "label": "laptop",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "553ce1e4414557005ec3ac1369ee789d5bdf2ee1",
+  "licence": "CC BY 4.0"
+ },
+ "laptop-01.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.508,
+   0.503
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "6af55e5ea40d92ba0da68760367079396ade3207",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "laptop-06.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.581,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "ade9471ea69cd81ef6b289c3f420c523ce259f97",
+  "licence": "Attribution License"
+ },
+ "laptop-02.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.404,
+   0.541
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c89b95603eb38c9449181846025b19612aaec077",
+  "licence": "Attribution License"
+ },
+ "laptop-08.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.5,
+   0.562
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "da8ff4d37ab69cbf5395e3e790bd85440a0f7c65",
+  "licence": "Attribution License"
+ },
+ "laptop-03.jpg": {
+  "label": "laptop",
+  "accept": [
+   "computer",
+   "notebook computer"
+  ],
+  "aim": [
+   0.428,
+   0.402
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "efc6956d204052179feae91fb9d3e22bf43d5aad",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-lighter-00806.jpg": {
+  "label": "lighter",
+  "accept": [],
+  "aim": [
+   0.386,
+   0.527
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "tools & household"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "01f073a12f2416c7d5eb1df10717db3460bfd5dc",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-lotion-01072.jpg": {
+  "label": "lotion",
+  "accept": [],
+  "aim": [
+   0.499,
+   0.284
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "4ddfe164ead2da46b5696a886281c5ecd8af967b",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-lotion-00026.jpg": {
+  "label": "lotion",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "d605bc544de671dd229c4d654dfc229b0b40db18",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-lotion-00388.jpg": {
+  "label": "lotion",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "ed7b5229380496582c2776fe9c80326904a148dd",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-magnifying-glass-01105.jpg": {
+  "label": "magnifying glass",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "office & reading"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "0c299d34d69a378fa983d8f55e27ea887c64b709",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-mailbox-00117.jpg": {
+  "label": "mailbox",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "a038bb6449d5a36f49abfce63fd4686fc75bc70c",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-medicine-00339.jpg": {
+  "label": "medicine",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "health & medical"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "ba4226ed5cb1b4bd22d1ec7fe4097dd60ed5e9a2",
+  "licence": "CC BY 4.0"
+ },
+ "microwave-01.jpg": {
+  "label": "microwave",
+  "accept": [
+   "microwave oven"
+  ],
+  "aim": [
+   0.499,
+   0.491
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "7257367ec01d3fb373a6cbafb414a3dae49f4bd9",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "microwave-02.jpg": {
+  "label": "microwave",
+  "accept": [
+   "microwave oven"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c58e66174ae2c47cb975c83b7d55e84b80ef2544",
+  "licence": "Attribution License"
+ },
+ "vizwiz-milk-00704.jpg": {
+  "label": "milk",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "843a516fe282ef78f00b2495aa1d5a7e5f4f9392",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-money-00473.jpg": {
+  "label": "money",
+  "accept": [
+   "dollar",
+   "dollar bill"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "8e3039eadabeed8b6a4a9f3b6a1dca8f4fbc8ef8",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-money-00791.jpg": {
+  "label": "money",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "a75297e494952d121a9663e32d66bb156bc4bfbc",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-monitor-00663.jpg": {
+  "label": "monitor",
+  "accept": [
+   "computer monitor"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "1b3f065e8590efe073d554accdc0bb0b5d7a4ae8",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-mug-00104.jpg": {
+  "label": "mug",
+  "accept": [
+   "coffee mug"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "073bdfabd3985d9d7856a52d9a2086c7b257b38f",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-mustard-01033.jpg": {
+  "label": "mustard",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "874bbd454e882f0312b4e2c97fb7917f4198f9a2",
+  "licence": "CC BY 4.0"
+ },
+ "orange-01.jpg": {
+  "label": "orange",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "4638b73fbff4348ca9a452a62971f8d89f052711",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "orange-02.jpg": {
+  "label": "orange",
+  "accept": [],
+  "aim": [
+   0.532,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "bd20534f73e183ae91df1bee40c732088f91da16",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "oven-06.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.473,
+   0.423
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "4830d8e5f689993d2ed39a6b37dd093a8e8356b1",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "oven-04.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.444,
+   0.527
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "5b9b93d6a8e8d62f67928ccb5a2ea22aca2e38fb",
+  "licence": "Attribution License"
+ },
+ "oven-08.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.402,
+   0.587
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "61be7c0eb324a2a89ee9f71ae45237c4a5fd84ab",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "oven-05.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.6,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "89365d6c015900f1305571e05b7a247f638e870b",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "oven-07.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.447,
+   0.561
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "a9af2f38b995d56ae8f5b79fea879583beea6b60",
+  "licence": "Attribution License"
+ },
+ "oven-03.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.523,
+   0.51
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "b99607d0c4768c9110595045754b9248939278d1",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "oven-02.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.5,
+   0.492
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "bab73225c4f7e0e1234a2ff963ca842840a56644",
+  "licence": "Attribution License"
+ },
+ "oven-01.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c52326c4d00438a4e7ca4ed2c2c71d1bf7435227",
+  "licence": "Attribution License"
+ },
+ "oven-09.jpg": {
+  "label": "oven",
+  "accept": [
+   "stove"
+  ],
+  "aim": [
+   0.5,
+   0.589
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "fc918e8e76dbf4127fe4f0b02fe1161e056c0343",
+  "licence": "Attribution License"
+ },
+ "vizwiz-paper-00483.jpg": {
+  "label": "paper",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "office & reading"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "68325463d5e7069b9ededc31c7777fda4e3e69b6",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-pear-00245.jpg": {
+  "label": "pear",
+  "accept": [],
+  "aim": [
+   0.509,
+   0.517
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "7ba4d9779437100d59d0a0ab08c01ad34d6c5ceb",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-pen-00570.jpg": {
+  "label": "pen",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "office & reading"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "2506e024d329c0703bf9fa7eccd88d4cfdfad679",
+  "licence": "CC BY 4.0"
+ },
+ "person-12.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.529,
+   0.496
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "2e7e7088ff69bd2bcbbe7460a02472cb507decdf",
+  "licence": "Attribution License"
+ },
+ "person-06.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.503,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "33e11a6002a9209e2025d5f3fc046e274c3ec2f7",
+  "licence": "No known copyright restrictions"
+ },
+ "person-11.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.522,
+   0.493
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "3eb4db6a2d8c7cae6e06eaa3cf4da8cd3777098f",
+  "licence": "Attribution License"
+ },
+ "person-09.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.476,
+   0.49
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "476fa4873a27ea4fbc8ba7266e921343b79e6c72",
+  "licence": "Attribution License"
+ },
+ "person-10.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.507,
+   0.524
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "59f46f66f657994b74dae438dc818e1f1c0affb8",
+  "licence": "Attribution License"
+ },
+ "person-07.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.502,
+   0.49
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "61848c91ed63aa3ae359ec1d66d37918bc5301a3",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "person-04.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.508,
+   0.498
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "66a5f34cecf62046cda0b45d0edd3f1812256006",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "person-05.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.503,
+   0.494
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "935dfee71e76470d63b32503c22aeb917435cac6",
+  "licence": "Attribution License"
+ },
+ "person-01.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "ad2775c918dfaa0d0987a3eb0844a4773d8a0283",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "person-02.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.5,
+   0.494
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "b74f643a757342e4300abc221be3e18ce9c15dff",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "person-08.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.501,
+   0.503
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c07688dc4e0ca0a02068c1c88a431601427929cf",
+  "licence": "Attribution License"
+ },
+ "person-03.jpg": {
+  "label": "person",
+  "accept": [
+   "man",
+   "woman",
+   "people"
+  ],
+  "aim": [
+   0.5,
+   0.496
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "people & body"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "f6417ee714e4e0aac929418ab222d72cd7cca9f1",
+  "licence": "Attribution License"
+ },
+ "vizwiz-phone-00562.jpg": {
+  "label": "phone",
+  "accept": [
+   "iphone",
+   "smartphone",
+   "cell phone"
+  ],
+  "aim": [
+   0.566,
+   0.513
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "1808b5b4034545a99c635a9bae2b8c8019748c43",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-phone-01124.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone",
+   "smartphone"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "2114ec61a6519ee27b69db8c8183c19f5470ed82",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-phone-00113.jpg": {
+  "label": "phone",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "6d0de1dfba857e2154398541fec43772f9b8813a",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-phone-00274.jpg": {
+  "label": "phone",
+  "accept": [
+   "iphone",
+   "cell phone",
+   "cellphone",
+   "smartphone"
+  ],
+  "aim": [
+   0.19,
+   0.653
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "9ff8a2d982392fd013a0bd0aef58a67312eb7d25",
+  "licence": "CC BY 4.0"
+ },
+ "phone-02.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone",
+   "mobile phone",
+   "smartphone",
+   "cellphone"
+  ],
+  "aim": [
+   0.43,
+   0.467
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "bfd3300cadb017fc85b2ca0072251d676b156b72",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-phone-00200.jpg": {
+  "label": "phone",
+  "accept": [
+   "smartphone",
+   "cell phone",
+   "iphone"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "c134004b3d8a7d588c1b165f3e572b00adb2cf24",
+  "licence": "CC BY 4.0"
+ },
+ "phone-01.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone",
+   "mobile phone",
+   "smartphone",
+   "cellphone"
+  ],
+  "aim": [
+   0.5,
+   0.575
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c351547d752d5af99cfc1db432fc009e32043c2f",
+  "licence": "Attribution License"
+ },
+ "vizwiz-phone-01130.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone",
+   "cellphone"
+  ],
+  "aim": [
+   0.453,
+   0.591
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "d1e89b433af0d1d5901073aa69157903b070e2f6",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-phone-01160.jpg": {
+  "label": "phone",
+  "accept": [
+   "cell phone"
+  ],
+  "aim": [
+   0.478,
+   0.517
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "f826873a291e840de48a36f5aaab3039af65e6d0",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-picture-00559.jpg": {
+  "label": "picture",
+  "accept": [],
+  "aim": [
+   0.347,
+   0.531
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "e5661d36f99b785703e11ce73c923d029c8f51be",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-pill-bottle-00089.jpg": {
+  "label": "pill bottle",
+  "accept": [],
+  "aim": [
+   0.589,
+   0.228
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "health & medical"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "1256092b5c628232b24c30860b723dbdda1916fb",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-pills-01113.jpg": {
+  "label": "pills",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "health & medical"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "cea276c922d2bfe1f95bd643515446e04afbde5e",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-pineapple-00804.jpg": {
+  "label": "pineapple",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "fruit"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "c48211dadd314afe6d07487bfa7fe8c36369817b",
+  "licence": "CC BY 4.0"
+ },
+ "pizza-10.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.563,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "02781c45b900807c353e73e93155253b698acd1e",
+  "licence": "Attribution License"
+ },
+ "pizza-08.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.508,
+   0.507
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "2553144205482a80d47a6dc11126c4b07b9ce6c1",
+  "licence": "Attribution License"
+ },
+ "pizza-06.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.501,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "3a6e29725eb9117216ba7a9477564cbf0c10976f",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "pizza-02.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.502,
+   0.487
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "44f923348ab6bb299923ba18f1f794c95f53a07e",
+  "licence": "Attribution License"
+ },
+ "pizza-12.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.46,
+   0.534
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "4ad31189183b95831138adb9f3c65e0267f6be63",
+  "licence": "Attribution License"
+ },
+ "pizza-03.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.495,
+   0.462
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "4cf612b1a5c64ebb99026c00d12fa8d3321b5fcb",
+  "licence": "Attribution License"
+ },
+ "pizza-09.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.589,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "8582b3dc0eeb8718b275df4f73187bd8c12e829b",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "pizza-11.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.407,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "9c858cb382c62283282cc6bf7db09c41a09394cc",
+  "licence": "Attribution License"
+ },
+ "pizza-05.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.49,
+   0.513
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "acfc48a1eda9e96948537336480ab97cf81a432e",
+  "licence": "Attribution License"
+ },
+ "pizza-01.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "b22a6624149974058a1e316e744d950d8644e238",
+  "licence": "Attribution License"
+ },
+ "pizza-07.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.531,
+   0.522
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c62aa3d38222a4fc588289ea26d19c0d9f733d2c",
+  "licence": "Attribution License"
+ },
+ "pizza-04.jpg": {
+  "label": "pizza",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.519
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "d38e1914bddc8826a507499e7d43ed397696e931",
+  "licence": "Attribution License"
+ },
+ "plant-03.jpg": {
+  "label": "plant",
+  "accept": [
+   "potted plant",
+   "houseplant"
+  ],
+  "aim": [
+   0.583,
+   0.481
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "1d0a233a87f1a9ac9bf77022c7bc8c6fe6be8437",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "plant-01.jpg": {
+  "label": "plant",
+  "accept": [
+   "potted plant",
+   "houseplant"
+  ],
+  "aim": [
+   0.44,
+   0.496
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "69d4908203ee8d896a6293b2bc4eefe54be33db2",
+  "licence": "Attribution License"
+ },
+ "plant-02.jpg": {
+  "label": "plant",
+  "accept": [
+   "potted plant",
+   "houseplant"
+  ],
+  "aim": [
+   0.443,
+   0.531
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "baa0bff332181d1a0bcef332b22dcb7f3dd8c4c0",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "plant-04.jpg": {
+  "label": "plant",
+  "accept": [
+   "potted plant",
+   "houseplant"
+  ],
+  "aim": [
+   0.597,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "bbe6b8a652b7a1d689c8c6bb973e04ad62e80d2a",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "vizwiz-popcorn-00412.jpg": {
+  "label": "popcorn",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "f70d6e57972ee12e125ddb2029fa3e46fbc8b1cc",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-radio-00642.jpg": {
+  "label": "radio",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "7957cd67a74b9c20f490c5a301f3771124280f93",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-remote-00012.jpg": {
+  "label": "remote",
+  "accept": [
+   "remote control",
+   "tv remote"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "0196186935173b887687e8f53649f55f41633859",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-remote-00387.jpg": {
+  "label": "remote",
+  "accept": [
+   "tv remote",
+   "remote control"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "418be9bb5115808b5bc36643799502423428c3c7",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-remote-00837.jpg": {
+  "label": "remote",
+  "accept": [
+   "remote control",
+   "tv remote"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "5c312f408b2fc3c248fe14146247ad2609204b0e",
+  "licence": "CC BY 4.0"
+ },
+ "remote-01.jpg": {
+  "label": "remote",
+  "accept": [
+   "remote control",
+   "tv remote"
+  ],
+  "aim": [
+   0.426,
+   0.549
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "8bcc638c419aaae5844265a632732c9a220768a4",
+  "licence": "Attribution License"
+ },
+ "vizwiz-remote-00439.jpg": {
+  "label": "remote",
+  "accept": [
+   "tv remote",
+   "remote control"
+  ],
+  "aim": [
+   0.396,
+   0.54
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "a70b2fa0f541cdc1bdf38e7c8ef900d148ddea5d",
+  "licence": "CC BY 4.0"
+ },
+ "sandwich-08.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.548,
+   0.517
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "06bc8115c9cbaa1c678ea5e303094cdca4ef0086",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sandwich-05.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.534,
+   0.514
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "3aaa9f8c9cadff428151ad8de9ea19f697f99f73",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sandwich-03.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "45a0f7487096b35d71e3c22b5867a7c1890324a7",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "sandwich-12.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.563,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "4cb42bf2bb8ff6e97ae4682df4c3f05933a0bf85",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sandwich-07.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "8754cb88c7943875bfc492ae010c92032a8fcf4e",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sandwich-10.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.453,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "8f5b2202017faa7f5ab1bbf04cce26f5c0707aa3",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sandwich-04.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.531,
+   0.527
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "9596610adf564914bc617bbe801bb68ff98a8268",
+  "licence": "Attribution License"
+ },
+ "sandwich-02.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.567,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "b429f39db54d50d4c2904cd9591192bd60e2506f",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sandwich-11.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "c54c1f0a53556cb951e633f63cac3ceec3d973cd",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "sandwich-06.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.498,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f275438fc5426875dd17c8cf0aca3e84013781cd",
+  "licence": "Attribution License"
+ },
+ "sandwich-01.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.482,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f33fb0be137f1ed47cc250a26eeafafd75dd8ebc",
+  "licence": "Attribution License"
+ },
+ "sandwich-09.jpg": {
+  "label": "sandwich",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "food & meals"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "fae316f3dc19becfe91e109a2699e3f5aa65a12b",
+  "licence": "Attribution License"
+ },
+ "scissors-01.jpg": {
+  "label": "scissors",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.522
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "tools & household"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "ae6c1a68972e620d91369b8ddbc0e856cab726f1",
+  "licence": "Attribution License"
+ },
+ "vizwiz-scissors-00315.jpg": {
+  "label": "scissors",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "tools & household"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "f66e3970775e18d81003e16fd1bdd504672073d5",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-shampoo-00096.jpg": {
+  "label": "shampoo",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "b78609040d0e496b7eb85b799e4aec2ddb7abcb6",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-shampoo-00631.jpg": {
+  "label": "shampoo",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "c3f2fc16055f5f53e91bb94fc3b45113caf76d1b",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-shaving-cream-00733.jpg": {
+  "label": "shaving cream",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "361f29d47b6a422ab146b2b9a2db2c603aa86355",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-shaving-cream-00244.jpg": {
+  "label": "shaving cream",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "b90abe36e71e67b2f97ff27c61e7b2df5d4b8cc2",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-shoes-00005.jpg": {
+  "label": "shoes",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "6648351c26384848f38618b782b892d17766194f",
+  "licence": "CC BY 4.0"
+ },
+ "sink-04.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": [
+   0.6,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "27b49b2071c5003621b8d5506975e518afbd8390",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-sink-00897.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "41e8255beec44bfebc709341cbe125c457ea4735",
+  "licence": "CC BY 4.0"
+ },
+ "sink-02.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": [
+   0.596,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "45fd43f1713756553d34044a452c9389ac9c4691",
+  "licence": "Attribution License"
+ },
+ "sink-01.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": [
+   0.413,
+   0.568
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "7c5ec2a20a65ae522565577f363b45c3d055e9e3",
+  "licence": "Attribution License"
+ },
+ "sink-03.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": [
+   0.501,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c0d6a46377d12b480d56bd8e958af97793dc5305",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sink-05.jpg": {
+  "label": "sink",
+  "accept": [],
+  "aim": [
+   0.4,
+   0.576
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "c2e12b4f868b659d17c85d8b76a9eb52e35a81ae",
+  "licence": "Attribution License"
+ },
+ "vizwiz-soap-00460.jpg": {
+  "label": "soap",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "e82f1db29e717549cb1088dd8bad891eb2f0a25f",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-soda-01042.jpg": {
+  "label": "soda",
+  "accept": [
+   "pepsi"
+  ],
+  "aim": [
+   0.535,
+   0.495
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "9de279aceb495bea98b45641adfb484f40142d9d",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-soda-01207.jpg": {
+  "label": "soda",
+  "accept": [
+   "pepsi"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "e6e3c1f3324906657c82448187db416f74355f9c",
+  "licence": "CC BY 4.0"
+ },
+ "sofa-01.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.4,
+   0.495
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "36bf8ea749459d1f4e4a017bc8218a629e4c79e3",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sofa-08.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.5,
+   0.554
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "5deae0538689c68dfaf224e40db3e3008519741e",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sofa-09.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.402,
+   0.59
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "636a34c69fbc1386721f1207ebceab5c03b62fa2",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "sofa-06.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.499,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "702d06a849b9c4c1050d4d62814ac3f58195e5f2",
+  "licence": "Attribution License"
+ },
+ "sofa-04.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.4,
+   0.593
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "785112324d99ec7437b6650263bfb1b944e28a9a",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sofa-02.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.577,
+   0.594
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "ab8dbdd719cf3175d3701f3a3f3304945fbf897f",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sofa-03.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.501,
+   0.588
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "b2508ccd89aa7c4ec6a6e1713c4490316645ca51",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sofa-11.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.6,
+   0.556
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "bf7aa7f7dd4268bfcc90db17c612b914de8d29ac",
+  "licence": "Attribution License"
+ },
+ "sofa-12.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.402,
+   0.6
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "c2a387f5a03e3e6b7074f7e5f908519268990895",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "sofa-07.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.532,
+   0.586
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c369ba1a2909ee7dcc3ea146e707b1f0ee3a07f5",
+  "licence": "Attribution License"
+ },
+ "sofa-05.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.508,
+   0.59
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c7a95dd5f2258ddc482a921c20d5734763ee0fe0",
+  "licence": "Attribution License"
+ },
+ "vizwiz-sofa-01027.jpg": {
+  "label": "sofa",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "c8379ab510881b016a74895742d3a9d194ee176a",
+  "licence": "CC BY 4.0"
+ },
+ "sofa-10.jpg": {
+  "label": "sofa",
+  "accept": [
+   "couch"
+  ],
+  "aim": [
+   0.572,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c943cbcd211dfeefd218c6cc6cc89b2ce5058498",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-soup-00995.jpg": {
+  "label": "soup",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "3c78f07e6ac59797694fcbb2c1bfc68665a447cd",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-spinach-01009.jpg": {
+  "label": "spinach",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "vegetables"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "989b1245d8d06898611ea64fe79ca27c62644823",
+  "licence": "CC BY 4.0"
+ },
+ "spoon-02.jpg": {
+  "label": "spoon",
+  "accept": [],
+  "aim": [
+   0.421,
+   0.497
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "9cf988c2a4df10347c39bdb3e744ea9daa562397",
+  "licence": "Attribution License"
+ },
+ "spoon-01.jpg": {
+  "label": "spoon",
+  "accept": [],
+  "aim": [
+   0.496,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f442584b8d79bd82edb1995acee71becb7745fcd",
+  "licence": "Attribution License"
+ },
+ "vizwiz-spray-bottle-00364.jpg": {
+  "label": "spray bottle",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "cleaning & laundry"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "03362b3e18a2a899ffd0cacc3c6c50955a79d8a5",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-stairs-00699.jpg": {
+  "label": "stairs",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "8510ad7dfdc9386e1ac867951426e7953d85b3b3",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-stove-00678.jpg": {
+  "label": "stove",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "66a3dcf08165db15afb4e7a32e70c38a8ff6ddb8",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-sugar-00134.jpg": {
+  "label": "sugar",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "eede33ac4ca60f5e81ffc422561c4e3bfa86ca05",
+  "licence": "CC BY 4.0"
+ },
+ "suitcase-03.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.542,
+   0.49
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "090ed476c97a42d0622acb6430543b8f34772a7e",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "suitcase-05.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.5,
+   0.588
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "1a90ec427b21a8098f477c6afca921e04039a301",
+  "licence": "Attribution License"
+ },
+ "suitcase-04.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.521,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "331b6937f8a47b575c79f498306a5da828a8d8a8",
+  "licence": "Attribution License"
+ },
+ "suitcase-02.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.519,
+   0.429
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c13a39e2fc32648c3c272ad0db3d40560bda0599",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "suitcase-01.jpg": {
+  "label": "suitcase",
+  "accept": [
+   "luggage"
+  ],
+  "aim": [
+   0.501,
+   0.502
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f91d0b1f1dbd5e9ae6c805f5c4a7260389ea3724",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-tablet-00105.jpg": {
+  "label": "tablet",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "personal items"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "89f8f72605527c3c739146be8df1f12a17b6e30d",
+  "licence": "CC BY 4.0"
+ },
+ "teddy-bear-05.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.485,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "leisure & play"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "01cfc2816251a58e1667b9d1933d552eee4cebcc",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "teddy-bear-06.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.5,
+   0.512
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "leisure & play"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "0a06254439efa9f7744b9cf2562a476048343e50",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "teddy-bear-01.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "leisure & play"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "5034f54954f188c82e49db6288337eb3c7ae427c",
+  "licence": "Attribution License"
+ },
+ "teddy-bear-02.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.403,
+   0.539
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "leisure & play"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "bc24c191e902730c67778a9759419fe4efd005ed",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "teddy-bear-04.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "leisure & play"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "e2031cdf5256e1d63b9e8922a9a8bc98d391f7e6",
+  "licence": "Attribution License"
+ },
+ "teddy-bear-03.jpg": {
+  "label": "teddy bear",
+  "accept": [
+   "stuffed animal",
+   "teddy"
+  ],
+  "aim": [
+   0.536,
+   0.47
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "leisure & play"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "ff2febb1fa4f4a499c3e8b8a9af6514dd0c00f72",
+  "licence": "Attribution License"
+ },
+ "vizwiz-tissues-00108.jpg": {
+  "label": "tissues",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "a7c264d2222976fe7875b3b545468aef8c998930",
+  "licence": "CC BY 4.0"
+ },
+ "toaster-01.jpg": {
+  "label": "toaster",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.56
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "4379b90c92fda2ee41c459bd9728a3b601702873",
+  "licence": "Attribution License"
+ },
+ "vizwiz-toilet-paper-00523.jpg": {
+  "label": "toilet paper",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "6c7f0268f56b2fcb0799427040229758c0d04f17",
+  "licence": "CC BY 4.0"
+ },
+ "toothbrush-01.jpg": {
+  "label": "toothbrush",
+  "accept": [],
+  "aim": [
+   0.446,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "bathroom & hygiene"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "a8d3f6369fc49ef268a2615fe662f4ae0b716045",
+  "licence": "Attribution License"
+ },
+ "vizwiz-toy-00367.jpg": {
+  "label": "toy",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "leisure & play"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "4cb15fa6c360fefafc86606ba0b309722de50264",
+  "licence": "CC BY 4.0"
+ },
+ "tv-10.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "0108eff9363e7f8cd79c97a39de2272b1cbddf54",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "tv-08.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "04455f9f3e5bf2d7e31cae96d2e1d1e70c9d61ab",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-tv-00174.jpg": {
+  "label": "tv",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "0dc10269902e3df6d6154d7ebc3acef69c7d6622",
+  "licence": "CC BY 4.0"
+ },
+ "tv-05.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.58,
+   0.404
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "126f8dee7bb93a881467c62f6c0626f8a7d4ceb5",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "tv-04.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.464
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "346b45ecb7670ce95421dd22d1de06a6f3e88083",
+  "licence": "Attribution License"
+ },
+ "tv-03.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.401
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "74ecf74167d89212e1aa730a72db48f7f61dbdad",
+  "licence": "Attribution License"
+ },
+ "tv-01.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.542,
+   0.503
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "8b26ee0397f9bb0c310e3e44cad12a247634af3a",
+  "licence": "Attribution License"
+ },
+ "vizwiz-tv-00130.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "94e5240a58df6cda721f75404e75e79b6a2d8824",
+  "licence": "CC BY 4.0"
+ },
+ "tv-09.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.479
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "a7fda0e0dd820f07fea1392d61f78c46e1609155",
+  "licence": "Attribution License"
+ },
+ "tv-07.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c20a23f2b2f6dc122db1471980d92484b3e735bd",
+  "licence": "Attribution License"
+ },
+ "tv-06.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "c665c31300225500cdb231e39e42f9e503b79998",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "tv-02.jpg": {
+  "label": "tv",
+  "accept": [
+   "television"
+  ],
+  "aim": [
+   0.573,
+   0.412
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "electronics & media"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "e1aaa991b5fae9ece8eec434daed9e905ef3b3cf",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "umbrella-11.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.508,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "1a1e4ae46c366cb31ecc448b9f7b6053e662123f",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "umbrella-10.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.448,
+   0.444
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "30a76005c877645aa65fe4ef26c464ddaf0f41e4",
+  "licence": "Attribution License"
+ },
+ "umbrella-08.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.452,
+   0.424
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "clothes & accessories"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "55cef483750d388bdd1e0fc4e3a0bebe4c941ff6",
+  "licence": "Attribution License"
+ },
+ "umbrella-02.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.588,
+   0.47
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "5da7b71c8815109f91bc1c5cf009daea7f6d4943",
+  "licence": "Attribution License"
+ },
+ "umbrella-03.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.56,
+   0.42
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "6b2840966f475a7d3a47d7e406ac54ba828c73fb",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "umbrella-05.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.466,
+   0.478
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "8b577b6d07347bf32d28313df0fe1319bf7462d8",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "umbrella-12.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.547,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "9389c72c5cf3d109326f2da6c37b9f2d2f91ea36",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "umbrella-01.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.518,
+   0.554
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "9f0fc2435c8b3c396e1374a2e3f05b464eebf565",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "umbrella-09.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.4
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "bfa50ba9bdb0e77d3375d4b3ccad3a8430544c13",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "umbrella-06.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.549,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "ed5a248b69b58e75a193f001abed9200ed44c545",
+  "licence": "Attribution License"
+ },
+ "umbrella-07.jpg": {
+  "label": "umbrella",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.5
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "clothes & accessories"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f786ff3f9925a66c3d8500018b58022afcdd234a",
+  "licence": "Attribution License"
+ },
+ "vase-02.jpg": {
+  "label": "vase",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.556
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "1efdc80b99946a0117a72f9e23bf7b61aa4a784b",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "vase-04.jpg": {
+  "label": "vase",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.578
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "250933e2144338b1a6f577652650c3fe08c3e388",
+  "licence": "Attribution-NoDerivs License"
+ },
+ "vase-03.jpg": {
+  "label": "vase",
+  "accept": [],
+  "aim": [
+   0.5,
+   0.508
+  ],
+  "tags": [
+   "coco",
+   "table",
+   "single",
+   "furniture & home"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "6b7fd1472399bb71087952094bfedd9c2b1af8ec",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vase-01.jpg": {
+  "label": "vase",
+  "accept": [],
+  "aim": [
+   0.479,
+   0.483
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "furniture & home"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "f22af97b949c4490e88a62a394055569f8e0d220",
+  "licence": "Attribution-ShareAlike License"
+ },
+ "vizwiz-water-00659.jpg": {
+  "label": "water",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "909c2d41a5a4233cea18062d09e08ae2b868d0dd",
+  "licence": "CC BY 4.0"
+ },
+ "water-bottle-01.jpg": {
+  "label": "water bottle",
+  "accept": [
+   "bottle"
+  ],
+  "aim": [
+   0.469,
+   0.584
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "1fed39acb66a6b886fa51d800b086309141bbe5d",
+  "licence": "Attribution License"
+ },
+ "vizwiz-water-bottle-00049.jpg": {
+  "label": "water bottle",
+  "accept": [],
+  "aim": [
+   0.483,
+   0.663
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "9ce879267d605ab8f08106093baf3c6898084fe3",
+  "licence": "CC BY 4.0"
+ },
+ "water-bottle-02.jpg": {
+  "label": "water bottle",
+  "accept": [
+   "bottle"
+  ],
+  "aim": [
+   0.5,
+   0.408
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "drinks"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "a7aac44afebec199251096c23dbf1bd218d98665",
+  "licence": "Attribution License"
+ },
+ "vizwiz-wine-00669.jpg": {
+  "label": "wine",
+  "accept": [],
+  "aim": [
+   0.537,
+   0.683
+  ],
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "505a7b318a034dc0e981046ad72b999b66352d4f",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-wine-00946.jpg": {
+  "label": "wine",
+  "accept": [
+   "wine bottle"
+  ],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "6c3de00d213bae4c28469b3a306f86676d36456a",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-wine-00914.jpg": {
+  "label": "wine",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "heldout",
+  "source": "vizwiz",
+  "sha1": "a5c5818be866a5f5f8b2711dbceca38a353cbd20",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-wine-01068.jpg": {
+  "label": "wine",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "drinks"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "c2e6c76f58e9e703cedab61920d68130e3b5a55c",
+  "licence": "CC BY 4.0"
+ },
+ "vizwiz-wine-glass-00403.jpg": {
+  "label": "wine glass",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "5dcd5751a1b5ae1f9cdbc19d02cc7c13bb2057b8",
+  "licence": "CC BY 4.0"
+ },
+ "wine-glass-02.jpg": {
+  "label": "wine glass",
+  "accept": [
+   "glass"
+  ],
+  "aim": [
+   0.5,
+   0.43
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "dev",
+  "source": "coco",
+  "sha1": "61c44578db74dc443719178ff34ee538b7e985f6",
+  "licence": "Attribution License"
+ },
+ "wine-glass-01.jpg": {
+  "label": "wine glass",
+  "accept": [
+   "glass"
+  ],
+  "aim": [
+   0.403,
+   0.51
+  ],
+  "tags": [
+   "coco",
+   "cluttered",
+   "kitchen & dining"
+  ],
+  "split": "heldout",
+  "source": "coco",
+  "sha1": "d1d0dc259695a09e91767c1478fa0e8298ed11e1",
+  "licence": "Attribution License"
+ },
+ "vizwiz-yogurt-01051.jpg": {
+  "label": "yogurt",
+  "accept": [],
+  "aim": null,
+  "tags": [
+   "held",
+   "vizwiz",
+   "food & meals"
+  ],
+  "split": "dev",
+  "source": "vizwiz",
+  "sha1": "5e5714a54a2d284f592a31e60e1371cb76d98e03",
+  "licence": "CC BY 4.0"
+ }
+}
