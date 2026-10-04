@@ -170,11 +170,6 @@ export default function App() {
   scanRef.current = scan;
   const reviewRef = useRef<{ until: number; level: number } | null>(null);
   const [hint, setHint] = useState<{ text: string; key: number } | null>(null);
-  useEffect(() => {
-    if (!hint) return;
-    const t = setTimeout(() => setHint(null), 3000);
-    return () => clearTimeout(t);
-  }, [hint]);
   const settingsRef = useRef(sourceSettings);
   settingsRef.current = sourceSettings;
 
@@ -183,10 +178,8 @@ export default function App() {
     setToast({ text, key: Date.now() });
   }, []);
   useEffect(() => {
-    if (!toast) return;
-    const t = setTimeout(() => setToast(null), 2500);
-    return () => clearTimeout(t);
-  }, [toast]);
+    document.documentElement.dataset.calm = String(!ACTIVE_PROFILE.sensory.animation);
+  }, []);
 
   const [siglip, setSiglip] = useState<SiglipState>({ status: "idle", progress: 0 });
   useEffect(() => onSiglipState(setSiglip), []);
@@ -479,8 +472,7 @@ export default function App() {
     if (f.intentIndex !== null) return "intents";
     if (f.quickIndex !== null) return "quick";
     if (pmRef.current.fresh) return "message";
-    const review = reviewRef.current;
-    return review && performance.now() < review.until ? "review" : "normal";
+    return "normal";
   };
 
   const flowStep = (mode: RingMode, command: RingCommand): boolean => {
@@ -873,7 +865,9 @@ export default function App() {
               <div
                 key={hint.key}
                 data-testid="hint"
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-amber-400 text-black text-lg font-semibold shadow-lg pointer-events-none"
+                onClick={() => setHint(null)}
+                role="status"
+                className="absolute bottom-12 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-amber-400 text-black text-lg font-semibold shadow-lg cursor-pointer"
               >
                 {hint.text}
               </div>
@@ -882,7 +876,9 @@ export default function App() {
               <div
                 key={toast.key}
                 data-testid="toast"
-                className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/75 text-white text-lg font-semibold shadow-lg pointer-events-none capitalize"
+                onClick={() => setToast(null)}
+                role="status"
+                className="absolute top-3 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-black/75 text-white text-lg font-semibold shadow-lg cursor-pointer"
               >
                 {toast.text}
               </div>
@@ -1155,7 +1151,7 @@ export default function App() {
           <div className="flex justify-center">
             <button
               onClick={() => dispatch({ type: "CLEAR_ALL" })}
-              className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all"
+              className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg"
             >
               Clear all
             </button>

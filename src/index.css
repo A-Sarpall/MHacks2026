@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+:root[data-calm="true"] *,
+:root[data-calm="true"] *::before,
+:root[data-calm="true"] *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

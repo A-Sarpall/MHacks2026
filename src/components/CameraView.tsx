@@ -388,7 +388,7 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
     }, [source, stream, mirror, aim.zoneFrac, aim.offset.dx, aim.offset.dy, maxCandidates, onTargetCue]);
 
     const flash = (box: Box) => {
-      flashRef.current = { box, until: performance.now() + 350 };
+      flashRef.current = { box, until: performance.now() + 1500 };
     };
 
 
@@ -701,8 +701,9 @@ function draw(
   }
 
   if (flash && performance.now() < flash.until) {
-    const alpha = (flash.until - performance.now()) / 350;
-    ctx.fillStyle = `rgba(255,255,255,${0.6 * alpha})`;
-    ctx.fillRect(fx(flash.box), flash.box.y, flash.box.w, flash.box.h);
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#1d4ed8";
+    ctx.setLineDash([]);
+    ctx.strokeRect(fx(flash.box), flash.box.y, flash.box.w, flash.box.h);
   }
 }

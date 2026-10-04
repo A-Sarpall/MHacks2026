@@ -6,7 +6,6 @@ export interface Incoming extends IncomingMessage {
   reacted?: Tapback;
 }
 
-const FRESH_MS = 60_000; // a text counts as "just arrived" (ring double-click = tapback) for this long
 
 export function usePrivateMessaging() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -68,7 +67,7 @@ export function usePrivateMessaging() {
     [incoming]
   );
 
-  const fresh = incoming !== null && !incoming.reacted && incoming.contactId !== null && Date.now() - incoming.at < FRESH_MS;
+  const fresh = incoming !== null && !incoming.reacted && incoming.contactId !== null;
   return { contacts, mode, target, setTarget, incoming, dismissIncoming: () => setIncoming(null), fresh, selectById, send, tap, refresh };
 }
 
