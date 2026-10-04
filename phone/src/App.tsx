@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as Haptics from 'expo-haptics';
+import { ContactsScreen } from './ContactsScreen';
 
 // Phone stand-in for the ring: camera + one button. Speaks the hub's ring protocol
 // (see ../../src/vision/README.md "Wi-Fi (WebSocket)").
@@ -23,11 +24,28 @@ const BUZZ: Record<string, () => Promise<void>> = {
   error: () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error),
 };
 
+// When the socket cannot connect, test plain HTTPS to the same host so the screen says WHY:
+// "https check: 200" = the network and TLS are fine, so only the WebSocket upgrade fails.
+async function probe(wsUrl: string): Promise<string> {
+  const http = wsUrl.replace(/^ws/, 'http').replace(/\/phone\/?$/, '/health');
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), 7000);
+  try {
+    const r = await fetch(http, { signal: ctl.signal });
+    return `https check: ${r.status}`;
+  } catch (e) {
+    return `https check failed: ${String(e).slice(0, 90)}`;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
 export default function App() {
   const [url, setUrl] = useState('ws://192.168.1.10:8787/phone');
   const [active, setActive] = useState(false);
   const [link, setLink] = useState<Link>('idle');
   const [last, setLast] = useState('');
+  const [showContacts, setShowContacts] = useState(false);
   const [detail, setDetail] = useState(''); // why the link is down (close code / error)
   const [perm, askPerm] = useCameraPermissions();
   const cam = useRef<CameraView>(null);
@@ -86,7 +104,9 @@ export default function App() {
       ws.current = s;
       clearInterval(keepalive);
       keepalive = setInterval(() => safeSend(JSON.stringify({ type: 'ping' })), 15000);
+      let opened = false;
       s.onopen = () => {
+        opened = true;
         setLink('live');
         setDetail('');
       };
@@ -104,7 +124,9 @@ export default function App() {
       s.onclose = (e) => {
         clearInterval(keepalive);
         if (closed) return;
-        setDetail((d) => d || `closed: code ${e.code}${e.reason ? ` ${e.reason}` : ''}`);
+        const base = `closed: code ${e.code}${e.reason ? ` ${e.reason}` : ''}`;
+        setDetail(base);
+        if (!opened) void probe(url).then((r) => setDetail(`${base} | ${r}`));
         setLink('retrying');
         retry = setTimeout(open, 1500);
       };
@@ -142,6 +164,8 @@ export default function App() {
     sendAction('hold');
   };
 
+  if (showContacts) return <ContactsScreen hubWsUrl={url} onClose={() => setShowContacts(false)} />;
+
   if (!active) {
     return (
       <View style={s.page}>
@@ -162,6 +186,9 @@ export default function App() {
         />
         <Pressable style={s.primary} onPress={() => setActive(true)}>
           <Text style={s.primaryText}>Connect</Text>
+        </Pressable>
+        <Pressable style={s.secondary} onPress={() => setShowContacts(true)}>
+          <Text style={s.secondaryText}>Add people from my contacts</Text>
         </Pressable>
       </View>
     );
@@ -188,9 +215,14 @@ export default function App() {
           <View style={[s.dot, { backgroundColor: dot }]} />
           <Text style={s.pillText}>{link === 'live' ? 'Connected' : link === 'retrying' ? 'Reconnecting…' : 'Connecting…'}</Text>
         </View>
-        <Pressable style={s.pill} onPress={() => setActive(false)}>
-          <Text style={s.pillText}>Change</Text>
-        </Pressable>
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          <Pressable style={s.pill} onPress={() => setShowContacts(true)}>
+            <Text style={s.pillText}>Contacts</Text>
+          </Pressable>
+          <Pressable style={s.pill} onPress={() => setActive(false)}>
+            <Text style={s.pillText}>Change</Text>
+          </Pressable>
+        </View>
       </View>
       <View style={s.reticle} pointerEvents="none" />
       <View style={s.bottom}>
@@ -220,6 +252,8 @@ const s = StyleSheet.create({
   input: { height: 60, borderRadius: 18, borderWidth: 1.5, borderColor: '#D6CFC2', backgroundColor: '#fff', paddingHorizontal: 16, fontSize: 17 },
   primary: { height: 64, borderRadius: 20, backgroundColor: BLUE, alignItems: 'center', justifyContent: 'center' },
   primaryText: { fontSize: 20, fontWeight: '700', color: '#fff' },
+  secondary: { height: 56, borderRadius: 18, borderWidth: 1.5, borderColor: BLUE, alignItems: 'center', justifyContent: 'center' },
+  secondaryText: { fontSize: 18, fontWeight: '700', color: BLUE },
   cam: { flex: 1, backgroundColor: '#000' },
   top: { position: 'absolute', top: 60, left: 16, right: 16, flexDirection: 'row', justifyContent: 'space-between' },
   pill: { flexDirection: 'row', alignItems: 'center', gap: 8, height: 40, paddingHorizontal: 14, borderRadius: 20, backgroundColor: 'rgba(0,0,0,.55)' },
