@@ -6,26 +6,43 @@ import { fileURLToPath } from "node:url";
 import { toProfile, type Profile, type RawRecord } from "./meds.ts";
 
 const BASE = process.env.FINCHNODE_BASE ?? "https://api.finchnode.com/demo/v1";
-/** Most medications of the 12 scenarios (14 active). Change with FINCHNODE_SUBJECT. */
-export const SUBJECT = process.env.FINCHNODE_SUBJECT ?? "patient-demo-polypharmacy";
+/** The bundled fixture is this patient's record, so it is only a fallback for them. */
+const FIXTURE_SUBJECT = "patient-demo-polypharmacy";
+/** Most medications of the 12 scenarios (14 active). Change with FINCHNODE_SUBJECT, or at runtime with setSubject. */
+let subject = process.env.FINCHNODE_SUBJECT ?? FIXTURE_SUBJECT;
 const TTL_MS = 5 * 60_000;
 
-let cache: { at: number; profile: Profile } | null = null;
+let cache: { at: number; subject: string; profile: Profile } | null = null;
+
+export const currentSubject = (): string => subject;
+
+/** Switch the patient Qu is for (the browser's health-record picker). Throws on a malformed id. */
+export function setSubject(next: string): void {
+  if (!/^[A-Za-z0-9._-]{1,100}$/.test(next)) throw new Error("invalid patient id");
+  if (next !== subject) {
+    subject = next;
+    cache = null;
+  }
+}
 
 export async function loadProfile(): Promise<Profile> {
-  if (cache && Date.now() - cache.at < TTL_MS) return cache.profile;
+  const want = subject;
+  if (cache && cache.subject === want && Date.now() - cache.at < TTL_MS) return cache.profile;
   let profile: Profile;
   try {
-    const res = await fetch(`${BASE}/users/${SUBJECT}/records?categories=demographics,medications,conditions,allergies`, {
+    const res = await fetch(`${BASE}/users/${encodeURIComponent(want)}/records?categories=demographics,medications,conditions,allergies`, {
       signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) throw new Error(`FinchNode ${res.status}`);
     profile = toProfile(((await res.json()) as { data: RawRecord }).data, "live");
   } catch (err) {
+    // Never answer for one patient with another patient's record
+    if (want !== FIXTURE_SUBJECT) throw err;
     console.warn("[finch] live fetch failed, using bundled fixture:", (err as Error).message);
     const raw = JSON.parse(readFileSync(fileURLToPath(new URL("./fixtures/polypharmacy.json", import.meta.url)), "utf8")) as RawRecord;
     profile = toProfile(raw, "fixture");
   }
-  cache = { at: Date.now(), profile };
+  // A switch while this was loading: don't cache the old patient's record as current
+  if (want === subject) cache = { at: Date.now(), subject: want, profile };
   return profile;
 }

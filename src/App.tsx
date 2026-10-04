@@ -29,7 +29,6 @@ import { TAPBACK_EMOJI } from "./lib/messages";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import { allergySentences, healthContext, type HealthProfile } from "./lib/health";
-import type { CoreWord, InputAction } from "./lib/types";
 import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
 import { Scanner } from "./components/Scanner";
 import { RUNG_TEXT, askClaude, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
@@ -152,12 +151,23 @@ export default function App() {
   }, [dispatch]);
 
   // Medication mode: a medicine bottle was named, so read its label and check it against the record.
+  // `captureId`: the tile that was photographed. A match renames it to that medicine, so the
+  // sentences and the health alerts talk about the same medicine as the card.
   const runMedCheck = useCallback(
-    async (input: { image: string } | { drug: string; strength?: string }) => {
+    async (input: { image: string } | { drug: string; strength?: string }, captureId?: string) => {
       setMedCard({ status: "checking" });
       try {
         const { read, verdict } = await checkMedication(input);
         setMedCard({ status: "done", verdict, read });
+        if (captureId && verdict.kind === "match" && verdict.med) {
+          const key = verdict.med.key;
+          const mine = healthRef.current?.meds.find((m) => m.drug.split(" ")[0] === key);
+          dispatch({
+            type: "UPDATE_CAPTURE",
+            id: captureId,
+            patch: { label: mine?.spoken ?? verdict.med.short.toLowerCase(), source: "claude", confidence: 0, refining: false },
+          });
+        }
         tts.speak(verdict.speech).catch(() => {});
       } catch (err) {
         const message = (err as Error).message;
@@ -165,7 +175,7 @@ export default function App() {
         tts.speak("I can't read this label. Don't take it until you know what it is.").catch(() => {});
       }
     },
-    []
+    [dispatch]
   );
 
   const commitCapture = useCallback(
@@ -174,14 +184,15 @@ export default function App() {
       cropsRef.current.set(capture.id, crop);
       if (cropsRef.current.size > 12) cropsRef.current.delete(cropsRef.current.keys().next().value!);
       recordSelection({ id: capture.id, label: capture.label, source: capture.source });
-      const refine = hasClaude() && !confirmed && capture.source !== "personal" && capture.source !== "claude";
+      const isMed = isMedicationLabel(capture.label);
+      // A medicine is read by the hub's label check instead (it renames the tile on a match)
+      const refine = hasClaude() && !confirmed && !isMed && capture.source !== "personal" && capture.source !== "claude";
       dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
       );
-      const isMed = isMedicationLabel(capture.label);
-      if (isMed) void runMedCheck({ image: canvasToJpegBase64(crop) });
+      if (isMed) void runMedCheck({ image: canvasToJpegBase64(crop) }, capture.id);
       if (sayNameRef.current && !refine && !isMed) tts.speak(capture.label).catch(() => {});
       if (!refine) return;
 
@@ -816,7 +827,7 @@ export default function App() {
                 patch: { label, source: "manual", confidence: 0, refining: false },
               });
               const crop = cropsRef.current.get(id);
-              if (crop && isMedicationLabel(label)) void runMedCheck({ image: canvasToJpegBase64(crop) });
+              if (crop && isMedicationLabel(label)) void runMedCheck({ image: canvasToJpegBase64(crop) }, id);
             }}
             onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
           />

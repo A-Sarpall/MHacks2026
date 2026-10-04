@@ -18,7 +18,7 @@ class DecidePain(unittest.TestCase):
         self.assertFalse(d.urgent)
         self.assertEqual(
             d.caregiver_text,
-            "Dad reported pain 6/10. His as-needed Acetaminophen 500 mg (every 8 hours) was last taken 9 hours ago, so another dose is allowed.",
+            "Dad reported pain 6/10. Their as-needed Acetaminophen 500 mg (every 8 hours) was last taken 9 hours ago, so another dose is allowed.",
         )
         self.assertIn("can be taken now", d.user_text)
         self.assertIn("Check the bottle", d.user_text)

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import {
   formatDate,
   healthPhrases,
+  hubPatient,
   listDemoPatients,
   loadHealthProfile,
   medSentence,
+  setHubPatient,
   type DemoPatient,
   type HealthProfile,
 } from "../lib/health";
@@ -22,7 +24,7 @@ interface Props {
   onClearLog: () => void;
 }
 
-// ?patient=pediatric-asthma preselects a demo patient
+// ?patient=pediatric-asthma preselects a demo patient; otherwise the hub's patient is used
 const initialScenario = new URLSearchParams(location.search).get("patient");
 
 function time(at: number): string {
@@ -31,12 +33,12 @@ function time(at: number): string {
 
 function visitNotes(p: HealthProfile, log: SpokenEntry[]): string {
   return [
-    `Cue visit notes: ${p.name}${p.age !== null ? `, age ${p.age}` : ""}`,
+    `Qu visit notes: ${p.name}${p.age !== null ? `, age ${p.age}` : ""}`,
     `Record: ${p.sources.join(", ")} via FinchNode${p.synthetic ? " (synthetic demo data)" : ""}`,
     `Allergies: ${p.allergies.map((a) => `${a.keyword}${a.severity ? ` (${a.severity})` : ""}`).join(", ") || "none recorded"}`,
     `Medications: ${p.meds.map((m) => m.spoken).join(", ") || "none recorded"}`,
     "",
-    "Said by the patient with Cue during this visit:",
+    "Said by the patient with Qu during this visit:",
     ...(log.length ? log.map((e) => `${time(e.at)}  "${e.text}"`) : ["(nothing yet)"]),
   ].join("\n");
 }
@@ -48,6 +50,8 @@ export function HealthPanel({ profile, onProfile, onSpeak, spokenLog, onClearLog
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
   const [copied, setCopied] = useState(false);
+  // Whether the hub (medicine checks, clinic summary, agents) is on the same patient
+  const [hubSync, setHubSync] = useState<"ok" | "down" | "error" | null>(null);
 
   useEffect(() => {
     listDemoPatients()
@@ -55,6 +59,10 @@ export function HealthPanel({ profile, onProfile, onSpeak, spokenLog, onClearLog
         setPatients(list);
         const pre = list.find((p) => p.scenario === initialScenario || p.subject === initialScenario);
         if (pre) setSubject(pre.subject);
+        else if (!initialScenario)
+          void hubPatient().then((s) => {
+            if (s && list.some((p) => p.subject === s)) setSubject((cur) => cur ?? s);
+          });
       })
       .catch((err) => {
         console.warn("[health] patient list failed", err);
@@ -65,9 +73,11 @@ export function HealthPanel({ profile, onProfile, onSpeak, spokenLog, onClearLog
   useEffect(() => {
     if (!subject) {
       onProfile(null);
+      setHubSync(null);
       return;
     }
     let cancelled = false;
+    void setHubPatient(subject).then((r) => !cancelled && setHubSync(r));
     setLoading(true);
     setError("");
     loadHealthProfile(subject)
@@ -154,6 +164,15 @@ export function HealthPanel({ profile, onProfile, onSpeak, spokenLog, onClearLog
               </span>
             )}
           </div>
+          {hubSync && (
+            <div className="text-xs text-gray-500 -mt-2" data-testid="hub-sync">
+              {hubSync === "ok"
+                ? "Check medicine, Clinic summary and the care agents use this record too."
+                : hubSync === "down"
+                  ? "Hub not running: Check medicine, Clinic summary and the care agents are off."
+                  : "The hub could not load this record, so Check medicine and Clinic summary may use another patient."}
+            </div>
+          )}
 
           <div className="grid gap-3 md:grid-cols-3 text-sm">
             <div>
@@ -285,7 +304,7 @@ export function HealthPanel({ profile, onProfile, onSpeak, spokenLog, onClearLog
               </ol>
             ) : (
               <div className="text-sm text-gray-400">
-                Everything {profile.firstName} says with Cue shows up here.
+                Everything {profile.firstName} says with Qu shows up here.
               </div>
             )}
           </div>

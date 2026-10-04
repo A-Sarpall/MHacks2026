@@ -27,13 +27,13 @@ def _med_line(m: PrnItem) -> str:
     dose = f"{m.name}{f' {m.strength}' if m.strength else ''}"
     every = f" (every {m.interval_hours:g} hours)" if m.interval_hours else ""
     if m.hours_since is None:
-        return f"His as-needed {dose}{every} has no recorded dose, so I can't tell when it's due."
+        return f"Their as-needed {dose}{every} has no recorded dose, so I can't tell when it's due."
     due = m.interval_hours is None or m.hours_since >= m.interval_hours
     ago = f"{m.hours_since:g} hours ago"
     if due:
-        return f"His as-needed {dose}{every} was last taken {ago}, so another dose is allowed."
+        return f"Their as-needed {dose}{every} was last taken {ago}, so another dose is allowed."
     wait = m.interval_hours - m.hours_since
-    return f"His as-needed {dose}{every} was last taken {ago}; the next dose is not due for {wait:g} more hours."
+    return f"Their as-needed {dose}{every} was last taken {ago}; the next dose is not due for {wait:g} more hours."
 
 
 def decide_pain(level: int | None, ctx: MedsContext | None, label: str, caregiver: str = "your caregiver") -> PainDecision:
@@ -41,13 +41,13 @@ def decide_pain(level: int | None, ctx: MedsContext | None, label: str, caregive
     shown = f"{level}/10" if level else "(level not given)"
     meds = _pain_meds(ctx) if ctx else []
     med_text = " ".join(_med_line(m) for m in meds) if meds else (
-        "I couldn't check his medicines." if ctx is None else "He has no as-needed pain medicine on his list."
+        "I couldn't check their medicines." if ctx is None else "There is no as-needed pain medicine on their list."
     )
 
     if level is not None and level >= URGENT_LEVEL:
         return PainDecision(
             True,
-            f"URGENT: {label} reported pain {shown}. Please call or check on him now; if it's sudden, severe or in the chest, call emergency services. {med_text}",
+            f"URGENT: {label} reported pain {shown}. Please call or check on them now; if it's sudden, severe or in the chest, call emergency services. {med_text}",
             f"I've told {caregiver} right now. If this is an emergency, call 911.",
         )
 

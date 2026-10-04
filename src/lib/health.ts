@@ -1,6 +1,8 @@
 // FinchNode health records: load a patient's record and turn it into things
-// Cue can say. Uses the keyless public demo API (synthetic patients only,
-// CORS open), so it runs straight from the browser with no backend.
+// Qu can say. Uses the keyless public demo API (synthetic patients only,
+// CORS open), so it works straight from the browser even when the hub is down.
+// The hub (server/finch.ts) reads the same API for medicine checks, the clinic
+// summary and the agents; hubPatient/setHubPatient keep both on one patient.
 // Production would read consented records with a server-side key instead.
 
 const DEMO_API = "https://api.finchnode.com/demo/v1";
@@ -76,6 +78,35 @@ interface ScenarioList {
   }[];
 }
 
+// --- The hub's patient (null / false when the hub is not running) ---
+
+// ./hub reads `location`, so it is loaded only when the hub is actually called
+const hubUrl = async () => (await import("./hub")).HUB;
+
+export async function hubPatient(): Promise<string | null> {
+  try {
+    const res = await fetch(`${await hubUrl()}/meds/patient`, { signal: AbortSignal.timeout(2000) });
+    return res.ok ? ((await res.json()) as { subject: string }).subject : null;
+  } catch {
+    return null;
+  }
+}
+
+// "down": no hub; "error": the hub is up but could not load this patient
+export async function setHubPatient(subject: string): Promise<"ok" | "down" | "error"> {
+  try {
+    const res = await fetch(`${await hubUrl()}/meds/patient`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ subject }),
+      signal: AbortSignal.timeout(8000),
+    });
+    return res.ok ? "ok" : "error";
+  } catch {
+    return "down";
+  }
+}
+
 export async function listDemoPatients(): Promise<DemoPatient[]> {
   const { data } = await getJson<ScenarioList>("/scenarios");
   return data
@@ -103,7 +134,7 @@ interface RawAllergy {
   reaction: string | null;
   status: string | null;
 }
-interface RawRecord {
+export interface RawRecord {
   id: string;
   synthetic?: boolean;
   sources: { organization: string }[];
@@ -150,8 +181,11 @@ function toMed(m: RawMed): HealthMed {
   const form = FORMS.find((f) => lower.includes(f)) ?? null;
   let drug = name.split(",")[0].trim().toLowerCase();
   // RxNorm names look like "24 HR metoprolol succinate 50 MG ... Tablet";
-  // keep the leading drug words. Free-text names are kept as written.
-  if (m.codes?.some((c) => c.system.includes("rxnorm"))) {
+  // keep the leading drug words. Free-text names ("blood pressure pill, 1 daily")
+  // are kept as written. Some records carry the RxNorm name without the code.
+  const structured =
+    m.codes?.some((c) => c.system.includes("rxnorm")) || /\d\s*(mg|mcg|meq|ml|actuat)\b/i.test(name);
+  if (structured) {
     const words: string[] = [];
     for (const tok of name.split(/\s+/)) {
       if (/\d/.test(tok) || (tok.length > 1 && tok === tok.toUpperCase())) {
@@ -197,7 +231,7 @@ function uniqueBy<T>(items: T[], key: (t: T) => string): T[] {
   });
 }
 
-function toProfile(r: RawRecord): HealthProfile {
+export function toProfile(r: RawRecord): HealthProfile {
   const d = r.data;
   const name = d.demographics?.name ?? r.id;
   // Two sources can report the same medication; keep the most recent entry
@@ -246,7 +280,8 @@ function toProfile(r: RawRecord): HealthProfile {
 
 // --- Matching objects the user points at against the record ---
 
-const MEDICINE_WORDS = /\b(pill|pills|medicine|medication|tablets?|capsules?|prescription)\b/;
+// Not "tablet": in the vocabulary that is a tablet computer
+const MEDICINE_WORDS = /\b(pill|pills|medicine|medication|capsules?|prescription)\b/;
 
 function mentions(label: string, keyword: string): boolean {
   // "peanut butter jar" mentions "peanut"; "peanuts" mentions "peanut"

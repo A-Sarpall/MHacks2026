@@ -59,11 +59,11 @@ def make(seed: str, meds_address: str, notify_address: str, mailbox: bool = True
             if intent.kind == "tell":
                 out = await hub.call("POST", "/care/say", {"from": name, "text": intent.message})
                 if out.get("delivered"):
-                    return f"Done. I told {patient}: \"{intent.message}\". It's being read aloud on his Qu."
-                return f"I couldn't reach {patient}'s Qu (it isn't open right now), so he has not heard \"{intent.message}\". Try again in a minute."
+                    return f"Done. I told {patient}: \"{intent.message}\". It's being read aloud on their Qu."
+                return f"I couldn't reach {patient}'s Qu (it isn't open right now), so they haven't heard \"{intent.message}\". Try again in a minute."
         except hub.HubError as e:
             ctx.logger.error("hub error: %s", e)
-            return "I can't reach Qu right now. Is the Qu hub running on his laptop?"
+            return "I can't reach Qu right now. Is the Qu hub running on their laptop?"
         return HELP
 
     @protocol.on_message(ChatMessage)

@@ -10,7 +10,7 @@ import { CareState } from "./care.ts";
 import { careRoutes } from "./routes-care.ts";
 import { createMessaging } from "./messages.ts";
 import { messageRoutes } from "./routes-messages.ts";
-import { loadProfile } from "./finch.ts";
+import { currentSubject, loadProfile, setSubject } from "./finch.ts";
 import { labelReaderConfigured, readLabel } from "./label.ts";
 import { checkBottle, clinicSummary, type LabelRead } from "./meds.ts";
 import { configured, currentVoice, speak } from "./voice.ts";
@@ -66,7 +66,30 @@ const server = createServer(async (req, res) => {
 
   // ---- Medication mode (FinchNode record + label reading) ----
   if (req.method === "GET" && url.pathname === "/meds/profile") {
-    return send(res, 200, { ...(await loadProfile()), labelReader: labelReaderConfigured() });
+    try {
+      return send(res, 200, { ...(await loadProfile()), labelReader: labelReaderConfigured() });
+    } catch (err) {
+      return send(res, 502, { error: (err as Error).message });
+    }
+  }
+
+  // Which FinchNode patient Qu is for. GET -> {subject}; POST {"subject": "patient-demo-..."} switches
+  // it (the browser's health-record picker), so medicine checks, the clinic summary and the agents agree.
+  if (url.pathname === "/meds/patient" && (req.method === "GET" || req.method === "POST")) {
+    if (req.method === "GET") return send(res, 200, { subject: currentSubject() });
+    const before = currentSubject();
+    try {
+      const { subject } = (await readJson(req)) as { subject?: unknown };
+      if (typeof subject !== "string") return send(res, 400, { error: "send subject" });
+      setSubject(subject);
+      const profile = await loadProfile(); // confirms the patient exists before anything uses it
+      care.seedDemo(profile);
+      console.log(`[hub] patient -> ${subject} (${profile.name})`);
+      return send(res, 200, { subject, name: profile.name });
+    } catch (err) {
+      setSubject(before);
+      return send(res, 400, { error: (err as Error).message });
+    }
   }
 
   // POST /meds/check {"image": "<jpeg base64>"} or {"drug": "Metoprolol", "strength": "50 mg"}

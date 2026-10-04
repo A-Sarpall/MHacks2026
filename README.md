@@ -39,10 +39,12 @@ With a key, each capture is also sent to Claude Haiku 4.5 vision for an everyday
 
 ### Health record (FinchNode)
 
-The **Health record** panel at the bottom loads a synthetic patient from FinchNode's public demo API (no key, no account). Open http://localhost:5173/?patient=pediatric-asthma to preselect one (`baseline-adult`, `polypharmacy-senior`, `pediatric-asthma`, `multi-source-overlap`, `sparse-record`, `messy-coding`). With a record loaded:
+The **Health record** panel at the bottom loads a synthetic patient from FinchNode's public demo API (no key, no account). Open http://localhost:5173/?patient=pediatric-asthma to preselect one (`baseline-adult`, `polypharmacy-senior`, `pediatric-asthma`, `multi-source-overlap`, `sparse-record`, `messy-coding`); without `?patient` it shows the hub's patient (Harriet, `polypharmacy-senior`, unless `FINCHNODE_SUBJECT` says otherwise). With a record loaded:
+
+- **One patient everywhere**: picking a patient also switches the hub (`POST /meds/patient`), so **Check medicine**, **Clinic summary** and the Fetch.ai agents use the same record. The panel says whether the hub is following; with the hub down the panel still works on its own.
 
 - **Allergy alert**: a captured object whose name mentions an allergen (e.g. "peanut butter jar" for the pediatric-asthma patient) shows a red alert, and the only sentences offered are refusals, whatever core word is picked. These come from code, not the model, even when Claude is on.
-- **Their medicines**: a pill bottle or inhaler asks "which of their medicines is this?", then sentences name it ("Is it time for my montelukast?"). Claude vision is also given the medicine names so it can read a label.
+- **Their medicines**: when the hub reads a bottle's label and it matches the list, the tile is renamed to that medicine. Otherwise (no label-reading key, hub down) a pill bottle or inhaler asks "which of their medicines is this?". Either way the sentences name it ("Is it time for my montelukast?").
 - **Say at the clinic**: one-tap sentences from the record (allergies, conditions, medication list, next appointment).
 - **Visit notes**: everything spoken is logged with times; **Copy for clinician** copies it with the allergy and medication summary.
 
