@@ -16,6 +16,10 @@ export interface CaseResult {
   source: string;
   low: boolean;
   empty: boolean;
+  blurry: boolean;
+  broad: boolean;
+  sharpness: number;
+  expectedGeneric: string | null;
   level: number;
   choices: string[];
   ms: number;
@@ -28,6 +32,7 @@ export interface CaseOutcome {
   auto: boolean;
   wrongAuto: boolean;
   notSure: boolean;
+  broad: boolean;
 }
 
 export interface EvalSummary {
@@ -37,6 +42,9 @@ export interface EvalSummary {
   auto: number;
   wrongAuto: number;
   notSure: number;
+  broad: number;
+  blurry: number;
+  medianSharpness: number;
   avgMs: number;
   p95Ms: number;
   avgTotalMs: number;
@@ -62,10 +70,11 @@ export function matches(label: string, spec: LabelSpec): boolean {
 }
 
 export function outcome(r: CaseResult, spec: LabelSpec): CaseOutcome {
+  const broad = !r.empty && r.broad && r.expectedGeneric !== null && normLabel(r.best) === normLabel(r.expectedGeneric);
   const top1 = !r.empty && matches(r.best, spec);
   const top3 = !r.empty && r.choices.slice(0, 3).some((c) => matches(c, spec));
   const auto = !r.low && !r.empty;
-  return { top1, top3, auto, wrongAuto: auto && !top1, notSure: r.empty };
+  return { top1, top3, auto, wrongAuto: auto && !top1 && !broad, notSure: r.empty, broad };
 }
 
 export function summarizeCases(cases: { result: CaseResult; spec: LabelSpec }[]): EvalSummary {
@@ -73,6 +82,7 @@ export function summarizeCases(cases: { result: CaseResult; spec: LabelSpec }[])
   const outs = cases.map((c) => outcome(c.result, c.spec));
   const rate = (f: (o: CaseOutcome) => boolean) => (n ? outs.filter(f).length / n : 0);
   const ms = cases.map((c) => c.result.ms).sort((a, b) => a - b);
+  const sharp = cases.map((c) => c.result.sharpness).sort((a, b) => a - b);
   const sources: Record<string, number> = {};
   for (const c of cases) {
     const key = c.result.empty ? "none" : c.result.source;
@@ -85,6 +95,9 @@ export function summarizeCases(cases: { result: CaseResult; spec: LabelSpec }[])
     auto: rate((o) => o.auto),
     wrongAuto: rate((o) => o.wrongAuto),
     notSure: rate((o) => o.notSure),
+    broad: rate((o) => o.broad),
+    blurry: n ? cases.filter((c) => c.result.blurry).length / n : 0,
+    medianSharpness: n ? sharp[Math.floor(n / 2)] : 0,
     avgMs: n ? ms.reduce((a, b) => a + b, 0) / n : 0,
     p95Ms: n ? ms[Math.min(n - 1, Math.ceil(n * 0.95) - 1)] : 0,
     avgTotalMs: n ? cases.reduce((a, c) => a + c.result.totalMs, 0) / n : 0,
@@ -97,11 +110,13 @@ export interface SweepRow {
   summary: EvalSummary;
 }
 
-export function pickLowConfidence(rows: SweepRow[], tolerance = 0): SweepRow | null {
+export function pickLowConfidence(rows: SweepRow[], tolerance = 0, autoSlack = 0.05): SweepRow | null {
   if (rows.length === 0) return null;
   const floor = Math.min(...rows.map((r) => r.summary.wrongAuto));
   const ok = rows.filter((r) => r.summary.wrongAuto <= floor + tolerance + 1e-9);
-  return [...ok].sort((a, b) => b.summary.auto - a.summary.auto || b.threshold - a.threshold)[0];
+  const exact = (r: SweepRow) => r.summary.auto - (r.summary.broad ?? 0);
+  const bestExact = Math.max(...ok.map(exact));
+  return ok.filter((r) => exact(r) >= bestExact - autoSlack - 1e-9).sort((a, b) => b.threshold - a.threshold)[0];
 }
 
 export function meanSweep(sweeps: SweepRow[][]): SweepRow[] {
@@ -121,6 +136,9 @@ export function meanSweep(sweeps: SweepRow[][]): SweepRow[] {
           auto: mean((x) => x.auto),
           wrongAuto: mean((x) => x.wrongAuto),
           notSure: mean((x) => x.notSure),
+          broad: mean((x) => x.broad),
+          blurry: mean((x) => x.blurry),
+          medianSharpness: mean((x) => x.medianSharpness),
           avgMs: mean((x) => x.avgMs),
           avgTotalMs: mean((x) => x.avgTotalMs),
         },

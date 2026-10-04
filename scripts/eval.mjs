@@ -15,8 +15,8 @@ const outDir = opt("out", "eval-results");
 
 const pct = (x) => `${Math.round(x * 100)}%`;
 const row = (name, s) =>
-  `| ${name} | ${s.n} | ${pct(s.top1)} | ${pct(s.top3)} | ${pct(s.auto)} | ${pct(s.wrongAuto)} | ${pct(s.notSure)} | ${Math.round(s.avgMs)} / ${Math.round(s.p95Ms)} | ${Math.round(s.avgTotalMs)} | ${Object.entries(s.sources).map(([k, v]) => `${k} ${v}`).join(", ")} |`;
-const HEAD = "| | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |\n|---|---|---|---|---|---|---|---|---|---|";
+  `| ${name} | ${s.n} | ${pct(s.top1)} | ${pct(s.top3)} | ${pct(s.auto)} | ${pct(s.wrongAuto)} | ${pct(s.broad ?? 0)} | ${pct(s.notSure)} | ${Math.round(s.avgMs)} / ${Math.round(s.p95Ms)} | ${Math.round(s.avgTotalMs)} | ${Object.entries(s.sources).map(([k, v]) => `${k} ${v}`).join(", ")} |`;
+const HEAD = "| | n | top-1 | top-3 | auto | wrong auto | broad | not sure | naming ms avg/p95 | total ms | answered by |\n|---|---|---|---|---|---|---|---|---|---|---|";
 
 function markdown(reports) {
   const out = ["# Cue recognition eval", ""];
@@ -29,7 +29,7 @@ function markdown(reports) {
       out.push("");
       out.push("| image | expected | answer | score | | choices |", "|---|---|---|---|---|---|");
       for (const { result: c } of f.cases) {
-        out.push(`| ${c.file} | ${c.expected} | ${c.empty ? "(not sure)" : c.best} | ${pct(c.bestScore)} | ${c.low ? "scanner" : "auto"} | ${c.choices.slice(0, 3).join(", ")} |`);
+        out.push(`| ${c.file} | ${c.expected} | ${c.empty ? "(not sure)" : c.best} | ${pct(c.bestScore)} | ${c.low ? "scanner" : "auto"}${c.blurry ? " (blurry)" : ""} | ${c.choices.slice(0, 3).join(", ")} |`);
       }
       out.push("");
     }
@@ -41,12 +41,12 @@ function markdown(reports) {
     for (const folder of new Set(r.conditions.map((c) => c.folder))) {
       const rows = r.conditions.filter((c) => c.folder === folder);
       const variants = [...new Set(rows.map((x) => x.variant))];
-      out.push(`### ${folder}, degraded conditions (centre aim): top-1 / wrong auto / auto / naming ms`, "");
+      out.push(`### ${folder}, degraded conditions (centre aim): top-1 / wrong auto / broad / auto / blurry-gated / median sharpness / naming ms`, "");
       out.push(`| condition | ${variants.join(" | ")} |`, `|---|${variants.map(() => "---").join("|")}|`);
       for (const c of new Set(rows.map((x) => x.condition))) {
         const cells = variants.map((v) => {
           const s = rows.find((x) => x.variant === v && x.condition === c)?.summary;
-          return s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.auto)} / ${Math.round(s.avgMs)}` : "";
+          return s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.broad ?? 0)} / ${pct(s.auto)} / ${pct(s.blurry ?? 0)} / ${Math.round(s.medianSharpness ?? 0)} / ${Math.round(s.avgMs)}` : "";
         });
         out.push(`| ${c} | ${cells.join(" | ")} |`);
       }

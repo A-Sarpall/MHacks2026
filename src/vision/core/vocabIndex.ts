@@ -39,7 +39,7 @@ export class VocabIndex {
     return out;
   }
 
-  top(v: Float32Array, k = 3, boost?: (label: string) => number): VocabMatch[] {
+  private groups(v: Float32Array, boost?: (label: string) => number): { label: string; row: number; cos: number; prob: number; lead: string; leadProb: number; rank: number }[] {
     const cos = this.cosines(v);
     const best = new Map<string, { row: number; cos: number }>();
     let max = -Infinity;
@@ -51,29 +51,45 @@ export class VocabIndex {
     }
     let sum = 0;
     for (const b of best.values()) sum += Math.exp(this.scale * (b.cos - max));
-    const groups = new Map<string, { prob: number; lead: { label: string; row: number; cos: number; prob: number } }>();
+    const out = new Map<string, { label: string; row: number; cos: number; prob: number; lead: string; leadProb: number; rank: number }>();
     for (const [label, b] of best) {
       const prob = Math.exp(this.scale * (b.cos - max)) / sum;
       const name = this.parents[label] ?? label;
-      const g = groups.get(name);
-      const member = { label, row: b.row, cos: b.cos, prob };
-      if (!g) groups.set(name, { prob, lead: member });
+      const g = out.get(name);
+      if (!g) out.set(name, { label: name, row: b.row, cos: b.cos, prob, lead: label, leadProb: prob, rank: 0 });
       else {
         g.prob += prob;
-        if (prob > g.lead.prob) g.lead = member;
+        if (prob > g.leadProb) {
+          g.lead = label;
+          g.leadProb = prob;
+          g.row = b.row;
+          g.cos = b.cos;
+        }
       }
     }
-    const rank = (label: string, prob: number) => Math.log(prob) + this.scale * (boost ? boost(label) : 0);
-    return [...groups.entries()]
-      .sort((a, b) => rank(b[0], b[1].prob) - rank(a[0], a[1].prob))
+    for (const g of out.values()) g.rank = Math.log(g.prob) + this.scale * (boost ? boost(g.label) : 0);
+    return [...out.values()].sort((a, b) => b.rank - a.rank);
+  }
+
+  top(v: Float32Array, k = 3, boost?: (label: string) => number): VocabMatch[] {
+    return this.groups(v, boost)
       .slice(0, k)
-      .map(([label, g]) => ({
-        label,
-        category: this.rows[g.lead.row].category,
-        cos: g.lead.cos,
+      .map((g) => ({
+        label: g.label,
+        category: this.rows[g.row].category,
+        cos: g.cos,
         prob: g.prob,
-        ...(g.lead.label !== label ? { specific: { label: g.lead.label, prob: g.lead.prob } } : {}),
+        ...(g.lead !== g.label ? { specific: { label: g.lead, prob: g.leadProb } } : {}),
       }));
+  }
+
+  categoryMass(v: Float32Array): Record<string, number> {
+    const out: Record<string, number> = {};
+    for (const g of this.groups(v)) {
+      const c = this.rows[g.row].category;
+      out[c] = (out[c] ?? 0) + g.prob;
+    }
+    return out;
   }
 }
 

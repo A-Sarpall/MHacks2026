@@ -18,6 +18,7 @@ import {
 } from "../core/evalScore";
 import { DEFAULT_PERSONAL, nearestPersonal, type PersonalEntry, type PersonalMatchConfig } from "../core/personalMatch";
 import { rankFrames, sharpness } from "../core/sharpness";
+import { GENERIC_WORDS, VOCABULARY } from "../../data/vocabulary";
 import { ENHANCE_DEFAULT, TTA_DEFAULT, type NamerOptions } from "../namer";
 import { askClaude, nameTarget, type NamingResult } from "../naming";
 import { teachSample } from "../personal";
@@ -85,6 +86,18 @@ interface Prepared {
   spec: LabelSpec;
   image: HTMLCanvasElement;
   prepMs: number;
+  sharpness: number;
+}
+
+function expectedGeneric(spec: LabelSpec): string | null {
+  const names = new Set([spec.label, ...(spec.accept ?? [])].map((s) => s.toLowerCase()));
+  const entry = VOCABULARY.find((v) => names.has(v.label.toLowerCase()));
+  return entry ? (GENERIC_WORDS[entry.category] ?? null) : null;
+}
+
+function sharpnessOf(image: HTMLCanvasElement, aim: Point): number {
+  const zone = aimZone(image.width, image.height, { zoneFrac: 0.5, offset: { dx: aim.x / image.width - 0.5, dy: aim.y / image.height - 0.5 } });
+  return sharpness(image, zone);
 }
 
 const BASE = import.meta.env.BASE_URL;
@@ -124,7 +137,7 @@ async function prepare(dir: string, file: string, spec: LabelSpec): Promise<Prep
     );
     const image = snapshot(ranked[0].item);
     ranked.forEach((r) => r.item.close());
-    return { file, spec, image, prepMs: performance.now() - t0 };
+    return { file, spec, image, prepMs: performance.now() - t0, sharpness: ranked[0].sharpness };
   } finally {
     source.stop();
   }
@@ -163,7 +176,7 @@ async function runCase(
   namer: Pick<NamerOptions, "enhance" | "tta"> = {}
 ): Promise<CaseResult> {
   const res = await nameTarget(
-    { image: p.image, candidates, aim },
+    { image: p.image, candidates, aim, sharpness: p.sharpness },
     { startLevel: 0, maxOptions: 4, cfg, namer: { personal, personalCfg, ...namer } }
   );
   let best = res.best.label;
@@ -193,6 +206,10 @@ async function runCase(
     source,
     low: res.low,
     empty,
+    blurry: res.blurry,
+    broad: res.broad && best === res.best.label,
+    sharpness: p.sharpness,
+    expectedGeneric: expectedGeneric(p.spec),
     level: res.level,
     choices,
     ms,
@@ -278,7 +295,7 @@ async function evalPersonal(folder: string, prepared: Prepared[], progress: (t: 
     progress(`personal: recognising ${q.file}`);
     const p = prepared.find((x) => x.file === q.file)!;
     const { candidates, ms: detMs } = candidatesFor(q.image, q.aim);
-    const view: Prepared = { ...p, image: q.image, prepMs: 0 };
+    const view: Prepared = { ...p, image: q.image, prepMs: 0, sharpness: sharpnessOf(q.image, q.aim) };
     const withOwn = await runCase(view, q.aim, candidates, detMs, DEFAULT_NAMING, entries, false, cfg);
     totalMs += withOwn.ms;
     if (withOwn.source === "personal" && withOwn.best === `taught:${q.file}`) matched++;
@@ -363,7 +380,7 @@ export async function runEval(opts: EvalOptions): Promise<EvalReport> {
             progress(`${dir}: ${condition} / ${variant.name} ${p.file}`);
             const d = degrade(p.image, condition, aimFor(p, "centre"), i + 1);
             const { candidates, ms } = candidatesFor(d.image, d.aim);
-            const view: Prepared = { ...p, image: d.image };
+            const view: Prepared = { ...p, image: d.image, sharpness: sharpnessOf(d.image, d.aim) };
             cases.push({
               result: await runCase(view, d.aim, candidates, ms, DEFAULT_NAMING, [], false, undefined, variant.namer),
               spec: p.spec,

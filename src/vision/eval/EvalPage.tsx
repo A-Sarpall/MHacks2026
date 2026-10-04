@@ -36,6 +36,7 @@ function SummaryRow({ name, s }: { name: string; s: EvalSummary }) {
       <td className="pr-3">{pct(s.top3)}</td>
       <td className="pr-3">{pct(s.auto)}</td>
       <td className="pr-3">{pct(s.wrongAuto)}</td>
+      <td className="pr-3">{pct(s.broad)}</td>
       <td className="pr-3">{pct(s.notSure)}</td>
       <td className="pr-3">{Math.round(s.avgMs)} / {Math.round(s.p95Ms)}</td>
       <td className="pr-3">{Math.round(s.avgTotalMs)}</td>
@@ -44,7 +45,7 @@ function SummaryRow({ name, s }: { name: string; s: EvalSummary }) {
   );
 }
 
-const HEAD = ["", "n", "top-1", "top-3", "auto", "wrong auto", "not sure", "naming ms avg/p95", "total ms", "answered by"];
+const HEAD = ["", "n", "top-1", "top-3", "auto", "wrong auto", "broad", "not sure", "naming ms avg/p95", "total ms", "answered by"];
 
 export function EvalPage() {
   const [opts] = useState(optionsFromUrl);
@@ -144,7 +145,7 @@ export function EvalPage() {
             const conds = [...new Set(rows.map((r) => r.condition))];
             return (
               <section key={`cond-${folder}`} className="bg-white rounded-xl p-4 border border-gray-100">
-                <h2 className="font-semibold mb-2">{folder} · degraded conditions (centre aim) · top-1 / wrong auto / auto</h2>
+                <h2 className="font-semibold mb-2">{folder} · degraded conditions (centre aim) · top-1 / wrong auto / broad / auto / median sharpness</h2>
                 <table>
                   <thead>
                     <tr className="text-left text-gray-500">
@@ -158,7 +159,7 @@ export function EvalPage() {
                         <td className="pr-3">{c}</td>
                         {variants.map((v) => {
                           const s = rows.find((r) => r.variant === v && r.condition === c)?.summary;
-                          return <td key={v} className="pr-3">{s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.auto)}` : ""}</td>;
+                          return <td key={v} className="pr-3">{s ? `${pct(s.top1)} / ${pct(s.wrongAuto)} / ${pct(s.broad)} / ${pct(s.auto)} / ${Math.round(s.medianSharpness)}` : ""}</td>;
                         })}
                       </tr>
                     ))}

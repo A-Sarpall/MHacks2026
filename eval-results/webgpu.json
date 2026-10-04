@@ -1,16 +1,19 @@
 {
   "device": "webgpu",
   "claude": false,
-  "startedAt": "2026-10-04T03:29:36.044Z",
-  "ms": 163133.96499991417,
+  "startedAt": "2026-10-04T04:27:25.289Z",
+  "ms": 182301.43499994278,
   "naming": {
     "centreFrac": 0.35,
     "wideFrac": 0.65,
-    "lowConfidence": 0.4,
+    "lowConfidence": 0.45,
     "tinyAreaFrac": 0.01,
     "widePenalty": 0.1,
     "minShow": 0.12,
-    "minDetector": 0.5
+    "minDetector": 0.5,
+    "minSharpness": 200,
+    "broadMin": 0.5,
+    "broadCommit": 0.6
   },
   "defaults": {
     "enhance": false,
@@ -30,9 +33,12 @@
         "auto": 0.68,
         "wrongAuto": 0.04,
         "notSure": 0.12,
-        "avgMs": 89.95920000076293,
-        "p95Ms": 163.5699999332428,
-        "avgTotalMs": 128.5054000043869,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2926.9478257543897,
+        "avgMs": 96.52159999847412,
+        "p95Ms": 165.625,
+        "avgTotalMs": 140.35739998340605,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -46,9 +52,12 @@
           "auto": 0.7692307692307693,
           "wrongAuto": 0,
           "notSure": 0.07692307692307693,
-          "avgMs": 84.84999998716208,
-          "p95Ms": 131.42499995231628,
-          "avgTotalMs": 129.97576921719772,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 2379.668821201704,
+          "avgMs": 87.94884613844064,
+          "p95Ms": 135.57999992370605,
+          "avgTotalMs": 140.79423073621896,
           "sources": {
             "vocab": 12,
             "none": 1
@@ -61,9 +70,12 @@
           "auto": 0.6,
           "wrongAuto": 0.2,
           "notSure": 0,
-          "avgMs": 96.07400002479554,
-          "p95Ms": 178.2850000858307,
-          "avgTotalMs": 128.10500004291535,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 3843.913506556457,
+          "avgMs": 102.13900001049042,
+          "p95Ms": 185.6050000190735,
+          "avgTotalMs": 136.83299999237062,
           "sources": {
             "vocab": 5
           }
@@ -75,9 +87,12 @@
           "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 75.79000002145767,
-          "p95Ms": 111.08999991416931,
-          "avgTotalMs": 105.64875000715256,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 2342.1232945655747,
+          "avgMs": 96.8250000178814,
+          "p95Ms": 118.1599999666214,
+          "avgTotalMs": 129.9087499976158,
           "sources": {
             "vocab": 4
           }
@@ -89,9 +104,12 @@
           "auto": 0,
           "wrongAuto": 0,
           "notSure": 0.6666666666666666,
-          "avgMs": 120.79999999205272,
-          "p95Ms": 163.5699999332428,
-          "avgTotalMs": 153.27666668097177,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 2926.9478257543897,
+          "avgMs": 123.903333346049,
+          "p95Ms": 165.625,
+          "avgTotalMs": 158.27000002066293,
           "sources": {
             "none": 2,
             "vocab": 1
@@ -111,6 +129,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 3243.530585967693,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "mug",
@@ -118,8 +140,8 @@
               "coffee",
               "thing"
             ],
-            "ms": 51.075000047683716,
-            "totalMs": 238.45000004768372
+            "ms": 52.68999993801117,
+            "totalMs": 322.50999987125397
           },
           "spec": {
             "label": "mug",
@@ -149,6 +171,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 5176.133052405924,
+            "expectedGeneric": "drink",
             "level": 2,
             "choices": [
               "water bottle",
@@ -156,8 +182,8 @@
               "cup",
               "thing"
             ],
-            "ms": 115.1949999332428,
-            "totalMs": 150.7150000333786
+            "ms": 127.73000001907349,
+            "totalMs": 166.65500009059906
           },
           "spec": {
             "label": "water bottle",
@@ -185,6 +211,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2306.452854763657,
+            "expectedGeneric": "clothes",
             "level": 0,
             "choices": [
               "glasses",
@@ -192,8 +222,8 @@
               "glass",
               "thing"
             ],
-            "ms": 42.27499997615814,
-            "totalMs": 74.62000012397766
+            "ms": 45.6599999666214,
+            "totalMs": 82.01500010490417
           },
           "spec": {
             "label": "glasses",
@@ -222,6 +252,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 4972.630851011353,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "phone",
@@ -229,8 +263,8 @@
               "remote",
               "cell phone"
             ],
-            "ms": 131.42499995231628,
-            "totalMs": 163.34999990463257
+            "ms": 121.625,
+            "totalMs": 156.60000002384186
           },
           "spec": {
             "label": "phone",
@@ -261,6 +295,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1905.894450205952,
+            "expectedGeneric": "electronics",
             "level": 1,
             "choices": [
               "remote",
@@ -268,8 +306,8 @@
               "lighter",
               "knife"
             ],
-            "ms": 115.1599999666214,
-            "totalMs": 145.6950000524521
+            "ms": 120.97000002861023,
+            "totalMs": 152.8050000667572
           },
           "spec": {
             "label": "remote",
@@ -299,6 +337,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 330.4783327777058,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [
               "toothbrush",
@@ -306,8 +348,8 @@
               "comb",
               "thing"
             ],
-            "ms": 124.35000002384186,
-            "totalMs": 155.0349999666214
+            "ms": 131.4800000190735,
+            "totalMs": 165.62999999523163
           },
           "spec": {
             "label": "toothbrush",
@@ -335,10 +377,14 @@
             "source": "vocab",
             "low": true,
             "empty": true,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1280.3119878863085,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 123.44999992847443,
-            "totalMs": 161.17499995231628
+            "ms": 135.57999992370605,
+            "totalMs": 173.10999989509583
           },
           "spec": {
             "label": "pills",
@@ -370,6 +416,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 4296.583267793103,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "book",
@@ -377,8 +427,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 41.299999952316284,
-            "totalMs": 74.8899998664856
+            "ms": 43.18499994277954,
+            "totalMs": 77.61999988555908
           },
           "spec": {
             "label": "book",
@@ -406,6 +456,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1759.9019080391865,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "spoon",
@@ -414,8 +468,8 @@
               "ladle",
               "scissors"
             ],
-            "ms": 111.80499994754791,
-            "totalMs": 141.5199999809265
+            "ms": 119.17000007629395,
+            "totalMs": 149.93999993801117
           },
           "spec": {
             "label": "spoon",
@@ -439,6 +493,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 7467.495210055647,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "shoes",
@@ -447,8 +505,8 @@
               "foot",
               "thing"
             ],
-            "ms": 45.41000008583069,
-            "totalMs": 78.22500002384186
+            "ms": 42.1599999666214,
+            "totalMs": 76.47499990463257
           },
           "spec": {
             "label": "shoe",
@@ -478,6 +536,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2379.668821201704,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "keys",
@@ -485,8 +547,8 @@
               "fork",
               "thing"
             ],
-            "ms": 42.77499997615814,
-            "totalMs": 74.71499991416931
+            "ms": 41.52999997138977,
+            "totalMs": 74.80499982833862
           },
           "spec": {
             "label": "keys",
@@ -516,14 +578,18 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1522.3248353622273,
+            "expectedGeneric": "furniture",
             "level": 1,
             "choices": [
               "chair",
               "stool",
               "table"
             ],
-            "ms": 117.87000000476837,
-            "totalMs": 151.88999998569489
+            "ms": 117.15499997138977,
+            "totalMs": 151.26499998569489
           },
           "spec": {
             "label": "chair",
@@ -551,6 +617,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 6438.973425384223,
+            "expectedGeneric": "fruit",
             "level": 0,
             "choices": [
               "banana",
@@ -558,8 +628,8 @@
               "lemon",
               "thing"
             ],
-            "ms": 40.96000003814697,
-            "totalMs": 79.40499997138977
+            "ms": 44.39999997615814,
+            "totalMs": 80.89499998092651
           },
           "spec": {
             "label": "banana",
@@ -587,6 +657,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 4066.109100269212,
+            "expectedGeneric": "drink",
             "level": 2,
             "choices": [
               "mug",
@@ -594,8 +668,8 @@
               "coffee",
               "bowl"
             ],
-            "ms": 111.56000006198883,
-            "totalMs": 144.0350000858307
+            "ms": 122.52999997138977,
+            "totalMs": 156.24499988555908
           },
           "spec": {
             "label": "cup",
@@ -626,6 +700,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 3843.913506556457,
+            "expectedGeneric": "electronics",
             "level": 1,
             "choices": [
               "laptop",
@@ -633,8 +711,8 @@
               "monitor",
               "computer"
             ],
-            "ms": 109.44500005245209,
-            "totalMs": 140.83500003814697
+            "ms": 115.98500001430511,
+            "totalMs": 150.47000002861023
           },
           "spec": {
             "label": "laptop",
@@ -664,6 +742,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 3584.604476547479,
+            "expectedGeneric": "electronics",
             "level": 0,
             "choices": [
               "computer mouse",
@@ -671,8 +753,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 40.00999999046326,
-            "totalMs": 71.52499997615814
+            "ms": 42.825000047683716,
+            "totalMs": 77.40000009536743
           },
           "spec": {
             "label": "mouse",
@@ -701,6 +783,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 4305.144944511932,
+            "expectedGeneric": "electronics",
             "level": 0,
             "choices": [
               "keyboard",
@@ -708,8 +794,8 @@
               "notebook",
               "thing"
             ],
-            "ms": 41.0699999332428,
-            "totalMs": 72.57999992370605
+            "ms": 43.75,
+            "totalMs": 78.50999999046326
           },
           "spec": {
             "label": "laptop",
@@ -739,6 +825,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2382.7141704153746,
+            "expectedGeneric": "electronics",
             "level": 2,
             "choices": [
               "desk",
@@ -748,8 +838,8 @@
               "computer",
               "thing"
             ],
-            "ms": 178.2850000858307,
-            "totalMs": 211.55000019073486
+            "ms": 185.6050000190735,
+            "totalMs": 221.53999996185303
           },
           "spec": {
             "label": "monitor",
@@ -779,6 +869,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1215.8854684185455,
+            "expectedGeneric": "fruit",
             "level": 1,
             "choices": [
               "apple",
@@ -786,8 +880,8 @@
               "orange",
               "thing"
             ],
-            "ms": 110.44000005722046,
-            "totalMs": 141.28999996185303
+            "ms": 115.40500009059906,
+            "totalMs": 149.1049998998642
           },
           "spec": {
             "label": "apple",
@@ -813,6 +907,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 3744.0437010068376,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "phone",
@@ -820,8 +918,8 @@
               "finger",
               "thing"
             ],
-            "ms": 40.56000006198883,
-            "totalMs": 70.08000004291534
+            "ms": 42.36500000953674,
+            "totalMs": 75.70500004291534
           },
           "spec": {
             "label": "phone",
@@ -847,19 +945,22 @@
               "held"
             ],
             "best": "mug",
-            "bestScore": 0.4471386212628954,
+            "bestScore": 0.5359789793307405,
             "source": "vocab",
             "low": false,
             "empty": false,
-            "level": 0,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2342.1232945655747,
+            "expectedGeneric": null,
+            "level": 1,
             "choices": [
               "mug",
               "cup",
-              "coffee",
-              "thing"
+              "coffee"
             ],
-            "ms": 41.07000005245209,
-            "totalMs": 70.7700001001358
+            "ms": 111.37000000476837,
+            "totalMs": 144.08500003814697
           },
           "spec": {
             "label": "mug",
@@ -889,6 +990,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 961.7173620339775,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "keys",
@@ -896,8 +1001,8 @@
               "hand",
               "person"
             ],
-            "ms": 111.08999991416931,
-            "totalMs": 140.45499992370605
+            "ms": 118.1599999666214,
+            "totalMs": 150.74000000953674
           },
           "spec": {
             "label": "keys",
@@ -927,10 +1032,14 @@
             "source": "vocab",
             "low": true,
             "empty": true,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1125.6179503187068,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 82.12999999523163,
-            "totalMs": 111.63999998569489
+            "ms": 83.86000001430511,
+            "totalMs": 116.63999998569489
           },
           "spec": {
             "label": "theremin",
@@ -956,10 +1065,14 @@
             "source": "vocab",
             "low": true,
             "empty": true,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2926.9478257543897,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 163.5699999332428,
-            "totalMs": 196.94000005722046
+            "ms": 165.625,
+            "totalMs": 199.7300000190735
           },
           "spec": {
             "label": "sextant",
@@ -985,6 +1098,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 7314.322311164916,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [
               "drum",
@@ -992,8 +1109,8 @@
               "pie",
               "clock"
             ],
-            "ms": 116.70000004768372,
-            "totalMs": 151.25
+            "ms": 122.22500002384186,
+            "totalMs": 158.44000005722046
           },
           "spec": {
             "label": "astrolabe",
@@ -1019,9 +1136,12 @@
         "auto": 0.76,
         "wrongAuto": 0,
         "notSure": 0.08,
-        "avgMs": 87.61820001602173,
-        "p95Ms": 127.04000008106232,
-        "avgTotalMs": 120.4978000164032,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2926.9478257543897,
+        "avgMs": 89.96700000286103,
+        "p95Ms": 133.67499995231628,
+        "avgTotalMs": 123.91060000896454,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -1035,9 +1155,12 @@
           "auto": 0.8461538461538461,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 84.34346155936902,
-          "p95Ms": 127.04000008106232,
-          "avgTotalMs": 118.18423076776358,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 2379.668821201704,
+          "avgMs": 86.91653846777402,
+          "p95Ms": 133.67499995231628,
+          "avgTotalMs": 121.66307692344373,
           "sources": {
             "vocab": 13
           }
@@ -1049,9 +1172,12 @@
           "auto": 0.8,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 100.33300004005432,
-          "p95Ms": 118.8050000667572,
-          "avgTotalMs": 132.95200006961824,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 3843.913506556457,
+          "avgMs": 103.06500000953675,
+          "p95Ms": 123.45000004768372,
+          "avgTotalMs": 137.02600002288818,
           "sources": {
             "vocab": 5
           }
@@ -1063,9 +1189,12 @@
           "auto": 1,
           "wrongAuto": 0,
           "notSure": 0,
-          "avgMs": 57.84249997138977,
-          "p95Ms": 110.76999998092651,
-          "avgTotalMs": 87.82874998450279,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 2342.1232945655747,
+          "avgMs": 58.375,
+          "p95Ms": 111.05000007152557,
+          "avgTotalMs": 89.25374999642372,
           "sources": {
             "vocab": 4
           }
@@ -1077,9 +1206,12 @@
           "auto": 0,
           "wrongAuto": 0,
           "notSure": 0.6666666666666666,
-          "avgMs": 120.31833334763844,
-          "p95Ms": 161.66499996185303,
-          "avgTotalMs": 153.32500004768372,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 2926.9478257543897,
+          "avgMs": 123.47833331425984,
+          "p95Ms": 164.8049999475479,
+          "avgTotalMs": 158.00000003973642,
           "sources": {
             "none": 2,
             "vocab": 1
@@ -1099,14 +1231,18 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 3243.530585967693,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "mug",
               "cup",
               "coffee"
             ],
-            "ms": 127.04000008106232,
-            "totalMs": 167.16999995708466
+            "ms": 133.67499995231628,
+            "totalMs": 179.29500007629395
           },
           "spec": {
             "label": "mug",
@@ -1136,6 +1272,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 5176.133052405924,
+            "expectedGeneric": "drink",
             "level": 2,
             "choices": [
               "glass",
@@ -1143,8 +1283,8 @@
               "ticket",
               "thing"
             ],
-            "ms": 108.38499999046326,
-            "totalMs": 142.7850000858307
+            "ms": 113.66499996185303,
+            "totalMs": 151.38500010967255
           },
           "spec": {
             "label": "water bottle",
@@ -1172,6 +1312,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2306.452854763657,
+            "expectedGeneric": "clothes",
             "level": 0,
             "choices": [
               "glasses",
@@ -1179,8 +1323,8 @@
               "glass",
               "thing"
             ],
-            "ms": 41.4300000667572,
-            "totalMs": 73.77500009536743
+            "ms": 41.75,
+            "totalMs": 77.29000008106232
           },
           "spec": {
             "label": "glasses",
@@ -1209,6 +1353,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 4972.630851011353,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "phone",
@@ -1216,8 +1364,8 @@
               "remote",
               "cell phone"
             ],
-            "ms": 110.59499990940094,
-            "totalMs": 142.72499990463257
+            "ms": 114.1599999666214,
+            "totalMs": 149.31000006198883
           },
           "spec": {
             "label": "phone",
@@ -1248,6 +1396,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1905.894450205952,
+            "expectedGeneric": "electronics",
             "level": 1,
             "choices": [
               "remote",
@@ -1255,8 +1407,8 @@
               "lighter",
               "knife"
             ],
-            "ms": 114.61000001430511,
-            "totalMs": 144.55000007152557
+            "ms": 115.35500001907349,
+            "totalMs": 146.04500007629395
           },
           "spec": {
             "label": "remote",
@@ -1286,6 +1438,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 330.4783327777058,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "toothbrush",
@@ -1293,8 +1449,8 @@
               "paintbrush",
               "thing"
             ],
-            "ms": 107.8400000333786,
-            "totalMs": 138.63499999046326
+            "ms": 114.36500000953674,
+            "totalMs": 148.81499993801117
           },
           "spec": {
             "label": "toothbrush",
@@ -1322,6 +1478,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1280.3119878863085,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [
               "salt",
@@ -1329,8 +1489,8 @@
               "jar",
               "thing"
             ],
-            "ms": 122.38999998569489,
-            "totalMs": 159.2849999666214
+            "ms": 124.79500007629395,
+            "totalMs": 159.6449999809265
           },
           "spec": {
             "label": "pills",
@@ -1362,6 +1522,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 4296.583267793103,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "book",
@@ -1369,8 +1533,8 @@
               "e-reader",
               "thing"
             ],
-            "ms": 40.9300000667572,
-            "totalMs": 75.36000001430511
+            "ms": 41.25,
+            "totalMs": 74.93999993801117
           },
           "spec": {
             "label": "book",
@@ -1398,6 +1562,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1759.9019080391865,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "spoon",
@@ -1406,8 +1574,8 @@
               "ladle",
               "scissors"
             ],
-            "ms": 114.50499999523163,
-            "totalMs": 144.8050000667572
+            "ms": 117.37000000476837,
+            "totalMs": 146.93999981880188
           },
           "spec": {
             "label": "spoon",
@@ -1431,6 +1599,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 7467.495210055647,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "shoes",
@@ -1439,8 +1611,8 @@
               "foot",
               "thing"
             ],
-            "ms": 83.75999999046326,
-            "totalMs": 116.34500002861023
+            "ms": 85.24500000476837,
+            "totalMs": 118.049999833107
           },
           "spec": {
             "label": "shoe",
@@ -1470,6 +1642,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2379.668821201704,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "keys",
@@ -1477,8 +1653,8 @@
               "fork",
               "thing"
             ],
-            "ms": 42.06500005722046,
-            "totalMs": 74.84499990940094
+            "ms": 41.514999985694885,
+            "totalMs": 73.00499987602234
           },
           "spec": {
             "label": "keys",
@@ -1508,6 +1684,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1522.3248353622273,
+            "expectedGeneric": "furniture",
             "level": 0,
             "choices": [
               "chair",
@@ -1515,8 +1695,8 @@
               "fork",
               "thing"
             ],
-            "ms": 41.06000006198883,
-            "totalMs": 74.93499994277954
+            "ms": 43.53000009059906,
+            "totalMs": 77.22500014305115
           },
           "spec": {
             "label": "chair",
@@ -1544,6 +1724,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 6438.973425384223,
+            "expectedGeneric": "fruit",
             "level": 0,
             "choices": [
               "banana",
@@ -1551,8 +1735,8 @@
               "lemon",
               "thing"
             ],
-            "ms": 41.855000019073486,
-            "totalMs": 81.17999994754791
+            "ms": 43.24000000953674,
+            "totalMs": 79.67500007152557
           },
           "spec": {
             "label": "banana",
@@ -1580,6 +1764,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 4066.109100269212,
+            "expectedGeneric": "drink",
             "level": 2,
             "choices": [
               "mug",
@@ -1587,8 +1775,8 @@
               "coffee",
               "bowl"
             ],
-            "ms": 115.53999996185303,
-            "totalMs": 148.57500004768372
+            "ms": 120.7150000333786,
+            "totalMs": 154.5900000333786
           },
           "spec": {
             "label": "cup",
@@ -1619,6 +1807,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 3843.913506556457,
+            "expectedGeneric": "electronics",
             "level": 1,
             "choices": [
               "laptop",
@@ -1626,8 +1818,8 @@
               "monitor",
               "computer"
             ],
-            "ms": 113.125,
-            "totalMs": 145.78000009059906
+            "ms": 119.875,
+            "totalMs": 153.20500016212463
           },
           "spec": {
             "label": "laptop",
@@ -1657,6 +1849,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 3584.604476547479,
+            "expectedGeneric": "electronics",
             "level": 0,
             "choices": [
               "computer mouse",
@@ -1664,8 +1860,8 @@
               "placemat",
               "thing"
             ],
-            "ms": 41.43500006198883,
-            "totalMs": 73.17500007152557
+            "ms": 42.18499994277954,
+            "totalMs": 76.62000000476837
           },
           "spec": {
             "label": "mouse",
@@ -1694,6 +1890,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 4305.144944511932,
+            "expectedGeneric": "electronics",
             "level": 1,
             "choices": [
               "laptop",
@@ -1701,8 +1901,8 @@
               "notebook",
               "tablet stand"
             ],
-            "ms": 118.8050000667572,
-            "totalMs": 151.11000001430511
+            "ms": 123.45000004768372,
+            "totalMs": 157.79999995231628
           },
           "spec": {
             "label": "laptop",
@@ -1732,6 +1932,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2382.7141704153746,
+            "expectedGeneric": "electronics",
             "level": 1,
             "choices": [
               "monitor",
@@ -1739,8 +1943,8 @@
               "tv",
               "computer"
             ],
-            "ms": 112.76000010967255,
-            "totalMs": 146.12000012397766
+            "ms": 109.10000002384186,
+            "totalMs": 142.91499996185303
           },
           "spec": {
             "label": "monitor",
@@ -1770,6 +1974,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1215.8854684185455,
+            "expectedGeneric": "fruit",
             "level": 0,
             "choices": [
               "apple",
@@ -1777,8 +1985,8 @@
               "orange",
               "thing"
             ],
-            "ms": 40.144999980926514,
-            "totalMs": 71.30499994754791
+            "ms": 40.52499997615814,
+            "totalMs": 71.9449999332428
           },
           "spec": {
             "label": "apple",
@@ -1804,6 +2012,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 3744.0437010068376,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "phone",
@@ -1811,8 +2023,8 @@
               "lime",
               "thing"
             ],
-            "ms": 40.299999952316284,
-            "totalMs": 69.65499997138977
+            "ms": 40.62000000476837,
+            "totalMs": 71.97000002861023
           },
           "spec": {
             "label": "phone",
@@ -1842,6 +2054,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2342.1232945655747,
+            "expectedGeneric": null,
             "level": 0,
             "choices": [
               "cup",
@@ -1849,8 +2065,8 @@
               "drum",
               "thing"
             ],
-            "ms": 40.15499997138977,
-            "totalMs": 69.86500000953674
+            "ms": 41.30499994754791,
+            "totalMs": 72.13999998569489
           },
           "spec": {
             "label": "mug",
@@ -1880,6 +2096,10 @@
             "source": "vocab",
             "low": false,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 961.7173620339775,
+            "expectedGeneric": null,
             "level": 1,
             "choices": [
               "keys",
@@ -1887,8 +2107,8 @@
               "hand",
               "person"
             ],
-            "ms": 110.76999998092651,
-            "totalMs": 140.49000000953674
+            "ms": 111.05000007152557,
+            "totalMs": 140.96000003814697
           },
           "spec": {
             "label": "keys",
@@ -1918,10 +2138,14 @@
             "source": "vocab",
             "low": true,
             "empty": true,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 1125.6179503187068,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 82.48000001907349,
-            "totalMs": 112.51000010967255
+            "ms": 82.88499999046326,
+            "totalMs": 114.92499995231628
           },
           "spec": {
             "label": "theremin",
@@ -1947,10 +2171,14 @@
             "source": "vocab",
             "low": true,
             "empty": true,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 2926.9478257543897,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [],
-            "ms": 161.66499996185303,
-            "totalMs": 195.49000000953674
+            "ms": 164.8049999475479,
+            "totalMs": 200.00999999046326
           },
           "spec": {
             "label": "sextant",
@@ -1976,6 +2204,10 @@
             "source": "vocab",
             "low": true,
             "empty": false,
+            "blurry": false,
+            "broad": false,
+            "sharpness": 7314.322311164916,
+            "expectedGeneric": null,
             "level": 2,
             "choices": [
               "drum",
@@ -1983,8 +2215,8 @@
               "pie",
               "clock"
             ],
-            "ms": 116.81000006198883,
-            "totalMs": 151.97500002384186
+            "ms": 122.74500000476837,
+            "totalMs": 159.06500017642975
           },
           "spec": {
             "label": "astrolabe",
@@ -2014,9 +2246,12 @@
             "auto": 0.84,
             "wrongAuto": 0.16,
             "notSure": 0.12,
-            "avgMs": 72.62019999980926,
-            "p95Ms": 122.47499990463257,
-            "avgTotalMs": 105.69119999408721,
+            "broad": 0,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 78.97059998512267,
+            "p95Ms": 135.49500000476837,
+            "avgTotalMs": 114.62279997825623,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2032,9 +2267,12 @@
             "auto": 0.8,
             "wrongAuto": 0.12,
             "notSure": 0.12,
-            "avgMs": 78.04519999504089,
-            "p95Ms": 157.88999998569489,
-            "avgTotalMs": 111.21559999465943,
+            "broad": 0,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 156.16780001163482,
+            "p95Ms": 530.8500000238419,
+            "avgTotalMs": 205.65719999313353,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2050,9 +2288,12 @@
             "auto": 0.8,
             "wrongAuto": 0.12,
             "notSure": 0.12,
-            "avgMs": 78.07519998073577,
-            "p95Ms": 162.49500000476837,
-            "avgTotalMs": 110.936399974823,
+            "broad": 0,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 149.48659999370574,
+            "p95Ms": 295.0149999856949,
+            "avgTotalMs": 205.14539999485015,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2068,9 +2309,12 @@
             "auto": 0.8,
             "wrongAuto": 0.08,
             "notSure": 0.12,
-            "avgMs": 80.5180000257492,
-            "p95Ms": 158.45000004768372,
-            "avgTotalMs": 113.3168000125885,
+            "broad": 0,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 94.80239999294281,
+            "p95Ms": 177.18500006198883,
+            "avgTotalMs": 133.6777999973297,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2086,9 +2330,12 @@
             "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 82.79659998893737,
-            "p95Ms": 159.62000000476837,
-            "avgTotalMs": 115.88879999160767,
+            "broad": 0,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 89.99439998626708,
+            "p95Ms": 174.27500009536743,
+            "avgTotalMs": 126.76259997844696,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2104,9 +2351,12 @@
             "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 88.28599998950958,
-            "p95Ms": 155.5899999141693,
-            "avgTotalMs": 121.1605999994278,
+            "broad": 0,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 99.02860001087188,
+            "p95Ms": 187.3400000333786,
+            "avgTotalMs": 136.36819999217988,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2122,9 +2372,12 @@
             "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 91.09999999046326,
-            "p95Ms": 167.5699999332428,
-            "avgTotalMs": 123.81460000514984,
+            "broad": 0,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 109.0754000043869,
+            "p95Ms": 194.3199999332428,
+            "avgTotalMs": 148.38639999866484,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2140,9 +2393,12 @@
             "auto": 0.68,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 95.71020000457764,
-            "p95Ms": 158.5700000524521,
-            "avgTotalMs": 128.323200006485,
+            "broad": 0,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 112.15019999980926,
+            "p95Ms": 188.72000002861023,
+            "avgTotalMs": 151.0541999721527,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2153,14 +2409,17 @@
           "threshold": 0.6,
           "summary": {
             "n": 25,
-            "top1": 0.72,
+            "top1": 0.6,
             "top3": 0.84,
-            "auto": 0.48,
+            "auto": 0.64,
             "wrongAuto": 0.04,
             "notSure": 0.12,
-            "avgMs": 121.51579998970031,
-            "p95Ms": 197.7300000190735,
-            "avgTotalMs": 155.92359998703003,
+            "broad": 0.16,
+            "blurry": 0,
+            "medianSharpness": 2926.9478257543897,
+            "avgMs": 125.44659999370575,
+            "p95Ms": 198.94999992847443,
+            "avgTotalMs": 162.57979998111725,
             "sources": {
               "vocab": 22,
               "none": 3
@@ -2177,9 +2436,12 @@
           "auto": 0.68,
           "wrongAuto": 0.04,
           "notSure": 0.12,
-          "avgMs": 95.71020000457764,
-          "p95Ms": 158.5700000524521,
-          "avgTotalMs": 128.323200006485,
+          "broad": 0,
+          "blurry": 0,
+          "medianSharpness": 2926.9478257543897,
+          "avgMs": 112.15019999980926,
+          "p95Ms": 188.72000002861023,
+          "avgTotalMs": 151.0541999721527,
           "sources": {
             "vocab": 22,
             "none": 3
@@ -4986,7 +5248,7 @@
         "matched": 1,
         "falseMatched": 0,
         "n": 25,
-        "avgMs": 43.21960000991821
+        "avgMs": 45.713200001716615
       }
     }
   ],
@@ -5002,9 +5264,12 @@
         "auto": 0.68,
         "wrongAuto": 0.04,
         "notSure": 0.12,
-        "avgMs": 92.57980001449585,
-        "p95Ms": 176.82999992370605,
-        "avgTotalMs": 126.18300002098084,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2942.1173949141275,
+        "avgMs": 99.30779999256134,
+        "p95Ms": 178.0350000858307,
+        "avgTotalMs": 136.29919998168944,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -5019,12 +5284,15 @@
         "n": 25,
         "top1": 0.56,
         "top3": 0.72,
-        "auto": 0.6,
+        "auto": 0.56,
         "wrongAuto": 0.08,
         "notSure": 0.2,
-        "avgMs": 97.58259999752045,
-        "p95Ms": 136.22000002861023,
-        "avgTotalMs": 134.25920000076295,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 652.4400341464548,
+        "avgMs": 104.91659998893738,
+        "p95Ms": 159.8400000333786,
+        "avgTotalMs": 141.32639996528624,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5037,14 +5305,17 @@
       "condition": "very-dark",
       "summary": {
         "n": 25,
-        "top1": 0.32,
+        "top1": 0.28,
         "top3": 0.4,
-        "auto": 0.16,
+        "auto": 0.2,
         "wrongAuto": 0,
         "notSure": 0.44,
-        "avgMs": 111.7448000049591,
-        "p95Ms": 153.6449999809265,
-        "avgTotalMs": 150.8478000020981,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 957.4226254472544,
+        "avgMs": 106.60079998970032,
+        "p95Ms": 165.0900000333786,
+        "avgTotalMs": 141.49139998435973,
         "sources": {
           "vocab": 14,
           "none": 11
@@ -5057,14 +5328,17 @@
       "condition": "bright",
       "summary": {
         "n": 25,
-        "top1": 0.6,
+        "top1": 0.56,
         "top3": 0.72,
-        "auto": 0.56,
+        "auto": 0.6,
         "wrongAuto": 0.08,
         "notSure": 0.16,
-        "avgMs": 113.18599999904633,
-        "p95Ms": 213.27499997615814,
-        "avgTotalMs": 148.9738000154495,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2660.0666847161624,
+        "avgMs": 98.79240000724792,
+        "p95Ms": 132.15000009536743,
+        "avgTotalMs": 135.24200001716613,
         "sources": {
           "vocab": 21,
           "none": 4
@@ -5077,14 +5351,17 @@
       "condition": "noisy",
       "summary": {
         "n": 25,
-        "top1": 0.64,
+        "top1": 0.6,
         "top3": 0.68,
         "auto": 0.56,
         "wrongAuto": 0.04,
         "notSure": 0.16,
-        "avgMs": 104.84000000476837,
-        "p95Ms": 160.84500002861023,
-        "avgTotalMs": 143.8304000043869,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 7782.621993216299,
+        "avgMs": 107.46080000400543,
+        "p95Ms": 164.16499996185303,
+        "avgTotalMs": 144.76539999485016,
         "sources": {
           "vocab": 21,
           "none": 4
@@ -5097,14 +5374,17 @@
       "condition": "blurry",
       "summary": {
         "n": 25,
-        "top1": 0.56,
+        "top1": 0.36,
         "top3": 0.6,
-        "auto": 0.4,
-        "wrongAuto": 0.04,
+        "auto": 0.04,
+        "wrongAuto": 0,
         "notSure": 0.24,
-        "avgMs": 148.9261999988556,
-        "p95Ms": 240.16999995708466,
-        "avgTotalMs": 187.08439999580384,
+        "broad": 0.2,
+        "blurry": 0.96,
+        "medianSharpness": 86.33651983604263,
+        "avgMs": 147.0794000005722,
+        "p95Ms": 207.82500004768372,
+        "avgTotalMs": 188.33859999656678,
         "sources": {
           "vocab": 19,
           "none": 6
@@ -5117,14 +5397,17 @@
       "condition": "close",
       "summary": {
         "n": 25,
-        "top1": 0.56,
+        "top1": 0.52,
         "top3": 0.64,
         "auto": 0.44,
-        "wrongAuto": 0.04,
+        "wrongAuto": 0.08,
         "notSure": 0.28,
-        "avgMs": 153.12019999980927,
-        "p95Ms": 248.80999994277954,
-        "avgTotalMs": 195.53180000782012,
+        "broad": 0.04,
+        "blurry": 0.12,
+        "medianSharpness": 1200.2486640736952,
+        "avgMs": 116.7069999885559,
+        "p95Ms": 179.01499998569489,
+        "avgTotalMs": 155.79439997196198,
         "sources": {
           "vocab": 18,
           "none": 7
@@ -5138,13 +5421,16 @@
       "summary": {
         "n": 25,
         "top1": 0.72,
-        "top3": 0.8,
-        "auto": 0.64,
+        "top3": 0.76,
+        "auto": 0.6,
         "wrongAuto": 0.04,
         "notSure": 0.08,
-        "avgMs": 87.67260002613068,
-        "p95Ms": 151.66499996185303,
-        "avgTotalMs": 120.81000001907348,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2679.2194262990006,
+        "avgMs": 102.3395999956131,
+        "p95Ms": 178.34499990940094,
+        "avgTotalMs": 141.83479998111724,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5157,14 +5443,17 @@
       "condition": "dark-blurry",
       "summary": {
         "n": 25,
-        "top1": 0.2,
+        "top1": 0.16,
         "top3": 0.24,
-        "auto": 0.04,
-        "wrongAuto": 0,
+        "auto": 0.08,
+        "wrongAuto": 0.04,
         "notSure": 0.52,
-        "avgMs": 116.7064000082016,
-        "p95Ms": 162.28999996185303,
-        "avgTotalMs": 155.0920000076294,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 338.8866238546703,
+        "avgMs": 120.1798000049591,
+        "p95Ms": 158.99000000953674,
+        "avgTotalMs": 157.0140000152588,
         "sources": {
           "vocab": 12,
           "none": 13
@@ -5177,14 +5466,17 @@
       "condition": "clean",
       "summary": {
         "n": 25,
-        "top1": 0.76,
+        "top1": 0.68,
         "top3": 0.84,
-        "auto": 0.6,
+        "auto": 0.56,
         "wrongAuto": 0.04,
         "notSure": 0.08,
-        "avgMs": 105.43019998550415,
-        "p95Ms": 195.95999991893768,
-        "avgTotalMs": 138.87679999351502,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 2942.1173949141275,
+        "avgMs": 114.24640000343322,
+        "p95Ms": 207.6599999666214,
+        "avgTotalMs": 151.4548000049591,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5202,9 +5494,12 @@
         "auto": 0.6,
         "wrongAuto": 0.04,
         "notSure": 0.12,
-        "avgMs": 108.50539999961853,
-        "p95Ms": 165.74000000953674,
-        "avgTotalMs": 146.84439999580383,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 652.4400341464548,
+        "avgMs": 108.55559999465942,
+        "p95Ms": 164.39999997615814,
+        "avgTotalMs": 145.9499999856949,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -5217,14 +5512,17 @@
       "condition": "very-dark",
       "summary": {
         "n": 25,
-        "top1": 0.4,
+        "top1": 0.36,
         "top3": 0.4,
         "auto": 0.28,
         "wrongAuto": 0,
         "notSure": 0.4,
-        "avgMs": 121.83819999217987,
-        "p95Ms": 168.70000004768372,
-        "avgTotalMs": 160.79179998397828,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 957.4226254472544,
+        "avgMs": 113.94780000209808,
+        "p95Ms": 153.63499999046326,
+        "avgTotalMs": 148.3931999874115,
         "sources": {
           "vocab": 15,
           "none": 10
@@ -5237,14 +5535,17 @@
       "condition": "bright",
       "summary": {
         "n": 25,
-        "top1": 0.6,
+        "top1": 0.48,
         "top3": 0.72,
         "auto": 0.6,
         "wrongAuto": 0.08,
         "notSure": 0.16,
-        "avgMs": 99.32299999713898,
-        "p95Ms": 156.26499998569489,
-        "avgTotalMs": 132.55840001583098,
+        "broad": 0.12,
+        "blurry": 0,
+        "medianSharpness": 2660.0666847161624,
+        "avgMs": 105.205,
+        "p95Ms": 172.31000006198883,
+        "avgTotalMs": 141.229799990654,
         "sources": {
           "vocab": 21,
           "none": 4
@@ -5257,14 +5558,17 @@
       "condition": "noisy",
       "summary": {
         "n": 25,
-        "top1": 0.6,
+        "top1": 0.56,
         "top3": 0.64,
         "auto": 0.6,
         "wrongAuto": 0.04,
         "notSure": 0.2,
-        "avgMs": 112.12020000457764,
-        "p95Ms": 157.37000000476837,
-        "avgTotalMs": 153.53259999752044,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 7782.621993216299,
+        "avgMs": 112.62160001277924,
+        "p95Ms": 173.00499999523163,
+        "avgTotalMs": 149.4064000082016,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5277,14 +5581,17 @@
       "condition": "blurry",
       "summary": {
         "n": 25,
-        "top1": 0.56,
+        "top1": 0.4,
         "top3": 0.6,
-        "auto": 0.44,
-        "wrongAuto": 0.04,
+        "auto": 0.04,
+        "wrongAuto": 0,
         "notSure": 0.2,
-        "avgMs": 136.11899998664856,
-        "p95Ms": 183.41999995708466,
-        "avgTotalMs": 169.4609999895096,
+        "broad": 0.2,
+        "blurry": 0.96,
+        "medianSharpness": 86.33651983604263,
+        "avgMs": 147.57359998703004,
+        "p95Ms": 202.88499999046326,
+        "avgTotalMs": 185.60039998054503,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5299,12 +5606,15 @@
         "n": 25,
         "top1": 0.52,
         "top3": 0.64,
-        "auto": 0.4,
-        "wrongAuto": 0.04,
+        "auto": 0.44,
+        "wrongAuto": 0.08,
         "notSure": 0.28,
-        "avgMs": 117.86979998111725,
-        "p95Ms": 178.0199999809265,
-        "avgTotalMs": 151.12179999351503,
+        "broad": 0,
+        "blurry": 0.12,
+        "medianSharpness": 1200.2486640736952,
+        "avgMs": 120.10639998912811,
+        "p95Ms": 190.11500000953674,
+        "avgTotalMs": 157.65299999713898,
         "sources": {
           "vocab": 18,
           "none": 7
@@ -5318,13 +5628,16 @@
       "summary": {
         "n": 25,
         "top1": 0.72,
-        "top3": 0.84,
-        "auto": 0.64,
+        "top3": 0.8,
+        "auto": 0.56,
         "wrongAuto": 0.04,
         "notSure": 0.08,
-        "avgMs": 94.06739999294281,
-        "p95Ms": 151.88499999046326,
-        "avgTotalMs": 127.20339999198913,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2679.2194262990006,
+        "avgMs": 107.11660001277923,
+        "p95Ms": 185.91999995708466,
+        "avgTotalMs": 143.5070000076294,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5337,14 +5650,17 @@
       "condition": "dark-blurry",
       "summary": {
         "n": 25,
-        "top1": 0.2,
-        "top3": 0.32,
-        "auto": 0.08,
+        "top1": 0.16,
+        "top3": 0.28,
+        "auto": 0.12,
         "wrongAuto": 0,
         "notSure": 0.48,
-        "avgMs": 133.97620000362397,
-        "p95Ms": 187.68500006198883,
-        "avgTotalMs": 176.3354000043869,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 338.8866238546703,
+        "avgMs": 137.92379999637603,
+        "p95Ms": 197.29499995708466,
+        "avgTotalMs": 176.09899998664855,
         "sources": {
           "vocab": 13,
           "none": 12
@@ -5357,14 +5673,17 @@
       "condition": "clean",
       "summary": {
         "n": 25,
-        "top1": 0.76,
+        "top1": 0.72,
         "top3": 0.84,
-        "auto": 0.64,
+        "auto": 0.68,
         "wrongAuto": 0.04,
         "notSure": 0.08,
-        "avgMs": 159.21059999465942,
-        "p95Ms": 315.5400000810623,
-        "avgTotalMs": 192.45179998397828,
+        "broad": 0.04,
+        "blurry": 0,
+        "medianSharpness": 2942.1173949141275,
+        "avgMs": 178.60160000801088,
+        "p95Ms": 335.1449999809265,
+        "avgTotalMs": 213.93299998760224,
         "sources": {
           "vocab": 23,
           "none": 2
@@ -5382,9 +5701,12 @@
         "auto": 0.6,
         "wrongAuto": 0.04,
         "notSure": 0.04,
-        "avgMs": 168.3980000257492,
-        "p95Ms": 250.92500007152557,
-        "avgTotalMs": 203.5741999912262,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 652.4400341464548,
+        "avgMs": 186.62859998226165,
+        "p95Ms": 265.61500000953674,
+        "avgTotalMs": 223.76259995937346,
         "sources": {
           "vocab": 24,
           "none": 1
@@ -5399,12 +5721,15 @@
         "n": 25,
         "top1": 0.4,
         "top3": 0.44,
-        "auto": 0.28,
-        "wrongAuto": 0,
+        "auto": 0.32,
+        "wrongAuto": 0.04,
         "notSure": 0.44,
-        "avgMs": 188.92520001411438,
-        "p95Ms": 250.17499995231628,
-        "avgTotalMs": 223.8198000097275,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 957.4226254472544,
+        "avgMs": 191.7520000076294,
+        "p95Ms": 255.97500002384186,
+        "avgTotalMs": 228.25720002174378,
         "sources": {
           "vocab": 14,
           "none": 11
@@ -5417,14 +5742,17 @@
       "condition": "bright",
       "summary": {
         "n": 25,
-        "top1": 0.6,
+        "top1": 0.52,
         "top3": 0.68,
         "auto": 0.64,
         "wrongAuto": 0.08,
         "notSure": 0.2,
-        "avgMs": 156.47880000591277,
-        "p95Ms": 231.37999999523163,
-        "avgTotalMs": 189.9366000032425,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 2660.0666847161624,
+        "avgMs": 192.82359999656677,
+        "p95Ms": 327.67000007629395,
+        "avgTotalMs": 230.6691999864578,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5437,14 +5765,17 @@
       "condition": "noisy",
       "summary": {
         "n": 25,
-        "top1": 0.6,
+        "top1": 0.52,
         "top3": 0.64,
         "auto": 0.56,
         "wrongAuto": 0.04,
         "notSure": 0.2,
-        "avgMs": 164.193400015831,
-        "p95Ms": 261.7300000190735,
-        "avgTotalMs": 197.31360001564025,
+        "broad": 0.12,
+        "blurry": 0,
+        "medianSharpness": 7782.621993216299,
+        "avgMs": 197.89059999465942,
+        "p95Ms": 298.89999997615814,
+        "avgTotalMs": 235.90799999713897,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5457,14 +5788,17 @@
       "condition": "blurry",
       "summary": {
         "n": 25,
-        "top1": 0.6,
+        "top1": 0.44,
         "top3": 0.6,
-        "auto": 0.48,
+        "auto": 0.04,
         "wrongAuto": 0,
         "notSure": 0.2,
-        "avgMs": 213.9557999944687,
-        "p95Ms": 306.0700000524521,
-        "avgTotalMs": 247.34160000801086,
+        "broad": 0.2,
+        "blurry": 0.96,
+        "medianSharpness": 86.33651983604263,
+        "avgMs": 250.91939998626708,
+        "p95Ms": 355.7300000190735,
+        "avgTotalMs": 288.7085999727249,
         "sources": {
           "vocab": 20,
           "none": 5
@@ -5477,14 +5811,17 @@
       "condition": "close",
       "summary": {
         "n": 25,
-        "top1": 0.56,
+        "top1": 0.52,
         "top3": 0.56,
         "auto": 0.44,
         "wrongAuto": 0.08,
         "notSure": 0.28,
-        "avgMs": 169.20659999847413,
-        "p95Ms": 270.90500009059906,
-        "avgTotalMs": 202.3569999885559,
+        "broad": 0.04,
+        "blurry": 0.12,
+        "medianSharpness": 1200.2486640736952,
+        "avgMs": 197.83659999847413,
+        "p95Ms": 307.61499989032745,
+        "avgTotalMs": 234.63919998168944,
         "sources": {
           "vocab": 18,
           "none": 7
@@ -5499,12 +5836,15 @@
         "n": 25,
         "top1": 0.68,
         "top3": 0.76,
-        "auto": 0.64,
+        "auto": 0.6,
         "wrongAuto": 0.04,
         "notSure": 0.12,
-        "avgMs": 145.65839999198914,
-        "p95Ms": 232.28999996185303,
-        "avgTotalMs": 178.77459999084473,
+        "broad": 0,
+        "blurry": 0,
+        "medianSharpness": 2679.2194262990006,
+        "avgMs": 177.64519999504088,
+        "p95Ms": 252.8550000190735,
+        "avgTotalMs": 214.3905999851227,
         "sources": {
           "vocab": 22,
           "none": 3
@@ -5517,14 +5857,17 @@
       "condition": "dark-blurry",
       "summary": {
         "n": 25,
-        "top1": 0.32,
+        "top1": 0.28,
         "top3": 0.36,
         "auto": 0.12,
         "wrongAuto": 0,
         "notSure": 0.44,
-        "avgMs": 198.1421999979019,
-        "p95Ms": 286.6099998950958,
-        "avgTotalMs": 231.5613999938965,
+        "broad": 0.08,
+        "blurry": 0,
+        "medianSharpness": 338.8866238546703,
+        "avgMs": 219.45559998989106,
+        "p95Ms": 313.43499994277954,
+        "avgTotalMs": 256.4605999898911,
         "sources": {
           "vocab": 14,
           "none": 11

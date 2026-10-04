@@ -68,6 +68,20 @@ describe("vocabulary scoring", () => {
     expect(after[0].prob + after[1].prob).toBeCloseTo(1, 9);
   });
 
+  it("sums probability per category over the whole vocabulary", () => {
+    const groupRows = [
+      { label: "book", category: "office" },
+      { label: "prayer book", category: "personal" },
+      { label: "newspaper", category: "office" },
+    ];
+    const groupEmb = new Float32Array([1, 0, 0, 0.8, 0.6, 0, 0, 0, 1]);
+    const index = new VocabIndex(groupRows, groupEmb, 3, 20, { "prayer book": "book" });
+    const mass = index.categoryMass(new Float32Array([0.75, 0.6, 0.28]));
+    expect(Object.values(mass).reduce((a, b) => a + b, 0)).toBeCloseTo(1, 9);
+    expect(Object.keys(mass).sort()).toEqual(["office", "personal"]);
+    expect(mass.personal + mass.office).toBeCloseTo(1, 9);
+  });
+
   it("only groups labels that exist, without chains, and never changes what counts as medicine", async () => {
     vi.stubGlobal("location", new URL("http://localhost:5173/"));
     const { isMedicationLabel } = await import("../../lib/meds");

@@ -350,3 +350,44 @@ Poor light and motion blur are the realistic failure modes for a finger-mounted 
 **Implication**
 
 Synthetic degradation is a proxy; the conditions table should be re-run on real dark/blurry ring photos (and the VizWiz slice) before any robustness change is adopted. Blur is already partly handled upstream by picking the sharpest frame of a burst, which the single-image eval cannot exercise. The remaining big lever for dark scenes is the camera itself (exposure, flash/LED on the ring).
+
+
+---
+
+### 2026-10-04 — Unsure beats wrong: blur gate, broad category word, threshold 0.45
+
+**Decision**
+
+Three changes that trade a little exactness for fewer confident wrong words:
+
+1. **Blur gate.** A capture whose chosen frame scores below `minSharpness` = 200 (variance of the Laplacian on the aim zone, the measure already used to pick frames) is treated as unsure regardless of the model's confidence, so it goes to the scanner.
+2. **Broad word when unsure.** The vocabulary's probability is summed per category; if one category holds ≥ 50 % and has an everyday word (`GENERIC_WORDS`: person, animal, fruit, vegetable, food, drink, clothes, furniture, electronics, tool) it is offered first in the scanner, and at ≥ 60 % it becomes the tile, with the specific guesses as the chips. Categories whose broad word would be unhelpful or would trigger the medication check (health & medical) have none.
+3. **`lowConfidence` 0.4 → 0.45**, and the eval's picker now maximises *exact* automation (auto-commits minus broad ones) and prefers the higher threshold within 5 points, so it encodes "unsure over wrong" instead of raw automation.
+
+**Results** (25 placeholder photos, centre aim)
+
+| | WebGPU before → after | WASM before → after |
+|---|---|---|
+| top-1 (exact word) | 76 % → 76 % | 88 % → 80 % |
+| tile without asking | 68 % → 68 % | 80 % → 84 % |
+| of which broad word | 0 % → 0 % | 0 % → 8 % |
+| wrong without asking | 4 % → 4 % | 0 % → 0 % |
+| wrong without asking, motion-blurred | 4 % → 0 % | 20 % → 0 % |
+| blur-gated: clean / blurred photos | 0 % / 96 % | 0 % / 96 % |
+
+The remaining WebGPU error is the laptop named "keyboard" (its keyboard fills the centre crop). On WASM the two exact answers lost became "furniture" (chair, 37 % → 65 % as a category) and "electronics" (monitor): safe but less specific, with the exact word one chip away.
+
+**Reason**
+
+Motion blur made SigLIP confidently wrong (20 % wrong tiles on WASM), which no confidence threshold could catch; a sharpness gate catches 96 % of it with zero clean photos affected. When the model is torn between several things of the same kind, the kind itself is usually right and is a better word to speak than the top specific guess. The threshold sweep showed 0.45 costs one exact answer on WASM and nothing on WebGPU; 0.6 would turn 16 % of correct specific answers into broad ones, so the picker was changed to weigh that.
+
+**Alternatives considered**
+
+- Raising the confidence threshold alone — cannot catch blur, and above 0.5 it mostly replaces right answers with broad ones
+- Image enhancement (previous entry) — did not reduce wrong answers reliably
+
+**Limitations**
+
+- Sharpness is content-dependent: a thin object on a plain background scores low when sharp (the toothbrush photo is at 330, every other clean photo ≥ 960). On the real ring this means such captures may go to the scanner, which is the preferred failure. Sensor noise masks blur, so dark + blurred captures are not gated and rely on the threshold.
+- An out-of-vocabulary object can now get a broad tile ("electronics" for a theremin at 67 %) where it used to get "not sure"; the eval counts that as wrong because the object has no category. Acceptable under "broad over specific", but worth watching on the public image set.
+- The "close" (zoomed-in) condition gates 12 % of captures because zooming removes detail; a real close-up from the ring will be sharper than an upscaled crop.

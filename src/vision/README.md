@@ -54,7 +54,7 @@ Stream sources keep the last 10 upright frames in `core/frameBuffer.ts` with the
 
 ## Naming: centre first, widen only when unsure (`core/escalate.ts`, `naming.ts`)
 
-For now Qu assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence` = 0.4, chosen by the eval; see below):
+For now Qu assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence` = 0.45, chosen by the eval; see below):
 
 | Level | Crops | When |
 |---|---|---|
@@ -63,6 +63,11 @@ For now Qu assumes the user points straight at the object: the aim point is the 
 | 2 | every other detected object | still unsure, or a second retake |
 
 Whole-frame detection keeps running (stream) or runs on the still, and supplies the level 1–2 boxes. If the best answer is confident and came from the centre/wide/covering box, it becomes a tile directly (other answers become the "fix the name" chips). Otherwise the choices go to the **scanner** instead of guessing (even a single unsure choice is confirmed there: hold = yes, double = retake). Guesses below a minimum score (`minShow`, 12 %: on the eval set correct names scored from 13 %) aren't offered unless the detector is fairly sure the object is there (`minDetector`, 50 %); if nothing clears the bar, the user gets "Not sure what that is. Try again or move closer" and an error buzz instead of a near-random word. Confidence is judged only on the pointed-at crops, and the choices are ordered by how likely they are to be what the user pointed at, not by how confident the name is: centre / covering-box / wide crops first (most confident of those leading), then other objects nearest the centre first. Choices with the same name are merged, and at most N are shown ("choices", default 4). If the object under the centre is tiny (< 1 % of the frame), a "Move closer" hint is shown; there's no special handling for far objects yet.
+
+Two more rules lean the result toward "unsure" rather than a confident wrong word:
+
+- **Blur gate** (`minSharpness`, 200): if the chosen frame's sharpness score (the same variance-of-Laplacian used to pick frames) is below the gate, the result is treated as unsure however confident the model sounds, because motion blur makes SigLIP confidently wrong rather than unsure. On the eval set every clean photo scores above 330 and synthetically blurred ones around 86. `App` passes the burst's or stream pick's sharpness in `NamingInput.sharpness`.
+- **Broad word** (`broadMin` 0.5, `broadCommit` 0.6, `GENERIC_WORDS` in `vocabulary.ts`): when unsure, the probability of the whole vocabulary is summed per category. If one category holds ≥ 50 % and has an everyday word (person, animal, fruit, vegetable, food, drink, clothes, furniture, electronics, tool), that word is offered first in the scanner ("65 % sure it's some kind of furniture"); at ≥ 60 % it becomes the tile directly, with the specific guesses as the "fix the name" chips. "Fruit" for a banana is a safe answer; "corn" is not. Health & medical, kitchen, bathroom and the other categories have no broad word (a broad "medicine" would also trigger the medication check). A blur-gated result never auto-commits, broad or not.
 
 ## Naming model: SigLIP 2 + daily-living vocabulary
 
@@ -192,7 +197,8 @@ Reported: top-1 and top-3 (labels or accepted synonyms, plural-insensitive), aut
 - **Confidence sweep**: `lowConfidence` from 0.15 to 0.6. The picker takes the lowest wrong-auto rate any threshold reaches, then the most automation, then the higher threshold; across backends it uses the mean.
 - **Personal objects**: every image is taught from 3 augmented views (zoom, shift, rotation, lighting) and queried with a 4th. For each threshold/margin it measures true matches, false matches (the object wasn't taught but matched something else) and confusions; the picker requires zero false matches and confusions on every backend. The chosen setting is then re-checked through `nameTarget`.
 
-- **Degraded conditions** (`--conditions`, `core/degrade.ts`): every image is also named after being darkened (×0.4 and ×0.18 plus sensor noise), over-exposed, made noisy, motion-blurred (4 % of the short side), zoomed in 1.8× on the aim point, tilted 18°, and dark + blurred, each with three crop treatments: `plain`, `enhance` (pad to square + auto-levels), `enhance+flip` (also average with the mirrored crop). The table shows top-1 / wrong auto-commits / auto-commits / naming ms per condition so a change can be judged on the conditions it targets without hurting clean photos.
+- **Blur gate and broad word**: each case records whether it was blur-gated and whether the answer was a broad category word; a broad word is counted as *broad* (safe, not top-1, not wrong) when it is the category word of the expected label, and as wrong otherwise. The confidence picker maximises *exact* automation (auto-commits minus broad ones), then prefers the higher threshold within 5 points.
+- **Degraded conditions** (`--conditions`, `core/degrade.ts`): every image is also named after being darkened (×0.4 and ×0.18 plus sensor noise), over-exposed, made noisy, motion-blurred (4 % of the short side), zoomed in 1.8× on the aim point, tilted 18°, and dark + blurred, each with three crop treatments: `plain`, `enhance` (pad to square + auto-levels), `enhance+flip` (also average with the mirrored crop). The table shows top-1 / wrong auto-commits / broad / auto-commits / blur-gated / median sharpness / naming ms per condition so a change can be judged on the conditions it targets without hurting clean photos.
 
 Options: `--backends webgpu,wasm`, `--dirs`, `--no-sweep`, `--no-personal`, `--conditions`, `--claude` (also ask Claude for unsure answers; needs a key), `--headed`, `--report-only` (rebuild `summary.md` from the JSON).
 

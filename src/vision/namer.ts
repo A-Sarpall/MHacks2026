@@ -21,6 +21,7 @@ export interface NamedCrop {
   capture: CapturedObject;
   crop: HTMLCanvasElement;
   embedding?: Float32Array;
+  categoryMass?: Record<string, number>;
 }
 
 export interface NamerOptions {
@@ -99,8 +100,10 @@ export async function nameCrops(
   return local.map((l, i) => {
     const top = vocab.top(vectors[i], opts.topK ?? 3, opts.boost);
     const vocabGuesses: LabelGuess[] = top.flatMap((t, rank) => [
-      { label: t.label, score: t.prob, source: "vocab" as const },
-      ...(rank === 0 && t.specific ? [{ label: t.specific.label, score: t.specific.prob, source: "vocab" as const }] : []),
+      { label: t.label, score: t.prob, source: "vocab" as const, category: t.category },
+      ...(rank === 0 && t.specific
+        ? [{ label: t.specific.label, score: t.specific.prob, source: "vocab" as const, category: t.category }]
+        : []),
     ]);
     const hit = personal.length > 0 ? matchPersonal(vectors[i], personal, opts.personalCfg) : null;
     if (personal.length > 0) {
@@ -125,11 +128,13 @@ export async function nameCrops(
     return {
       crop: l.crop,
       embedding: vectors[i],
+      categoryMass: vocab.categoryMass(vectors[i]),
       capture: {
         ...l.capture,
         label: best.label,
         confidence: best.score,
         source: "vocab",
+        category: best.category,
         alternatives: dedupe([...rest, ...l.capture.alternatives, { label: l.capture.label, score: l.capture.confidence, source: l.capture.source === "manual" ? "classifier" : l.capture.source }]).filter(
           (g) => g.label !== best.label
         ),

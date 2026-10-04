@@ -1,18 +1,18 @@
 # Cue recognition eval
 
-## webgpu (2026-10-04, 163 s)
+## webgpu (2026-10-04, 182 s)
 
 No labels.json in: test-images-public
 
 ### test-images, centre aim
 
-| | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
-|---|---|---|---|---|---|---|---|---|---|
-| all | 25 | 76% | 84% | 68% | 4% | 12% | 90 / 164 | 129 | vocab 22, none 3 |
-| single | 13 | 92% | 92% | 77% | 0% | 8% | 85 / 131 | 130 | vocab 12, none 1 |
-| cluttered | 5 | 60% | 100% | 60% | 20% | 0% | 96 / 178 | 128 | vocab 5 |
-| held | 4 | 100% | 100% | 100% | 0% | 0% | 76 / 111 | 106 | vocab 4 |
-| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 67% | 121 / 164 | 153 | none 2, vocab 1 |
+| | n | top-1 | top-3 | auto | wrong auto | broad | not sure | naming ms avg/p95 | total ms | answered by |
+|---|---|---|---|---|---|---|---|---|---|---|
+| all | 25 | 76% | 84% | 68% | 4% | 0% | 12% | 97 / 166 | 140 | vocab 22, none 3 |
+| single | 13 | 92% | 92% | 77% | 0% | 0% | 8% | 88 / 136 | 141 | vocab 12, none 1 |
+| cluttered | 5 | 60% | 100% | 60% | 20% | 0% | 0% | 102 / 186 | 137 | vocab 5 |
+| held | 4 | 100% | 100% | 100% | 0% | 0% | 0% | 97 / 118 | 130 | vocab 4 |
+| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 0% | 67% | 124 / 166 | 158 | none 2, vocab 1 |
 
 | image | expected | answer | score | | choices |
 |---|---|---|---|---|---|
@@ -36,7 +36,7 @@ No labels.json in: test-images-public
 | cluttered-desk-monitor-01.jpg | monitor | desk | 29% | scanner | desk, bill, monitor |
 | held-apple-01.jpg | apple | apple | 85% | auto | apple, peach, orange |
 | held-phone-01.jpg | phone | phone | 47% | auto | phone, remote, finger |
-| held-mug-01.jpg | mug | mug | 45% | auto | mug, cup, coffee |
+| held-mug-01.jpg | mug | mug | 54% | auto | mug, cup, coffee |
 | held-keys-01.jpg | keys | keys | 66% | auto | keys, finger, hand |
 | ood-theremin-01.jpg | theremin | (not sure) | 10% | scanner |  |
 | ood-sextant-01.jpg | sextant | (not sure) | 9% | scanner |  |
@@ -44,13 +44,13 @@ No labels.json in: test-images-public
 
 ### test-images, labelled aim
 
-| | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
-|---|---|---|---|---|---|---|---|---|---|
-| all | 25 | 80% | 80% | 76% | 0% | 8% | 88 / 127 | 120 | vocab 23, none 2 |
-| single | 13 | 85% | 85% | 85% | 0% | 0% | 84 / 127 | 118 | vocab 13 |
-| cluttered | 5 | 100% | 100% | 80% | 0% | 0% | 100 / 119 | 133 | vocab 5 |
-| held | 4 | 100% | 100% | 100% | 0% | 0% | 58 / 111 | 88 | vocab 4 |
-| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 67% | 120 / 162 | 153 | none 2, vocab 1 |
+| | n | top-1 | top-3 | auto | wrong auto | broad | not sure | naming ms avg/p95 | total ms | answered by |
+|---|---|---|---|---|---|---|---|---|---|---|
+| all | 25 | 80% | 80% | 76% | 0% | 0% | 8% | 90 / 134 | 124 | vocab 23, none 2 |
+| single | 13 | 85% | 85% | 85% | 0% | 0% | 0% | 87 / 134 | 122 | vocab 13 |
+| cluttered | 5 | 100% | 100% | 80% | 0% | 0% | 0% | 103 / 123 | 137 | vocab 5 |
+| held | 4 | 100% | 100% | 100% | 0% | 0% | 0% | 58 / 111 | 89 | vocab 4 |
+| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 0% | 67% | 123 / 165 | 158 | none 2, vocab 1 |
 
 | image | expected | answer | score | | choices |
 |---|---|---|---|---|---|
@@ -82,37 +82,37 @@ No labels.json in: test-images-public
 
 ### test-images, confidence sweep (centre aim)
 
-| threshold | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
-|---|---|---|---|---|---|---|---|---|---|
-| 0.15 | 25 | 72% | 76% | 84% | 16% | 12% | 73 / 122 | 106 | vocab 22, none 3 |
-| 0.2 | 25 | 72% | 80% | 80% | 12% | 12% | 78 / 158 | 111 | vocab 22, none 3 |
-| 0.25 | 25 | 72% | 80% | 80% | 12% | 12% | 78 / 162 | 111 | vocab 22, none 3 |
-| 0.3 | 25 | 76% | 84% | 80% | 8% | 12% | 81 / 158 | 113 | vocab 22, none 3 |
-| 0.35 | 25 | 76% | 84% | 68% | 4% | 12% | 83 / 160 | 116 | vocab 22, none 3 |
-| 0.4 | 25 | 76% | 84% | 68% | 4% | 12% | 88 / 156 | 121 | vocab 22, none 3 |
-| 0.45 | 25 | 76% | 84% | 68% | 4% | 12% | 91 / 168 | 124 | vocab 22, none 3 |
-| 0.5 | 25 | 76% | 84% | 68% | 4% | 12% | 96 / 159 | 128 | vocab 22, none 3 |
-| 0.6 | 25 | 72% | 84% | 48% | 4% | 12% | 122 / 198 | 156 | vocab 22, none 3 |
+| threshold | n | top-1 | top-3 | auto | wrong auto | broad | not sure | naming ms avg/p95 | total ms | answered by |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 0.15 | 25 | 72% | 76% | 84% | 16% | 0% | 12% | 79 / 135 | 115 | vocab 22, none 3 |
+| 0.2 | 25 | 72% | 80% | 80% | 12% | 0% | 12% | 156 / 531 | 206 | vocab 22, none 3 |
+| 0.25 | 25 | 72% | 80% | 80% | 12% | 0% | 12% | 149 / 295 | 205 | vocab 22, none 3 |
+| 0.3 | 25 | 76% | 84% | 80% | 8% | 0% | 12% | 95 / 177 | 134 | vocab 22, none 3 |
+| 0.35 | 25 | 76% | 84% | 68% | 4% | 0% | 12% | 90 / 174 | 127 | vocab 22, none 3 |
+| 0.4 | 25 | 76% | 84% | 68% | 4% | 0% | 12% | 99 / 187 | 136 | vocab 22, none 3 |
+| 0.45 | 25 | 76% | 84% | 68% | 4% | 0% | 12% | 109 / 194 | 148 | vocab 22, none 3 |
+| 0.5 | 25 | 76% | 84% | 68% | 4% | 0% | 12% | 112 / 189 | 151 | vocab 22, none 3 |
+| 0.6 | 25 | 60% | 84% | 64% | 4% | 16% | 12% | 125 / 199 | 163 | vocab 22, none 3 |
 
 Picked: 0.5
 
-### test-images, degraded conditions (centre aim): top-1 / wrong auto / auto / naming ms
+### test-images, degraded conditions (centre aim): top-1 / wrong auto / broad / auto / blurry-gated / median sharpness / naming ms
 
 | condition | plain | enhance | enhance+flip |
 |---|---|---|---|
-| clean | 76% / 4% / 68% / 93 | 76% / 4% / 60% / 105 | 76% / 4% / 64% / 159 |
-| dark | 56% / 8% / 60% / 98 | 60% / 4% / 60% / 109 | 64% / 4% / 60% / 168 |
-| very-dark | 32% / 0% / 16% / 112 | 40% / 0% / 28% / 122 | 40% / 0% / 28% / 189 |
-| bright | 60% / 8% / 56% / 113 | 60% / 8% / 60% / 99 | 60% / 8% / 64% / 156 |
-| noisy | 64% / 4% / 56% / 105 | 60% / 4% / 60% / 112 | 60% / 4% / 56% / 164 |
-| blurry | 56% / 4% / 40% / 149 | 56% / 4% / 44% / 136 | 60% / 0% / 48% / 214 |
-| close | 56% / 4% / 44% / 153 | 52% / 4% / 40% / 118 | 56% / 8% / 44% / 169 |
-| tilted | 72% / 4% / 64% / 88 | 72% / 4% / 64% / 94 | 68% / 4% / 64% / 146 |
-| dark-blurry | 20% / 0% / 4% / 117 | 20% / 0% / 8% / 134 | 32% / 0% / 12% / 198 |
+| clean | 76% / 4% / 0% / 68% / 0% / 2942 / 99 | 68% / 4% / 8% / 56% / 0% / 2942 / 114 | 72% / 4% / 4% / 68% / 0% / 2942 / 179 |
+| dark | 56% / 8% / 0% / 56% / 0% / 652 / 105 | 60% / 4% / 0% / 60% / 0% / 652 / 109 | 64% / 4% / 0% / 60% / 0% / 652 / 187 |
+| very-dark | 28% / 0% / 8% / 20% / 0% / 957 / 107 | 36% / 0% / 4% / 28% / 0% / 957 / 114 | 40% / 4% / 0% / 32% / 0% / 957 / 192 |
+| bright | 56% / 8% / 4% / 60% / 0% / 2660 / 99 | 48% / 8% / 12% / 60% / 0% / 2660 / 105 | 52% / 8% / 8% / 64% / 0% / 2660 / 193 |
+| noisy | 60% / 4% / 4% / 56% / 0% / 7783 / 107 | 56% / 4% / 8% / 60% / 0% / 7783 / 113 | 52% / 4% / 12% / 56% / 0% / 7783 / 198 |
+| blurry | 36% / 0% / 20% / 4% / 96% / 86 / 147 | 40% / 0% / 20% / 4% / 96% / 86 / 148 | 44% / 0% / 20% / 4% / 96% / 86 / 251 |
+| close | 52% / 8% / 4% / 44% / 12% / 1200 / 117 | 52% / 8% / 0% / 44% / 12% / 1200 / 120 | 52% / 8% / 4% / 44% / 12% / 1200 / 198 |
+| tilted | 72% / 4% / 0% / 60% / 0% / 2679 / 102 | 72% / 4% / 0% / 56% / 0% / 2679 / 107 | 68% / 4% / 0% / 60% / 0% / 2679 / 178 |
+| dark-blurry | 16% / 4% / 4% / 8% / 0% / 339 / 120 | 16% / 0% / 8% / 12% / 0% / 339 / 138 | 28% / 0% / 8% / 12% / 0% / 339 / 219 |
 
 ### test-images, personal objects (25 taught from augmented views)
 
-Picked threshold 0.92, margin 0.04; full pipeline with it: matched 100%, false matches 0%, naming 43 ms
+Picked threshold 0.92, margin 0.04; full pipeline with it: matched 100%, false matches 0%, naming 46 ms
 
 Own-object cosine: min 0.975, median 0.987. Best other-object cosine: max 0.904, median 0.844.
 
@@ -144,19 +144,19 @@ Own-object cosine: min 0.975, median 0.987. Best other-object cosine: max 0.904,
 | ood-sextant-01.jpg | 0.989 | held-keys-01.jpg | 0.867 |
 | ood-astrolabe-01.jpg | 0.991 | ood-theremin-01.jpg | 0.806 |
 
-## wasm (2026-10-04, 729 s)
+## wasm (2026-10-04, 960 s)
 
 No labels.json in: test-images-public
 
 ### test-images, centre aim
 
-| | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
-|---|---|---|---|---|---|---|---|---|---|
-| all | 25 | 88% | 88% | 80% | 0% | 4% | 472 / 1019 | 518 | vocab 24, none 1 |
-| single | 13 | 100% | 100% | 92% | 0% | 0% | 430 / 792 | 482 | vocab 13 |
-| cluttered | 5 | 100% | 100% | 80% | 0% | 0% | 571 / 1262 | 611 | vocab 5 |
-| held | 4 | 100% | 100% | 100% | 0% | 0% | 264 / 265 | 301 | vocab 4 |
-| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 33% | 767 / 1019 | 805 | none 1, vocab 2 |
+| | n | top-1 | top-3 | auto | wrong auto | broad | not sure | naming ms avg/p95 | total ms | answered by |
+|---|---|---|---|---|---|---|---|---|---|---|
+| all | 25 | 80% | 88% | 84% | 0% | 8% | 4% | 751 / 1731 | 808 | vocab 24, none 1 |
+| single | 13 | 92% | 100% | 92% | 0% | 8% | 0% | 741 / 1760 | 810 | vocab 13 |
+| cluttered | 5 | 80% | 100% | 100% | 0% | 20% | 0% | 776 / 1731 | 823 | vocab 5 |
+| held | 4 | 100% | 100% | 100% | 0% | 0% | 0% | 525 / 1032 | 567 | vocab 4 |
+| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 0% | 33% | 1054 / 1404 | 1099 | none 1, vocab 2 |
 
 | image | expected | answer | score | | choices |
 |---|---|---|---|---|---|
@@ -171,16 +171,16 @@ No labels.json in: test-images-public
 | spoon-01.jpg | spoon | spoon | 91% | auto | spoon, oxygen tubing, weighted utensils |
 | shoe-01.jpg | shoe | shoes | 64% | auto | shoes, sneakers, shoelaces |
 | keys-01.jpg | keys | keys | 86% | auto | keys, padlock, can opener |
-| chair-01.jpg | chair | chair | 41% | auto | chair, stool, high chair |
+| chair-01.jpg | chair | furniture | 65% | auto | furniture, chair, table |
 | banana-01.jpg | banana | banana | 94% | auto | banana, basket, fruit bowl |
 | cluttered-desk-cup-01.jpg | cup | coffee | 49% | auto | coffee, hot chocolate, cup |
 | cluttered-desk-laptop-01.jpg | laptop | laptop | 74% | auto | laptop, tablet, computer |
 | cluttered-desk-mouse-01.jpg | mouse | computer mouse | 85% | auto | computer mouse, keyboard, placemat |
 | cluttered-table-laptop-01.jpg | laptop | laptop | 45% | auto | laptop, keyboard, notebook |
-| cluttered-desk-monitor-01.jpg | monitor | monitor | 31% | scanner | monitor, sticky notes, keyboard |
+| cluttered-desk-monitor-01.jpg | monitor | electronics | 63% | auto | electronics, monitor, sticky notes |
 | held-apple-01.jpg | apple | apple | 93% | auto | apple, peach, orange |
 | held-phone-01.jpg | phone | phone | 82% | auto | phone, tablet, hand |
-| held-mug-01.jpg | mug | mug | 41% | auto | mug, hot chocolate, cup |
+| held-mug-01.jpg | mug | mug | 61% | auto | mug, hot chocolate, cup |
 | held-keys-01.jpg | keys | keys | 58% | auto | keys, padlock, remote |
 | ood-theremin-01.jpg | theremin | (not sure) | 9% | scanner |  |
 | ood-sextant-01.jpg | sextant | tape measure | 19% | scanner | tape measure, ruler, magnifying glass |
@@ -188,13 +188,13 @@ No labels.json in: test-images-public
 
 ### test-images, labelled aim
 
-| | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
-|---|---|---|---|---|---|---|---|---|---|
-| all | 25 | 84% | 88% | 88% | 4% | 0% | 442 / 760 | 480 | vocab 25 |
-| single | 13 | 100% | 100% | 100% | 0% | 0% | 415 / 760 | 454 | vocab 13 |
-| cluttered | 5 | 80% | 100% | 100% | 20% | 0% | 457 / 751 | 496 | vocab 5 |
-| held | 4 | 100% | 100% | 100% | 0% | 0% | 264 / 265 | 300 | vocab 4 |
-| out-of-vocab | 3 | 0% | 0% | 0% | 0% | 0% | 767 / 1020 | 808 | vocab 3 |
+| | n | top-1 | top-3 | auto | wrong auto | broad | not sure | naming ms avg/p95 | total ms | answered by |
+|---|---|---|---|---|---|---|---|---|---|---|
+| all | 25 | 84% | 88% | 92% | 4% | 4% | 0% | 610 / 1119 | 655 | vocab 25 |
+| single | 13 | 100% | 100% | 100% | 0% | 0% | 0% | 563 / 1044 | 607 | vocab 13 |
+| cluttered | 5 | 80% | 100% | 100% | 0% | 20% | 0% | 661 / 1119 | 707 | vocab 5 |
+| held | 4 | 100% | 100% | 100% | 0% | 0% | 0% | 363 / 368 | 408 | vocab 4 |
+| out-of-vocab | 3 | 0% | 0% | 33% | 33% | 0% | 0% | 1056 / 1413 | 1101 | vocab 3 |
 
 | image | expected | answer | score | | choices |
 |---|---|---|---|---|---|
@@ -211,7 +211,7 @@ No labels.json in: test-images-public
 | keys-01.jpg | keys | keys | 90% | auto | keys, padlock, bottle opener |
 | chair-01.jpg | chair | chair | 55% | auto | chair, stool, step stool |
 | banana-01.jpg | banana | banana | 99% | auto | banana, fruit bowl, mango |
-| cluttered-desk-cup-01.jpg | cup | hot chocolate | 42% | auto | hot chocolate, coffee, mug |
+| cluttered-desk-cup-01.jpg | cup | drink | 67% | auto | drink, hot chocolate, coffee |
 | cluttered-desk-laptop-01.jpg | laptop | laptop | 74% | auto | laptop, tablet, computer |
 | cluttered-desk-mouse-01.jpg | mouse | computer mouse | 86% | auto | computer mouse, keyboard, placemat |
 | cluttered-table-laptop-01.jpg | laptop | laptop | 68% | auto | laptop, keyboard, notebook |
@@ -220,43 +220,43 @@ No labels.json in: test-images-public
 | held-phone-01.jpg | phone | phone | 80% | auto | phone, tablet, watch |
 | held-mug-01.jpg | mug | mug | 59% | auto | mug, cup, tea |
 | held-keys-01.jpg | keys | keys | 51% | auto | keys, remote, can opener |
-| ood-theremin-01.jpg | theremin | radio | 39% | scanner | radio, light switch, record player |
+| ood-theremin-01.jpg | theremin | electronics | 67% | auto | electronics, radio, light switch |
 | ood-sextant-01.jpg | sextant | tape measure | 15% | scanner | tape measure, ironing board, iron |
 | ood-astrolabe-01.jpg | astrolabe | clock | 23% | scanner | clock, ruler, CD |
 
 ### test-images, confidence sweep (centre aim)
 
-| threshold | n | top-1 | top-3 | auto | wrong auto | not sure | naming ms avg/p95 | total ms | answered by |
-|---|---|---|---|---|---|---|---|---|---|
-| 0.15 | 25 | 84% | 84% | 96% | 12% | 4% | 361 / 758 | 400 | vocab 24, none 1 |
-| 0.2 | 25 | 88% | 88% | 92% | 4% | 4% | 429 / 800 | 468 | vocab 24, none 1 |
-| 0.25 | 25 | 88% | 88% | 84% | 0% | 4% | 451 / 1015 | 489 | vocab 24, none 1 |
-| 0.3 | 25 | 88% | 88% | 84% | 0% | 4% | 446 / 1045 | 485 | vocab 24, none 1 |
-| 0.35 | 25 | 88% | 88% | 80% | 0% | 4% | 468 / 1027 | 506 | vocab 24, none 1 |
-| 0.4 | 25 | 88% | 88% | 80% | 0% | 4% | 470 / 1059 | 509 | vocab 24, none 1 |
-| 0.45 | 25 | 88% | 88% | 76% | 0% | 4% | 548 / 1307 | 588 | vocab 24, none 1 |
-| 0.5 | 25 | 84% | 88% | 76% | 4% | 4% | 583 / 1284 | 623 | vocab 24, none 1 |
-| 0.6 | 25 | 84% | 88% | 68% | 0% | 4% | 618 / 1272 | 658 | vocab 24, none 1 |
+| threshold | n | top-1 | top-3 | auto | wrong auto | broad | not sure | naming ms avg/p95 | total ms | answered by |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 0.15 | 25 | 84% | 84% | 96% | 12% | 0% | 4% | 480 / 1038 | 525 | vocab 24, none 1 |
+| 0.2 | 25 | 88% | 88% | 92% | 4% | 0% | 4% | 568 / 1056 | 614 | vocab 24, none 1 |
+| 0.25 | 25 | 84% | 88% | 88% | 0% | 4% | 4% | 619 / 1416 | 665 | vocab 24, none 1 |
+| 0.3 | 25 | 84% | 88% | 88% | 0% | 4% | 4% | 602 / 1404 | 647 | vocab 24, none 1 |
+| 0.35 | 25 | 84% | 88% | 84% | 0% | 4% | 4% | 632 / 1417 | 676 | vocab 24, none 1 |
+| 0.4 | 25 | 84% | 88% | 84% | 0% | 4% | 4% | 635 / 1418 | 680 | vocab 24, none 1 |
+| 0.45 | 25 | 80% | 88% | 84% | 0% | 8% | 4% | 725 / 1703 | 770 | vocab 24, none 1 |
+| 0.5 | 25 | 76% | 88% | 84% | 4% | 8% | 4% | 777 / 1713 | 823 | vocab 24, none 1 |
+| 0.6 | 25 | 72% | 88% | 84% | 0% | 16% | 4% | 828 / 1707 | 874 | vocab 24, none 1 |
 
-Picked: 0.3
+Picked: 0.4
 
-### test-images, degraded conditions (centre aim): top-1 / wrong auto / auto / naming ms
+### test-images, degraded conditions (centre aim): top-1 / wrong auto / broad / auto / blurry-gated / median sharpness / naming ms
 
 | condition | plain | enhance | enhance+flip |
 |---|---|---|---|
-| clean | 88% / 0% / 80% / 486 | 80% / 4% / 80% / 512 | 84% / 4% / 84% / 902 |
-| dark | 84% / 4% / 76% / 531 | 72% / 16% / 80% / 488 | 76% / 8% / 76% / 894 |
-| very-dark | 56% / 8% / 44% / 611 | 56% / 12% / 64% / 597 | 60% / 4% / 60% / 1119 |
-| bright | 76% / 8% / 76% / 543 | 72% / 8% / 76% / 534 | 72% / 12% / 80% / 988 |
-| noisy | 76% / 4% / 80% / 515 | 72% / 8% / 80% / 510 | 72% / 8% / 76% / 993 |
-| blurry | 68% / 20% / 72% / 662 | 64% / 12% / 72% / 680 | 68% / 12% / 72% / 1191 |
-| close | 64% / 12% / 76% / 611 | 60% / 12% / 68% / 631 | 56% / 16% / 72% / 1100 |
-| tilted | 84% / 4% / 84% / 445 | 80% / 4% / 80% / 455 | 80% / 4% / 80% / 856 |
-| dark-blurry | 56% / 4% / 40% / 705 | 60% / 0% / 44% / 753 | 60% / 0% / 44% / 1342 |
+| clean | 80% / 0% / 8% / 84% / 0% / 2942 / 716 | 80% / 0% / 0% / 76% / 0% / 2942 / 698 | 80% / 0% / 4% / 80% / 0% / 2942 / 1294 |
+| dark | 76% / 0% / 12% / 80% / 0% / 652 / 728 | 64% / 12% / 12% / 84% / 0% / 652 / 627 | 72% / 8% / 8% / 80% / 0% / 652 / 1204 |
+| very-dark | 52% / 16% / 4% / 60% / 0% / 957 / 852 | 52% / 12% / 8% / 68% / 0% / 957 / 781 | 60% / 4% / 0% / 60% / 0% / 957 / 1421 |
+| bright | 76% / 8% / 0% / 72% / 0% / 2660 / 757 | 72% / 8% / 4% / 76% / 0% / 2660 / 686 | 72% / 12% / 0% / 76% / 0% / 2660 / 1285 |
+| noisy | 72% / 4% / 8% / 72% / 0% / 7783 / 703 | 68% / 8% / 12% / 76% / 0% / 7783 / 609 | 72% / 4% / 4% / 76% / 0% / 7783 / 1322 |
+| blurry | 44% / 0% / 28% / 4% / 96% / 86 / 924 | 36% / 0% / 32% / 4% / 96% / 86 / 850 | 40% / 0% / 32% / 4% / 96% / 86 / 1579 |
+| close | 52% / 12% / 12% / 64% / 12% / 1200 / 820 | 48% / 12% / 16% / 60% / 12% / 1200 / 746 | 52% / 16% / 4% / 56% / 12% / 1200 / 1446 |
+| tilted | 80% / 4% / 4% / 84% / 0% / 2679 / 635 | 76% / 4% / 4% / 84% / 0% / 2679 / 626 | 76% / 4% / 4% / 80% / 0% / 2679 / 1123 |
+| dark-blurry | 48% / 12% / 12% / 48% / 0% / 339 / 911 | 56% / 8% / 8% / 56% / 0% / 339 / 973 | 56% / 4% / 8% / 56% / 0% / 339 / 1376 |
 
 ### test-images, personal objects (25 taught from augmented views)
 
-Picked threshold 0.92, margin 0.04; full pipeline with it: matched 100%, false matches 0%, naming 271 ms
+Picked threshold 0.92, margin 0.04; full pipeline with it: matched 100%, false matches 0%, naming 360 ms
 
 Own-object cosine: min 0.944, median 0.978. Best other-object cosine: max 0.864, median 0.750.
 
@@ -290,5 +290,5 @@ Own-object cosine: min 0.944, median 0.978. Best other-object cosine: max 0.864,
 
 ## Thresholds picked across webgpu + wasm (confidence: mean over backends; personal: worst case)
 
-- test-images: confidence threshold 0.4 (auto-commit 74%, wrong auto-commits 2%)
+- test-images: confidence threshold 0.45 (auto-commit 76%, wrong auto-commits 2%)
 - test-images: personal threshold 0.92, margin 0.04 (matched 100%, false matches 0%)

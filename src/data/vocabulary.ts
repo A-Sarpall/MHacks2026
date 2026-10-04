@@ -244,6 +244,19 @@ export const PARENT_LABELS: Record<string, string> = {
   rollator: "walker",
 };
 
+export const GENERIC_WORDS: Record<string, string> = {
+  "people & body": "person",
+  "pets & animals": "animal",
+  fruit: "fruit",
+  vegetables: "vegetable",
+  "food & meals": "food",
+  drinks: "drink",
+  "clothes & accessories": "clothes",
+  "furniture & home": "furniture",
+  "electronics & media": "electronics",
+  "tools & household": "tool",
+};
+
 export const PROMPT_TEMPLATES = [
   "a photo of {}.",
   "a close-up photo of {}.",
