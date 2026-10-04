@@ -5,6 +5,7 @@ export type RingMode = "normal" | "review" | "scanning" | "autoscan" | "message"
 export type RingCommand =
   | "capture"
   | "backchannel"
+  | "yes"
   | "queue"
   | "next"
   | "select"
@@ -13,7 +14,7 @@ export type RingCommand =
   | "cancel";
 
 export const RING_MAPPINGS: Record<RingMode, Record<InputAction, RingCommand>> = {
-  normal: { click: "capture", double: "backchannel", hold: "queue" },
+  normal: { click: "capture", double: "yes", hold: "queue" },
   review: { click: "capture", double: "retake", hold: "queue" },
   scanning: { click: "next", double: "retake", hold: "select" },
   autoscan: { click: "select", double: "retake", hold: "cancel" },
@@ -24,7 +25,7 @@ export const RING_MAPPINGS: Record<RingMode, Record<InputAction, RingCommand>> =
 };
 
 export const RING_HINTS: Record<RingMode, string> = {
-  normal: "click: take picture · double: quick reply · hold: queue sentence",
+  normal: "click: take picture · double: Yes! · hold: queue sentence",
   review: "double: wrong? retake wider · click: next picture",
   scanning: "click: next · hold: choose · double: retake",
   autoscan: "click: choose · double: retake · hold: cancel",

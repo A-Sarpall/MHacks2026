@@ -26,7 +26,7 @@ import { IncomingCard } from "./components/IncomingCard";
 import { usePrivateMessaging } from "./lib/usePrivateMessaging";
 import { readContactQr } from "./lib/qr";
 import { TAPBACK_EMOJI } from "./lib/messages";
-import { useCueStore, nextBackchannel } from "./lib/store";
+import { useCueStore } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import { allergySentences, healthContext, type HealthProfile } from "./lib/health";
 import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
@@ -433,8 +433,8 @@ export default function App() {
         case "capture":
           ringCapture(0);
           break;
-        case "backchannel":
-          tts.playBackchannel(nextBackchannel());
+        case "yes":
+          tts.playBackchannel("yes");
           break;
         case "tapback":
           pmRef.current
