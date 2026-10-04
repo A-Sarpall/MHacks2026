@@ -26,6 +26,7 @@ export type Action =
   | { type: "REMOVE_CAPTURE"; id: string }
   | { type: "TOGGLE_TILE"; id: string }
   | { type: "TOGGLE_CORE_WORD"; word: CoreWord }
+  | { type: "TOGGLE_INTENT"; intent: string }
   | { type: "SET_CANDIDATES"; candidates: string[] }
   | { type: "QUEUE_SENTENCE"; sentence: string }
   | { type: "CLEAR_QUEUE" }
@@ -79,6 +80,10 @@ function reducer(state: CueState, action: Action): CueState {
           : [...state.selectedTileIds, action.id],
         candidates: [],
       };
+    }
+    case "TOGGLE_INTENT": {
+      const has = state.selectedCoreWords.includes(action.intent);
+      return { ...state, selectedCoreWords: has ? [] : [action.intent], candidates: [] };
     }
     case "TOGGLE_CORE_WORD": {
       // One core word at a time keeps sentences predictable

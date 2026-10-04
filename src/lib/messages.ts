@@ -32,6 +32,7 @@ async function call<T>(path: string, body?: unknown): Promise<T> {
 
 export const fetchContacts = () => call<{ mode: "photon" | "dry-run"; contacts: Contact[] }>("/messages/status");
 export const sendPrivate = (to: string, text: string) => call<{ sent: true; to: string; mode: string }>("/messages/send", { to, text });
+export const addContact = (name: string, phone: string) => call<Contact>("/messages/contacts", { name, phone });
 export const sendTapback = (to: string, kind: Tapback) => call<{ sent: true }>("/messages/tapback", { to, kind });
 
 /** Live inbound texts. Returns an unsubscribe function. EventSource reconnects by itself. */

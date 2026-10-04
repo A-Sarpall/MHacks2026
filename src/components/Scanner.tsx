@@ -52,8 +52,8 @@ export function Scanner({ options, index, hint, autoScanSec, onPick, onSelect, o
               onPick(i);
               e.currentTarget.blur();
             }}
-            className={`flex flex-col items-center w-20 shrink-0 rounded-lg border-2 transition-opacity ${
-              i === index ? "border-blue-600 opacity-100" : "border-transparent opacity-40 hover:opacity-80"
+            className={`flex flex-col items-center w-20 shrink-0 rounded-lg border-2 ${
+              i === index ? "border-blue-600 opacity-100" : "border-transparent opacity-70 hover:opacity-100"
             }`}
             data-testid="scan-option"
           >

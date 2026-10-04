@@ -12,7 +12,7 @@ npm run dev        # copies MediaPipe wasm + downloads models into public/ on fi
 Open **Chrome** at http://localhost:5173 and allow camera access. The first run also downloads the 55 MB SigLIP 2 recognition model into `public/models` (progress shows under the camera); after that everything works offline.
 
 1. **Track** — the webcam shows live boxes around objects it recognises (80 COCO classes: cup, bottle, phone, laptop, book, banana, chair, person…). The focused object (hovered, or nearest the centre) has a solid box.
-2. **Capture + identify** — press **Space** (the ring button). Cue names what is in the centre of the picture with SigLIP 2 against an everyday vocabulary ("mug", "water bottle", "remote") or a taught personal object ("Mom's mug"); if it isn't sure it offers a few choices (Space = next, H = choose, D = retake). **Clicking a box** names that box directly. The result appears as a tile with a thumbnail.
+2. **Capture + identify** — press **Space** (the ring button). Qu names what is in the centre of the picture with SigLIP 2 against an everyday vocabulary ("mug", "water bottle", "remote") or a taught personal object ("Mom's mug"); if it isn't sure it offers a few choices (Space = next, H = choose, D = retake). **Clicking a box** names that box directly. The result appears as a tile with a thumbnail.
 3. **Fix the name** (optional) — tap one of the alternative labels under a tile to rename it.
 4. **Core word** — tap WANT / NO / MORE / GO / HELP / YES / QUESTION → 3 candidate sentences.
 5. **Speak** — tap a sentence to say it aloud, or **Queue** it and press "Speak Now" later.

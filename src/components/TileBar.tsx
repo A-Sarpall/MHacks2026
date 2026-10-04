@@ -40,9 +40,9 @@ export function TileBar({
         return (
           <div
             key={c.id}
-            className={`relative flex flex-col w-40 rounded-xl overflow-hidden border-2 transition-all ${
+            className={`relative flex flex-col w-40 rounded-xl overflow-hidden border-2 ${
               selected
-                ? "border-blue-600 shadow-lg scale-105"
+                ? "border-blue-600 shadow-lg"
                 : "border-gray-200 hover:border-gray-300"
             }`}
           >

@@ -1,34 +1,35 @@
 interface Props {
   candidates: string[];
   onSpeak: (sentence: string) => void;
-  onQueue: (sentence: string) => void;
+  onQueue?: (sentence: string) => void;
+  highlight?: number | null;
+  slots?: number;
 }
 
-export function Candidates({ candidates, onSpeak, onQueue }: Props) {
+export function Candidates({ candidates, onSpeak, highlight = null, slots = 6 }: Props) {
   if (candidates.length === 0) return null;
-
+  const cells = Array.from({ length: Math.max(slots, candidates.length) }, (_, i) => candidates[i] ?? null);
   return (
-    <div className="flex flex-col gap-2 w-full max-w-lg mx-auto">
-      <div className="text-sm text-gray-500 text-center">
-        Tap to speak, or press H to queue
-      </div>
-      {candidates.map((sentence, i) => (
-        <div key={i} className="flex gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full max-w-2xl mx-auto" data-testid="candidates" aria-label="Things to say">
+      {cells.map((sentence, i) =>
+        sentence ? (
           <button
-            onClick={() => onSpeak(sentence)}
-            className="flex-1 px-4 py-3 bg-white border-2 border-gray-200 rounded-xl text-left text-lg hover:border-blue-400 hover:bg-blue-50 transition-all"
+            key={i}
+            onClick={(e) => {
+              onSpeak(sentence);
+              e.currentTarget.blur();
+            }}
+            className={`min-h-20 px-4 py-3 bg-white border-2 border-gray-300 rounded-xl text-left text-lg font-medium text-gray-900 leading-snug ${
+              highlight === i ? "outline outline-4 outline-blue-600 outline-offset-1" : ""
+            }`}
+            data-testid="candidate"
           >
             {sentence}
           </button>
-          <button
-            onClick={() => onQueue(sentence)}
-            className="px-3 py-3 bg-amber-50 border-2 border-amber-200 rounded-xl text-amber-700 hover:bg-amber-100 transition-all text-sm"
-            title="Queue to speak at pause"
-          >
-            Queue
-          </button>
-        </div>
-      ))}
+        ) : (
+          <div key={i} className="min-h-20 rounded-xl border-2 border-dashed border-gray-200" aria-hidden="true" />
+        )
+      )}
     </div>
   );
 }
