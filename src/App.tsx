@@ -39,6 +39,7 @@ import { HelpPanel } from "./components/HelpPanel";
 import { PrivateBar } from "./components/PrivateBar";
 import { Contacts } from "./components/Contacts";
 import { ContactPicker } from "./components/ContactPicker";
+import { RepeatCoalescer } from "./lib/coalesce";
 
 const HELP_ALOUD = "I need help!";
 const HELP_TEXT = "I need help. Can you come?";
@@ -103,6 +104,8 @@ export default function App() {
     }
   }, [overstimulated]);
   const [peopleOpen, setPeopleOpen] = useState(false);
+  const coalesceRef = useRef(new RepeatCoalescer());
+  const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [setupView, setSetupView] = useState(() => {
     if (new URLSearchParams(window.location.search).get("view") === "setup") return true;
     try {
@@ -382,23 +385,35 @@ export default function App() {
     [showToast]
   );
 
-  // "I need help" texted privately to a contact (the first one when it comes from the ring)
+  // "I need help" texted privately: to that contact, or (from the ring) to the people selected
+  // under the camera, else the first contact. Closes the panel and confirms, like any sent phrase.
   const textHelp = useCallback(
     async (contact: Contact | undefined) => {
-      if (!contact) {
-        feedbackRef.current("error");
-        showToast("No one to text: add people in Setup");
-        throw new Error("no contacts");
-      }
+      const pmNow = pmRef.current;
+      let names: string[];
       try {
-        await sendPrivate(contact.id, HELP_TEXT);
+        if (contact) {
+          await sendPrivate(contact.id, HELP_TEXT);
+          names = [contact.name];
+        } else if (pmNow.targets.length > 0) {
+          names = await pmNow.sendToTargets(HELP_TEXT);
+        } else if (pmNow.contacts[0]) {
+          await sendPrivate(pmNow.contacts[0].id, HELP_TEXT);
+          names = [pmNow.contacts[0].name];
+        } else {
+          feedbackRef.current("error");
+          showToast("No one to text: add people in Setup");
+          throw new Error("no contacts");
+        }
       } catch (err) {
         feedbackRef.current("error");
-        showToast(`Couldn't send: ${(err as Error).message}`);
+        if ((err as Error).message !== "no contacts") showToast(`Couldn't send: ${(err as Error).message}`);
         throw err;
       }
       feedbackRef.current("select");
-      showToast(`Told ${contact.name} you need help`);
+      setLastSpoken(HELP_TEXT);
+      setHelpOpen(false);
+      showToast(`Sent to ${names.join(", ")}: I need help`);
     },
     [showToast]
   );
@@ -533,7 +548,7 @@ export default function App() {
             void handleSpeak(HELP_ALOUD);
             break;
           case "select":
-            void textHelp(pmRef.current.contacts[0]).catch(() => {});
+            void textHelp(undefined).catch(() => {});
             break;
           case "cancel":
             setHelpOpen(false);
@@ -690,10 +705,16 @@ export default function App() {
     async (text: string) => {
       const pmNow = pmRef.current;
       if (pmNow.targets.length > 0) {
+        const offer = coalesceRef.current.offer(text, Date.now());
+        setLastSpoken(offer.count > 1 ? `${text} (×${offer.count})` : text);
+        feedbackRef.current("select");
+        if (offer.action === "hold") {
+          showToast(`Sent already. Said ${offer.count} times; ${pmNow.targets.map((c) => c.name).join(", ")} will be told the count.`);
+          scheduleFlush();
+          return;
+        }
         try {
           const names = await pmNow.sendToTargets(text);
-          setLastSpoken(text);
-          feedbackRef.current("select");
           showToast(`Sent to ${names.join(", ")}`);
         } catch (err) {
           feedbackRef.current("error");
@@ -708,6 +729,19 @@ export default function App() {
   );
   const sayRef = useRef(say);
   sayRef.current = say;
+  function scheduleFlush() {
+    if (flushTimerRef.current) clearTimeout(flushTimerRef.current);
+    flushTimerRef.current = setTimeout(() => {
+      flushTimerRef.current = null;
+      const summary = coalesceRef.current.flush(Date.now());
+      if (!summary) {
+        if (coalesceRef.current.pending()) scheduleFlush();
+        return;
+      }
+      const pmNow = pmRef.current;
+      if (pmNow.targets.length > 0) pmNow.sendToTargets(summary).catch((err: unknown) => console.warn("[messages] repeat summary not sent", err));
+    }, coalesceRef.current.quietDelay());
+  }
 
   const intentId = state.selectedCoreWords[0] ?? null;
   const canBuild =
@@ -949,6 +983,20 @@ export default function App() {
               onCancel={() => endScan()}
             />
           )}
+          {overstimulated && (
+            <div className="w-full max-w-2xl flex items-center justify-between gap-3 rounded-2xl border-2 border-red-400 bg-red-50 px-5 py-4">
+              <div className="text-2xl font-bold text-red-900" data-testid="overstimulated-status">
+                {ACTIVE_PROFILE.overstimulated.badge}
+              </div>
+              <button
+                onClick={() => setOverstimulated(false)}
+                className="min-h-11 px-4 py-2 rounded-xl border-2 border-red-400 bg-white text-base font-semibold text-red-900"
+                data-testid="clear-status"
+              >
+                {ACTIVE_PROFILE.overstimulated.clear}
+              </button>
+            </div>
+          )}
           {helpOpen && (
             <HelpPanel
               contacts={pm.contacts}
@@ -1019,7 +1067,7 @@ export default function App() {
         </div>
         <SpokenBanner
           spoken={lastSpoken}
-          overstimulated={overstimulated}
+          overstimulated={false}
           badge={ACTIVE_PROFILE.overstimulated.badge}
           clearLabel={ACTIVE_PROFILE.overstimulated.clear}
           onClearStatus={() => setOverstimulated(false)}

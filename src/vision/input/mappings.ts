@@ -31,7 +31,7 @@ export const RING_MAPPINGS: Record<RingMode, Record<InputAction, RingCommand>> =
   autoscan: { click: "select", double: "retake", hold: "cancel" },
   // A text just arrived: the same double-click that says "Yes" in person sends a thumbs-up tapback.
   message: { click: "capture", double: "tapback", hold: "queue" },
-  // "I need help" panel open: click says it aloud, hold texts the first contact, double closes.
+  // "I need help" panel open: click says it aloud, hold texts the selected people (else the first contact), double closes.
   help: { click: "next", double: "cancel", hold: "select" },
   quick: { click: "next", double: "back", hold: "select" },
   intents: { click: "next", double: "back", hold: "select" },
@@ -46,7 +46,7 @@ export const RING_HINTS: Record<RingMode, string> = {
   scanning: "Space (click): next · H (hold): choose · D (double): retake",
   autoscan: "Space (click): choose · D (double): retake · H (hold): cancel",
   message: "D (double): 👍 to their text · Space (click): take picture · H (hold): queue sentence",
-  help: "Space (click): say it aloud · H (hold): text your first contact · D (double): close",
+  help: "Space (click): say it aloud · H (hold): text the selected people · D (double): close",
   quick: "Space (click): next phrase · H (hold): say it · D (double): close",
   intents: "Space (click): next · H (hold): choose · D (double): back",
   sentences: "Space (click): next sentence · H (hold): say it · D (double): back to intents",

@@ -78,7 +78,7 @@ Same-network only. If the phone cannot reach the laptop, put the hub behind a tu
 
 ## "I need help"
 
-- Header button, or ring hold with nothing to queue, opens the panel. "Say it out loud" speaks "I need help!"; "Text <name>" sends "I need help. Can you come?" privately to that contact (same path as private messages). Ring in the panel: click = say it, hold = text the first contact, double = close.
+- Header button, or ring hold with nothing to queue, opens the panel. "Say it out loud" speaks "I need help!"; "Text <name>" sends "I need help. Can you come?" privately to that contact (same path as private messages). Sending closes the panel and shows the sentence in the Said line. Ring in the panel: click = say it, hold = text the people selected under the camera (else the first contact), double = close.
 
 ### Photon setup as it actually worked (2026-10-03)
 

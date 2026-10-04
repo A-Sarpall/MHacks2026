@@ -9,7 +9,7 @@ interface Props {
 }
 
 // "I need help": say it out loud, or text a contact privately (Photon, through the hub).
-// Ring: click = say it, hold = text the first contact, double = close.
+// Ring: click = say it, hold = text the people selected under the camera (else the first contact), double = close.
 export function HelpPanel({ contacts, onSay, onText, onClose }: Props) {
   const [state, setState] = useState<{ kind: "idle" | "sending" | "error" } | { kind: "sent"; to: string }>({ kind: "idle" });
 
