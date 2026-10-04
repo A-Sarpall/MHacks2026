@@ -113,6 +113,13 @@ export const neurodivergentProfile: UserProfile = {
       ["What is this?", "Whose {object} is this?", "Where does the {object} go?"]
     ),
   },
+  objectless: {
+    need: ["I need something.", "I need help with something.", "Can you come here, please?"],
+    "dont-want": ["I don't want this.", "No, thank you.", "Please stop."],
+    help: ["I need help.", "Can you help me?", "Please come here."],
+    tell: ["I am okay.", "I am finished.", "I want to show you something."],
+    question: ["What is happening?", "Can we go now?", "How long will this take?"],
+  },
   verbs: {
     need: G(
       ["want", "need", "would like", "will eat"],

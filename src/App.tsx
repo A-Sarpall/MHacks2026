@@ -484,10 +484,6 @@ export default function App() {
         if (command === "next") setIntentIndex(cycle(f.intentIndex, intents.length));
         else if (command === "select") {
           const intent = intents[f.intentIndex ?? 0];
-          if (intent.needsObject && selectedTileIdsRef.current.length === 0) {
-            feedbackRef.current("error");
-            return true;
-          }
           dispatch({ type: "TOGGLE_INTENT", intent: intent.id });
           setIntentIndex(null);
           setSentenceIndex(0);
@@ -615,8 +611,6 @@ export default function App() {
   );
   const candidatesRef = useRef(state.candidates);
   candidatesRef.current = state.candidates;
-  const selectedTileIdsRef = useRef(state.selectedTileIds);
-  selectedTileIdsRef.current = state.selectedTileIds;
 
   const scanIndex = scan?.index ?? -1;
   const scanLabel = scan?.options[scan.index]?.label;
@@ -1043,7 +1037,6 @@ export default function App() {
             intents={ACTIVE_PROFILE.intents}
             selected={state.selectedCoreWords[0] ?? null}
             highlight={intentIndex}
-            hasObject={state.selectedTileIds.length > 0}
             onToggle={(intent) => {
               setIntentIndex(null);
               dispatch({ type: "TOGGLE_INTENT", intent: intent.id });

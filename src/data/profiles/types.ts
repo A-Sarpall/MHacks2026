@@ -41,6 +41,7 @@ export interface UserProfile {
   intents: Intent[];
   feelings: string[];
   templates: Record<string, Record<TemplateGroup, string[]>>;
+  objectless: Record<string, string[]>;
   verbs: Record<string, Record<TemplateGroup, string[]>>;
   endings: Ending[];
   categoryGroups: Record<string, TemplateGroup>;

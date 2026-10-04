@@ -20,7 +20,7 @@ export function profileSentences(input: ProfileComposeInput, profile: UserProfil
     const lines = input.tiles.length > 0 ? profile.templates.feeling[group] : profile.feelings.slice(0, 3);
     return [...new Set(lines)];
   }
-  if (input.tiles.length === 0) return [];
+  if (input.tiles.length === 0) return [...new Set(profile.objectless[input.intent] ?? [])];
   const group = profileGroup(input.tiles, profile);
   const object = input.tiles[0];
   return [...new Set(profile.templates[input.intent][group].map((t) => fillObject(t, object)))];

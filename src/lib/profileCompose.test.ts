@@ -21,7 +21,8 @@ describe("profile sentences", () => {
   it("gives feelings without an object and nothing for other intents without one", () => {
     expect(profileSentences({ tiles: [], intent: "feeling" })).toEqual(["I'm tired.", "I'm hurt.", "I'm hungry."]);
     expect(profileSentences({ tiles: ["shirt"], intent: "feeling" })).toEqual(["I'm too hot.", "I'm too cold.", "This feels itchy."]);
-    expect(profileSentences({ tiles: [], intent: "need" })).toEqual([]);
+    expect(profileSentences({ tiles: [], intent: "need" })).toEqual(["I need something.", "I need help with something.", "Can you come here, please?"]);
+    expect(profileSentences({ tiles: [], intent: "question" })).toHaveLength(3);
   });
 
   it("leaves the old core words alone", () => {

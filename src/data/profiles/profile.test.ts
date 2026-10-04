@@ -50,6 +50,17 @@ describe("neurodivergent profile", () => {
     expect(p.templates.help[groupForLabel("phone")][0]).toBe("It's not working.");
   });
 
+  it("has three short object-free lines for every intent that usually takes an object", () => {
+    for (const intent of p.intents.filter((i) => i.needsObject)) {
+      const lines = p.objectless[intent.id];
+      expect(lines, intent.id).toHaveLength(3);
+      for (const line of lines) {
+        expect(words(line), line).toBeLessThanOrEqual(p.maxWords);
+        expect(line, line).not.toMatch(/!|\{object\}/);
+      }
+    }
+  });
+
   it("has full-sentence feelings that need no object", () => {
     expect(p.feelings).toHaveLength(10);
     for (const f of p.feelings) {
