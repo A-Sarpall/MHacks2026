@@ -106,6 +106,13 @@ export function initSiglip(): Promise<void> {
         }
       }
     };
+    worker.onerror = (e) => {
+      console.error("[siglip] worker error", e);
+      setState({ status: "error", message: "Recognition worker crashed" });
+      for (const p of pending.values()) p.reject(new Error("Recognition worker crashed"));
+      pending.clear();
+      worker = null;
+    };
     const req: WorkerRequest = { type: "init", base: BASE, forceWasm: FORCE_WASM };
     worker.postMessage(req);
   });

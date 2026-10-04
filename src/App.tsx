@@ -262,6 +262,7 @@ export default function App() {
       feedbackRef.current("captured");
       const { capture, crop } = identifyFromImage(target.image, target.box, target.detected);
       await commitCapture(capture, crop);
+      setTimeout(() => cameraRef.current?.unfreeze(), 900);
     },
     [commitCapture]
   );
@@ -273,10 +274,13 @@ export default function App() {
   }, []);
 
   const captureBusyRef = useRef(false);
+  const busyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const ringCapture = useCallback(
     (level: number) => {
       if (captureBusyRef.current) return;
       captureBusyRef.current = true;
+      if (busyTimer.current) clearTimeout(busyTimer.current);
+      busyTimer.current = setTimeout(() => { captureBusyRef.current = false; }, 15_000);
       reviewRef.current = null;
       const seq = ++scanSeq.current;
       cameraRef.current
@@ -361,6 +365,7 @@ export default function App() {
         })
         .finally(() => {
           captureBusyRef.current = false;
+          if (busyTimer.current) { clearTimeout(busyTimer.current); busyTimer.current = null; }
         });
     },
     [commitCapture, endScan, showToast, dispatch]

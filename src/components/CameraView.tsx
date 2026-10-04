@@ -532,7 +532,16 @@ export const CameraView = forwardRef<CameraViewHandle, Props>(
 
     useImperativeHandle(ref, () => ({
       captureFocused,
-      capture: () => (stream ? Promise.resolve(captureFocused()) : captureStill()),
+      capture: () => {
+        if (stream) {
+          const result = captureFocused();
+          if (result) return Promise.resolve(result);
+          // No frames in the buffer (e.g. camera sends stills only) — fall back
+          if (source?.capture) return captureStill();
+          return Promise.resolve(null);
+        }
+        return captureStill();
+      },
       unfreeze: () => {
         frozenRef.current = null;
         frozenCandidatesRef.current = null;
