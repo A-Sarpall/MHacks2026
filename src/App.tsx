@@ -5,7 +5,7 @@ import {
   type CaptureTarget,
 } from "./components/CameraView";
 import { TileBar } from "./components/TileBar";
-import { CoreWords } from "./components/CoreWords";
+import { IntentButtons } from "./components/IntentButtons";
 import { QuickPhrases } from "./components/QuickPhrases";
 import { SpokenBanner } from "./components/SpokenBanner";
 import { ACTIVE_PROFILE, type QuickPhrase } from "./data/profiles";
@@ -32,7 +32,7 @@ import { TAPBACK_EMOJI } from "./lib/messages";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import { allergySentences, healthContext, type HealthProfile } from "./lib/health";
-import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
+import type { CapturedObject, InputAction } from "./lib/types";
 import { Scanner } from "./components/Scanner";
 import { RUNG_TEXT, askClaude, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
 import { correctSelection, historyBoost, recordSelection } from "./vision/history";
@@ -78,6 +78,7 @@ export default function App() {
   const [painOpen, setPainOpen] = useState(false);
   const [cantTalk, setCantTalk] = useState(false);
   const [quickIndex, setQuickIndex] = useState<number | null>(null);
+  const [intentIndex, setIntentIndex] = useState<number | null>(null);
   const [painLevel, setPainLevel] = useState(5);
   const painRef = useRef({ open: painOpen, level: painLevel });
   painRef.current = { open: painOpen, level: painLevel };
@@ -862,13 +863,17 @@ export default function App() {
 
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-xs text-gray-400 mb-2 text-center uppercase tracking-wider">
-            Core words
+            What do you want to say?
           </div>
-          <CoreWords
-            selectedCoreWords={state.selectedCoreWords}
-            onToggle={(word: CoreWord) =>
-              dispatch({ type: "TOGGLE_CORE_WORD", word })
-            }
+          <IntentButtons
+            intents={ACTIVE_PROFILE.intents}
+            selected={state.selectedCoreWords[0] ?? null}
+            highlight={intentIndex}
+            hasObject={state.selectedTileIds.length > 0}
+            onToggle={(intent) => {
+              setIntentIndex(null);
+              dispatch({ type: "TOGGLE_INTENT", intent: intent.id });
+            }}
           />
         </section>
 
