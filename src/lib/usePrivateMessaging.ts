@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { fetchContacts, sendPrivate, sendTapback, subscribeIncoming, type Contact, type IncomingMessage, type Tapback } from "./messages";
+import { addContact as addContactOnHub, fetchContacts, sendPrivate, sendTapback, subscribeIncoming, type Contact, type IncomingMessage, type Tapback } from "./messages";
 import { readAloud } from "./tts";
 
 export interface Incoming extends IncomingMessage {
@@ -11,6 +11,7 @@ export function usePrivateMessaging() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [mode, setMode] = useState<"photon" | "dry-run" | "offline">("offline");
   const [target, setTarget] = useState<Contact | null>(null);
+  const [targetIds, setTargetIds] = useState<string[]>([]);
   const [incoming, setIncoming] = useState<Incoming | null>(null);
   const contactsRef = useRef(contacts);
   contactsRef.current = contacts;
@@ -67,8 +68,48 @@ export function usePrivateMessaging() {
     [incoming]
   );
 
+  const targets = contacts.filter((c) => targetIds.includes(c.id));
+  const toggleTarget = useCallback((c: Contact) => {
+    setTargetIds((ids) => (ids.includes(c.id) ? ids.filter((id) => id !== c.id) : [...ids, c.id]));
+  }, []);
+  const clearTargets = useCallback(() => setTargetIds([]), []);
+  const sendToTargets = useCallback(
+    async (text: string): Promise<string[]> => {
+      const list = contactsRef.current.filter((c) => targetIds.includes(c.id));
+      if (list.length === 0) throw new Error("no contacts selected");
+      await Promise.all(list.map((c) => sendPrivate(c.id, text)));
+      return list.map((c) => c.name);
+    },
+    [targetIds]
+  );
+  const addContact = useCallback(
+    async (name: string, phone: string): Promise<Contact> => {
+      const c = await addContactOnHub(name, phone);
+      await refresh();
+      return c;
+    },
+    [refresh]
+  );
+
   const fresh = incoming !== null && !incoming.reacted && incoming.contactId !== null;
-  return { contacts, mode, target, setTarget, incoming, dismissIncoming: () => setIncoming(null), fresh, selectById, send, tap, refresh };
+  return {
+    contacts,
+    mode,
+    target,
+    setTarget,
+    targets,
+    toggleTarget,
+    clearTargets,
+    sendToTargets,
+    addContact,
+    incoming,
+    dismissIncoming: () => setIncoming(null),
+    fresh,
+    selectById,
+    send,
+    tap,
+    refresh,
+  };
 }
 
 export type PrivateMessaging = ReturnType<typeof usePrivateMessaging>;

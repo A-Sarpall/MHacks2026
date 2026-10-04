@@ -43,6 +43,9 @@ import { ClinicPanel } from "./components/ClinicPanel";
 import { PainPanel } from "./components/PainPanel";
 import { logSpoken, markTaken, reportPain } from "./lib/care";
 import { PrivateBar } from "./components/PrivateBar";
+import { Contacts } from "./components/Contacts";
+
+const HEALTH_UI = false;
 import { IncomingCard } from "./components/IncomingCard";
 import { usePrivateMessaging } from "./lib/usePrivateMessaging";
 import { readContactQr } from "./lib/qr";
@@ -235,7 +238,7 @@ export default function App() {
       cropsRef.current.set(capture.id, crop);
       if (cropsRef.current.size > 12) cropsRef.current.delete(cropsRef.current.keys().next().value!);
       recordSelection({ id: capture.id, label: capture.label, source: capture.source });
-      const isMed = setupViewRef.current && isMedicationLabel(capture.label);
+      const isMed = HEALTH_UI && setupViewRef.current && isMedicationLabel(capture.label);
       // A medicine is read by the hub's label check instead (it renames the tile on a match)
       const refine = hasClaude() && !confirmed && !isMed && capture.source !== "personal" && capture.source !== "claude";
       dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
@@ -268,7 +271,7 @@ export default function App() {
             : {};
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { ...patch, refining: false } });
         if (label && !same) showToast(`Could also be: ${label}`);
-        if (label && isMedicationLabel(label) && setupViewRef.current) void runMedCheck({ image: canvasToJpegBase64(crop) }, capture.id);
+        if (HEALTH_UI && label && isMedicationLabel(label) && setupViewRef.current) void runMedCheck({ image: canvasToJpegBase64(crop) }, capture.id);
         if (sayNameRef.current) tts.speak(capture.label).catch(() => {});
       } catch (err) {
         console.warn("[identify] Claude vision failed", err);
@@ -448,9 +451,11 @@ export default function App() {
       }
       if (phrase.action === "status") {
         setOverstimulated(true);
-        if (pmRef.current.target) void pmRef.current.send(ACTIVE_PROFILE.overstimulated.message).catch(() => feedbackRef.current("error"));
+        const pmNow = pmRef.current;
+        if (pmNow.targets.length > 0) void pmNow.sendToTargets(ACTIVE_PROFILE.overstimulated.message).catch(() => feedbackRef.current("error"));
+        else if (pmNow.target) void pmNow.send(ACTIVE_PROFILE.overstimulated.message).catch(() => feedbackRef.current("error"));
       }
-      void handleSpeakRef.current(phrase.text);
+      void sayRef.current(phrase.text);
     },
     []
   );
@@ -517,8 +522,7 @@ export default function App() {
           const i = f.sentenceIndex ?? 0;
           if (i < candidatesRef.current.length) {
             const sentence = candidatesRef.current[i];
-            if (pmRef.current.target) void sendPrivately(sentence);
-            else void handleSpeakRef.current(sentence);
+            void sayRef.current(sentence);
           } else if (f.canBuild) {
             startBuildRef.current();
           }
@@ -735,6 +739,28 @@ export default function App() {
 
   const handleSpeakRef = useRef(handleSpeak);
   handleSpeakRef.current = handleSpeak;
+  const say = useCallback(
+    async (text: string) => {
+      const pmNow = pmRef.current;
+      if (pmNow.targets.length > 0) {
+        try {
+          const names = await pmNow.sendToTargets(text);
+          setSpokenLog((log) => [...log, { text, at: Date.now() }]);
+          feedbackRef.current("select");
+          showToast(`Sent to ${names.join(", ")}`);
+        } catch (err) {
+          feedbackRef.current("error");
+          showToast(`Couldn't send: ${(err as Error).message}`);
+        }
+        return;
+      }
+      if (pmNow.target) return sendPrivately(text);
+      return handleSpeakRef.current(text);
+    },
+    [sendPrivately, showToast]
+  );
+  const sayRef = useRef(say);
+  sayRef.current = say;
 
   const intentId = state.selectedCoreWords[0] ?? null;
   const canBuild =
@@ -753,8 +779,7 @@ export default function App() {
     setBuild(null);
     setBuildIndex(null);
     setSentenceIndex(0);
-    if (pm.target) void sendPrivately(sentence);
-    else void handleSpeak(sentence);
+    void say(sentence);
   };
   const finishBuildRef = useRef(finishBuild);
   finishBuildRef.current = finishBuild;
@@ -791,6 +816,8 @@ export default function App() {
           >
             I'm in pain
           </button>
+          {HEALTH_UI && (
+          <>
           <button
             onClick={() => setMedCard({ status: "ask" })}
             className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
@@ -803,6 +830,8 @@ export default function App() {
           >
             Clinic summary
           </button>
+          </>
+          )}
           </>
           )}
           <button
@@ -989,9 +1018,9 @@ export default function App() {
             />
           )}
           {painOpen && <PainPanel level={painLevel} onLevel={setPainLevel} onSend={sendPain} onClose={() => setPainOpen(false)} />}
-          <PrivateBar pm={pm} />
+          {pm.target ? <PrivateBar pm={pm} /> : <Contacts pm={pm} />}
           <IncomingCard pm={pm} />
-          {setupView && medCard && (
+          {HEALTH_UI && setupView && medCard && (
             <MedCard
               state={medCard}
               onTaken={markTaken}
@@ -1096,7 +1125,7 @@ export default function App() {
 
         {!overstimulated && (
         <section>
-          {setupView && (
+          {HEALTH_UI && setupView && (
           <HealthAlerts
             profile={health}
             captures={selectedCaptures}
@@ -1111,7 +1140,7 @@ export default function App() {
           )}
           <Candidates
             candidates={state.candidates}
-            onSpeak={pm.target ? sendPrivately : handleSpeak}
+            onSpeak={(s) => void say(s)}
             highlight={sentenceIndex}
           />
           {canBuild && !build && (
@@ -1165,7 +1194,7 @@ export default function App() {
           </div>
         )}
 
-        {setupView && (
+        {HEALTH_UI && setupView && (
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <HealthPanel
             profile={health}
@@ -1177,7 +1206,7 @@ export default function App() {
         </section>
         )}
       </main>
-      {setupView && clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
+      {HEALTH_UI && setupView && clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
     </div>
   );
 }
