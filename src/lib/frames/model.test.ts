@@ -152,6 +152,29 @@ describe("lexicon frames", () => {
     expect(labels(valid(lexiconFrame(make("Mom's chair", "general", "help", WIDE, [], null)), WIDE, "Mom's chair"), "action")).toContain("bring me");
   });
 
+  it("gives the demo objects their own words", () => {
+    const iphone = valid(lexiconFrame(make("iPhone", "general", "need", WIDE, [], null)), WIDE, "iphone");
+    expect(labels(iphone, "action")).toContain("need to charge");
+    expect(labels(iphone, "detail")).toContain("for music");
+    expect(say(valid(lexiconFrame(make("water bottle", "drinks", "help")), WIDE, "bottle"), { action: "open", detail: "please" })).toBe("Can you open the water bottle, please?");
+    expect(labels(valid(lexiconFrame(make("pill bottle", "health", "need")), WIDE, "pill bottle"), "action")).not.toContain("will drink from");
+    expect(say(valid(lexiconFrame(make("pen", "general", "question", WIDE, [], "office & reading")), WIDE, "pen"), { action: "borrow" })).toBe("Can I borrow the pen?");
+    expect(say(valid(lexiconFrame(make("computer", "electronics", "help")), WIDE, "computer"), { action: "restart", detail: "please" })).toBe("Can you restart the computer, please?");
+    expect(say(valid(lexiconFrame(make("laptop", "general", "dont-want", WIDE, [], null)), WIDE, "laptop"), { action: "need a break from", detail: "now" })).toBe("I need a break from the laptop now.");
+  });
+
+  it("talks to a person instead of about them", () => {
+    const person = (intentId: string, rules: FrameRules = WIDE) => valid(lexiconFrame(make("person", "general", intentId, rules, [], "people & body")), rules, `person ${intentId} ${rules.maxOptions}`);
+    expect(say(person("need"), { action: "wait", detail: "please" })).toBe("I need you to wait, please.");
+    expect(say(person("dont-want"), { action: "leave", detail: "yet" })).toBe("I don't want you to leave yet.");
+    expect(say(person("help"), { action: "stay with me", detail: "please" })).toBe("Can you stay with me, please?");
+    expect(say(person("tell"), { action: "am okay" })).toBe("I am okay.");
+    expect(say(person("question"), { state: "okay" })).toBe("Are you okay?");
+    expect(say(person("feeling"), { feeling: "safe", context: "with you" })).toBe("I feel safe with you.");
+    for (const i of INTENTS) person(i.id, TEST_RULES);
+    expect(say(valid(lexiconFrame(make("nurse", "general", "help", WIDE, [], "people & body")), WIDE, "nurse"), { action: "help me" })).toBe("Can you help me?");
+  });
+
   it("returns null for unknown intents or empty labels", () => {
     expect(lexiconFrame(make("mug", "drinks", "sing"))).toBeNull();
     expect(lexiconFrame(make("   ", "drinks", "need"))).toBeNull();

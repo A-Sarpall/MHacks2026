@@ -137,6 +137,37 @@ const SEATS: Partial<Record<Verbal, string[]>> = {
   question: ["sit on", "move", "use", "have", "keep", "borrow"],
 };
 
+const PHONE: Partial<Record<Verbal, string[]>> = {
+  need: ["want", "need", "need to charge", "would like", "want to unlock", "will use"],
+  "dont-want": ["don't want", "don't like", "will turn off", "am finished with", "won't use", "can't hear"],
+  help: ["unlock", "charge", "silence", "turn off", "fix", "hold"],
+  tell: ["am using", "charged", "want to show you", "dropped", "found", "like"],
+  question: ["use", "charge", "borrow", "unlock", "have", "keep"],
+};
+
+const COMPUTER: Partial<Record<Verbal, string[]>> = {
+  need: ["want", "need", "would like", "will use", "need to charge", "want to open"],
+  "dont-want": ["don't want", "don't like", "won't use", "will turn off", "am finished with", "need a break from"],
+  help: ["turn on", "unlock", "fix", "restart", "charge", "open"],
+  tell: ["am using", "turned off", "want to show you", "fixed", "am finished with", "like"],
+  question: ["use", "turn on", "borrow", "restart", "have", "keep"],
+};
+
+const BOTTLE: Partial<Record<Verbal, string[]>> = {
+  need: ["want", "need", "would like", "will drink from", "need to fill", "want to open"],
+  "dont-want": ["don't want", "don't like", "am finished with", "won't drink from", "can't open", "want to put down"],
+  help: ["open", "fill", "pass me", "hold", "close", "empty"],
+  tell: ["like", "am drinking from", "am finished with", "filled", "want to show you", "found"],
+  question: ["use", "have", "fill", "open", "keep", "borrow"],
+};
+
+const PEN: Partial<Record<Verbal, string[]>> = {
+  need: ["want", "need", "would like", "will use", "need to find", "want to borrow"],
+  help: ["pass me", "find", "hold", "bring me", "open", "fix"],
+  tell: ["am using", "found", "lost", "want to show you", "like", "am finished with"],
+  question: ["use", "borrow", "have", "keep", "try", "take"],
+};
+
 const OVERRIDES: Record<string, Partial<Record<Verbal, string[]>>> = {
   chair: SEATS,
   armchair: SEATS,
@@ -185,14 +216,38 @@ const OVERRIDES: Record<string, Partial<Record<Verbal, string[]>>> = {
     help: ["pass me", "find", "rinse", "hold", "reach", "replace"],
     tell: ["am using", "am finished with", "rinsed", "want to show you", "found", "like"],
   },
-  phone: {
-    tell: ["am using", "charged", "want to show you", "dropped", "found", "like"],
-  },
+  phone: PHONE,
+  iphone: PHONE,
+  smartphone: PHONE,
+  cellphone: PHONE,
+  computer: COMPUTER,
+  laptop: COMPUTER,
+  macbook: COMPUTER,
+  pc: COMPUTER,
+  "water bottle": BOTTLE,
+  pen: PEN,
+  pencil: PEN,
+  marker: PEN,
   shoes: {
     need: ["want", "need", "will wear", "would like", "need to tie", "want to put on"],
     help: ["tie", "find", "pass me", "clean", "hold", "fasten"],
   },
 };
+
+const GROUP_HINTS: Record<string, TemplateGroup> = {
+  iphone: "electronics",
+  smartphone: "electronics",
+  cellphone: "electronics",
+  computer: "electronics",
+  laptop: "electronics",
+  macbook: "electronics",
+  pc: "electronics",
+  ipad: "electronics",
+  monitor: "electronics",
+  keyboard: "electronics",
+};
+
+const PEOPLE = new Set(["person", "man", "woman", "child", "boy", "girl", "baby", "friend", "nurse", "doctor", "teacher", "caregiver", "mom", "dad", "mother", "father", "sister", "brother", "partner", "people", "someone"]);
 
 const INTENTS = new Set<string>(["need", "dont-want", "help", "feeling", "tell", "question"]);
 const DETERMINED = /^(my|your|his|her|their|our|this|that|these|those|the|a|an|some)\s/i;
@@ -229,6 +284,8 @@ function pointed(label: string): string {
 function resolveGroup(input: FrameInput): { group: TemplateGroup; base: string } {
   const label = input.object.label.trim();
   if (input.object.group !== "general" || input.object.category !== null) return { group: input.object.group, base: label };
+  const hint = GROUP_HINTS[label.toLowerCase()] ?? GROUP_HINTS[lastWord(label)];
+  if (hint) return { group: hint, base: label };
   for (const alt of input.object.alternatives) {
     const group = groupForLabel(alt);
     if (group !== "general") return { group, base: alt.trim() };
@@ -343,10 +400,42 @@ function build(parts: FramePart[], specs: SlotSpec[], end: "." | "?", rules: Fra
   return validateFrame(frame, rules).length === 0 ? frame : null;
 }
 
+function isPerson(label: string): boolean {
+  return PEOPLE.has(label.toLowerCase()) || PEOPLE.has(lastWord(label));
+}
+
+function personFrame(intent: Intent, rules: FrameRules): SentenceFrame | null {
+  const action = (options: string[]) => ({ id: "action", prompt: "Pick an action", options });
+  const detail = (options: FrameOption[]) => ({ id: "detail", prompt: "Add a detail", options, optional: true });
+  switch (intent) {
+    case "need":
+      return build(["I need you to", { slot: "action" }, { slot: "detail" }], [action(["wait", "listen", "help me", "slow down", "stay", "come here"]), detail([PLEASE, "now", "later", "today"])], ".", rules);
+    case "dont-want":
+      return build(["I don't want you to", { slot: "action" }, { slot: "detail" }], [action(["talk", "leave", "touch me", "rush me", "ask questions", "help"]), detail([PLEASE, "now", "yet", "today"])], ".", rules);
+    case "help":
+      return build(["Can you", { slot: "action" }, { slot: "detail" }], [action(["help me", "wait", "come here", "stay with me", "write it down", "text me"]), detail([PLEASE, "now", "later", "again", "for a minute"])], "?", rules);
+    case "tell":
+      return build(["I", { slot: "action" }, { slot: "detail" }], [action(["am okay", "am tired", "like you", "am listening", "need a minute", "am finished"]), detail(["now", "today", "too", "already", THANKS])], ".", rules);
+    case "question":
+      return build(["Are you", { slot: "state" }, { slot: "detail" }], [{ id: "state", prompt: "Pick a word", options: ["okay", "busy", "leaving", "staying", "finished", "coming"] }, detail(["now", "today", "yet", "with me"])], "?", rules);
+    case "feeling":
+      return build(
+        ["I feel", { slot: "feeling" }, { slot: "context" }],
+        [
+          { id: "feeling", prompt: "Pick a feeling", options: ["nervous", "calm", "safe", "tired", "overwhelmed", "okay"] },
+          { id: "context", prompt: "Add when or where", options: ["with you", "right now", "around people", "today", "all day"], optional: true },
+        ],
+        ".",
+        rules
+      );
+  }
+}
+
 export function lexiconFrame(input: FrameInput): SentenceFrame | null {
   const label = input.object.label.trim();
   if (!label || !INTENTS.has(input.intent.id)) return null;
   const intent = input.intent.id as Intent;
+  if (isPerson(label)) return personFrame(intent, input.rules);
   const { group, base } = resolveGroup(input);
   const kind = kindOf(group, base, label);
   const obj = objectPhrase(label, group);
