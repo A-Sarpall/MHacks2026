@@ -45,6 +45,7 @@ import { logSpoken, markTaken, reportPain } from "./lib/care";
 import { PrivateBar } from "./components/PrivateBar";
 import { Contacts } from "./components/Contacts";
 import { ContactPicker } from "./components/ContactPicker";
+import { RepeatCoalescer } from "./lib/coalesce";
 
 const HEALTH_UI = false;
 import { IncomingCard } from "./components/IncomingCard";
@@ -113,6 +114,8 @@ export default function App() {
     }
   }, [overstimulated]);
   const [peopleOpen, setPeopleOpen] = useState(false);
+  const coalesceRef = useRef(new RepeatCoalescer());
+  const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [setupView, setSetupView] = useState(() => {
     if (new URLSearchParams(window.location.search).get("view") === "setup") return true;
     try {
@@ -757,10 +760,16 @@ export default function App() {
     async (text: string) => {
       const pmNow = pmRef.current;
       if (pmNow.targets.length > 0) {
+        const offer = coalesceRef.current.offer(text, Date.now());
+        setSpokenLog((log) => [...log, { text: offer.count > 1 ? `${text} (×${offer.count})` : text, at: Date.now() }]);
+        feedbackRef.current("select");
+        if (offer.action === "hold") {
+          showToast(`Sent already. Said ${offer.count} times; ${pmNow.targets.map((c) => c.name).join(", ")} will be told the count.`);
+          scheduleFlush();
+          return;
+        }
         try {
           const names = await pmNow.sendToTargets(text);
-          setSpokenLog((log) => [...log, { text, at: Date.now() }]);
-          feedbackRef.current("select");
           showToast(`Sent to ${names.join(", ")}`);
         } catch (err) {
           feedbackRef.current("error");
@@ -775,6 +784,19 @@ export default function App() {
   );
   const sayRef = useRef(say);
   sayRef.current = say;
+  function scheduleFlush() {
+    if (flushTimerRef.current) clearTimeout(flushTimerRef.current);
+    flushTimerRef.current = setTimeout(() => {
+      flushTimerRef.current = null;
+      const summary = coalesceRef.current.flush(Date.now());
+      if (!summary) {
+        if (coalesceRef.current.pending()) scheduleFlush();
+        return;
+      }
+      const pmNow = pmRef.current;
+      if (pmNow.targets.length > 0) pmNow.sendToTargets(summary).catch((err: unknown) => console.warn("[messages] repeat summary not sent", err));
+    }, coalesceRef.current.quietDelay());
+  }
 
   const intentId = state.selectedCoreWords[0] ?? null;
   const canBuild =
