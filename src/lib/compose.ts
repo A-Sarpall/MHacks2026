@@ -3,6 +3,7 @@
 // swaps in the Claude composer's sentences when VITE_ANTHROPIC_API_KEY is set.
 import { getClaude, CLAUDE_MODEL, textOf } from "./claude";
 import { allergySentences, type HealthContext } from "./health";
+import { profilePrompt, profileSentences } from "./profileCompose";
 
 export interface ComposeInput {
   tiles: string[];
@@ -63,6 +64,9 @@ export function composeMock(input: ComposeInput): string[] {
     return [...new Set(template(joinList(health.meds.map((m) => m.spoken))))];
   }
 
+  const profile = profileSentences({ tiles, intent: coreWords[0] ?? "" });
+  if (profile) return profile;
+
   const bare = tiles.length ? joinList(tiles) : "that";
   const forms: Forms = tiles.length
     ? {
@@ -90,11 +94,13 @@ export const claudeComposer: Composer = {
     // Allergen sentences come from code, never the model
     if (input.health?.allergies.length) return allergySentences(input.health.allergies);
     const client = await getClaude();
+    const prompt = input.health?.meds.length ? null : profilePrompt({ tiles: input.tiles, intent: input.coreWords[0] ?? "" });
     const message = await client.messages.create({
       model: CLAUDE_MODEL,
       max_tokens: 200,
-      system:
-        "You write short spoken sentences for an AAC (augmentative and alternative communication) user. " +
+      system: prompt
+        ? prompt.system
+        : "You write short spoken sentences for an AAC (augmentative and alternative communication) user. " +
         "Given objects they pointed at and core words they chose, write exactly 3 different natural first-person sentences they might want to say aloud. " +
         "Keep each under 12 words. Output one sentence per line, nothing else." +
         (input.health
@@ -103,8 +109,9 @@ export const claudeComposer: Composer = {
       messages: [
         {
           role: "user",
-          content:
-            `Objects: ${input.tiles.join(", ") || "(none)"}\n` +
+          content: prompt
+            ? prompt.user + (input.partnerContext ? `\nPartner just said: ${input.partnerContext}` : "")
+            : `Objects: ${input.tiles.join(", ") || "(none)"}\n` +
             `Core words: ${input.coreWords.join(", ") || "(none)"}` +
             (input.partnerContext
               ? `\nPartner just said: ${input.partnerContext}`
