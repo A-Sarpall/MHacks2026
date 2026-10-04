@@ -1,3 +1,0 @@
-# Python 3.13 (uagents 0.25.5 does not start on 3.14: "There is no current event loop")
-uagents==0.25.5
-python-dotenv

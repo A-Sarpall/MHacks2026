@@ -15,8 +15,6 @@
     "hub": "tsx server/hub.ts",
     "typecheck:server": "tsc -p server/tsconfig.json",
     "voice": "tsx server/voice-cli.ts",
-    "agents": "cd agents && .venv/bin/python run.py",
-    "agents:test": "cd agents && .venv/bin/python -m unittest",
     "eval": "node scripts/copy-wasm.mjs && node scripts/fetch-models.mjs && node scripts/eval.mjs"
   },
   "dependencies": {

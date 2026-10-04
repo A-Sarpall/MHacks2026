@@ -51,3 +51,7 @@ Not verified: real Claude responses, real webcam, audio.
 Browser Health record panel and hub share one patient (`GET/POST /meds/patient`, `server/finch.ts` setSubject; fixture only for polypharmacy). A matched label check renames the tile to that medicine. Agents' wording is gender-neutral.
 Verified: npm test (114), agents:test (12), typecheck:server, build, lint; Playwright in Docker with the real hub + live FinchNode: 22/22 (patient sync, clinic summary, typed check, pill bottle with/without label reading (mocked match), pain queue, on-device "peanut butter" 91% -> allergy refusals, hub down).
 Not verified: real Claude label reading, ElevenLabs/Photon with keys, Agentverse.
+
+## Scope change (2026-10-04)
+
+FinchNode, medication/clinic modes, pain report and the Fetch.ai agents removed; "I need help" (say aloud / text a contact) replaces the pain panel. The FinchNode sections above are history.

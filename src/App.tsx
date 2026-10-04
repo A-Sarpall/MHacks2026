@@ -8,27 +8,20 @@ import { TileBar } from "./components/TileBar";
 import { CoreWords } from "./components/CoreWords";
 import { Candidates } from "./components/Candidates";
 import { StatusBar } from "./components/StatusBar";
-import { HealthAlerts } from "./components/HealthAlerts";
-import { HealthPanel, type SpokenEntry } from "./components/HealthPanel";
 import { initDetector } from "./lib/detect";
 import { initClassifier } from "./lib/classify";
 import { identifyFromImage, identifyWithClaude } from "./lib/identify";
 import { hasClaude } from "./lib/claude";
 import { claudeComposer, composeMock } from "./lib/compose";
 import { tts } from "./lib/tts";
-import { canvasToJpegBase64, checkMedication, isMedicationLabel } from "./lib/meds";
-import { MedCard, type MedState } from "./components/MedCard";
-import { ClinicPanel } from "./components/ClinicPanel";
-import { PainPanel } from "./components/PainPanel";
-import { logSpoken, markTaken, reportPain } from "./lib/care";
+import { HelpPanel } from "./components/HelpPanel";
 import { PrivateBar } from "./components/PrivateBar";
 import { IncomingCard } from "./components/IncomingCard";
 import { usePrivateMessaging } from "./lib/usePrivateMessaging";
 import { readContactQr } from "./lib/qr";
-import { TAPBACK_EMOJI } from "./lib/messages";
+import { TAPBACK_EMOJI, sendPrivate, type Contact } from "./lib/messages";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
-import { allergySentences, healthContext, type HealthProfile } from "./lib/health";
 import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
 import { Scanner } from "./components/Scanner";
 import { RUNG_TEXT, askClaude, nameTarget, withAlternatives, type NamedOption } from "./vision/naming";
@@ -50,6 +43,8 @@ import { useButtonInputs, useFrameSource } from "./vision/useVisionIO";
 import { initSiglip, onSiglipState, type SiglipState } from "./vision/siglip";
 
 const REVIEW_MS = 4000;
+const HELP_ALOUD = "I need help!";
+const HELP_TEXT = "I need help. Can you come?";
 
 export default function App() {
   const { state, dispatch } = useCueStore();
@@ -65,23 +60,12 @@ export default function App() {
   const [listening, setListening] = useState(false);
   const sayNameRef = useRef(sayName);
   sayNameRef.current = sayName;
-  const [health, setHealth] = useState<HealthProfile | null>(null);
-  const healthRef = useRef(health);
-  healthRef.current = health;
-  const [spokenLog, setSpokenLog] = useState<SpokenEntry[]>([]);
-  const [medCard, setMedCard] = useState<MedState | null>(null);
-  const [clinicOpen, setClinicOpen] = useState(false);
   const pm = usePrivateMessaging();
-  const [painOpen, setPainOpen] = useState(false);
-  const [painLevel, setPainLevel] = useState(5);
-  const painRef = useRef({ open: painOpen, level: painLevel });
-  painRef.current = { open: painOpen, level: painLevel };
+  const [helpOpen, setHelpOpen] = useState(false);
+  const helpRef = useRef(helpOpen);
+  helpRef.current = helpOpen;
   const pmRef = useRef(pm);
   pmRef.current = pm;
-  // What the user has said with Qu, newest last: goes into the clinic summary as "their own words".
-  const spokenRef = useRef<string[]>([]);
-  // Full-size crops by capture id (tiles only keep a 160 px thumbnail, too small to read a label).
-  const cropsRef = useRef(new Map<string, HTMLCanvasElement>());
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
   const [sourceSettings, setSourceSettings] = useState(loadSourceSettings);
   useEffect(() => saveSourceSettings(sourceSettings), [sourceSettings]);
@@ -150,57 +134,22 @@ export default function App() {
       });
   }, [dispatch]);
 
-  // Medication mode: a medicine bottle was named, so read its label and check it against the record.
-  // `captureId`: the tile that was photographed. A match renames it to that medicine, so the
-  // sentences and the health alerts talk about the same medicine as the card.
-  const runMedCheck = useCallback(
-    async (input: { image: string } | { drug: string; strength?: string }, captureId?: string) => {
-      setMedCard({ status: "checking" });
-      try {
-        const { read, verdict } = await checkMedication(input);
-        setMedCard({ status: "done", verdict, read });
-        if (captureId && verdict.kind === "match" && verdict.med) {
-          const key = verdict.med.key;
-          const mine = healthRef.current?.meds.find((m) => m.drug.split(" ")[0] === key);
-          dispatch({
-            type: "UPDATE_CAPTURE",
-            id: captureId,
-            patch: { label: mine?.spoken ?? verdict.med.short.toLowerCase(), source: "claude", confidence: 0, refining: false },
-          });
-        }
-        tts.speak(verdict.speech).catch(() => {});
-      } catch (err) {
-        const message = (err as Error).message;
-        setMedCard({ status: "error", message });
-        tts.speak("I can't read this label. Don't take it until you know what it is.").catch(() => {});
-      }
-    },
-    [dispatch]
-  );
-
   const commitCapture = useCallback(
     async (capture: CapturedObject, crop: HTMLCanvasElement, confirmed = false) => {
-      // Keep the full-size crop: a tile only has a 160 px thumbnail, too small to read a medicine label.
-      cropsRef.current.set(capture.id, crop);
-      if (cropsRef.current.size > 12) cropsRef.current.delete(cropsRef.current.keys().next().value!);
       recordSelection({ id: capture.id, label: capture.label, source: capture.source });
-      const isMed = isMedicationLabel(capture.label);
-      // A medicine is read by the hub's label check instead (it renames the tile on a match)
-      const refine = hasClaude() && !confirmed && !isMed && capture.source !== "personal" && capture.source !== "claude";
+      const refine = hasClaude() && !confirmed && capture.source !== "personal" && capture.source !== "claude";
       dispatch({ type: "ADD_CAPTURE", capture: refine ? capture : { ...capture, refining: false } });
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
       );
-      if (isMed) void runMedCheck({ image: canvasToJpegBase64(crop) }, capture.id);
-      if (sayNameRef.current && !refine && !isMed) tts.speak(capture.label).catch(() => {});
+      if (sayNameRef.current && !refine) tts.speak(capture.label).catch(() => {});
       if (!refine) return;
 
       dispatch({ type: "SET_STATUS", status: "identifying" });
       try {
         const hints = [capture.label, ...capture.alternatives.map((a) => a.label)];
-        const medicines = healthRef.current?.meds.map((m) => m.spoken) ?? [];
-        const label = await identifyWithClaude(crop, hints, medicines);
+        const label = await identifyWithClaude(crop, hints);
         const patch = label
           ? {
               label,
@@ -223,7 +172,7 @@ export default function App() {
         dispatch({ type: "SET_STATUS", status: "idle" });
       }
     },
-    [dispatch, showToast, runMedCheck]
+    [dispatch, showToast]
   );
 
   const handleCapture = useCallback(
@@ -366,21 +315,30 @@ export default function App() {
     [showToast]
   );
 
-  const sendPain = useCallback(
-    async (level: number | null) => {
-      await reportPain(level);
+  // "I need help" texted privately to a contact (the first one when it comes from the ring)
+  const textHelp = useCallback(
+    async (contact: Contact | undefined) => {
+      if (!contact) {
+        feedbackRef.current("error");
+        showToast("No one to text: add contacts in the hub");
+        throw new Error("no contacts");
+      }
+      try {
+        await sendPrivate(contact.id, HELP_TEXT);
+      } catch (err) {
+        feedbackRef.current("error");
+        showToast(`Couldn't send: ${(err as Error).message}`);
+        throw err;
+      }
       feedbackRef.current("select");
-      showToast("Your caregiver is being told");
+      showToast(`Told ${contact.name} you need help`);
     },
     [showToast]
   );
 
   const handleSpeak = useCallback(
     async (sentence: string) => {
-      setSpokenLog((log) => [...log, { text: sentence, at: Date.now() }]);
       dispatch({ type: "SET_STATUS", status: "speaking" });
-      spokenRef.current = [...spokenRef.current, sentence].slice(-20);
-      logSpoken(sentence);
       try {
         await tts.speak(sentence);
       } catch (err) {
@@ -407,17 +365,16 @@ export default function App() {
         if (action === "hold") calibRef.current?.save();
         return;
       }
-      if (painRef.current.open) {
-        switch (commandFor("pain", action)) {
+      if (helpRef.current) {
+        switch (commandFor("help", action)) {
           case "next":
-            setPainLevel((l) => (l % 10) + 1);
-            feedbackRef.current("highlight");
+            void handleSpeak(HELP_ALOUD);
             break;
           case "select":
-            void sendPain(painRef.current.level).catch(() => feedbackRef.current("error"));
+            void textHelp(pmRef.current.contacts[0]).catch(() => {});
             break;
           case "cancel":
-            setPainOpen(false);
+            setHelpOpen(false);
             break;
         }
         return;
@@ -446,7 +403,7 @@ export default function App() {
           if (pmRef.current.target && state.candidates.length > 0) {
             void sendPrivately(state.candidates[0]);
           } else if (state.candidates.length === 0) {
-            setPainOpen(true); // hold with nothing to queue = "I'm in pain"
+            setHelpOpen(true); // hold with nothing to queue = "I need help"
           } else if (state.candidates.length > 0) {
             dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
           }
@@ -466,7 +423,7 @@ export default function App() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan, sendPrivately, sendPain, showToast]
+    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan, sendPrivately, textHelp, handleSpeak, showToast]
   );
 
   const scanIndex = scan?.index ?? -1;
@@ -494,26 +451,15 @@ export default function App() {
   };
 
   // Compose sentences whenever the selection changes (needs a core word)
-  const selectedCaptures = state.captures.filter((c) =>
-    state.selectedTileIds.includes(c.id)
-  );
-  const selectedLabels = selectedCaptures.map((c) => c.label);
-  const selectionKey = `${selectedLabels.join("|")}#${state.selectedCoreWords.join("|")}#${health?.subject ?? ""}`;
+  const selectedLabels = state.captures
+    .filter((c) => state.selectedTileIds.includes(c.id))
+    .map((c) => c.label);
+  const selectionKey = `${selectedLabels.join("|")}#${state.selectedCoreWords.join("|")}`;
 
   useEffect(() => {
-    const healthInput = health ? healthContext(health, selectedLabels) : undefined;
-    if (state.selectedCoreWords.length === 0) {
-      // An allergen gets its warning sentence even before a core word
-      if (healthInput?.allergies.length)
-        dispatch({ type: "SET_CANDIDATES", candidates: allergySentences(healthInput.allergies) });
-      return;
-    }
+    if (state.selectedCoreWords.length === 0) return;
     const seq = ++composeSeq.current;
-    const input = {
-      tiles: selectedLabels,
-      coreWords: state.selectedCoreWords,
-      health: healthInput,
-    };
+    const input = { tiles: selectedLabels, coreWords: state.selectedCoreWords };
     // Instant template sentences; Claude's replace them when they arrive.
     dispatch({ type: "SET_CANDIDATES", candidates: composeMock(input) });
     if (!hasClaude()) return;
@@ -580,22 +526,10 @@ export default function App() {
           </h1>
           <div className="flex items-center gap-3">
           <button
-            onClick={() => setPainOpen(true)}
+            onClick={() => setHelpOpen(true)}
             className="px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-sm font-semibold text-red-700 hover:bg-red-100"
           >
-            I'm in pain
-          </button>
-          <button
-            onClick={() => setMedCard({ status: "ask" })}
-            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
-          >
-            Check medicine
-          </button>
-          <button
-            onClick={() => setClinicOpen(true)}
-            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
-          >
-            Clinic summary
+            I need help
           </button>
           <StatusBar
             status={state.status}
@@ -748,17 +682,16 @@ export default function App() {
               onCancel={() => endScan()}
             />
           )}
-          {painOpen && <PainPanel level={painLevel} onLevel={setPainLevel} onSend={sendPain} onClose={() => setPainOpen(false)} />}
-          <PrivateBar pm={pm} />
-          <IncomingCard pm={pm} />
-          {medCard && (
-            <MedCard
-              state={medCard}
-              onTaken={markTaken}
-              onType={(drug, strength) => void runMedCheck({ drug, strength })}
-              onDismiss={() => setMedCard(null)}
+          {helpOpen && (
+            <HelpPanel
+              contacts={pm.contacts}
+              onSay={() => void handleSpeak(HELP_ALOUD)}
+              onText={textHelp}
+              onClose={() => setHelpOpen(false)}
             />
           )}
+          <PrivateBar pm={pm} />
+          <IncomingCard pm={pm} />
           <SourceSettings
             settings={sourceSettings}
             onChange={setSourceSettings}
@@ -826,8 +759,6 @@ export default function App() {
                 id,
                 patch: { label, source: "manual", confidence: 0, refining: false },
               });
-              const crop = cropsRef.current.get(id);
-              if (crop && isMedicationLabel(label)) void runMedCheck({ image: canvasToJpegBase64(crop) }, id);
             }}
             onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
           />
@@ -846,17 +777,6 @@ export default function App() {
         </section>
 
         <section>
-          <HealthAlerts
-            profile={health}
-            captures={selectedCaptures}
-            onRename={(id, label) =>
-              dispatch({
-                type: "UPDATE_CAPTURE",
-                id,
-                patch: { label, source: "manual", confidence: 0, refining: false },
-              })
-            }
-          />
           <Candidates
             candidates={state.candidates}
             onSpeak={pm.target ? sendPrivately : handleSpeak}
@@ -874,18 +794,7 @@ export default function App() {
             </button>
           </div>
         )}
-
-        <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-          <HealthPanel
-            profile={health}
-            onProfile={setHealth}
-            onSpeak={handleSpeak}
-            spokenLog={spokenLog}
-            onClearLog={() => setSpokenLog([])}
-          />
-        </section>
       </main>
-      {clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
     </div>
   );
 }

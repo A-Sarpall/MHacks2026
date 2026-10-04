@@ -33,15 +33,6 @@
 - Fake webcam: override `navigator.mediaDevices.getUserMedia` to return `canvas.captureStream()` of a still image
 - Fetch models with `NODE_USE_ENV_PROXY=1`
 
-## FinchNode (verified 2026-10-03 against the live API)
-
-- Public demo API `https://api.finchnode.com/demo/v1`: no key, CORS `*`. `GET /scenarios` (kind `record` | `behavior` | `session`, with `subject` + `persona.displayName`), `GET /users/{subject}/records`
-- Record: `data.{demographics, medications, conditions, allergies, appointments, careTeam, encounters, vitals, labs, ...}`, `sources[].organization`, `meta.dataAsOf`, `synthetic: true`
-- Medication names are RxNorm strings ("NDA021457 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler") or free text in `messy-coding` ("blood pressure pill, 1 daily", no codes)
-- `multi-source-overlap` repeats meds/conditions across two sources; dedupe. Only `baseline-adult` has appointments and careTeam
-- Unknown subject → 404; rate limit → 429 with `Retry-After`. Full spec: https://finchnode.com/openapi.yaml, docs index: https://finchnode.com/llms.txt
-- Production API (`/api/v1`) needs a server-side `ck_test_`/`ck_live_` key — never in Vite env
-- On-device ImageNet classifier labels a real pill-bottle photo "pill bottle" (Wikimedia "Nateglinide 60 mg bottle" image)
 ## SigLIP 2 in Transformers.js 4.3 (verified 2026-10-03)
 
 - `onnx-community/siglip2-base-patch16-224-ONNX` has separate `vision_model_*.onnx` / `text_model_*.onnx`; load with `SiglipVisionModel` / `SiglipTextModel`, use `pooler_output`
@@ -60,12 +51,6 @@
 - Scribe realtime: `POST /v1/single-use-token/realtime_scribe` returned a token; model id `scribe_v2_realtime`.
 - A restricted key can lack `user_read` (`/v1/user/subscription` returns 401) and still do TTS/voices.
 
-## FinchNode public demo API (verified 2026-10-03)
-
-- Base `https://api.finchnode.com/demo/v1`, no auth, CORS open, 120 req/min per IP. `GET /scenarios` lists 12 (6 record, 4 behavior, 2 connect-session); `GET /users/{subject}/records[?categories=a,b]` -> `{ data: { demographics, allergies, medications, conditions, vitals, labs, ... } }`.
-- Medication fields: `name` (RxNorm text), `dosage` (free text), `status`, `startDate`, `endDate`; `frequency` and `reason` are usually null. Allergies: `substance`, `reaction`. Conditions: `name`, `status`.
-- Most medications: `patient-demo-polypharmacy` (14 active). `patient-demo-sparse` is empty. `medicationAdministrations` is empty everywhere checked.
-
 ## Photon Spectrum (spectrum-ts 12.10.1, verified 2026-10-03 against docs + compiler)
 
 - `npm i spectrum-ts`; `import { Spectrum, Emoji } from "spectrum-ts"; import { imessage } from "spectrum-ts/providers/imessage"`.
@@ -74,13 +59,6 @@
 - Proactive send: `const im = imessage(app); const dm = await im.space.create(await im.user("+1555..."))`; `await dm.send("text")`.
 - Tapback: `await message.react(Emoji.love | like | dislike | laugh | emphasize | question)`; needs the cloud package.
 - `server/messages.ts` compiles against these (tsc is the verification); NOT run against real Photon yet.
-
-## Fetch.ai uAgents (verified 2026-10-03)
-
-- `uagents==0.25.5` (doc-pinned; 0.26.0 exists). Runs on Python 3.13.5; **fails on 3.14.7** at `Agent()` (asyncio `get_event_loop`).
-- Chat protocol: `from uagents_core.contrib.protocols.chat import ChatMessage, ChatAcknowledgement, TextContent, StartSessionContent, EndSessionContent, chat_protocol_spec`; `Protocol(spec=chat_protocol_spec)`; `agent.include(protocol, publish_manifest=True)`; `Agent(name, seed, port, mailbox=True, publish_agent_details=True, description=, readme_path=)`. Reply = ack (`ChatAcknowledgement(acknowledged_msg_id=msg.msg_id)`) then `ChatMessage(content=[TextContent(type="text", text=...), EndSessionContent(type="end-session")])`.
-- Agents in one `Bureau` message each other locally (no endpoints needed); Bureau supports mailbox agents. `ctx.send_and_receive(dest, msg, response_type=Model, timeout=)` returns `(msg|None, status)`. Address from seed: `uagents.crypto.Identity.from_seed(seed, 0).address`.
-- MHacks 2026 hackpack (innovationlab.fetch.ai/events/hackathons/mhacks-2026/hackpack): must register an agent on Agentverse, implement the chat protocol, be usable in ASI:One with the primary workflow completed inside an ASI:One conversation; submit Devpost + "MHacks ASI:One Submission Agent"; README with agent names/addresses and the two badge lines; 3-5 min video; promo `MHACKS26MHACKS26AV`.
 
 ## Photon CLI and shared-pool iMessage (verified 2026-10-03)
 

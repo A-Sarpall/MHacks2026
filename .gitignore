@@ -33,8 +33,6 @@ public/ort/
 server/.env.local
 server/voice.json
 server/contacts.json
-agents/.venv/
-agents/.env
 
 # Local tool settings
 .claude/

@@ -302,3 +302,19 @@ The costly error for this user group is a wrong word committed without asking, s
 - The remaining wrong auto-commits are vocabulary problems, not thresholds: "prayer book" and "travel mug" are too specific, and the keyboard of a laptop is named "keyboard". Merging over-specific labels into their everyday parent would help more than any threshold.
 - The personal "own object" scores come from augmented copies of one photo (0.94–0.99), which is optimistic; a real webcam re-capture of a taught object scored 0.92–0.97, so some real objects will narrowly miss at 0.92 and fall back to the vocabulary (safe, but less helpful). Teach 5 photos from varied angles.
 - WebGPU and WASM produce noticeably different scores with the 4-bit model (e.g. "mug" vs "travel mug"), so thresholds should be re-checked if the model or its quantisation changes.
+
+---
+
+### 2026-10-04 — Communication and information only
+
+**Decision**
+
+Remove FinchNode and every healthcare tool: the browser health-record panel and alerts, medication mode (label reading, Check medicine), the clinic summary, the pain report, the hub's `/meds/*` and `/care/*` routes, and all Fetch.ai agents (`agents/`). The pain button becomes **I need help**: say it aloud, or text a contact through the existing private-message path.
+
+**Reason**
+
+Team scope decision: Qu focuses on communication and information.
+
+**Consequence**
+
+The hub only serves voice (ElevenLabs), messages (Photon) and the ring relay. The FinchNode and Fetch.ai sponsor tracks are no longer targeted.

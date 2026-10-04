@@ -17,7 +17,7 @@ prototype
 - Runtime: Node 20+
 - Language: TypeScript
 - Frontend: React 19 + Vite 6 + Tailwind 4
-- Backend: local hub (`server/`, Node + TypeScript) for the care loop; Python agents in `agents/` (Phases 4+). Recognition still runs in the browser
+- Backend: local hub (`server/`, Node + TypeScript) for voice and messaging. Recognition still runs in the browser
 - Data: none
 - Deployment: none (local only)
 
@@ -33,8 +33,6 @@ One browser tab runs everything. No backend server.
 6. **UI**: Tile bar (detected objects), core-word buttons, candidate sentences, speak/queue controls
 
 Data flow: Webcam -> live tracking -> click -> identify -> object tiles -> user taps core word -> LLM generates sentences -> user picks one -> TTS speaks it (now or at next pause)
-
-Health record: an optional FinchNode record (public synthetic demo API, called from the browser) adds allergy alerts on captured objects, medicine-aware sentences, one-tap clinic phrases and copyable visit notes.
 
 ## Important directories
 
@@ -65,14 +63,16 @@ Never put secret values here.
 
 ## Stable constraints
 
-- Camera, recognition, composing and the UI run in the browser. A local hub (`server/`) holds API keys and talks to ElevenLabs, Photon, FinchNode and the Python agents (see `docs/care-loop.md`). No server-side ML.
+- Camera, recognition, composing and the UI run in the browser. A local hub (`server/`) holds API keys and talks to ElevenLabs and Photon (see `docs/care-loop.md`). No server-side ML.
 - Webcam by default. Ring cameras/buttons plug in through `src/vision/` (`FrameSource`, `ButtonInput`); firmware protocols are placeholders until the hardware exists.
 - Keyboard shortcuts simulate ring: Space = click (capture + detect), D = double-click (backchannel), H = hold (queue to pause).
 - Browser SpeechSynthesis for TTS (not ElevenLabs -- no API dependency for prototype).
 - MediaPipe runs client-side. No server-side ML.
-- Must work offline except for LLM calls (which can be mocked) and the optional FinchNode health record (fetched from the browser; Cue works without one).
+- Must work offline except for LLM calls (which can be mocked).
 
 ## Explicit non-goals
+
+- Health records, medication checks, clinical summaries, pain/symptom tracking (FinchNode) and the Fetch.ai agents: removed 2026-10-04; Qu is about communication and information
 
 - Ring firmware (the browser side of WebSocket/BLE exists in `src/vision/`)
 - Partner display (second window)
