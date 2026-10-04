@@ -29,3 +29,13 @@ Done:
 
 - Partner transcription (Web Speech API) -> partnerContext
 - Silero VAD, ElevenLabs, ring client
+
+## 2026-10-03 care-loop work (branch cv-pipeline)
+
+- Phase 0 hub done (`server/`, `npm run hub`). Phone-as-ring done: `phone/` Expo app + hub relay (`/phone` <-> `/ring`). Relay verified with ws clients; not yet run with a real phone or the browser UI.
+- Next: Phase 1 (ElevenLabs) once `ELEVENLABS_API_KEY` + a voice sample exist.
+- Phase 1 built: server/voice.ts + voice-cli.ts, /voice/status, /voice/speak, src/lib/tts.ts wired into App, public/reactions/ generated with the stock voice. Browser fallback verified in headless Chrome; ElevenLabs path verified via curl through the hub before the key in .env.local lost a character (now 50 chars). Waiting on: fixed key, voice sample for `voice clone`, then Phase 2/3.
+- Phase 2 built: server/{finch,meds,label}.ts + /meds/{profile,check,clinic}, server/meds.test.ts (10 tests), src/lib/meds.ts, MedCard, ClinicPanel, App hooks. Verified: live FinchNode via hub, typed check + clinic panel in headless Chrome. NOT verified: photo label reading (no ANTHROPIC_API_KEY); SigLIP named the only pill-bottle test photo "salt" 12%, so auto-trigger from a real bottle is untested.
+- Phase 3 built: server/{messages,routes-messages,http}.ts, QR page, /messages/*, reader voice, src/lib/{messages,qr,usePrivateMessaging}.ts, PrivateBar, IncomingCard, ring "message" mode. Verified in headless Chrome (dry-run): QR -> private target -> sentence sent -> inbound shown -> double-click tapback. 76 tests. NOT verified: real iMessage (no Photon credentials), real phone showing the QR.
+- Phase 4 built: agents/ (care, meds, notify, models, hub client, logic + 12 unit tests, run.py Bureau, smoke.py), hub server/care.ts + routes-care.ts (+4 tests), browser PainPanel, "I took it", spoken-sentence log, ring pain mode. Verified: agents/smoke.py (8 checks, ASI:One stand-in over the real Chat Protocol), headless-Chrome E2E (ring hold -> pain 6 -> caregiver text -> user hears it). NOT verified: Agentverse mailbox connection, discovery/chat inside real ASI:One, the submission agent (need the user's Agentverse account).
+- Photon live: project "Qu" (id kept in server/.env.local) created via CLI; credentials in server/.env.local; one Spectrum user (a teammate, real number kept out of the repo) with assigned line; inbound + outbound iMessage verified. Removed my stale fake contact (+1734555xxxx) from server/contacts.json. Next: reply -> read aloud in the app, QR on a real phone, ASI:One chat.

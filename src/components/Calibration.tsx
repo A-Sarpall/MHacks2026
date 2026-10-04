@@ -93,7 +93,7 @@ export const Calibration = forwardRef<CalibrationHandle, Props>(function Calibra
         <div className="flex flex-col gap-3 text-sm">
           <h2 className="text-lg font-semibold">Calibrate aim · {title}</h2>
           <p className="text-gray-600">
-            Do this {MIN_SAMPLES}–{MAX_SAMPLES} times. Cue learns where your pointing lands in the camera picture and
+            Do this {MIN_SAMPLES}–{MAX_SAMPLES} times. Qu learns where your pointing lands in the camera picture and
             moves the aim zone there. Saved separately for each camera and hand.
           </p>
           <div className="flex items-center gap-2" data-testid="calibration-count">

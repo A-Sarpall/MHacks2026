@@ -2,7 +2,7 @@
 
 ## Name
 
-Cue
+Qu
 
 ## One-line purpose
 
@@ -17,7 +17,7 @@ prototype
 - Runtime: Node 20+
 - Language: TypeScript
 - Frontend: React 19 + Vite 6 + Tailwind 4
-- Backend: none (all in-browser)
+- Backend: local hub (`server/`, Node + TypeScript) for the care loop; Python agents in `agents/` (Phases 4+). Recognition still runs in the browser
 - Data: none
 - Deployment: none (local only)
 
@@ -63,7 +63,7 @@ Never put secret values here.
 
 ## Stable constraints
 
-- Everything runs in the browser. No backend server, no Python, no FastAPI.
+- Camera, recognition, composing and the UI run in the browser. A local hub (`server/`) holds API keys and talks to ElevenLabs, Photon, FinchNode and the Python agents (see `docs/care-loop.md`). No server-side ML.
 - Webcam by default. Ring cameras/buttons plug in through `src/vision/` (`FrameSource`, `ButtonInput`); firmware protocols are placeholders until the hardware exists.
 - Keyboard shortcuts simulate ring: Space = click (capture + detect), D = double-click (backchannel), H = hold (queue to pause).
 - Browser SpeechSynthesis for TTS (not ElevenLabs -- no API dependency for prototype).
@@ -73,8 +73,6 @@ Never put secret values here.
 ## Explicit non-goals
 
 - Ring firmware (the browser side of WebSocket/BLE exists in `src/vision/`)
-- ElevenLabs TTS integration
-- Photon private messaging
 - Partner display (second window)
 - Production deployment
 - User accounts or persistence

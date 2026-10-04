@@ -77,6 +77,7 @@ export const BACKCHANNELS = [
   "haha",
   "mm-hmm",
   "wait",
+  "hold-on",
   "wow",
   "okay",
   "thanks",

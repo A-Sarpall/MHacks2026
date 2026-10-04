@@ -1,5 +1,5 @@
 {
-  "name": "cue-app",
+  "name": "qu-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,19 +11,28 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run",
-    "embed-vocab": "node scripts/embed-vocab.mjs"
+    "embed-vocab": "node scripts/embed-vocab.mjs",
+    "hub": "tsx server/hub.ts",
+    "typecheck:server": "tsc -p server/tsconfig.json",
+    "voice": "tsx server/voice-cli.ts",
+    "agents": "cd agents && .venv/bin/python run.py",
+    "agents:test": "cd agents && .venv/bin/python -m unittest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",
     "@huggingface/transformers": "^4.3.0",
     "@mediapipe/tasks-vision": "^1.0.1",
     "@tailwindcss/vite": "^4.3.3",
+    "jsqr": "^1.4.0",
+    "qrcode": "^1.5.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "spectrum-ts": "^12.10.1",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
+    "@types/qrcode": "^1.5.6",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@types/web-bluetooth": "^0.0.21",
@@ -31,6 +40,7 @@
     "@vitejs/plugin-react": "^6.1.1",
     "oxlint": "^1.81.0",
     "playwright-core": "^1.63.0",
+    "tsx": "^4.23.15",
     "typescript": "~6.0.2",
     "vite": "^8.3.0",
     "vitest": "^5.0.3",

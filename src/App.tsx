@@ -13,7 +13,17 @@ import { initClassifier } from "./lib/classify";
 import { identifyFromImage, identifyWithClaude } from "./lib/identify";
 import { hasClaude } from "./lib/claude";
 import { claudeComposer, composeMock } from "./lib/compose";
-import { speakNow, playBackchannel } from "./lib/speak";
+import { tts } from "./lib/tts";
+import { canvasToJpegBase64, checkMedication, isMedicationLabel } from "./lib/meds";
+import { MedCard, type MedState } from "./components/MedCard";
+import { ClinicPanel } from "./components/ClinicPanel";
+import { PainPanel } from "./components/PainPanel";
+import { logSpoken, markTaken, reportPain } from "./lib/care";
+import { PrivateBar } from "./components/PrivateBar";
+import { IncomingCard } from "./components/IncomingCard";
+import { usePrivateMessaging } from "./lib/usePrivateMessaging";
+import { readContactQr } from "./lib/qr";
+import { TAPBACK_EMOJI } from "./lib/messages";
 import { useCueStore, nextBackchannel } from "./lib/store";
 import { startPauseDetector } from "./lib/listen";
 import type { CapturedObject, CoreWord, InputAction } from "./lib/types";
@@ -50,6 +60,19 @@ export default function App() {
   const [listening, setListening] = useState(false);
   const sayNameRef = useRef(sayName);
   sayNameRef.current = sayName;
+  const [medCard, setMedCard] = useState<MedState | null>(null);
+  const [clinicOpen, setClinicOpen] = useState(false);
+  const pm = usePrivateMessaging();
+  const [painOpen, setPainOpen] = useState(false);
+  const [painLevel, setPainLevel] = useState(5);
+  const painRef = useRef({ open: painOpen, level: painLevel });
+  painRef.current = { open: painOpen, level: painLevel };
+  const pmRef = useRef(pm);
+  pmRef.current = pm;
+  // What the user has said with Qu, newest last: goes into the clinic summary as "their own words".
+  const spokenRef = useRef<string[]>([]);
+  // Full-size crops by capture id (tiles only keep a 160 px thumbnail, too small to read a label).
+  const cropsRef = useRef(new Map<string, HTMLCanvasElement>());
   const [toast, setToast] = useState<{ text: string; key: number } | null>(null);
   const [sourceSettings, setSourceSettings] = useState(loadSourceSettings);
   useEffect(() => saveSourceSettings(sourceSettings), [sourceSettings]);
@@ -113,14 +136,35 @@ export default function App() {
       });
   }, [dispatch]);
 
+  // Medication mode: a medicine bottle was named, so read its label and check it against the record.
+  const runMedCheck = useCallback(
+    async (input: { image: string } | { drug: string; strength?: string }) => {
+      setMedCard({ status: "checking" });
+      try {
+        const { read, verdict } = await checkMedication(input);
+        setMedCard({ status: "done", verdict, read });
+        tts.speak(verdict.speech).catch(() => {});
+      } catch (err) {
+        const message = (err as Error).message;
+        setMedCard({ status: "error", message });
+        tts.speak("I can't read this label. Don't take it until you know what it is.").catch(() => {});
+      }
+    },
+    []
+  );
+
   const commitCapture = useCallback(
     async (capture: CapturedObject, crop: HTMLCanvasElement) => {
+      cropsRef.current.set(capture.id, crop);
+      if (cropsRef.current.size > 12) cropsRef.current.delete(cropsRef.current.keys().next().value!);
       dispatch({ type: "ADD_CAPTURE", capture });
       showToast(
         `Identified: ${capture.label}` +
           (capture.confidence ? ` (${Math.round(capture.confidence * 100)}%)` : "")
       );
-      if (sayNameRef.current && !hasClaude()) speakNow(capture.label).catch(() => {});
+      const isMed = isMedicationLabel(capture.label);
+      if (isMed) void runMedCheck({ image: canvasToJpegBase64(crop) });
+      if (sayNameRef.current && !hasClaude() && !isMed) tts.speak(capture.label).catch(() => {});
       if (!hasClaude()) return;
 
       dispatch({ type: "SET_STATUS", status: "identifying" });
@@ -140,7 +184,7 @@ export default function App() {
           : {};
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { ...patch, refining: false } });
         if (label && label !== capture.label) showToast(`Claude says: ${label}`);
-        if (sayNameRef.current) speakNow(label ?? capture.label).catch(() => {});
+        if (sayNameRef.current) tts.speak(label ?? capture.label).catch(() => {});
       } catch (err) {
         console.warn("[identify] Claude vision failed", err);
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { refining: false } });
@@ -148,7 +192,7 @@ export default function App() {
         dispatch({ type: "SET_STATUS", status: "idle" });
       }
     },
-    [dispatch, showToast]
+    [dispatch, showToast, runMedCheck]
   );
 
   const handleCapture = useCallback(
@@ -173,6 +217,15 @@ export default function App() {
         .then(async (target) => {
           if (!target) return;
           feedbackRef.current("captured");
+          // A contact holding up their Qu QR code means "message them privately", not "name an object".
+          const qrId = readContactQr(target.image);
+          if (qrId) {
+            const name = await pmRef.current.selectById(qrId);
+            feedbackRef.current(name ? "select" : "error");
+            showToast(name ? `Private to ${name}` : "Unknown QR code");
+            endScan();
+            return;
+          }
           dispatch({ type: "SET_STATUS", status: "identifying" });
           if (target.burst) console.info("[capture] burst", JSON.stringify(target.burst));
           if (target.streamPick) console.info("[capture] stream", JSON.stringify(target.streamPick));
@@ -240,11 +293,37 @@ export default function App() {
     [ringCapture]
   );
 
+  // With a private contact selected, a picked sentence is texted to them instead of spoken aloud.
+  const sendPrivately = useCallback(
+    async (sentence: string) => {
+      try {
+        const name = await pmRef.current.send(sentence);
+        feedbackRef.current("select");
+        showToast(`Sent privately to ${name}`);
+      } catch (err) {
+        feedbackRef.current("error");
+        showToast(`Couldn't send: ${(err as Error).message}`);
+      }
+    },
+    [showToast]
+  );
+
+  const sendPain = useCallback(
+    async (level: number | null) => {
+      await reportPain(level);
+      feedbackRef.current("select");
+      showToast("Your caregiver is being told");
+    },
+    [showToast]
+  );
+
   const handleSpeak = useCallback(
     async (sentence: string) => {
       dispatch({ type: "SET_STATUS", status: "speaking" });
+      spokenRef.current = [...spokenRef.current, sentence].slice(-20);
+      logSpoken(sentence);
       try {
-        await speakNow(sentence);
+        await tts.speak(sentence);
       } catch (err) {
         console.warn("[speak]", err);
       }
@@ -255,6 +334,7 @@ export default function App() {
 
   const ringMode = (): RingMode => {
     if (scanRef.current) return settingsRef.current.autoScan ? "autoscan" : "scanning";
+    if (pmRef.current.fresh) return "message";
     const review = reviewRef.current;
     return review && performance.now() < review.until ? "review" : "normal";
   };
@@ -268,16 +348,41 @@ export default function App() {
         if (action === "hold") calibRef.current?.save();
         return;
       }
+      if (painRef.current.open) {
+        switch (commandFor("pain", action)) {
+          case "next":
+            setPainLevel((l) => (l % 10) + 1);
+            feedbackRef.current("highlight");
+            break;
+          case "select":
+            void sendPain(painRef.current.level).catch(() => feedbackRef.current("error"));
+            break;
+          case "cancel":
+            setPainOpen(false);
+            break;
+        }
+        return;
+      }
       const mode = ringMode();
       switch (commandFor(mode, action)) {
         case "capture":
           ringCapture(0);
           break;
         case "backchannel":
-          playBackchannel(nextBackchannel());
+          tts.playBackchannel(nextBackchannel());
+          break;
+        case "tapback":
+          pmRef.current
+            .tap("like")
+            .then((name) => name && showToast(`${TAPBACK_EMOJI.like} sent to ${name}`))
+            .catch(() => feedbackRef.current("error"));
           break;
         case "queue":
-          if (state.candidates.length > 0) {
+          if (pmRef.current.target && state.candidates.length > 0) {
+            void sendPrivately(state.candidates[0]);
+          } else if (state.candidates.length === 0) {
+            setPainOpen(true); // hold with nothing to queue = "I'm in pain"
+          } else if (state.candidates.length > 0) {
             dispatch({ type: "QUEUE_SENTENCE", sentence: state.candidates[0] });
           }
           break;
@@ -296,7 +401,7 @@ export default function App() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan]
+    [state.candidates, dispatch, ringCapture, moveScan, chooseScan, retake, endScan, sendPrivately, sendPain, showToast]
   );
 
   const scanIndex = scan?.index ?? -1;
@@ -304,7 +409,7 @@ export default function App() {
   useEffect(() => {
     if (scanIndex < 0) return;
     feedbackRef.current("highlight");
-    if (sourceSettings.speakOnHighlight && scanLabel) speakNow(scanLabel).catch(() => {});
+    if (sourceSettings.speakOnHighlight && scanLabel) tts.speak(scanLabel).catch(() => {});
   }, [scanIndex, scanLabel, scan?.options, sourceSettings.speakOnHighlight]);
 
   const scanning = scan !== null;
@@ -392,11 +497,30 @@ export default function App() {
       <header className="bg-white border-b border-gray-200 px-6 py-3">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           <h1 className="text-xl font-bold text-gray-900">
-            Cue
+            Qu
             <span className="ml-2 text-sm font-normal text-gray-400">
               prototype
             </span>
           </h1>
+          <div className="flex items-center gap-3">
+          <button
+            onClick={() => setPainOpen(true)}
+            className="px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-sm font-semibold text-red-700 hover:bg-red-100"
+          >
+            I'm in pain
+          </button>
+          <button
+            onClick={() => setMedCard({ status: "ask" })}
+            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          >
+            Check medicine
+          </button>
+          <button
+            onClick={() => setClinicOpen(true)}
+            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          >
+            Clinic summary
+          </button>
           <StatusBar
             status={state.status}
             queuedSentence={state.queuedSentence}
@@ -404,6 +528,7 @@ export default function App() {
             onSpeakQueue={handleSpeakQueue}
             listening={listening}
           />
+          </div>
         </div>
       </header>
 
@@ -544,6 +669,17 @@ export default function App() {
               onCancel={() => endScan()}
             />
           )}
+          {painOpen && <PainPanel level={painLevel} onLevel={setPainLevel} onSend={sendPain} onClose={() => setPainOpen(false)} />}
+          <PrivateBar pm={pm} />
+          <IncomingCard pm={pm} />
+          {medCard && (
+            <MedCard
+              state={medCard}
+              onTaken={markTaken}
+              onType={(drug, strength) => void runMedCheck({ drug, strength })}
+              onDismiss={() => setMedCard(null)}
+            />
+          )}
           <SourceSettings
             settings={sourceSettings}
             onChange={setSourceSettings}
@@ -587,13 +723,15 @@ export default function App() {
             captures={state.captures}
             selectedTileIds={state.selectedTileIds}
             onToggle={(id) => dispatch({ type: "TOGGLE_TILE", id })}
-            onRename={(id, label) =>
+            onRename={(id, label) => {
               dispatch({
                 type: "UPDATE_CAPTURE",
                 id,
                 patch: { label, source: "manual", confidence: 0, refining: false },
-              })
-            }
+              });
+              const crop = cropsRef.current.get(id);
+              if (crop && isMedicationLabel(label)) void runMedCheck({ image: canvasToJpegBase64(crop) });
+            }}
             onRemove={(id) => dispatch({ type: "REMOVE_CAPTURE", id })}
           />
         </section>
@@ -613,8 +751,8 @@ export default function App() {
         <section>
           <Candidates
             candidates={state.candidates}
-            onSpeak={handleSpeak}
-            onQueue={(sentence) => dispatch({ type: "QUEUE_SENTENCE", sentence })}
+            onSpeak={pm.target ? sendPrivately : handleSpeak}
+            onQueue={(sentence) => (pm.target ? void sendPrivately(sentence) : dispatch({ type: "QUEUE_SENTENCE", sentence }))}
           />
         </section>
 
@@ -629,6 +767,7 @@ export default function App() {
           </div>
         )}
       </main>
+      {clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 # src/vision
 
-Camera, ring and recognition code for Cue. It is split so hardware can change without touching recognition:
+Camera, ring and recognition code for Qu. It is split so hardware can change without touching recognition:
 
 ```
 sources/        camera input (FrameSource): webcam, Wi-Fi/WebSocket, Bluetooth still, files
@@ -54,7 +54,7 @@ Stream sources keep the last 10 upright frames in `core/frameBuffer.ts` with the
 
 ## Naming: centre first, widen only when unsure (`core/escalate.ts`, `naming.ts`)
 
-For now Cue assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence`, placeholder 0.35 until the eval tunes it):
+For now Qu assumes the user points straight at the object: the aim point is the frame centre (calibration exists but is off by default, "use it" in the panel / `?calib=1`). Each ring press names crops in this order and stops as soon as one is confident (`DEFAULT_NAMING.lowConfidence`, placeholder 0.35 until the eval tunes it):
 
 | Level | Crops | When |
 |---|---|---|

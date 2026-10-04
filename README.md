@@ -1,4 +1,4 @@
-# Cue — Prototype
+# Qu — Prototype
 
 Camera-based AAC that turns what you point at into speech.
 
@@ -80,6 +80,36 @@ Sentence ─► SpeechSynthesis
 ## Extension points
 
 1. **Ring hardware** — implement `FrameSource` / `ButtonInput` in `src/vision/` (see "Adding new hardware" in [src/vision/README.md](src/vision/README.md)); Wi-Fi and Bluetooth versions exist with placeholder protocols
-2. **ElevenLabs TTS** — implement `TTSEngine` in `speak.ts`
+2. ~~ElevenLabs TTS~~ — done: `src/lib/tts.ts` (through the hub), see the care loop below
 3. **Better VAD** — swap the energy detector in `listen.ts` for vad-web/Silero
 4. **Partner transcription** — feed Web Speech API text into `ComposeInput.partnerContext`
+
+
+## Qu care loop (sponsor integrations)
+
+![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
+![tag:hackathon](https://img.shields.io/badge/hackathon-5F43F1)
+
+One demo scene: the user points at a pill bottle, Qu checks their health record (FinchNode) and says the answer in their own cloned voice (ElevenLabs); they long-press to say they are in pain, agents check their medicines and decide what to do (Fetch.ai), and the caregiver gets an iMessage (Photon) whose reply is read aloud to them. Plan and phase status: [docs/care-loop.md](docs/care-loop.md).
+
+| Part | Where | Run |
+|---|---|---|
+| Browser app (camera, naming, sentences, UI) | `src/` | `npm run dev` |
+| Hub (ElevenLabs, FinchNode, Photon, care state; keys live here) | `server/` | `npm run hub` |
+| Phone as the ring | `phone/` (Expo) | `cd phone && npx expo start` |
+| Fetch.ai agents (Python 3.13) | `agents/` | `cd agents && python3.13 -m venv .venv && .venv/bin/pip install -r requirements.txt`, then `npm run agents` |
+
+### Fetch.ai agents
+
+| Agent | Role | Address |
+|---|---|---|
+| **Qu Care Agent** (`qu-care-agent`) | Coordinator. Talks to the caregiver in ASI:One (Agent Chat Protocol), registered on Agentverse via mailbox. Acts on the patient's pain reports. | `agent1q080c0qem3shxwwrr3tjxdvxcel7p6yraq3x8vnk22jehqav2gq6qznnsnw` |
+| **Qu Meds Agent** (`qu-meds-agent`) | Wraps the FinchNode health record: regular medicines, allergies, as-needed medicine status. | `agent1q0qxww8xp0s5mrcjnv9stjgd7hhla905w85vakxrsl7xuhmzvd3c7z7at3z` |
+| **Qu Notify Agent** (`qu-notify-agent`) | Texts the caregiver through the hub (Photon iMessage). | `agent1qvu7x0p3xy42zkzqser0cw9a34slj3qac4qzzqjtjxpu3pzvju2g7ey0a2j` |
+
+The three run in one Bureau (`agents/run.py`) and talk to each other with typed uAgent messages (`agents/models.py`). Only the Care agent is exposed to ASI:One. Addresses come from the seeds in `agents/.env` (git-ignored; create it by starting `run.py` once, then keep it).
+
+**Caregiver in ASI:One:** "How's Dad doing today?", "What medicines is he on?", "Tell him I'll be there at 5" (read aloud on his Qu).
+**Patient in Qu:** "I'm in pain" (button, or ring hold with nothing queued) -> Care asks Meds, decides, Notify texts the caregiver, Qu tells the patient what happened.
+
+Tests: `npm test` (browser + hub), `npm run agents:test` (decision logic), and the end-to-end `agents/smoke.py` (see its docstring).
