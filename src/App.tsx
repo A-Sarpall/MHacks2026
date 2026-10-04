@@ -256,21 +256,20 @@ export default function App() {
         const hints = [capture.label, ...capture.alternatives.map((a) => a.label)];
         const medicines = healthRef.current?.meds.map((m) => m.spoken) ?? [];
         const label = await identifyWithClaude(crop, hints, medicines);
-        const patch = label
-          ? {
-              label,
-              confidence: 0,
-              source: "claude" as const,
-              alternatives: [
-                { label: capture.label, score: capture.confidence, source: capture.source === "manual" ? "classifier" as const : capture.source },
-                ...capture.alternatives,
-              ].filter((a) => a.label !== label),
-            }
-          : {};
+        const same = !label || label.trim().toLowerCase() === capture.label.trim().toLowerCase();
+        const patch =
+          label && !same
+            ? {
+                alternatives: [
+                  { label, score: 0, source: "claude" as const },
+                  ...capture.alternatives.filter((a) => a.label !== label),
+                ],
+              }
+            : {};
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { ...patch, refining: false } });
-        if (label) correctSelection(capture.id, label, "claude");
-        if (label && label !== capture.label) showToast(`Claude says: ${label}`);
-        if (sayNameRef.current) tts.speak(label ?? capture.label).catch(() => {});
+        if (label && !same) showToast(`Could also be: ${label}`);
+        if (label && isMedicationLabel(label) && setupViewRef.current) void runMedCheck({ image: canvasToJpegBase64(crop) }, capture.id);
+        if (sayNameRef.current) tts.speak(capture.label).catch(() => {});
       } catch (err) {
         console.warn("[identify] Claude vision failed", err);
         dispatch({ type: "UPDATE_CAPTURE", id: capture.id, patch: { refining: false } });
@@ -296,13 +295,17 @@ export default function App() {
     setTimeout(() => cameraRef.current?.unfreeze(), unfreezeAfterMs);
   }, []);
 
+  const captureBusyRef = useRef(false);
   const ringCapture = useCallback(
     (level: number) => {
+      if (captureBusyRef.current) return;
+      captureBusyRef.current = true;
       reviewRef.current = null;
+      const seq = ++scanSeq.current;
       cameraRef.current
         ?.capture()
         .then(async (target) => {
-          if (!target) return;
+          if (!target || seq !== scanSeq.current) return;
           feedbackRef.current("captured");
           // A contact holding up their Qu QR code means "message them privately", not "name an object".
           const qrId = readContactQr(target.image);
@@ -335,7 +338,7 @@ export default function App() {
             })
           );
           if (res.tooSmall) setHint({ text: "Move closer", key: Date.now() });
-          const seq = ++scanSeq.current;
+          if (seq !== scanSeq.current) return;
           if (res.empty && hasClaude()) {
             setHint({ text: "Not sure. Asking Claude…", key: Date.now() });
             dispatch({ type: "SET_STATUS", status: "identifying" });
@@ -378,6 +381,9 @@ export default function App() {
           console.warn("[capture]", err);
           feedbackRef.current("error");
           showToast(String((err as Error)?.message ?? "Could not take a picture"));
+        })
+        .finally(() => {
+          captureBusyRef.current = false;
         });
     },
     [commitCapture, endScan, showToast, dispatch]
@@ -401,6 +407,7 @@ export default function App() {
 
   const retake = useCallback(
     (fromLevel: number) => {
+      scanSeq.current++;
       setScan(null);
       cameraRef.current?.unfreeze();
       ringCapture(Math.min(2, fromLevel + 1));
