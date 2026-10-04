@@ -5,14 +5,13 @@ export interface Offer {
 }
 
 export class RepeatCoalescer {
-  private last: { text: string; at: number; count: number; held: number } | null = null;
-
+  private last: { text: string; at: number; count: number; held: number; reportedAt: number } | null = null;
   private windowMs: number;
-  private quietMs: number;
+  private updateMs: number;
 
-  constructor(windowMs = 120_000, quietMs = 30_000) {
+  constructor(windowMs = 120_000, updateMs = 30_000) {
     this.windowMs = windowMs;
-    this.quietMs = quietMs;
+    this.updateMs = updateMs;
   }
 
   offer(text: string, now: number): Offer {
@@ -23,23 +22,25 @@ export class RepeatCoalescer {
       l.held++;
       return { action: "hold", text, count: l.count };
     }
-    this.last = { text, at: now, count: 1, held: 0 };
+    this.last = { text, at: now, count: 1, held: 0, reportedAt: now };
     return { action: "send", text, count: 1 };
   }
 
   flush(now: number): string | null {
     const l = this.last;
-    if (!l || l.held === 0 || now - l.at < this.quietMs) return null;
-    const summary = `${l.text} (said ${l.count} times)`;
+    if (!l || l.held === 0 || now - l.reportedAt < this.updateMs) return null;
     l.held = 0;
-    return summary;
+    l.reportedAt = now;
+    return `${l.text} (said ${l.count} times)`;
   }
 
   pending(): boolean {
     return (this.last?.held ?? 0) > 0;
   }
 
-  quietDelay(): number {
-    return this.quietMs;
+  nextUpdateIn(now: number): number {
+    const l = this.last;
+    if (!l) return this.updateMs;
+    return Math.max(0, this.updateMs - (now - l.reportedAt));
   }
 }
