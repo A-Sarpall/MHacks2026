@@ -1,6 +1,6 @@
 # Layout check phase 1
 
-Generated 2026-10-04T14:59:31.106Z. 10 passed, 18 failed (state x viewport). Checks: scroll, blocks, targets, text, motion, timers.
+Generated 2026-10-04T15:23:30.583Z. 24 passed, 4 failed (state x viewport). Checks: scroll, blocks, targets, text, motion, timers.
 
 ## Run notes (harness fix, two consecutive runs)
 
@@ -15,156 +15,60 @@ Generated 2026-10-04T14:59:31.106Z. 10 passed, 18 failed (state x viewport). Che
 
 | state | viewport | scroll | blocks | targets | text | motion | timers |
 |---|---|---|---|---|---|---|---|
-| nothing-captured | iphone-393x852 | PASS | PASS | PASS | FAIL | PASS | PASS |
-| nothing-captured | iphone-375x667 | PASS | PASS | PASS | FAIL | PASS | PASS |
+| nothing-captured | iphone-393x852 | PASS | PASS | PASS | PASS | PASS | PASS |
+| nothing-captured | iphone-375x667 | PASS | PASS | PASS | PASS | PASS | PASS |
 | nothing-captured | ipad-portrait-820x1180 | PASS | PASS | PASS | PASS | PASS | PASS |
 | nothing-captured | ipad-landscape-1180x820 | PASS | PASS | PASS | PASS | PASS | PASS |
-| captured-no-intent | iphone-393x852 | PASS | PASS | PASS | FAIL | PASS | PASS |
-| captured-no-intent | iphone-375x667 | PASS | PASS | PASS | FAIL | PASS | PASS |
+| captured-no-intent | iphone-393x852 | PASS | PASS | PASS | PASS | PASS | PASS |
+| captured-no-intent | iphone-375x667 | PASS | PASS | PASS | PASS | PASS | PASS |
 | captured-no-intent | ipad-portrait-820x1180 | PASS | PASS | PASS | PASS | PASS | PASS |
 | captured-no-intent | ipad-landscape-1180x820 | PASS | PASS | PASS | PASS | PASS | PASS |
-| intent-chosen | iphone-393x852 | PASS | PASS | PASS | FAIL | PASS | PASS |
-| intent-chosen | iphone-375x667 | PASS | FAIL | PASS | FAIL | PASS | PASS |
+| intent-chosen | iphone-393x852 | PASS | PASS | PASS | PASS | PASS | PASS |
+| intent-chosen | iphone-375x667 | PASS | PASS | PASS | PASS | PASS | PASS |
 | intent-chosen | ipad-portrait-820x1180 | PASS | PASS | PASS | PASS | PASS | PASS |
 | intent-chosen | ipad-landscape-1180x820 | PASS | PASS | PASS | PASS | PASS | PASS |
-| builder-slot-filled | iphone-393x852 | PASS | PASS | PASS | FAIL | PASS | PASS |
-| builder-slot-filled | iphone-375x667 | PASS | FAIL | PASS | FAIL | PASS | PASS |
+| builder-slot-filled | iphone-393x852 | PASS | PASS | PASS | PASS | PASS | PASS |
+| builder-slot-filled | iphone-375x667 | PASS | PASS | PASS | PASS | PASS | PASS |
 | builder-slot-filled | ipad-portrait-820x1180 | PASS | PASS | PASS | PASS | PASS | PASS |
 | builder-slot-filled | ipad-landscape-1180x820 | PASS | PASS | PASS | PASS | PASS | PASS |
-| overstimulated | iphone-393x852 | PASS | PASS | PASS | FAIL | PASS | PASS |
-| overstimulated | iphone-375x667 | PASS | PASS | PASS | FAIL | PASS | PASS |
+| overstimulated | iphone-393x852 | PASS | PASS | PASS | PASS | PASS | PASS |
+| overstimulated | iphone-375x667 | PASS | PASS | PASS | PASS | PASS | PASS |
 | overstimulated | ipad-portrait-820x1180 | PASS | PASS | PASS | PASS | PASS | PASS |
 | overstimulated | ipad-landscape-1180x820 | PASS | PASS | PASS | PASS | PASS | PASS |
-| help-panel | iphone-393x852 | PASS | FAIL | FAIL | FAIL | PASS | PASS |
-| help-panel | iphone-375x667 | PASS | FAIL | FAIL | FAIL | PASS | PASS |
-| help-panel | ipad-portrait-820x1180 | PASS | PASS | FAIL | FAIL | PASS | PASS |
-| help-panel | ipad-landscape-1180x820 | PASS | PASS | FAIL | FAIL | PASS | PASS |
-| incoming-message | iphone-393x852 | PASS | FAIL | FAIL | FAIL | PASS | PASS |
-| incoming-message | iphone-375x667 | PASS | FAIL | FAIL | FAIL | PASS | PASS |
-| incoming-message | ipad-portrait-820x1180 | PASS | PASS | FAIL | PASS | PASS | PASS |
-| incoming-message | ipad-landscape-1180x820 | PASS | PASS | FAIL | PASS | PASS | PASS |
+| help-panel | iphone-393x852 | PASS | FAIL | PASS | PASS | PASS | PASS |
+| help-panel | iphone-375x667 | PASS | FAIL | PASS | PASS | PASS | PASS |
+| help-panel | ipad-portrait-820x1180 | PASS | PASS | PASS | PASS | PASS | PASS |
+| help-panel | ipad-landscape-1180x820 | PASS | PASS | PASS | PASS | PASS | PASS |
+| incoming-message | iphone-393x852 | PASS | FAIL | PASS | PASS | PASS | PASS |
+| incoming-message | iphone-375x667 | PASS | FAIL | PASS | PASS | PASS | PASS |
+| incoming-message | ipad-portrait-820x1180 | PASS | PASS | PASS | PASS | PASS | PASS |
+| incoming-message | ipad-landscape-1180x820 | PASS | PASS | PASS | PASS | PASS | PASS |
 
 ## Failures
-
-### nothing-captured / iphone-393x852
-
-Screenshot: eval-results/layout/nothing-captured-iphone-393x852.png
-
-- **text**: button[quick-phrase] "I need a break" 16px; button[quick-phrase] "It's too loud" 16px; button[quick-phrase] "Stop" 16px; button[quick-phrase] "Please wait" 16px; button[quick-phrase] "I'm overstimulated" 16px; button[quick-phrase] "I need help" 16px
-
-### nothing-captured / iphone-375x667
-
-Screenshot: eval-results/layout/nothing-captured-iphone-375x667.png
-
-- **text**: button[quick-phrase] "I need a break" 14px; button[quick-phrase] "It's too loud" 14px; button[quick-phrase] "Stop" 14px; button[quick-phrase] "Please wait" 14px; button[quick-phrase] "I'm overstimulated" 14px; button[quick-phrase] "I need help" 14px
-
-### captured-no-intent / iphone-393x852
-
-Screenshot: eval-results/layout/captured-no-intent-iphone-393x852.png
-
-- **text**: button[quick-phrase] "I need a break" 16px; button[quick-phrase] "It's too loud" 16px; button[quick-phrase] "Stop" 16px; button[quick-phrase] "Please wait" 16px; button[quick-phrase] "I'm overstimulated" 16px; button[quick-phrase] "I need help" 16px
-
-### captured-no-intent / iphone-375x667
-
-Screenshot: eval-results/layout/captured-no-intent-iphone-375x667.png
-
-- **text**: button[quick-phrase] "I need a break" 14px; button[quick-phrase] "It's too loud" 14px; button[quick-phrase] "Stop" 14px; button[quick-phrase] "Please wait" 14px; button[quick-phrase] "I'm overstimulated" 14px; button[quick-phrase] "I need help" 14px
-
-### intent-chosen / iphone-393x852
-
-Screenshot: eval-results/layout/intent-chosen-iphone-393x852.png
-
-- **text**: button[build-option] "want" 16px; button[build-option] "need" 16px; button[build-option] "would like" 16px; button[build-option] "will drink from" 16px; button[build-option] "need to fill" 16px; button[build-option] "want to wash" 16px; button[quick-phrase] "I need a break" 16px; button[quick-phrase] "It's too loud" 16px; button[quick-phrase] "Stop" 16px; button[quick-phrase] "Please wait" 16px; button[quick-phrase] "I'm overstimulated" 16px; button[quick-phrase] "I need help" 16px
-
-### intent-chosen / iphone-375x667
-
-Screenshot: eval-results/layout/intent-chosen-iphone-375x667.png
-
-- **blocks**: all blocks in view; candidates fully visible 2/4
-- **text**: button[build-option] "want" 14px; button[build-option] "need" 14px; button[build-option] "would like" 14px; button[build-option] "will drink from" 14px; button[build-option] "need to fill" 14px; button[build-option] "want to wash" 14px; button[quick-phrase] "I need a break" 14px; button[quick-phrase] "It's too loud" 14px; button[quick-phrase] "Stop" 14px; button[quick-phrase] "Please wait" 14px; button[quick-phrase] "I'm overstimulated" 14px; button[quick-phrase] "I need help" 14px
-
-### builder-slot-filled / iphone-393x852
-
-Screenshot: eval-results/layout/builder-slot-filled-iphone-393x852.png
-
-- **text**: button[build-option] "now" 16px; button[build-option] "please" 16px; button[build-option] "later" 16px; button[build-option] "today" 16px; button[build-option] "with coffee" 16px; button[build-option] "nothing" 16px; button[quick-phrase] "I need a break" 16px; button[quick-phrase] "It's too loud" 16px; button[quick-phrase] "Stop" 16px; button[quick-phrase] "Please wait" 16px; button[quick-phrase] "I'm overstimulated" 16px; button[quick-phrase] "I need help" 16px
-
-### builder-slot-filled / iphone-375x667
-
-Screenshot: eval-results/layout/builder-slot-filled-iphone-375x667.png
-
-- **blocks**: all blocks in view; candidates fully visible 2/4
-- **text**: button[build-option] "now" 14px; button[build-option] "please" 14px; button[build-option] "later" 14px; button[build-option] "today" 14px; button[build-option] "with coffee" 14px; button[build-option] "nothing" 14px; button[quick-phrase] "I need a break" 14px; button[quick-phrase] "It's too loud" 14px; button[quick-phrase] "Stop" 14px; button[quick-phrase] "Please wait" 14px; button[quick-phrase] "I'm overstimulated" 14px; button[quick-phrase] "I need help" 14px
-
-### overstimulated / iphone-393x852
-
-Screenshot: eval-results/layout/overstimulated-iphone-393x852.png
-
-- **text**: button[quick-phrase] "I need a break" 16px; button[quick-phrase] "It's too loud" 16px; button[quick-phrase] "Stop" 16px; button[quick-phrase] "Please wait" 16px; button[quick-phrase] "I'm overstimulated" 16px; button[quick-phrase] "I need help" 16px
-
-### overstimulated / iphone-375x667
-
-Screenshot: eval-results/layout/overstimulated-iphone-375x667.png
-
-- **text**: button[quick-phrase] "I need a break" 14px; button[quick-phrase] "It's too loud" 14px; button[quick-phrase] "Stop" 14px; button[quick-phrase] "Please wait" 14px; button[quick-phrase] "I'm overstimulated" 14px; button[quick-phrase] "I need help" 14px
 
 ### help-panel / iphone-393x852
 
 Screenshot: eval-results/layout/help-panel-iphone-393x852.png
 
-- **blocks**: not fully in view: candidates (853-857px); candidates fully visible 0/4
-- **targets**: button in [help-panel] "Close" 36x32
-- **text**: button in [help-panel] "Close" 16px; button[build-option] "want" 16px; button[build-option] "need" 16px; button[build-option] "would like" 16px; button[build-option] "will drink from" 16px; button[build-option] "need to fill" 16px; button[build-option] "want to wash" 16px; button[quick-phrase] "I need a break" 16px; button[quick-phrase] "It's too loud" 16px; button[quick-phrase] "Stop" 16px; button[quick-phrase] "Please wait" 16px; button[quick-phrase] "I'm overstimulated" 16px; button[quick-phrase] "I need help" 16px
+- **blocks**: not fully in view: candidates (864-868px), builder (688-856px); candidates fully visible 0/4
 
 ### help-panel / iphone-375x667
 
 Screenshot: eval-results/layout/help-panel-iphone-375x667.png
 
-- **blocks**: not fully in view: candidates (775-779px), builder (615-767px), build option (673-717px); candidates fully visible 0/4
-- **targets**: button in [help-panel] "Close" 36x32
-- **text**: button in [help-panel] "Close" 16px; button[build-option] "want" 14px; button[build-option] "need" 14px; button[build-option] "would like" 14px; button[build-option] "will drink from" 14px; button[build-option] "need to fill" 14px; button[build-option] "want to wash" 14px; button[quick-phrase] "I need a break" 14px; button[quick-phrase] "It's too loud" 14px; button[quick-phrase] "Stop" 14px; button[quick-phrase] "Please wait" 14px; button[quick-phrase] "I'm overstimulated" 14px; button[quick-phrase] "I need help" 14px
-
-### help-panel / ipad-portrait-820x1180
-
-Screenshot: eval-results/layout/help-panel-ipad-portrait-820x1180.png
-
-- **targets**: button in [help-panel] "Close" 36x32
-- **text**: button in [help-panel] "Close" 16px
-
-### help-panel / ipad-landscape-1180x820
-
-Screenshot: eval-results/layout/help-panel-ipad-landscape-1180x820.png
-
-- **targets**: button in [help-panel] "Close" 36x32
-- **text**: button in [help-panel] "Close" 16px
+- **blocks**: not fully in view: candidates (713-717px), builder (561-709px); candidates fully visible 0/4
 
 ### incoming-message / iphone-393x852
 
 Screenshot: eval-results/layout/incoming-message-iphone-393x852.png
 
-- **blocks**: not fully in view: candidates (948-952px), builder (772-940px), build option (830-882px); candidates fully visible 0/4
-- **targets**: button in [incoming-card] "Close" 36x32
-- **text**: button[build-option] "want" 16px; button[build-option] "need" 16px; button[build-option] "would like" 16px; button[build-option] "will drink from" 16px; button[build-option] "need to fill" 16px; button[build-option] "want to wash" 16px; button[quick-phrase] "I need a break" 16px; button[quick-phrase] "It's too loud" 16px; button[quick-phrase] "Stop" 16px; button[quick-phrase] "Please wait" 16px; button[quick-phrase] "I'm overstimulated" 16px; button[quick-phrase] "I need help" 16px
+- **blocks**: not fully in view: candidates (959-963px), builder (783-951px), build option (841-893px); candidates fully visible 0/4
 
 ### incoming-message / iphone-375x667
 
 Screenshot: eval-results/layout/incoming-message-iphone-375x667.png
 
-- **blocks**: not fully in view: intents (628-726px), candidates (894-898px), chosen intent (630-674px), builder (734-886px), build strip (734-786px), build slot (738-782px), build say (734-786px), build option (792-836px); candidates fully visible 0/4
-- **targets**: button in [incoming-card] "Close" 36x32
-- **text**: button[build-option] "want" 14px; button[build-option] "need" 14px; button[build-option] "would like" 14px; button[build-option] "will drink from" 14px; button[build-option] "need to fill" 14px; button[build-option] "want to wash" 14px; button[quick-phrase] "I need a break" 14px; button[quick-phrase] "It's too loud" 14px; button[quick-phrase] "Stop" 14px; button[quick-phrase] "Please wait" 14px; button[quick-phrase] "I'm overstimulated" 14px; button[quick-phrase] "I need help" 14px
-
-### incoming-message / ipad-portrait-820x1180
-
-Screenshot: eval-results/layout/incoming-message-ipad-portrait-820x1180.png
-
-- **targets**: button in [incoming-card] "Close" 36x32
-
-### incoming-message / ipad-landscape-1180x820
-
-Screenshot: eval-results/layout/incoming-message-ipad-landscape-1180x820.png
-
-- **targets**: button in [incoming-card] "Close" 36x32
+- **blocks**: not fully in view: intents (580-676px), candidates (832-836px), builder (680-828px), build strip (680-732px), build slot (684-728px), build say (680-732px), build option (736-780px); candidates fully visible 0/4
 
 ## Screenshots
 

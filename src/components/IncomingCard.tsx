@@ -15,7 +15,7 @@ export function IncomingCard({ pm }: { pm: PrivateMessaging }) {
           <div className="text-xs uppercase tracking-wider text-gray-500">{m.from === "Qu" ? "Message from Qu" : `Text from ${m.from}`}</div>
           <p className="mt-1 text-2xl leading-snug text-gray-900">{m.text}</p>
         </div>
-        <button onClick={pm.dismissIncoming} className="px-3 py-1 rounded-lg text-gray-500 hover:bg-black/5" aria-label="Close">
+        <button onClick={pm.dismissIncoming} className="min-h-11 min-w-11 px-3 py-1 rounded-lg text-lg text-gray-500 hover:bg-black/5" aria-label="Close">
           ✕
         </button>
       </div>

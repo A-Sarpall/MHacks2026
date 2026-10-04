@@ -30,7 +30,7 @@ export function HelpPanel({ contacts, onSay, onText, onClose }: Props) {
           <div className="text-xs uppercase tracking-wider text-gray-500">Help</div>
           <div className="text-xl font-bold text-gray-900">I need help</div>
         </div>
-        <button onClick={onClose} className="px-3 py-1 rounded-lg text-gray-500 hover:bg-black/5" aria-label="Close">
+        <button onClick={onClose} className="min-h-11 min-w-11 px-3 py-1 rounded-lg text-lg text-gray-500 hover:bg-black/5" aria-label="Close">
           ✕
         </button>
       </div>

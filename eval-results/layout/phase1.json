@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T14:59:31.106Z",
+  "generatedAt": "2026-10-04T15:23:30.583Z",
   "states": [
     "nothing-captured",
     "captured-no-intent",
@@ -39,8 +39,8 @@
     "motion",
     "timers"
   ],
-  "passed": 10,
-  "failed": 18,
+  "passed": 24,
+  "failed": 4,
   "results": [
     {
       "state": "nothing-captured",
@@ -61,8 +61,8 @@
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -86,7 +86,7 @@
             "inView": true,
             "rect": {
               "top": 438,
-              "bottom": 578,
+              "bottom": 589,
               "left": 12,
               "right": 381
             }
@@ -145,8 +145,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 586,
-              "bottom": 700,
+              "top": 597,
+              "bottom": 711,
               "left": 12,
               "right": 381
             }
@@ -169,44 +169,7 @@
         "candidatesVisible": 0,
         "scrollers": [],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 16
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -231,8 +194,8 @@
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -255,8 +218,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 392,
-              "bottom": 518,
+              "top": 372,
+              "bottom": 490,
               "left": 12,
               "right": 363
             }
@@ -267,8 +230,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 332,
+              "top": 57,
+              "bottom": 320,
               "left": 12,
               "right": 363
             }
@@ -279,8 +242,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 340,
-              "bottom": 384,
+              "top": 324,
+              "bottom": 368,
               "left": 12,
               "right": 184
             }
@@ -291,8 +254,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 156,
               "right": 290
             }
@@ -303,8 +266,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 68,
               "right": 148
             }
@@ -315,8 +278,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 526,
-              "bottom": 624,
+              "top": 494,
+              "bottom": 590,
               "left": 12,
               "right": 363
             }
@@ -339,44 +302,7 @@
         "candidatesVisible": 0,
         "scrollers": [],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 14
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -667,8 +593,8 @@
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -692,7 +618,7 @@
             "inView": true,
             "rect": {
               "top": 245,
-              "bottom": 385,
+              "bottom": 396,
               "left": 12,
               "right": 381
             }
@@ -754,7 +680,7 @@
               "top": 69,
               "bottom": 153,
               "left": 132,
-              "right": 239
+              "right": 274
             }
           },
           {
@@ -765,7 +691,7 @@
             "rect": {
               "top": 108,
               "bottom": 130,
-              "left": 247,
+              "left": 282,
               "right": 381
             }
           },
@@ -775,8 +701,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 393,
-              "bottom": 507,
+              "top": 404,
+              "bottom": 518,
               "left": 12,
               "right": 381
             }
@@ -787,8 +713,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 515,
-              "bottom": 692,
+              "top": 526,
+              "bottom": 703,
               "left": 12,
               "right": 381
             }
@@ -803,44 +729,7 @@
         "candidatesVisible": 3,
         "scrollers": [],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 16
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -865,8 +754,8 @@
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -889,8 +778,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 213,
-              "bottom": 339,
+              "top": 181,
+              "bottom": 299,
               "left": 12,
               "right": 363
             }
@@ -901,10 +790,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
+              "top": 57,
+              "bottom": 129,
               "left": 12,
-              "right": 124
+              "right": 108
             }
           },
           {
@@ -913,8 +802,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 161,
-              "bottom": 205,
+              "top": 133,
+              "bottom": 177,
               "left": 12,
               "right": 184
             }
@@ -925,8 +814,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 156,
               "right": 290
             }
@@ -937,8 +826,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 68,
               "right": 148
             }
@@ -949,10 +838,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
-              "left": 132,
-              "right": 239
+              "top": 57,
+              "bottom": 129,
+              "left": 116,
+              "right": 242
             }
           },
           {
@@ -961,9 +850,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 108,
-              "bottom": 130,
-              "left": 247,
+              "top": 90,
+              "bottom": 112,
+              "left": 250,
               "right": 363
             }
           },
@@ -973,8 +862,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 347,
-              "bottom": 445,
+              "top": 303,
+              "bottom": 399,
               "left": 12,
               "right": 363
             }
@@ -985,8 +874,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 453,
-              "bottom": 614,
+              "top": 403,
+              "bottom": 560,
               "left": 12,
               "right": 363
             }
@@ -1001,44 +890,7 @@
         "candidatesVisible": 3,
         "scrollers": [],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 14
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -1087,8 +939,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 281,
-              "bottom": 429,
+              "top": 289,
+              "bottom": 437,
               "left": 16,
               "right": 804
             }
@@ -1100,7 +952,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 16,
               "right": 160
             }
@@ -1111,8 +963,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 249,
+              "top": 193,
+              "bottom": 257,
               "left": 16,
               "right": 406
             }
@@ -1148,9 +1000,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 168,
-              "right": 294
+              "right": 346
             }
           },
           {
@@ -1159,9 +1011,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 302,
+              "top": 123,
+              "bottom": 148,
+              "left": 354,
               "right": 804
             }
           },
@@ -1171,8 +1023,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 465,
-              "bottom": 603,
+              "top": 473,
+              "bottom": 611,
               "left": 16,
               "right": 804
             }
@@ -1183,8 +1035,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 611,
-              "bottom": 819,
+              "top": 619,
+              "bottom": 827,
               "left": 16,
               "right": 804
             }
@@ -1248,8 +1100,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 269,
-              "bottom": 407,
+              "top": 277,
+              "bottom": 415,
               "left": 30,
               "right": 472
             }
@@ -1261,7 +1113,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 30,
               "right": 174
             }
@@ -1272,8 +1124,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 237,
+              "top": 193,
+              "bottom": 245,
               "left": 30,
               "right": 247
             }
@@ -1309,9 +1161,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 182,
-              "right": 308
+              "right": 360
             }
           },
           {
@@ -1320,9 +1172,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 316,
+              "top": 123,
+              "bottom": 148,
+              "left": 368,
               "right": 472
             }
           },
@@ -1374,7 +1226,7 @@
       "checks": {
         "scroll": {
           "pass": true,
-          "detail": "page 393x852 in 393x852; scrollers: div[candidates] 172/153"
+          "detail": "page 393x852 in 393x852; scrollers: div[candidates] 172/142"
         },
         "blocks": {
           "pass": true,
@@ -1385,8 +1237,8 @@
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[build-option] \"want\" 16px; button[build-option] \"need\" 16px; button[build-option] \"would like\" 16px; button[build-option] \"will drink from\" 16px; button[build-option] \"need to fill\" 16px; button[build-option] \"want to wash\" 16px; button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -1410,7 +1262,7 @@
             "inView": true,
             "rect": {
               "top": 245,
-              "bottom": 385,
+              "bottom": 396,
               "left": 12,
               "right": 381
             }
@@ -1472,7 +1324,7 @@
               "top": 69,
               "bottom": 153,
               "left": 132,
-              "right": 239
+              "right": 274
             }
           },
           {
@@ -1483,7 +1335,7 @@
             "rect": {
               "top": 108,
               "bottom": 130,
-              "left": 247,
+              "left": 282,
               "right": 381
             }
           },
@@ -1493,8 +1345,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 393,
-              "bottom": 507,
+              "top": 404,
+              "bottom": 518,
               "left": 12,
               "right": 381
             }
@@ -1505,7 +1357,7 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 691,
+              "top": 702,
               "bottom": 844,
               "left": 12,
               "right": 381
@@ -1517,8 +1369,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 395,
-              "bottom": 447,
+              "top": 406,
+              "bottom": 458,
               "left": 14,
               "right": 132
             }
@@ -1529,8 +1381,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 515,
-              "bottom": 683,
+              "top": 526,
+              "bottom": 694,
               "left": 12,
               "right": 381
             }
@@ -1541,8 +1393,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 515,
-              "bottom": 567,
+              "top": 526,
+              "bottom": 578,
               "left": 12,
               "right": 294
             }
@@ -1553,8 +1405,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 519,
-              "bottom": 563,
+              "top": 530,
+              "bottom": 574,
               "left": 33,
               "right": 77
             }
@@ -1565,8 +1417,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 515,
-              "bottom": 567,
+              "top": 526,
+              "bottom": 578,
               "left": 302,
               "right": 381
             }
@@ -1577,8 +1429,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 573,
-              "bottom": 625,
+              "top": 584,
+              "bottom": 636,
               "left": 12,
               "right": 131
             }
@@ -1590,87 +1442,14 @@
           {
             "el": "div[candidates]",
             "scrollHeight": 172,
-            "clientHeight": 153,
+            "clientHeight": 142,
             "scrollWidth": 369,
             "clientWidth": 369,
             "hides": []
           }
         ],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "would like",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "will drink from",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need to fill",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want to wash",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 16
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -1684,19 +1463,19 @@
       "checks": {
         "scroll": {
           "pass": true,
-          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 153/46"
+          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 149/108"
         },
         "blocks": {
-          "pass": false,
-          "detail": "all blocks in view; candidates fully visible 2/4"
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 4/4"
         },
         "targets": {
           "pass": true,
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[build-option] \"want\" 14px; button[build-option] \"need\" 14px; button[build-option] \"would like\" 14px; button[build-option] \"will drink from\" 14px; button[build-option] \"need to fill\" 14px; button[build-option] \"want to wash\" 14px; button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -1719,8 +1498,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 213,
-              "bottom": 339,
+              "top": 181,
+              "bottom": 299,
               "left": 12,
               "right": 363
             }
@@ -1731,10 +1510,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
+              "top": 57,
+              "bottom": 129,
               "left": 12,
-              "right": 124
+              "right": 108
             }
           },
           {
@@ -1743,8 +1522,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 161,
-              "bottom": 205,
+              "top": 133,
+              "bottom": 177,
               "left": 12,
               "right": 184
             }
@@ -1755,8 +1534,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 156,
               "right": 290
             }
@@ -1767,8 +1546,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 68,
               "right": 148
             }
@@ -1779,10 +1558,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
-              "left": 132,
-              "right": 239
+              "top": 57,
+              "bottom": 129,
+              "left": 116,
+              "right": 242
             }
           },
           {
@@ -1791,9 +1570,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 108,
-              "bottom": 130,
-              "left": 247,
+              "top": 90,
+              "bottom": 112,
+              "left": 250,
               "right": 363
             }
           },
@@ -1803,8 +1582,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 347,
-              "bottom": 445,
+              "top": 303,
+              "bottom": 399,
               "left": 12,
               "right": 363
             }
@@ -1815,8 +1594,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 613,
-              "bottom": 659,
+              "top": 555,
+              "bottom": 663,
               "left": 12,
               "right": 363
             }
@@ -1827,10 +1606,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 349,
-              "bottom": 393,
+              "top": 305,
+              "bottom": 349,
               "left": 14,
-              "right": 126
+              "right": 127
             }
           },
           {
@@ -1839,8 +1618,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 453,
-              "bottom": 605,
+              "top": 403,
+              "bottom": 551,
               "left": 12,
               "right": 363
             }
@@ -1851,8 +1630,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 453,
-              "bottom": 505,
+              "top": 403,
+              "bottom": 455,
               "left": 12,
               "right": 276
             }
@@ -1863,8 +1642,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 457,
-              "bottom": 501,
+              "top": 407,
+              "bottom": 451,
               "left": 33,
               "right": 77
             }
@@ -1875,8 +1654,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 453,
-              "bottom": 505,
+              "top": 403,
+              "bottom": 455,
               "left": 284,
               "right": 363
             }
@@ -1887,100 +1666,27 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 511,
-              "bottom": 555,
+              "top": 459,
+              "bottom": 503,
               "left": 12,
-              "right": 125
+              "right": 126
             }
           }
         ],
         "absent": [],
-        "candidatesVisible": 2,
+        "candidatesVisible": 4,
         "scrollers": [
           {
             "el": "div[candidates]",
-            "scrollHeight": 153,
-            "clientHeight": 46,
+            "scrollHeight": 149,
+            "clientHeight": 108,
             "scrollWidth": 351,
             "clientWidth": 351,
             "hides": []
           }
         ],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "would like",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "will drink from",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need to fill",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want to wash",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 14
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -2029,8 +1735,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 281,
-              "bottom": 429,
+              "top": 289,
+              "bottom": 437,
               "left": 16,
               "right": 804
             }
@@ -2042,7 +1748,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 16,
               "right": 160
             }
@@ -2053,8 +1759,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 249,
+              "top": 193,
+              "bottom": 257,
               "left": 16,
               "right": 406
             }
@@ -2090,9 +1796,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 168,
-              "right": 294
+              "right": 346
             }
           },
           {
@@ -2101,9 +1807,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 302,
+              "top": 123,
+              "bottom": 148,
+              "left": 354,
               "right": 804
             }
           },
@@ -2113,8 +1819,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 465,
-              "bottom": 603,
+              "top": 473,
+              "bottom": 611,
               "left": 16,
               "right": 804
             }
@@ -2125,8 +1831,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 823,
-              "bottom": 1031,
+              "top": 831,
+              "bottom": 1039,
               "left": 16,
               "right": 804
             }
@@ -2137,8 +1843,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 467,
-              "bottom": 531,
+              "top": 475,
+              "bottom": 539,
               "left": 18,
               "right": 275
             }
@@ -2149,8 +1855,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 611,
-              "bottom": 815,
+              "top": 619,
+              "bottom": 823,
               "left": 16,
               "right": 804
             }
@@ -2161,8 +1867,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 611,
-              "bottom": 675,
+              "top": 619,
+              "bottom": 683,
               "left": 16,
               "right": 717
             }
@@ -2173,8 +1879,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 621,
-              "bottom": 665,
+              "top": 629,
+              "bottom": 673,
               "left": 37,
               "right": 81
             }
@@ -2185,8 +1891,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 611,
-              "bottom": 675,
+              "top": 619,
+              "bottom": 683,
               "left": 725,
               "right": 804
             }
@@ -2197,8 +1903,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 681,
-              "bottom": 745,
+              "top": 689,
+              "bottom": 753,
               "left": 16,
               "right": 275
             }
@@ -2257,8 +1963,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 269,
-              "bottom": 407,
+              "top": 277,
+              "bottom": 415,
               "left": 30,
               "right": 472
             }
@@ -2270,7 +1976,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 30,
               "right": 174
             }
@@ -2281,8 +1987,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 237,
+              "top": 193,
+              "bottom": 245,
               "left": 30,
               "right": 247
             }
@@ -2318,9 +2024,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 182,
-              "right": 308
+              "right": 360
             }
           },
           {
@@ -2329,9 +2035,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 316,
+              "top": 123,
+              "bottom": 148,
+              "left": 368,
               "right": 472
             }
           },
@@ -2450,7 +2156,7 @@
       "checks": {
         "scroll": {
           "pass": true,
-          "detail": "page 393x852 in 393x852; scrollers: div[candidates] 172/153"
+          "detail": "page 393x852 in 393x852; scrollers: div[candidates] 172/142"
         },
         "blocks": {
           "pass": true,
@@ -2461,8 +2167,8 @@
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[build-option] \"now\" 16px; button[build-option] \"please\" 16px; button[build-option] \"later\" 16px; button[build-option] \"today\" 16px; button[build-option] \"with coffee\" 16px; button[build-option] \"nothing\" 16px; button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -2486,7 +2192,7 @@
             "inView": true,
             "rect": {
               "top": 245,
-              "bottom": 385,
+              "bottom": 396,
               "left": 12,
               "right": 381
             }
@@ -2548,7 +2254,7 @@
               "top": 69,
               "bottom": 153,
               "left": 132,
-              "right": 239
+              "right": 274
             }
           },
           {
@@ -2559,7 +2265,7 @@
             "rect": {
               "top": 108,
               "bottom": 130,
-              "left": 247,
+              "left": 282,
               "right": 381
             }
           },
@@ -2569,8 +2275,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 393,
-              "bottom": 507,
+              "top": 404,
+              "bottom": 518,
               "left": 12,
               "right": 381
             }
@@ -2581,7 +2287,7 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 691,
+              "top": 702,
               "bottom": 844,
               "left": 12,
               "right": 381
@@ -2593,8 +2299,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 395,
-              "bottom": 447,
+              "top": 406,
+              "bottom": 458,
               "left": 14,
               "right": 132
             }
@@ -2605,8 +2311,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 515,
-              "bottom": 683,
+              "top": 526,
+              "bottom": 694,
               "left": 12,
               "right": 381
             }
@@ -2617,8 +2323,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 515,
-              "bottom": 567,
+              "top": 526,
+              "bottom": 578,
               "left": 12,
               "right": 294
             }
@@ -2629,8 +2335,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 519,
-              "bottom": 563,
+              "top": 530,
+              "bottom": 574,
               "left": 33,
               "right": 90
             }
@@ -2641,8 +2347,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 515,
-              "bottom": 567,
+              "top": 526,
+              "bottom": 578,
               "left": 302,
               "right": 381
             }
@@ -2653,8 +2359,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 573,
-              "bottom": 625,
+              "top": 584,
+              "bottom": 636,
               "left": 12,
               "right": 131
             }
@@ -2666,87 +2372,14 @@
           {
             "el": "div[candidates]",
             "scrollHeight": 172,
-            "clientHeight": 153,
+            "clientHeight": 142,
             "scrollWidth": 369,
             "clientWidth": 369,
             "hides": []
           }
         ],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "now",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "please",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "later",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "today",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "with coffee",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "nothing",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 16
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -2760,19 +2393,19 @@
       "checks": {
         "scroll": {
           "pass": true,
-          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 153/46"
+          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 149/108"
         },
         "blocks": {
-          "pass": false,
-          "detail": "all blocks in view; candidates fully visible 2/4"
+          "pass": true,
+          "detail": "all blocks in view; candidates fully visible 4/4"
         },
         "targets": {
           "pass": true,
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[build-option] \"now\" 14px; button[build-option] \"please\" 14px; button[build-option] \"later\" 14px; button[build-option] \"today\" 14px; button[build-option] \"with coffee\" 14px; button[build-option] \"nothing\" 14px; button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -2795,8 +2428,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 213,
-              "bottom": 339,
+              "top": 181,
+              "bottom": 299,
               "left": 12,
               "right": 363
             }
@@ -2807,10 +2440,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
+              "top": 57,
+              "bottom": 129,
               "left": 12,
-              "right": 124
+              "right": 108
             }
           },
           {
@@ -2819,8 +2452,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 161,
-              "bottom": 205,
+              "top": 133,
+              "bottom": 177,
               "left": 12,
               "right": 184
             }
@@ -2831,8 +2464,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 156,
               "right": 290
             }
@@ -2843,8 +2476,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 68,
               "right": 148
             }
@@ -2855,10 +2488,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
-              "left": 132,
-              "right": 239
+              "top": 57,
+              "bottom": 129,
+              "left": 116,
+              "right": 242
             }
           },
           {
@@ -2867,9 +2500,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 108,
-              "bottom": 130,
-              "left": 247,
+              "top": 90,
+              "bottom": 112,
+              "left": 250,
               "right": 363
             }
           },
@@ -2879,8 +2512,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 347,
-              "bottom": 445,
+              "top": 303,
+              "bottom": 399,
               "left": 12,
               "right": 363
             }
@@ -2891,8 +2524,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 613,
-              "bottom": 659,
+              "top": 555,
+              "bottom": 663,
               "left": 12,
               "right": 363
             }
@@ -2903,10 +2536,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 349,
-              "bottom": 393,
+              "top": 305,
+              "bottom": 349,
               "left": 14,
-              "right": 126
+              "right": 127
             }
           },
           {
@@ -2915,8 +2548,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 453,
-              "bottom": 605,
+              "top": 403,
+              "bottom": 551,
               "left": 12,
               "right": 363
             }
@@ -2927,8 +2560,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 453,
-              "bottom": 505,
+              "top": 403,
+              "bottom": 455,
               "left": 12,
               "right": 276
             }
@@ -2939,8 +2572,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 457,
-              "bottom": 501,
+              "top": 407,
+              "bottom": 451,
               "left": 33,
               "right": 90
             }
@@ -2951,8 +2584,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 453,
-              "bottom": 505,
+              "top": 403,
+              "bottom": 455,
               "left": 284,
               "right": 363
             }
@@ -2963,100 +2596,27 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 511,
-              "bottom": 555,
+              "top": 459,
+              "bottom": 503,
               "left": 12,
-              "right": 125
+              "right": 126
             }
           }
         ],
         "absent": [],
-        "candidatesVisible": 2,
+        "candidatesVisible": 4,
         "scrollers": [
           {
             "el": "div[candidates]",
-            "scrollHeight": 153,
-            "clientHeight": 46,
+            "scrollHeight": 149,
+            "clientHeight": 108,
             "scrollWidth": 351,
             "clientWidth": 351,
             "hides": []
           }
         ],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "now",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "please",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "later",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "today",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "with coffee",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "nothing",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 14
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -3105,8 +2665,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 281,
-              "bottom": 429,
+              "top": 289,
+              "bottom": 437,
               "left": 16,
               "right": 804
             }
@@ -3118,7 +2678,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 16,
               "right": 160
             }
@@ -3129,8 +2689,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 249,
+              "top": 193,
+              "bottom": 257,
               "left": 16,
               "right": 406
             }
@@ -3166,9 +2726,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 168,
-              "right": 294
+              "right": 346
             }
           },
           {
@@ -3177,9 +2737,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 302,
+              "top": 123,
+              "bottom": 148,
+              "left": 354,
               "right": 804
             }
           },
@@ -3189,8 +2749,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 465,
-              "bottom": 603,
+              "top": 473,
+              "bottom": 611,
               "left": 16,
               "right": 804
             }
@@ -3201,8 +2761,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 823,
-              "bottom": 1031,
+              "top": 831,
+              "bottom": 1039,
               "left": 16,
               "right": 804
             }
@@ -3213,8 +2773,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 467,
-              "bottom": 531,
+              "top": 475,
+              "bottom": 539,
               "left": 18,
               "right": 275
             }
@@ -3225,8 +2785,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 611,
-              "bottom": 815,
+              "top": 619,
+              "bottom": 823,
               "left": 16,
               "right": 804
             }
@@ -3237,8 +2797,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 611,
-              "bottom": 675,
+              "top": 619,
+              "bottom": 683,
               "left": 16,
               "right": 717
             }
@@ -3249,8 +2809,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 621,
-              "bottom": 665,
+              "top": 629,
+              "bottom": 673,
               "left": 37,
               "right": 94
             }
@@ -3261,8 +2821,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 611,
-              "bottom": 675,
+              "top": 619,
+              "bottom": 683,
               "left": 725,
               "right": 804
             }
@@ -3273,8 +2833,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 681,
-              "bottom": 745,
+              "top": 689,
+              "bottom": 753,
               "left": 16,
               "right": 275
             }
@@ -3333,8 +2893,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 269,
-              "bottom": 407,
+              "top": 277,
+              "bottom": 415,
               "left": 30,
               "right": 472
             }
@@ -3346,7 +2906,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 30,
               "right": 174
             }
@@ -3357,8 +2917,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 237,
+              "top": 193,
+              "bottom": 245,
               "left": 30,
               "right": 247
             }
@@ -3394,9 +2954,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 182,
-              "right": 308
+              "right": 360
             }
           },
           {
@@ -3405,9 +2965,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 316,
+              "top": 123,
+              "bottom": 148,
+              "left": 368,
               "right": 472
             }
           },
@@ -3537,8 +3097,8 @@
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -3562,7 +3122,7 @@
             "inView": true,
             "rect": {
               "top": 385,
-              "bottom": 525,
+              "bottom": 536,
               "left": 12,
               "right": 381
             }
@@ -3669,44 +3229,7 @@
         "candidatesVisible": 0,
         "scrollers": [],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 16
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -3731,8 +3254,8 @@
           "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -3755,8 +3278,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 369,
-              "bottom": 495,
+              "top": 345,
+              "bottom": 463,
               "left": 12,
               "right": 363
             }
@@ -3767,8 +3290,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 189,
+              "top": 57,
+              "bottom": 177,
               "left": 12,
               "right": 172
             }
@@ -3779,8 +3302,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 317,
-              "bottom": 361,
+              "top": 297,
+              "bottom": 341,
               "left": 12,
               "right": 184
             }
@@ -3791,8 +3314,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 138,
               "right": 290
             }
@@ -3803,8 +3326,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 49,
               "right": 130
             }
@@ -3815,8 +3338,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 211,
-              "bottom": 295,
+              "top": 195,
+              "bottom": 279,
               "left": 30,
               "right": 243
             }
@@ -3827,8 +3350,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 219,
-              "bottom": 287,
+              "top": 203,
+              "bottom": 271,
               "left": 255,
               "right": 345
             }
@@ -3839,8 +3362,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 138,
               "right": 290
             }
@@ -3863,44 +3386,7 @@
         "candidatesVisible": 0,
         "scrollers": [],
         "small": [],
-        "smallText": [
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 14
-          }
-        ],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -4232,15 +3718,15 @@
         },
         "blocks": {
           "pass": false,
-          "detail": "not fully in view: candidates (853-857px); candidates fully visible 0/4"
+          "detail": "not fully in view: candidates (864-868px), builder (688-856px); candidates fully visible 0/4"
         },
         "targets": {
-          "pass": false,
-          "detail": "button in [help-panel] \"Close\" 36x32"
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button in [help-panel] \"Close\" 16px; button[build-option] \"want\" 16px; button[build-option] \"need\" 16px; button[build-option] \"would like\" 16px; button[build-option] \"will drink from\" 16px; button[build-option] \"need to fill\" 16px; button[build-option] \"want to wash\" 16px; button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -4264,7 +3750,7 @@
             "inView": true,
             "rect": {
               "top": 407,
-              "bottom": 547,
+              "bottom": 558,
               "left": 12,
               "right": 381
             }
@@ -4326,7 +3812,7 @@
               "top": 69,
               "bottom": 153,
               "left": 132,
-              "right": 239
+              "right": 274
             }
           },
           {
@@ -4337,7 +3823,7 @@
             "rect": {
               "top": 108,
               "bottom": 130,
-              "left": 247,
+              "left": 282,
               "right": 381
             }
           },
@@ -4347,8 +3833,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 555,
-              "bottom": 669,
+              "top": 566,
+              "bottom": 680,
               "left": 12,
               "right": 381
             }
@@ -4359,8 +3845,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 853,
-              "bottom": 857,
+              "top": 864,
+              "bottom": 868,
               "left": 12,
               "right": 381
             }
@@ -4371,8 +3857,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 557,
-              "bottom": 609,
+              "top": 568,
+              "bottom": 620,
               "left": 14,
               "right": 132
             }
@@ -4381,10 +3867,10 @@
             "name": "builder",
             "sel": "[data-testid=build]",
             "found": true,
-            "inView": true,
+            "inView": false,
             "rect": {
-              "top": 677,
-              "bottom": 845,
+              "top": 688,
+              "bottom": 856,
               "left": 12,
               "right": 381
             }
@@ -4395,8 +3881,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 677,
-              "bottom": 729,
+              "top": 688,
+              "bottom": 740,
               "left": 12,
               "right": 294
             }
@@ -4407,8 +3893,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 681,
-              "bottom": 725,
+              "top": 692,
+              "bottom": 736,
               "left": 33,
               "right": 77
             }
@@ -4419,8 +3905,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 677,
-              "bottom": 729,
+              "top": 688,
+              "bottom": 740,
               "left": 302,
               "right": 381
             }
@@ -4431,8 +3917,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 735,
-              "bottom": 787,
+              "top": 746,
+              "bottom": 798,
               "left": 12,
               "right": 131
             }
@@ -4456,8 +3942,8 @@
             "inView": true,
             "rect": {
               "top": 179,
-              "bottom": 211,
-              "left": 327,
+              "bottom": 223,
+              "left": 319,
               "right": 363
             }
           }
@@ -4474,94 +3960,8 @@
             "hides": []
           }
         ],
-        "small": [
-          {
-            "el": "button in [help-panel]",
-            "text": "Close",
-            "w": 36,
-            "h": 32
-          }
-        ],
-        "smallText": [
-          {
-            "sel": "[data-testid=help-panel] button",
-            "el": "button in [help-panel]",
-            "text": "Close",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "would like",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "will drink from",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need to fill",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want to wash",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 16
-          }
-        ],
+        "small": [],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -4575,19 +3975,19 @@
       "checks": {
         "scroll": {
           "pass": true,
-          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 153/4"
+          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 149/4"
         },
         "blocks": {
           "pass": false,
-          "detail": "not fully in view: candidates (775-779px), builder (615-767px), build option (673-717px); candidates fully visible 0/4"
+          "detail": "not fully in view: candidates (713-717px), builder (561-709px); candidates fully visible 0/4"
         },
         "targets": {
-          "pass": false,
-          "detail": "button in [help-panel] \"Close\" 36x32"
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button in [help-panel] \"Close\" 16px; button[build-option] \"want\" 14px; button[build-option] \"need\" 14px; button[build-option] \"would like\" 14px; button[build-option] \"will drink from\" 14px; button[build-option] \"need to fill\" 14px; button[build-option] \"want to wash\" 14px; button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -4610,8 +4010,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 375,
-              "bottom": 501,
+              "top": 339,
+              "bottom": 457,
               "left": 12,
               "right": 363
             }
@@ -4622,10 +4022,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
+              "top": 57,
+              "bottom": 129,
               "left": 12,
-              "right": 124
+              "right": 108
             }
           },
           {
@@ -4634,8 +4034,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 323,
-              "bottom": 367,
+              "top": 291,
+              "bottom": 335,
               "left": 12,
               "right": 184
             }
@@ -4646,8 +4046,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 156,
               "right": 290
             }
@@ -4658,8 +4058,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 68,
               "right": 148
             }
@@ -4670,10 +4070,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
-              "left": 132,
-              "right": 239
+              "top": 57,
+              "bottom": 129,
+              "left": 116,
+              "right": 242
             }
           },
           {
@@ -4682,9 +4082,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 108,
-              "bottom": 130,
-              "left": 247,
+              "top": 90,
+              "bottom": 112,
+              "left": 250,
               "right": 363
             }
           },
@@ -4694,8 +4094,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 509,
-              "bottom": 607,
+              "top": 461,
+              "bottom": 557,
               "left": 12,
               "right": 363
             }
@@ -4706,8 +4106,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 775,
-              "bottom": 779,
+              "top": 713,
+              "bottom": 717,
               "left": 12,
               "right": 363
             }
@@ -4718,10 +4118,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 511,
-              "bottom": 555,
+              "top": 463,
+              "bottom": 507,
               "left": 14,
-              "right": 126
+              "right": 127
             }
           },
           {
@@ -4730,8 +4130,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 615,
-              "bottom": 767,
+              "top": 561,
+              "bottom": 709,
               "left": 12,
               "right": 363
             }
@@ -4742,8 +4142,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 615,
-              "bottom": 667,
+              "top": 561,
+              "bottom": 613,
               "left": 12,
               "right": 276
             }
@@ -4754,8 +4154,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 619,
-              "bottom": 663,
+              "top": 565,
+              "bottom": 609,
               "left": 33,
               "right": 77
             }
@@ -4766,8 +4166,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 615,
-              "bottom": 667,
+              "top": 561,
+              "bottom": 613,
               "left": 284,
               "right": 363
             }
@@ -4776,12 +4176,12 @@
             "name": "build option",
             "sel": "[data-testid=build-option]",
             "found": true,
-            "inView": false,
+            "inView": true,
             "rect": {
-              "top": 673,
-              "bottom": 717,
+              "top": 617,
+              "bottom": 661,
               "left": 12,
-              "right": 125
+              "right": 126
             }
           },
           {
@@ -4790,8 +4190,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 161,
-              "bottom": 315,
+              "top": 133,
+              "bottom": 287,
               "left": 12,
               "right": 363
             }
@@ -4802,9 +4202,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 179,
-              "bottom": 211,
-              "left": 309,
+              "top": 151,
+              "bottom": 195,
+              "left": 301,
               "right": 345
             }
           }
@@ -4814,101 +4214,15 @@
         "scrollers": [
           {
             "el": "div[candidates]",
-            "scrollHeight": 153,
+            "scrollHeight": 149,
             "clientHeight": 4,
             "scrollWidth": 351,
             "clientWidth": 351,
             "hides": []
           }
         ],
-        "small": [
-          {
-            "el": "button in [help-panel]",
-            "text": "Close",
-            "w": 36,
-            "h": 32
-          }
-        ],
-        "smallText": [
-          {
-            "sel": "[data-testid=help-panel] button",
-            "el": "button in [help-panel]",
-            "text": "Close",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "would like",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "will drink from",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need to fill",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want to wash",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 14
-          }
-        ],
+        "small": [],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -4922,19 +4236,19 @@
       "checks": {
         "scroll": {
           "pass": true,
-          "detail": "page 820x1180 in 820x1180; scrollers: div[candidates] 208/187"
+          "detail": "page 820x1180 in 820x1180; scrollers: div[candidates] 208/179"
         },
         "blocks": {
           "pass": true,
           "detail": "all blocks in view; candidates fully visible 4/4"
         },
         "targets": {
-          "pass": false,
-          "detail": "button in [help-panel] \"Close\" 36x32"
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button in [help-panel] \"Close\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -4957,8 +4271,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 443,
-              "bottom": 591,
+              "top": 451,
+              "bottom": 599,
               "left": 16,
               "right": 804
             }
@@ -4970,7 +4284,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 16,
               "right": 160
             }
@@ -4981,8 +4295,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 347,
-              "bottom": 411,
+              "top": 355,
+              "bottom": 419,
               "left": 16,
               "right": 406
             }
@@ -5018,9 +4332,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 168,
-              "right": 294
+              "right": 346
             }
           },
           {
@@ -5029,9 +4343,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 302,
+              "top": 123,
+              "bottom": 148,
+              "left": 354,
               "right": 804
             }
           },
@@ -5041,8 +4355,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 627,
-              "bottom": 765,
+              "top": 635,
+              "bottom": 773,
               "left": 16,
               "right": 804
             }
@@ -5053,7 +4367,7 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 985,
+              "top": 993,
               "bottom": 1172,
               "left": 16,
               "right": 804
@@ -5065,8 +4379,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 629,
-              "bottom": 693,
+              "top": 637,
+              "bottom": 701,
               "left": 18,
               "right": 275
             }
@@ -5077,8 +4391,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 773,
-              "bottom": 977,
+              "top": 781,
+              "bottom": 985,
               "left": 16,
               "right": 804
             }
@@ -5089,8 +4403,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 773,
-              "bottom": 837,
+              "top": 781,
+              "bottom": 845,
               "left": 16,
               "right": 717
             }
@@ -5101,8 +4415,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 783,
-              "bottom": 827,
+              "top": 791,
+              "bottom": 835,
               "left": 37,
               "right": 81
             }
@@ -5113,8 +4427,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 773,
-              "bottom": 837,
+              "top": 781,
+              "bottom": 845,
               "left": 725,
               "right": 804
             }
@@ -5125,8 +4439,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 843,
-              "bottom": 907,
+              "top": 851,
+              "bottom": 915,
               "left": 16,
               "right": 275
             }
@@ -5137,8 +4451,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 339,
+              "top": 193,
+              "bottom": 347,
               "left": 16,
               "right": 688
             }
@@ -5149,9 +4463,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 203,
-              "bottom": 235,
-              "left": 634,
+              "top": 211,
+              "bottom": 255,
+              "left": 626,
               "right": 670
             }
           }
@@ -5162,28 +4476,14 @@
           {
             "el": "div[candidates]",
             "scrollHeight": 208,
-            "clientHeight": 187,
+            "clientHeight": 179,
             "scrollWidth": 788,
             "clientWidth": 788,
             "hides": []
           }
         ],
-        "small": [
-          {
-            "el": "button in [help-panel]",
-            "text": "Close",
-            "w": 36,
-            "h": 32
-          }
-        ],
-        "smallText": [
-          {
-            "sel": "[data-testid=help-panel] button",
-            "el": "button in [help-panel]",
-            "text": "Close",
-            "size": 16
-          }
-        ],
+        "small": [],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -5204,12 +4504,12 @@
           "detail": "all blocks in view; candidates fully visible 6/4"
         },
         "targets": {
-          "pass": false,
-          "detail": "button in [help-panel] \"Close\" 36x32"
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button in [help-panel] \"Close\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -5232,8 +4532,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 431,
-              "bottom": 569,
+              "top": 439,
+              "bottom": 577,
               "left": 30,
               "right": 472
             }
@@ -5245,7 +4545,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 30,
               "right": 174
             }
@@ -5256,8 +4556,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 347,
-              "bottom": 399,
+              "top": 355,
+              "bottom": 407,
               "left": 30,
               "right": 247
             }
@@ -5293,9 +4593,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 182,
-              "right": 308
+              "right": 360
             }
           },
           {
@@ -5304,9 +4604,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 316,
+              "top": 123,
+              "bottom": 148,
+              "left": 368,
               "right": 472
             }
           },
@@ -5412,8 +4712,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 339,
+              "top": 193,
+              "bottom": 347,
               "left": 30,
               "right": 472
             }
@@ -5424,9 +4724,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 203,
-              "bottom": 235,
-              "left": 417,
+              "top": 211,
+              "bottom": 255,
+              "left": 410,
               "right": 454
             }
           }
@@ -5434,22 +4734,8 @@
         "absent": [],
         "candidatesVisible": 6,
         "scrollers": [],
-        "small": [
-          {
-            "el": "button in [help-panel]",
-            "text": "Close",
-            "w": 36,
-            "h": 32
-          }
-        ],
-        "smallText": [
-          {
-            "sel": "[data-testid=help-panel] button",
-            "el": "button in [help-panel]",
-            "text": "Close",
-            "size": 16
-          }
-        ],
+        "small": [],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -5467,15 +4753,15 @@
         },
         "blocks": {
           "pass": false,
-          "detail": "not fully in view: candidates (948-952px), builder (772-940px), build option (830-882px); candidates fully visible 0/4"
+          "detail": "not fully in view: candidates (959-963px), builder (783-951px), build option (841-893px); candidates fully visible 0/4"
         },
         "targets": {
-          "pass": false,
-          "detail": "button in [incoming-card] \"Close\" 36x32"
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[build-option] \"want\" 16px; button[build-option] \"need\" 16px; button[build-option] \"would like\" 16px; button[build-option] \"will drink from\" 16px; button[build-option] \"need to fill\" 16px; button[build-option] \"want to wash\" 16px; button[quick-phrase] \"I need a break\" 16px; button[quick-phrase] \"It's too loud\" 16px; button[quick-phrase] \"Stop\" 16px; button[quick-phrase] \"Please wait\" 16px; button[quick-phrase] \"I'm overstimulated\" 16px; button[quick-phrase] \"I need help\" 16px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -5499,7 +4785,7 @@
             "inView": true,
             "rect": {
               "top": 502,
-              "bottom": 642,
+              "bottom": 653,
               "left": 12,
               "right": 381
             }
@@ -5561,7 +4847,7 @@
               "top": 69,
               "bottom": 153,
               "left": 132,
-              "right": 239
+              "right": 274
             }
           },
           {
@@ -5572,7 +4858,7 @@
             "rect": {
               "top": 108,
               "bottom": 130,
-              "left": 247,
+              "left": 282,
               "right": 381
             }
           },
@@ -5582,8 +4868,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 650,
-              "bottom": 764,
+              "top": 661,
+              "bottom": 775,
               "left": 12,
               "right": 381
             }
@@ -5594,8 +4880,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 948,
-              "bottom": 952,
+              "top": 959,
+              "bottom": 963,
               "left": 12,
               "right": 381
             }
@@ -5606,8 +4892,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 652,
-              "bottom": 704,
+              "top": 663,
+              "bottom": 715,
               "left": 14,
               "right": 132
             }
@@ -5618,8 +4904,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 772,
-              "bottom": 940,
+              "top": 783,
+              "bottom": 951,
               "left": 12,
               "right": 381
             }
@@ -5630,8 +4916,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 772,
-              "bottom": 824,
+              "top": 783,
+              "bottom": 835,
               "left": 12,
               "right": 294
             }
@@ -5642,8 +4928,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 776,
-              "bottom": 820,
+              "top": 787,
+              "bottom": 831,
               "left": 33,
               "right": 77
             }
@@ -5654,8 +4940,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 772,
-              "bottom": 824,
+              "top": 783,
+              "bottom": 835,
               "left": 302,
               "right": 381
             }
@@ -5666,8 +4952,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 830,
-              "bottom": 882,
+              "top": 841,
+              "bottom": 893,
               "left": 12,
               "right": 131
             }
@@ -5709,88 +4995,8 @@
             "hides": []
           }
         ],
-        "small": [
-          {
-            "el": "button in [incoming-card]",
-            "text": "Close",
-            "w": 36,
-            "h": 32
-          }
-        ],
-        "smallText": [
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "would like",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "will drink from",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need to fill",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want to wash",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 16
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 16
-          }
-        ],
+        "small": [],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -5804,19 +5010,19 @@
       "checks": {
         "scroll": {
           "pass": true,
-          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 153/4"
+          "detail": "page 375x667 in 375x667; scrollers: div[candidates] 149/4"
         },
         "blocks": {
           "pass": false,
-          "detail": "not fully in view: intents (628-726px), candidates (894-898px), chosen intent (630-674px), builder (734-886px), build strip (734-786px), build slot (738-782px), build say (734-786px), build option (792-836px); candidates fully visible 0/4"
+          "detail": "not fully in view: intents (580-676px), candidates (832-836px), builder (680-828px), build strip (680-732px), build slot (684-728px), build say (680-732px), build option (736-780px); candidates fully visible 0/4"
         },
         "targets": {
-          "pass": false,
-          "detail": "button in [incoming-card] \"Close\" 36x32"
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
         },
         "text": {
-          "pass": false,
-          "detail": "button[build-option] \"want\" 14px; button[build-option] \"need\" 14px; button[build-option] \"would like\" 14px; button[build-option] \"will drink from\" 14px; button[build-option] \"need to fill\" 14px; button[build-option] \"want to wash\" 14px; button[quick-phrase] \"I need a break\" 14px; button[quick-phrase] \"It's too loud\" 14px; button[quick-phrase] \"Stop\" 14px; button[quick-phrase] \"Please wait\" 14px; button[quick-phrase] \"I'm overstimulated\" 14px; button[quick-phrase] \"I need help\" 14px"
+          "pass": true,
+          "detail": "all sentence text >= 18px"
         },
         "motion": {
           "pass": true,
@@ -5839,8 +5045,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 494,
-              "bottom": 620,
+              "top": 458,
+              "bottom": 576,
               "left": 12,
               "right": 363
             }
@@ -5851,10 +5057,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
+              "top": 57,
+              "bottom": 129,
               "left": 12,
-              "right": 124
+              "right": 108
             }
           },
           {
@@ -5863,8 +5069,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 390,
-              "bottom": 434,
+              "top": 358,
+              "bottom": 402,
               "left": 12,
               "right": 184
             }
@@ -5875,8 +5081,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 156,
               "right": 290
             }
@@ -5887,8 +5093,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 8,
-              "bottom": 52,
+              "top": 4,
+              "bottom": 48,
               "left": 68,
               "right": 148
             }
@@ -5899,10 +5105,10 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 69,
-              "bottom": 153,
-              "left": 132,
-              "right": 239
+              "top": 57,
+              "bottom": 129,
+              "left": 116,
+              "right": 242
             }
           },
           {
@@ -5911,9 +5117,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 108,
-              "bottom": 130,
-              "left": 247,
+              "top": 90,
+              "bottom": 112,
+              "left": 250,
               "right": 363
             }
           },
@@ -5923,8 +5129,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 628,
-              "bottom": 726,
+              "top": 580,
+              "bottom": 676,
               "left": 12,
               "right": 363
             }
@@ -5935,8 +5141,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 894,
-              "bottom": 898,
+              "top": 832,
+              "bottom": 836,
               "left": 12,
               "right": 363
             }
@@ -5945,12 +5151,12 @@
             "name": "chosen intent",
             "sel": "[data-testid=intent][aria-pressed=true]",
             "found": true,
-            "inView": false,
+            "inView": true,
             "rect": {
-              "top": 630,
-              "bottom": 674,
+              "top": 582,
+              "bottom": 626,
               "left": 14,
-              "right": 126
+              "right": 127
             }
           },
           {
@@ -5959,8 +5165,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 734,
-              "bottom": 886,
+              "top": 680,
+              "bottom": 828,
               "left": 12,
               "right": 363
             }
@@ -5971,8 +5177,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 734,
-              "bottom": 786,
+              "top": 680,
+              "bottom": 732,
               "left": 12,
               "right": 276
             }
@@ -5983,8 +5189,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 738,
-              "bottom": 782,
+              "top": 684,
+              "bottom": 728,
               "left": 33,
               "right": 77
             }
@@ -5995,8 +5201,8 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 734,
-              "bottom": 786,
+              "top": 680,
+              "bottom": 732,
               "left": 284,
               "right": 363
             }
@@ -6007,10 +5213,10 @@
             "found": true,
             "inView": false,
             "rect": {
-              "top": 792,
-              "bottom": 836,
+              "top": 736,
+              "bottom": 780,
               "left": 12,
-              "right": 125
+              "right": 126
             }
           },
           {
@@ -6019,8 +5225,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 161,
-              "bottom": 382,
+              "top": 133,
+              "bottom": 354,
               "left": 12,
               "right": 363
             }
@@ -6031,8 +5237,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 199,
-              "bottom": 232,
+              "top": 171,
+              "bottom": 204,
               "left": 30,
               "right": 150
             }
@@ -6043,95 +5249,15 @@
         "scrollers": [
           {
             "el": "div[candidates]",
-            "scrollHeight": 153,
+            "scrollHeight": 149,
             "clientHeight": 4,
             "scrollWidth": 351,
             "clientWidth": 351,
             "hides": []
           }
         ],
-        "small": [
-          {
-            "el": "button in [incoming-card]",
-            "text": "Close",
-            "w": 36,
-            "h": 32
-          }
-        ],
-        "smallText": [
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "would like",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "will drink from",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "need to fill",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=build-option]",
-            "el": "button[build-option]",
-            "text": "want to wash",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need a break",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "It's too loud",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Stop",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "Please wait",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I'm overstimulated",
-            "size": 14
-          },
-          {
-            "sel": "[data-testid=quick-phrase]",
-            "el": "button[quick-phrase]",
-            "text": "I need help",
-            "size": 14
-          }
-        ],
+        "small": [],
+        "smallText": [],
         "motion": [],
         "mutations": [],
         "reloads": []
@@ -6145,15 +5271,15 @@
       "checks": {
         "scroll": {
           "pass": true,
-          "detail": "page 820x1180 in 820x1180; scrollers: div[candidates] 208/180"
+          "detail": "page 820x1180 in 820x1180; scrollers: div[candidates] 208/172"
         },
         "blocks": {
           "pass": true,
           "detail": "all blocks in view; candidates fully visible 4/4"
         },
         "targets": {
-          "pass": false,
-          "detail": "button in [incoming-card] \"Close\" 36x32"
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
         },
         "text": {
           "pass": true,
@@ -6180,8 +5306,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 450,
-              "bottom": 598,
+              "top": 458,
+              "bottom": 606,
               "left": 16,
               "right": 804
             }
@@ -6193,7 +5319,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 16,
               "right": 160
             }
@@ -6204,8 +5330,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 350,
-              "bottom": 414,
+              "top": 358,
+              "bottom": 422,
               "left": 16,
               "right": 406
             }
@@ -6241,9 +5367,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 168,
-              "right": 294
+              "right": 346
             }
           },
           {
@@ -6252,9 +5378,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 302,
+              "top": 123,
+              "bottom": 148,
+              "left": 354,
               "right": 804
             }
           },
@@ -6264,8 +5390,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 634,
-              "bottom": 772,
+              "top": 642,
+              "bottom": 780,
               "left": 16,
               "right": 804
             }
@@ -6276,7 +5402,7 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 992,
+              "top": 1000,
               "bottom": 1172,
               "left": 16,
               "right": 804
@@ -6288,8 +5414,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 636,
-              "bottom": 700,
+              "top": 644,
+              "bottom": 708,
               "left": 18,
               "right": 275
             }
@@ -6300,8 +5426,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 780,
-              "bottom": 984,
+              "top": 788,
+              "bottom": 992,
               "left": 16,
               "right": 804
             }
@@ -6312,8 +5438,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 780,
-              "bottom": 844,
+              "top": 788,
+              "bottom": 852,
               "left": 16,
               "right": 717
             }
@@ -6324,8 +5450,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 790,
-              "bottom": 834,
+              "top": 798,
+              "bottom": 842,
               "left": 37,
               "right": 81
             }
@@ -6336,8 +5462,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 780,
-              "bottom": 844,
+              "top": 788,
+              "bottom": 852,
               "left": 725,
               "right": 804
             }
@@ -6348,8 +5474,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 850,
-              "bottom": 914,
+              "top": 858,
+              "bottom": 922,
               "left": 16,
               "right": 275
             }
@@ -6360,8 +5486,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 342,
+              "top": 193,
+              "bottom": 350,
               "left": 16,
               "right": 688
             }
@@ -6372,8 +5498,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 223,
-              "bottom": 256,
+              "top": 231,
+              "bottom": 264,
               "left": 34,
               "right": 154
             }
@@ -6385,20 +5511,13 @@
           {
             "el": "div[candidates]",
             "scrollHeight": 208,
-            "clientHeight": 180,
+            "clientHeight": 172,
             "scrollWidth": 788,
             "clientWidth": 788,
             "hides": []
           }
         ],
-        "small": [
-          {
-            "el": "button in [incoming-card]",
-            "text": "Close",
-            "w": 36,
-            "h": 32
-          }
-        ],
+        "small": [],
         "smallText": [],
         "motion": [],
         "mutations": [],
@@ -6420,8 +5539,8 @@
           "detail": "all blocks in view; candidates fully visible 6/4"
         },
         "targets": {
-          "pass": false,
-          "detail": "button in [incoming-card] \"Close\" 36x32"
+          "pass": true,
+          "detail": "all interactive elements >= 44x44"
         },
         "text": {
           "pass": true,
@@ -6448,8 +5567,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 502,
-              "bottom": 640,
+              "top": 510,
+              "bottom": 648,
               "left": 30,
               "right": 472
             }
@@ -6461,7 +5580,7 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 30,
               "right": 174
             }
@@ -6472,8 +5591,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 414,
-              "bottom": 466,
+              "top": 422,
+              "bottom": 474,
               "left": 30,
               "right": 247
             }
@@ -6509,9 +5628,9 @@
             "inView": true,
             "rect": {
               "top": 69,
-              "bottom": 177,
+              "bottom": 185,
               "left": 182,
-              "right": 308
+              "right": 360
             }
           },
           {
@@ -6520,9 +5639,9 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 119,
-              "bottom": 144,
-              "left": 316,
+              "top": 123,
+              "bottom": 148,
+              "left": 368,
               "right": 472
             }
           },
@@ -6628,8 +5747,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 185,
-              "bottom": 406,
+              "top": 193,
+              "bottom": 414,
               "left": 30,
               "right": 472
             }
@@ -6640,8 +5759,8 @@
             "found": true,
             "inView": true,
             "rect": {
-              "top": 223,
-              "bottom": 256,
+              "top": 231,
+              "bottom": 264,
               "left": 48,
               "right": 168
             }
@@ -6650,14 +5769,7 @@
         "absent": [],
         "candidatesVisible": 6,
         "scrollers": [],
-        "small": [
-          {
-            "el": "button in [incoming-card]",
-            "text": "Close",
-            "w": 36,
-            "h": 32
-          }
-        ],
+        "small": [],
         "smallText": [],
         "motion": [],
         "mutations": [],

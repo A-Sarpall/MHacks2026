@@ -71,3 +71,9 @@
 - Coarse situation phrases separate well: "a mug held in a hand" 66% on held-mug-01 vs 0.2% on mug-01; "a toothbrush with toothpaste on it" 88%; "a phone in a case" 52% (top); "a person sitting in a chair" 0.3% on the empty chair; "pills spilled on a table" 0.3% on the closed bottle.
 - Fine states do NOT separate at 224 px: the empty mug scored "full of coffee" (8.4%) above "empty" (4.5%); "banana with brown spots" ranked 5th (2.7%) on visibly spotted bananas; phone "screen on" vs "dark screen" tied (29% vs 31%); pill bottle open/closed/empty all within 22-39%.
 - One crop embeds in 82-101 ms (Node, CPU). Conclusion: do not build word choices on empty/full, open/closed, clean/dirty or on/off cues from SigLIP; label + category from the namer are the reliable signal (see src/lib/frames/model.ts).
+
+## WebGPU vs WASM SigLIP accuracy gap (measured 2026-10-04, test-images-public/dev, 277 images, centre aim)
+
+- Same q4f16 vision model, same crops: WASM top-1 52.0%, WebGPU 41.2%; the two backends give the same top label on only 49% of images; WebGPU mean best score 0.50 vs 0.65 (median ratio 0.82), 135 low-confidence flags vs 83, and 10 WebGPU "not sure" cases that WASM names correctly (e.g. coffee maker 89% on WASM, 8% on WebGPU; cake 98% vs "food" 90%).
+- So the gap is in the WebGPU execution of the 4-bit weights (embedding quality), not in thresholds. Phase 2 candidate: a different dtype for `visionDtypeWebgpu` in src/vision/siglipConfig.ts (fp16 or q4, served by scripts/fetch-models.mjs) and a dev re-run with `node scripts/eval.mjs --backends webgpu --dirs test-images-public/dev --no-sweep --no-personal`.
+- Raw data: eval-results/phase1/webgpu.json and eval-results/phase1-wasm/wasm.json (dev/centre folders).

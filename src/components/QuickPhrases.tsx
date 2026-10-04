@@ -9,11 +9,11 @@ interface Props {
 export function QuickPhrases({ phrases, highlight, onPick }: Props) {
   return (
     <section
-      className={`bg-white rounded-2xl p-1.5 shadow-sm border ${highlight === null ? "border-gray-100" : "border-blue-600 border-2"}`}
+      className={`bg-white rounded-2xl p-1.5 [@media(max-height:700px)]:p-1 shadow-sm border ${highlight === null ? "border-gray-100" : "border-blue-600 border-2"}`}
       data-testid="quick-phrases"
       aria-label="Quick phrases"
     >
-      <div className="grid grid-cols-3 gap-1.5">
+      <div className="grid grid-cols-3 gap-1.5 [@media(max-height:700px)]:gap-1">
         {phrases.map((p, i) => {
           const active = highlight === i;
           const tone =
@@ -29,7 +29,7 @@ export function QuickPhrases({ phrases, highlight, onPick }: Props) {
                 onPick(p);
                 e.currentTarget.blur();
               }}
-              className={`min-h-(--tap) px-2 py-1.5 rounded-xl border-2 text-base sm:text-lg small-when-short font-semibold text-left leading-snug ${tone} ${
+              className={`min-h-(--tap) px-2 py-1.5 [@media(max-height:700px)]:py-1 rounded-xl border-2 text-lg small-when-short font-semibold text-left leading-snug ${tone} ${
                 active ? "outline outline-4 outline-blue-600 outline-offset-1" : ""
               }`}
               data-testid="quick-phrase"

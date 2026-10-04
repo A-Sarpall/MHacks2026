@@ -10,7 +10,7 @@ interface Props {
 export function IntentButtons({ intents, selected, highlight, onToggle }: Props) {
   return (
     <div
-      className={`grid grid-cols-3 lg:grid-cols-6 gap-1.5 rounded-2xl p-0.5 ${highlight === null ? "" : "outline outline-2 outline-blue-600"}`}
+      className={`grid grid-cols-3 lg:grid-cols-6 gap-1.5 [@media(max-height:700px)]:gap-1 rounded-2xl p-0.5 ${highlight === null ? "" : "outline outline-2 outline-blue-600"}`}
       data-testid="intents"
     >
       {intents.map((intent, i) => {

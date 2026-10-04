@@ -36,7 +36,7 @@ export function BuildSentence({ frame, state, highlight, stripHighlighted, actio
   const slotIndex = new Map(frame.slots.map((s, i) => [s.id, i]));
   const active = frame.slots[state.slot] ?? frame.slots[0];
   return (
-    <div className={`flex flex-col gap-1.5 rounded-xl ${stripHighlighted ? "outline outline-4 outline-blue-600 outline-offset-1" : ""}`} data-testid="build">
+    <div className={`flex flex-col gap-1.5 [@media(max-height:700px)]:gap-1 rounded-xl ${stripHighlighted ? "outline outline-4 outline-blue-600 outline-offset-1" : ""}`} data-testid="build">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2 items-stretch">
         <div className="min-h-(--tap) px-2 py-0.5 rounded-xl border-2 border-gray-300 bg-white flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-lg font-semibold text-gray-900 leading-snug" data-testid="build-strip">
           {frame.parts.map((p, i) => {
@@ -81,7 +81,7 @@ export function BuildSentence({ frame, state, highlight, stripHighlighted, actio
           {actionLabel}
         </button>
       </div>
-      <div className={`grid gap-1.5 ${active.options.length > 4 ? "grid-cols-3" : "grid-cols-4"}`} role="group" aria-label={active.prompt}>
+      <div className={`grid gap-1.5 [@media(max-height:700px)]:gap-1 ${active.options.length > 4 ? "grid-cols-3" : "grid-cols-4"}`} role="group" aria-label={active.prompt}>
         {active.options.map((o, i) => {
           const on = state.picks[active.id] === i;
           return (
@@ -92,7 +92,7 @@ export function BuildSentence({ frame, state, highlight, stripHighlighted, actio
                 e.currentTarget.blur();
               }}
               aria-pressed={on}
-              className={`min-h-(--tap) px-1.5 rounded-xl border-2 text-base sm:text-lg small-when-short font-semibold leading-tight ${
+              className={`min-h-(--tap) px-1.5 rounded-xl border-2 text-lg small-when-short font-semibold leading-tight ${
                 on ? "bg-blue-600 border-blue-700 text-white" : "bg-white border-gray-300 text-gray-900"
               } ${highlight === i ? "outline outline-4 outline-blue-600 outline-offset-1" : ""}`}
               data-testid="build-option"

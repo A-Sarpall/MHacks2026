@@ -20,7 +20,7 @@ export function Candidates({ candidates, onSpeak, highlight = null, slots = 6 }:
   return (
     <div
       ref={ref}
-      className="grid grid-cols-2 lg:grid-cols-3 gap-1.5 w-full min-h-0 overflow-y-auto overscroll-contain p-0.5"
+      className="grid grid-cols-2 lg:grid-cols-3 gap-1.5 [@media(max-height:700px)]:gap-1 w-full min-h-0 overflow-y-auto overscroll-contain p-0.5"
       data-testid="candidates"
       aria-label="Things to say"
     >

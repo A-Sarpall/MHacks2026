@@ -840,7 +840,7 @@ export default function App() {
   const compactCamera = !setupView && latest !== null && !scan;
 
   const cameraBlock = (
-    <div className={`relative ${setupView ? "w-full max-w-2xl" : overstimulated ? "w-full max-w-[160px]" : compactCamera ? "w-28 sm:w-36 shrink-0" : "w-full max-w-md"}`} data-testid="camera-strip">
+    <div className={`relative ${setupView ? "w-full max-w-2xl" : overstimulated ? "w-full max-w-[160px]" : compactCamera ? "w-28 sm:w-36 [@media(max-height:700px)]:w-24 shrink-0" : "w-full max-w-md"}`} data-testid="camera-strip">
       <CameraView
         ref={cameraRef}
         onCapture={(t) => void handleCapture(t)}
@@ -1054,7 +1054,7 @@ export default function App() {
   );
 
   const header = (
-    <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-2 shrink-0">
+    <header className="bg-white border-b border-gray-200 px-3 sm:px-6 py-2 [@media(max-height:700px)]:py-1 shrink-0">
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
         <h1 className="text-xl font-bold text-gray-900">
           Qu
@@ -1250,8 +1250,8 @@ export default function App() {
   return (
     <div className="h-dvh bg-gray-50 flex flex-col overflow-hidden" style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}>
       {header}
-      <main className="flex-1 min-h-0 overflow-hidden max-w-6xl mx-auto w-full px-3 sm:px-4 py-2 flex flex-col gap-2 lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-4" data-testid="user-main">
-        <section className="flex flex-col gap-2 min-h-0 lg:overflow-y-auto">
+      <main className="flex-1 min-h-0 overflow-hidden max-w-6xl mx-auto w-full px-3 sm:px-4 py-2 [@media(max-height:700px)]:py-1 flex flex-col gap-2 [@media(max-height:700px)]:gap-1 lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-4" data-testid="user-main">
+        <section className="flex flex-col gap-2 [@media(max-height:700px)]:gap-1 min-h-0 lg:overflow-y-auto">
           {modelError && <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-3 py-2 text-sm">{modelError}</div>}
           {compactCamera ? (
             <div className="flex items-stretch gap-2 w-full">
@@ -1265,7 +1265,7 @@ export default function App() {
                 data-testid="object-thumb"
                 aria-label={`Captured: ${latest.label}. Open captured objects`}
               >
-                {latest.thumbnail && <img src={latest.thumbnail} alt="" className="w-20 h-20 sm:w-28 sm:h-28 object-cover rounded-lg" />}
+                {latest.thumbnail && <img src={latest.thumbnail} alt="" className="w-20 h-20 sm:w-28 sm:h-28 [@media(max-height:700px)]:w-16 [@media(max-height:700px)]:h-16 object-cover rounded-lg" />}
                 <span className="text-lg sm:text-xl font-semibold text-gray-900 capitalize truncate">{latest.label}</span>
               </button>
               <div className="flex-1 min-w-0 flex flex-col justify-center" aria-live="polite">
@@ -1296,7 +1296,7 @@ export default function App() {
             {RING_HINTS[currentMode]}
           </div>
         </section>
-        <section className="flex flex-col gap-2 min-h-0 flex-1">
+        <section className="flex flex-col gap-2 [@media(max-height:700px)]:gap-1 min-h-0 flex-1">
           {intentsBlock}
           {builderBlock}
           <div className="flex-1 min-h-0 flex flex-col">{sentencesBlock}</div>
