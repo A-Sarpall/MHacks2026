@@ -13,7 +13,7 @@ export function QuickPhrases({ phrases, highlight, onPick }: Props) {
       data-testid="quick-phrases"
       aria-label="Quick phrases"
     >
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {phrases.map((p, i) => {
           const active = highlight === i;
           const tone =
@@ -29,7 +29,7 @@ export function QuickPhrases({ phrases, highlight, onPick }: Props) {
                 onPick(p);
                 e.currentTarget.blur();
               }}
-              className={`min-h-16 px-3 py-2 rounded-xl border-2 text-base font-semibold text-left leading-snug ${tone} ${
+              className={`min-h-20 px-4 py-3 rounded-xl border-2 text-lg font-semibold text-left leading-snug ${tone} ${
                 active ? "outline outline-4 outline-blue-600 outline-offset-1" : ""
               }`}
               data-testid="quick-phrase"

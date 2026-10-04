@@ -44,6 +44,7 @@ import { PainPanel } from "./components/PainPanel";
 import { logSpoken, markTaken, reportPain } from "./lib/care";
 import { PrivateBar } from "./components/PrivateBar";
 import { Contacts } from "./components/Contacts";
+import { ContactPicker } from "./components/ContactPicker";
 
 const HEALTH_UI = false;
 import { IncomingCard } from "./components/IncomingCard";
@@ -111,6 +112,7 @@ export default function App() {
       return;
     }
   }, [overstimulated]);
+  const [peopleOpen, setPeopleOpen] = useState(false);
   const [setupView, setSetupView] = useState(() => {
     if (new URLSearchParams(window.location.search).get("view") === "setup") return true;
     try {
@@ -809,6 +811,18 @@ export default function App() {
             {setupView ? "Back to Qu" : "Setup"}
           </button>
           {setupView && (
+          <button
+            onClick={(e) => {
+              setPeopleOpen(true);
+              e.currentTarget.blur();
+            }}
+            className="px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            data-testid="people-open"
+          >
+            People
+          </button>
+          )}
+          {setupView && (
           <>
           <button
             onClick={() => setPainOpen(true)}
@@ -859,17 +873,6 @@ export default function App() {
       </header>
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-6 flex flex-col gap-6">
-        <QuickPhrases phrases={ACTIVE_PROFILE.quickPhrases} highlight={quickIndex} onPick={handleQuickPhrase} />
-        <div className="text-base text-blue-900 text-center" data-testid="ring-hint">
-          {RING_HINTS[currentMode]}
-        </div>
-        <SpokenBanner
-          spoken={spokenLog.length > 0 ? spokenLog[spokenLog.length - 1].text : null}
-          overstimulated={overstimulated}
-          badge={ACTIVE_PROFILE.overstimulated.badge}
-          clearLabel={ACTIVE_PROFILE.overstimulated.clear}
-          onClearStatus={() => setOverstimulated(false)}
-        />
         {modelError && (
           <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
             {modelError}
@@ -1018,7 +1021,7 @@ export default function App() {
             />
           )}
           {painOpen && <PainPanel level={painLevel} onLevel={setPainLevel} onSend={sendPain} onClose={() => setPainOpen(false)} />}
-          {pm.target ? <PrivateBar pm={pm} /> : <Contacts pm={pm} />}
+          {pm.target ? <PrivateBar pm={pm} /> : <ContactPicker pm={pm} />}
           <IncomingCard pm={pm} />
           {HEALTH_UI && setupView && medCard && (
             <MedCard
@@ -1082,6 +1085,17 @@ export default function App() {
           )}
         </section>
 
+        <QuickPhrases phrases={ACTIVE_PROFILE.quickPhrases} highlight={quickIndex} onPick={handleQuickPhrase} />
+        <div className="text-base text-blue-900 text-center" data-testid="ring-hint">
+          {RING_HINTS[currentMode]}
+        </div>
+        <SpokenBanner
+          spoken={spokenLog.length > 0 ? spokenLog[spokenLog.length - 1].text : null}
+          overstimulated={overstimulated}
+          badge={ACTIVE_PROFILE.overstimulated.badge}
+          clearLabel={ACTIVE_PROFILE.overstimulated.clear}
+          onClearStatus={() => setOverstimulated(false)}
+        />
         {!overstimulated && (
         <section className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
           <div className="text-xs text-gray-400 mb-3 text-center uppercase tracking-wider">
@@ -1206,6 +1220,19 @@ export default function App() {
         </section>
         )}
       </main>
+      {peopleOpen && (
+        <div className="fixed inset-0 z-40 flex justify-end bg-black/30" onClick={() => setPeopleOpen(false)} data-testid="people-drawer">
+          <aside className="h-full w-full max-w-md bg-white shadow-xl p-4 overflow-y-auto flex flex-col gap-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold">People Qu can text</h2>
+              <button onClick={() => setPeopleOpen(false)} className="min-h-11 px-4 rounded-xl border-2 border-gray-300 text-base font-semibold">
+                Close
+              </button>
+            </div>
+            <Contacts pm={pm} />
+          </aside>
+        </div>
+      )}
       {HEALTH_UI && setupView && clinicOpen && <ClinicPanel words={spokenRef.current} onClose={() => setClinicOpen(false)} />}
     </div>
   );
