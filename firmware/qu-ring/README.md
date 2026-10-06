@@ -22,6 +22,12 @@ an optional Grove buzzer can go on another free pin (`BUZZER_PIN`).
 3. `cp secrets.example.h secrets.h` and fill in Wi-Fi and the hub's LAN address (the hub prints it).
 4. Flash with a USB-serial adapter (GPIO 0 to GND while resetting).
 
+## Check without hardware
+
+`npm run firmware:check` type-checks the sketch with host `g++` against stub headers that mirror the published
+Arduino / arduinoWebSockets / esp32-camera APIs, and simulates the button state machine (click, click-then-double,
+hold, debounce). It is not an ESP32 build.
+
 ## Use it with the browser
 
 Open the app, expand **Camera & ring**, and choose:

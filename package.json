@@ -14,7 +14,8 @@
     "voice": "tsx server/voice-cli.ts",
     "mock-ring": "node scripts/mock-ring.mjs",
     "e2e": "node scripts/e2e.mjs",
-    "fake-ring": "node scripts/fake-ring.mjs"
+    "fake-ring": "node scripts/fake-ring.mjs",
+    "firmware:check": "sh firmware/qu-ring/host-test/run.sh"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",
