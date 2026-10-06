@@ -259,7 +259,8 @@ export function useQu(deps: QuDeps) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const more = useCallback(async () => {
-    const last = [...entriesRef.current].reverse().find((e) => e.image && e.status === "done" && e.mode !== "more");
+    // double-pressing while Qu is still answering means "more about this", so in-progress looks count too
+    const last = [...entriesRef.current].reverse().find((e) => e.image && (e.status === "done" || e.status === "answering") && e.mode !== "more");
     const seq = begin();
     const t0 = performance.now();
     depsRef.current.feedback("select");

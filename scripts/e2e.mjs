@@ -120,7 +120,6 @@ async function main() {
 
   const spoken = () => page.evaluate(() => window.__spoken.map((s) => s.text));
   const entries = () => page.locator("[data-testid=entry]").count();
-  const headline = () => page.locator("[data-testid=headline]").textContent();
 
   // 1. Look
   let before = (await spoken()).length;
@@ -275,6 +274,28 @@ async function main() {
   await page.screenshot({ path: (process.env.E2E_SCREENSHOT ?? "e2e-screenshot.png").replace(/\.png$/, "-session.png") });
   await page.click("[data-testid=end-session]");
   check("end session clears the notebook and goal", (await entries()) === 0 && (await page.locator("[data-testid=goal]").count()) === 0);
+
+  // 13. The ring path: a fake ring speaking the firmware protocol through the hub's /phone relay
+  const ringOut = [];
+  const ring = spawn("node", ["scripts/fake-ring.mjs", "--hub", `ws://127.0.0.1:${HUB_PORT}/phone`, "--image", "pill-bottle-01.jpg"], { stdio: ["pipe", "pipe", "pipe"], detached: true });
+  procs.push(ring);
+  ring.stdout.on("data", (d) => ringOut.push(...d.toString().trim().split("\n")));
+  await page.goto(`http://127.0.0.1:${WEB_PORT}/?source=ws&url=${encodeURIComponent(`ws://127.0.0.1:${HUB_PORT}/ring`)}&mode=still&button=ws`);
+  await page.waitForFunction(() => document.querySelector("[data-testid=status]")?.textContent?.includes("brain: mock"), null, { timeout: 15_000 });
+  for (let i = 0; i < 50 && !ringOut.some((l) => l.includes("connected")); i++) await sleep(100);
+  await sleep(1000);
+  before = (await spoken()).length;
+  const tr = Date.now();
+  ring.stdin.write("c\n");
+  await page.waitForFunction((n) => window.__spoken.some((s, i) => i >= n && s.text.startsWith("Mock answer")), before, { timeout: 10_000 });
+  check("ring: click on the board -> photo burst through the hub -> spoken answer", true, `${Date.now() - tr} ms press to first sentence`);
+  check("ring: board sent a burst (3 photos + 1 discarded wake frame)", ringOut.some((l) => l.includes("sent 4 x pill-bottle-01.jpg")), ringOut.filter((l) => l.includes("sent")).join(" | "));
+  await sleep(300);
+  check("ring: board got 'captured' feedback", ringOut.some((l) => l.includes("feedback captured")), ringOut.filter((l) => l.includes("feedback")).join(" | "));
+  before = (await spoken()).length;
+  ring.stdin.write("d\n");
+  await page.waitForFunction((n) => window.__spoken.some((s, i) => i >= n && s.text.startsWith("Mock detail")), before, { timeout: 10_000 });
+  check("ring: double on the board -> more", true);
 
   const errors = logs.filter((l) => l.startsWith("pageerror"));
   check("no page errors", errors.length === 0, errors.join(" | "));
