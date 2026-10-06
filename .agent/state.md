@@ -13,12 +13,12 @@ Qu as a camera ring (brief: `AGENT_SESSION.md`; decisions: `.agent/decisions.md`
 
 ## Last verification
 
-`npm run build`, `npm test` (52), `npm run lint` (0 warnings), `npm run typecheck:server`, `npm run e2e` (35/35: look, replay, correction, ask, hold typed fallback, more, goal, dark refusal, hub down + recovery, reload, end session, ring click/double through the hub).
+`npm run build`, `npm test` (52), `npm run lint` (0 warnings), `npm run typecheck:server`, `npm run e2e` (37/37: look, replay, correction, ask, hold typed fallback, more, goal, dark refusal, hub down + recovery, reload, end session, ring click/double through the hub, streamed hub voice starts before the download ends).
 
 ## Not verified
 
 - Real Claude answers, their quality and latency (no ANTHROPIC_API_KEY in the sandbox).
-- ElevenLabs path in the new speaker (no key; endpoint unchanged from before).
+- ElevenLabs itself (no key): the streamed-playback path is verified against the hub's VOICE_MOCK_FILE mock, the upstream call is unchanged from before.
 - Firmware: no ESP32 build (no Arduino toolchain reachable) and not run on hardware. `npm run firmware:check` type-checks it against stub headers of the published APIs and simulates the button gestures (7 cases pass). Low-light JPEG-size threshold, focus and timings are starting points.
 - Real speech recognition, real webcam, audio output.
 

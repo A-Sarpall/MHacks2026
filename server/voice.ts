@@ -28,8 +28,11 @@ export function currentVoice(): { voiceId: string; name: string; cloned: boolean
   return { ...STOCK_VOICE, cloned: false };
 }
 
+/** VOICE_MOCK_FILE=<mp3>: stream that file instead of calling ElevenLabs (tests of streamed playback, no key). */
+const MOCK_FILE = process.env.VOICE_MOCK_FILE;
+
 export function configured(): boolean {
-  return Boolean(process.env.ELEVENLABS_API_KEY);
+  return Boolean(process.env.ELEVENLABS_API_KEY || MOCK_FILE);
 }
 
 function ttsUrl(voiceId: string, stream: boolean): string {
@@ -48,6 +51,7 @@ async function ttsRequest(text: string, model: string, stream: boolean): Promise
 
 /** Pipe streamed mp3 for `text` straight to the browser as it is generated. */
 export async function speak(text: string, res: ServerResponse, cors: Record<string, string>): Promise<void> {
+  if (MOCK_FILE) return mockSpeak(res, cors);
   const upstream = await ttsRequest(text, SENTENCE_MODEL, true);
   res.writeHead(200, { "Content-Type": "audio/mpeg", "Cache-Control": "no-store", ...cors });
   Readable.fromWeb(upstream.body as import("node:stream/web").ReadableStream).pipe(res);
@@ -64,4 +68,18 @@ export async function cloneVoice(files: string[], name: string): Promise<string>
   if (!res.ok || !body.voice_id) throw new Error(`clone failed ${res.status}: ${JSON.stringify(body.detail ?? body)}`);
   writeFileSync(VOICE_FILE, JSON.stringify({ voiceId: body.voice_id, name }, null, 2));
   return body.voice_id;
+}
+
+/** Send the mock mp3 in 8 chunks, VOICE_MOCK_CHUNK_MS apart, like a voice being generated while it streams. */
+async function mockSpeak(res: ServerResponse, cors: Record<string, string>): Promise<void> {
+  const audio = readFileSync(MOCK_FILE!);
+  const gap = Number(process.env.VOICE_MOCK_CHUNK_MS ?? 150);
+  res.writeHead(200, { "Content-Type": "audio/mpeg", "Cache-Control": "no-store", ...cors });
+  const step = Math.ceil(audio.length / 8);
+  for (let i = 0; i < audio.length; i += step) {
+    if (res.destroyed) return;
+    res.write(audio.subarray(i, i + step));
+    await new Promise((r) => setTimeout(r, gap));
+  }
+  res.end();
 }

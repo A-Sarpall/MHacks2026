@@ -1,8 +1,10 @@
 // End-to-end check of the real browser loop against the hub in mock mode.
 //   npm run e2e         (starts the hub with LOOK_MOCK=1 and Vite itself, then drives headless Chromium)
 // The webcam is faked with a canvas stream of images from test-images/; speech is recorded, not played.
-import { spawn } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { spawn, spawnSync } from "node:child_process";
+import { mkdtempSync, readFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { chromium } from "playwright-core";
 
 const HUB_PORT = 8799;
@@ -35,7 +37,8 @@ function start(cmd, args, env, ready) {
   });
 }
 
-const startHub = () => start("npx", ["tsx", "server/hub.ts"], { HUB_PORT: String(HUB_PORT), LOOK_MOCK: "1", LOOK_MOCK_DELAY_MS: "30", ANTHROPIC_API_KEY: "", ELEVENLABS_API_KEY: "" }, /\[hub\] http/);
+const startHub = (extra = {}) =>
+  start("npx", ["tsx", "server/hub.ts"], { HUB_PORT: String(HUB_PORT), LOOK_MOCK: "1", LOOK_MOCK_DELAY_MS: "30", ANTHROPIC_API_KEY: "", ELEVENLABS_API_KEY: "", VOICE_MOCK_FILE: "", ...extra }, /\[hub\] http/);
 
 const kill = (p) => {
   try {
@@ -321,6 +324,31 @@ async function main() {
   const latest = await page.evaluate(() => JSON.parse(localStorage.getItem("qu.notebook.v1") ?? "[]").slice(-2).map((e) => ({ mode: e.mode, thumb: e.thumb?.length ?? 0 })));
   check("ring: click-then-double gives more about the new look", latest[0]?.mode === "look" && latest[1]?.mode === "more" && (await entries()) === nBeforeDouble + 2, JSON.stringify(latest));
   check("ring: click-then-double doesn't say 'point at something first'", !said.some((s) => s.startsWith("Point at")), said.join(" | "));
+
+  // 14. Streamed voice: the hub's mock voice sends an mp3 in 8 chunks 150 ms apart (like ElevenLabs generating);
+  //     playback must start before the download finishes.
+  const tone = join(mkdtempSync(join(tmpdir(), "qu-e2e-")), "tone.mp3");
+  const ff = spawnSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", "-f", "lavfi", "-i", "sine=frequency=440:duration=3", "-ac", "1", "-ar", "44100", "-b:a", "64k", tone]);
+  if (ff.status !== 0) {
+    console.log("SKIP  streamed voice (ffmpeg not available)");
+  } else {
+    kill(hub);
+    await sleep(500);
+    hub = await startHub({ VOICE_MOCK_FILE: tone, VOICE_MOCK_CHUNK_MS: "150" });
+    await page.goto(`http://127.0.0.1:${WEB_PORT}/?source=webcam`);
+    await page.evaluate(() => window.__setCam("/test-images/mug-01.jpg"));
+    await page.waitForFunction(() => document.querySelector("[data-testid=status]")?.textContent?.includes("ElevenLabs"), null, { timeout: 20_000 });
+    await sleep(800);
+    const nLogs = logs.length;
+    before = (await spoken()).length;
+    await page.keyboard.press("Space");
+    await page.waitForFunction(() => document.querySelector("[data-testid=headline]")?.textContent?.startsWith("Mock answer"), null, { timeout: 8000 });
+    for (let i = 0; i < 60 && !logs.slice(nLogs).some((l) => l.includes("audio playing")); i++) await sleep(100);
+    const playLine = logs.slice(nLogs).find((l) => l.includes("audio playing")) ?? "";
+    const playMs = Number(/playing (\d+) ms/.exec(playLine)?.[1] ?? NaN);
+    check("voice: hub voice used (no browser fallback)", (await spoken()).length === before, `${(await spoken()).length - before} browser utterances`);
+    check("voice: playback starts before the audio finished streaming (8 x 150 ms)", playMs < 1000, playLine || "no playing event");
+  }
 
   const errors = logs.filter((l) => l.startsWith("pageerror"));
   check("no page errors", errors.length === 0, errors.join(" | "));

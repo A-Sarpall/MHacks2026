@@ -48,7 +48,8 @@ ring (ESP32-CAM) --Wi-Fi WS--> hub /phone <-> /ring --> browser
                               hub POST /look  <── photo (≤1280 px) + question + session notebook + goal
                                  │ Claude vision (Haiku 4.5 for look/ask, Opus 5.5 for "more"), streamed
                                  ▼
-browser: each sentence is spoken the moment it is complete (ElevenLabs via the hub, else the browser voice)
+browser: each sentence is spoken the moment it is complete (ElevenLabs via the hub, streamed into MediaSource
+         so audio starts on the first bytes; else the browser voice)
          -> notebook entry: headline, detail, kind, place guess, thumbnail
 ```
 

@@ -18,6 +18,7 @@
 
 - SpeechSynthesis: `speak(utterance)` is async and fires `onend`; `cancel()` stops; may need a prior user gesture. Some systems never fire `onend`, so `speak.ts` has a safety timeout.
 - Speech recognition: `webkitSpeechRecognition` in Chrome (sends audio to Google's service, needs network); absent in Firefox. Headless Chromium has no usable recognition; the e2e deletes it to exercise the typed fallback.
+- MediaSource with `audio/mpeg` works in the Playwright Chromium build (headless): appending fetch-body chunks of a streamed mp3 starts playback on the first chunk (measured 23 ms after queueing vs ≥ 1.2 s for blob-then-play with an 8 x 150 ms mock stream).
 - A `canvas.captureStream()` only emits frames when the canvas is repainted: a fake webcam must redraw continuously or the frame buffer keeps stale frames.
 
 ## Tailwind v4 with Vite
