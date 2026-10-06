@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import type { PressAction } from './ringRelay';
+export type PressAction = 'click' | 'double' | 'hold';
 
 const DOUBLE_MS = 260;
 
