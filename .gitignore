@@ -22,9 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-public/mediapipe/
-public/models/
-public/ort/
 
 # Local secrets
 .env
@@ -32,7 +29,6 @@ public/ort/
 !.env.example
 server/.env.local
 server/voice.json
-server/contacts.json
 
 # Local tool settings
 .claude/
