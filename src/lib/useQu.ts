@@ -147,7 +147,8 @@ export function useQu(deps: QuDeps) {
         if (opts.seq === seqRef.current) {
           depsRef.current.feedback("error");
           say(offline ? SAY.offline : SAY.failed);
-          setNotice(offline ? "Hub unreachable: run npm run hub" : (err as Error).message);
+          const msg = (err as Error).message;
+          setNotice(offline && msg.startsWith("hub unreachable") ? "Hub unreachable: run npm run hub" : msg);
         }
       }
       if (opts.seq === seqRef.current && !speaker.busy()) setPhase("idle");
