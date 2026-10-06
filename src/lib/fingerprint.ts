@@ -1,45 +1,78 @@
-// A tiny perceptual fingerprint of a photo, for "I just pointed at this" cache hits.
-//   dHash: 64 bits of "is this pixel brighter than its right neighbour" on a 9x8 grayscale copy.
-//          Survives small shifts, re-compression, exposure changes. Hamming distance compares two.
+// A tiny fingerprint of a photo, for "I just pointed at this" cache hits.
+//   gray:   32x24 grayscale thumbnail of the central 80 % (block-averaged, so no aliasing).
+//           Two photos are compared by normalised cross-correlation at the best of ±3 px shifts
+//           (about ±10 % of the frame), so a hand that moved a little still matches,
+//           and brightness/contrast changes cancel out.
 //   colour: mean RGB of a 2x2 grid, so a red box and a blue box with the same shape don't match.
 // It recognises the *same view*, not the same object from a new angle; the model handles that via the notebook.
+//
+// A plain 64-bit dHash was tried first: a 3 % shift flipped up to 23 bits, as many as separated
+// different test images, so it could not tell a re-point from a new object (scripts/e2e.mjs measures both).
 
 export interface Fingerprint {
-  /** 16 hex chars (64 bits). */
-  hash: string;
+  /** 32x24 grayscale, base64 of the bytes. */
+  gray: string;
   /** 12 numbers 0-255: [r,g,b] for each quadrant (TL, TR, BL, BR). */
   colour: number[];
 }
 
-/** dHash from a 9x8 grayscale array (row-major, 72 values). */
-export function dhashFromGray(gray: ArrayLike<number>): string {
-  if (gray.length !== 72) throw new Error("dhash needs a 9x8 grayscale image");
-  let hex = "";
-  let nibble = 0;
-  let bits = 0;
-  for (let y = 0; y < 8; y++) {
-    for (let x = 0; x < 8; x++) {
-      nibble = (nibble << 1) | (gray[y * 9 + x] > gray[y * 9 + x + 1] ? 1 : 0);
-      if (++bits === 4) {
-        hex += nibble.toString(16);
-        nibble = 0;
-        bits = 0;
-      }
-    }
-  }
-  return hex;
+export const GW = 32;
+export const GH = 24;
+export const MAX_SHIFT = 3;
+
+export function encodeGray(g: Uint8Array): string {
+  let s = "";
+  for (let i = 0; i < g.length; i++) s += String.fromCharCode(g[i]);
+  return btoa(s);
 }
 
-export function hamming(a: string, b: string): number {
-  let d = 0;
-  for (let i = 0; i < Math.min(a.length, b.length); i++) {
-    let x = parseInt(a[i], 16) ^ parseInt(b[i], 16);
-    while (x) {
-      d += x & 1;
-      x >>= 1;
+export function decodeGray(s: string): Uint8Array {
+  const raw = atob(s);
+  const g = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) g[i] = raw.charCodeAt(i);
+  return g;
+}
+
+/** Normalised cross-correlation of two GWxGH images with `b` shifted by (dx, dy), over their overlap. */
+export function nccAt(a: ArrayLike<number>, b: ArrayLike<number>, dx: number, dy: number, w = GW, h = GH): number {
+  const x0 = Math.max(0, -dx);
+  const x1 = Math.min(w, w - dx);
+  const y0 = Math.max(0, -dy);
+  const y1 = Math.min(h, h - dy);
+  let n = 0;
+  let sa = 0;
+  let sb = 0;
+  for (let y = y0; y < y1; y++)
+    for (let x = x0; x < x1; x++) {
+      sa += a[y * w + x];
+      sb += b[(y + dy) * w + x + dx];
+      n++;
     }
-  }
-  return d + Math.abs(a.length - b.length) * 4;
+  if (n === 0) return 0;
+  const ma = sa / n;
+  const mb = sb / n;
+  let num = 0;
+  let va = 0;
+  let vb = 0;
+  for (let y = y0; y < y1; y++)
+    for (let x = x0; x < x1; x++) {
+      const da = a[y * w + x] - ma;
+      const db = b[(y + dy) * w + x + dx] - mb;
+      num += da * db;
+      va += da * da;
+      vb += db * db;
+    }
+  // two flat images (a wall, darkness) correlate perfectly only if they're the same flat level
+  if (va < 1e-6 || vb < 1e-6) return va < 1e-6 && vb < 1e-6 && Math.abs(ma - mb) < 8 ? 1 : 0;
+  return num / Math.sqrt(va * vb);
+}
+
+/** Best correlation over shifts of up to ±maxShift pixels. 1 = identical. */
+export function alignedSimilarity(a: ArrayLike<number>, b: ArrayLike<number>, maxShift = MAX_SHIFT): number {
+  let best = -1;
+  for (let dy = -maxShift; dy <= maxShift; dy++)
+    for (let dx = -maxShift; dx <= maxShift; dx++) best = Math.max(best, nccAt(a, b, dx, dy));
+  return best;
 }
 
 /** Mean absolute difference of the colour signatures, 0-255. */
@@ -51,55 +84,64 @@ export function colourDistance(a: number[], b: number[]): number {
 }
 
 export interface MatchThresholds {
-  /** Max differing dHash bits (of 64). */
-  bits: number;
+  /** Minimum aligned correlation (−1..1). */
+  ncc: number;
   /** Max mean colour difference (0-255). */
   colour: number;
 }
 
-// Tuned on test-images/: the same photo re-encoded / shifted a few pixels stays within ~4 bits;
-// different objects on similar backgrounds are typically 20+ bits apart.
-export const DEFAULT_MATCH: MatchThresholds = { bits: 10, colour: 28 };
+// Measured by scripts/e2e.mjs on test-images/ (3 % shift + 10 % brighter vs. every other image).
+export const DEFAULT_MATCH: MatchThresholds = { ncc: 0.9, colour: 28 };
 
-export function sameView(a: Fingerprint, b: Fingerprint, t: MatchThresholds = DEFAULT_MATCH): boolean {
-  return hamming(a.hash, b.hash) <= t.bits && colourDistance(a.colour, b.colour) <= t.colour;
+export function similarity(a: Fingerprint, b: Fingerprint): number {
+  return alignedSimilarity(decodeGray(a.gray), decodeGray(b.gray));
 }
 
-/** Similarity score 0..1 (1 = identical), for picking the closest of several matches. */
-export function similarity(a: Fingerprint, b: Fingerprint): number {
-  return 1 - (hamming(a.hash, b.hash) / 64) * 0.7 - (colourDistance(a.colour, b.colour) / 255) * 0.3;
+export function sameView(a: Fingerprint, b: Fingerprint, t: MatchThresholds = DEFAULT_MATCH): boolean {
+  if (colourDistance(a.colour, b.colour) > t.colour) return false;
+  return similarity(a, b) >= t.ncc;
 }
 
 type Drawable = CanvasImageSource & { width: number; height: number };
 
 let scratch: OffscreenCanvas | null = null;
+const OVER = 4;
 
 /** Fingerprint of the central 80 % of an image (the ring points at the middle). */
 export function fingerprint(image: Drawable): Fingerprint {
-  scratch ??= new OffscreenCanvas(9, 8);
+  const W = GW * OVER;
+  const H = GH * OVER;
+  scratch ??= new OffscreenCanvas(W, H);
   const ctx = scratch.getContext("2d", { willReadFrequently: true })!;
-  const cw = image.width * 0.8;
-  const ch = image.height * 0.8;
-  const sx = image.width * 0.1;
-  const sy = image.height * 0.1;
+  ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
-  ctx.drawImage(image, sx, sy, cw, ch, 0, 0, 9, 8);
-  const px = ctx.getImageData(0, 0, 9, 8).data;
-  const gray: number[] = Array.from({ length: 72 }, () => 0);
-  for (let i = 0; i < 72; i++) gray[i] = 0.299 * px[i * 4] + 0.587 * px[i * 4 + 1] + 0.114 * px[i * 4 + 2];
+  ctx.drawImage(image, image.width * 0.1, image.height * 0.1, image.width * 0.8, image.height * 0.8, 0, 0, W, H);
+  const px = ctx.getImageData(0, 0, W, H).data;
+  const sums = new Float64Array(GW * GH * 3);
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * 4;
+      const c = (Math.floor(y / OVER) * GW + Math.floor(x / OVER)) * 3;
+      sums[c] += px[i];
+      sums[c + 1] += px[i + 1];
+      sums[c + 2] += px[i + 2];
+    }
+  const n = OVER * OVER;
+  const gray = new Uint8Array(GW * GH);
+  for (let i = 0; i < gray.length; i++) gray[i] = Math.round((0.299 * sums[i * 3] + 0.587 * sums[i * 3 + 1] + 0.114 * sums[i * 3 + 2]) / n);
   const colour: number[] = [];
-  for (const [x0, y0] of [[0, 0], [5, 0], [0, 4], [5, 4]]) {
+  for (const [qx, qy] of [[0, 0], [1, 0], [0, 1], [1, 1]]) {
     const acc = [0, 0, 0];
-    let n = 0;
-    for (let y = y0; y < y0 + 4; y++)
-      for (let x = x0; x < Math.min(9, x0 + 4); x++) {
-        const i = (y * 9 + x) * 4;
-        acc[0] += px[i];
-        acc[1] += px[i + 1];
-        acc[2] += px[i + 2];
-        n++;
+    let k = 0;
+    for (let y = qy * (GH / 2); y < (qy + 1) * (GH / 2); y++)
+      for (let x = qx * (GW / 2); x < (qx + 1) * (GW / 2); x++) {
+        const c = (y * GW + x) * 3;
+        acc[0] += sums[c];
+        acc[1] += sums[c + 1];
+        acc[2] += sums[c + 2];
+        k++;
       }
-    colour.push(...acc.map((v) => Math.round(v / n)));
+    colour.push(...acc.map((v) => Math.round(v / (k * n))));
   }
-  return { hash: dhashFromGray(gray), colour };
+  return { gray: encodeGray(gray), colour };
 }

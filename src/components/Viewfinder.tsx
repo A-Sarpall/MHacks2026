@@ -32,6 +32,8 @@ interface Props {
 
 const STILL_TIMEOUT_MS = 10_000;
 const FREEZE_MS = 1200;
+/** A stream that has sent nothing for this long is stalled; its buffered frames are stale. */
+const STALE_MS = 1500;
 
 function snapshot(frame: CanvasImageSource & { width: number; height: number }): HTMLCanvasElement {
   const c = document.createElement("canvas");
@@ -56,6 +58,7 @@ export const Viewfinder = forwardRef<ViewfinderHandle, Props>(function Viewfinde
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const bufferRef = useRef(new FrameBuffer(10));
   const latestRef = useRef<ImageBitmap | null>(null);
+  const lastFrameAtRef = useRef(0);
   const frozenRef = useRef<{ image: HTMLCanvasElement; until: number } | null>(null);
   const dirtyRef = useRef(false);
   const orientationRef = useRef(orientation);
@@ -87,6 +90,7 @@ export const Viewfinder = forwardRef<ViewfinderHandle, Props>(function Viewfinde
       const up = orientFrame(bmp, orientationRef.current);
       buffer.push(up, time);
       latestRef.current = up;
+      lastFrameAtRef.current = performance.now();
       dirtyRef.current = true;
     });
     let raf = 0;
@@ -117,6 +121,7 @@ export const Viewfinder = forwardRef<ViewfinderHandle, Props>(function Viewfinde
 
   const captureStream = (): Shot | null => {
     const t0 = performance.now();
+    if (t0 - lastFrameAtRef.current > STALE_MS) return null;
     const sel = bufferRef.current.select(t0);
     if (!sel) return null;
     const image = snapshot(sel.frame.image);

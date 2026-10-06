@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { colourDistance, dhashFromGray, hamming, sameView, type Fingerprint } from "./fingerprint";
+import { GH, GW, alignedSimilarity, colourDistance, decodeGray, encodeGray, nccAt, sameView, type Fingerprint } from "./fingerprint";
 import { contextLines, currentPlace, findSameView, sameAnswer, type Entry } from "./notebook";
 import { judge } from "./quality";
 
@@ -9,26 +9,59 @@ function entry(p: Partial<Entry>): Entry {
   return { id: Math.random().toString(36), at: NOW, mode: "look", headline: "h", detail: "", title: "t", place: "", status: "done", ...p };
 }
 
-const ramp = Array.from({ length: 72 }, (_, i) => i % 9); // brighter to the right: all bits 0
-const fpA: Fingerprint = { hash: dhashFromGray(ramp), colour: Array(12).fill(100) };
+// deterministic pseudo-random 32x24 texture
+function texture(seed: number): Uint8Array {
+  const g = new Uint8Array(GW * GH);
+  let x = seed;
+  for (let i = 0; i < g.length; i++) {
+    x = (x * 1103515245 + 12345) % 2147483648;
+    g[i] = x % 256;
+  }
+  // smooth it a little so it looks like a photo, not noise
+  return g.map((v, i) => (v + g[(i + 1) % g.length] + g[(i + GW) % g.length]) / 3);
+}
+
+function shifted(g: Uint8Array, dx: number, dy: number): Uint8Array {
+  const out = new Uint8Array(g.length);
+  for (let y = 0; y < GH; y++)
+    for (let x = 0; x < GW; x++) {
+      const sx = Math.min(GW - 1, Math.max(0, x - dx));
+      const sy = Math.min(GH - 1, Math.max(0, y - dy));
+      out[y * GW + x] = g[sy * GW + sx];
+    }
+  return out;
+}
+
+const texA = texture(1);
+const fpA: Fingerprint = { gray: encodeGray(texA), colour: Array(12).fill(100) };
 
 describe("fingerprint", () => {
-  it("dhash of a left-to-right ramp is all zeros, of the reverse all ones", () => {
-    expect(dhashFromGray(ramp)).toBe("0000000000000000");
-    expect(dhashFromGray(ramp.map((v) => -v))).toBe("ffffffffffffffff");
-    expect(() => dhashFromGray([1, 2, 3])).toThrow();
+  it("gray round-trips through base64", () => {
+    expect(Array.from(decodeGray(encodeGray(texA)))).toEqual(Array.from(texA));
   });
 
-  it("hamming and colour distance", () => {
-    expect(hamming("0000000000000000", "000000000000000f")).toBe(4);
-    expect(hamming("ffff", "0000")).toBe(16);
+  it("a shifted, brighter copy still correlates; a different texture does not", () => {
+    const moved = shifted(texA, 2, -1).map((v) => Math.min(255, v * 1.1 + 5));
+    expect(alignedSimilarity(texA, moved)).toBeGreaterThan(0.95);
+    expect(nccAt(texA, moved, 0, 0)).toBeLessThan(0.9); // without alignment it would miss
+    expect(alignedSimilarity(texA, texture(2))).toBeLessThan(0.5);
+  });
+
+  it("flat images only match flat images of the same level", () => {
+    const flat = new Uint8Array(GW * GH).fill(10);
+    expect(alignedSimilarity(flat, new Uint8Array(GW * GH).fill(12))).toBe(1);
+    expect(alignedSimilarity(flat, new Uint8Array(GW * GH).fill(200))).toBe(0);
+    expect(alignedSimilarity(flat, texA)).toBe(0);
+  });
+
+  it("colour distance", () => {
     expect(colourDistance([0, 0, 0], [30, 30, 30])).toBe(30);
     expect(colourDistance([0], [0, 1])).toBe(255);
   });
 
   it("same view needs both shape and colour to match", () => {
-    expect(sameView(fpA, { ...fpA, hash: "000000000000001f" })).toBe(true);
-    expect(sameView(fpA, { ...fpA, hash: "00000000000fffff" })).toBe(false);
+    expect(sameView(fpA, { ...fpA, gray: encodeGray(shifted(texA, 1, 1)) })).toBe(true);
+    expect(sameView(fpA, { ...fpA, gray: encodeGray(texture(3)) })).toBe(false);
     expect(sameView(fpA, { ...fpA, colour: Array(12).fill(180) })).toBe(false);
   });
 });
@@ -48,7 +81,7 @@ describe("notebook", () => {
   });
 
   it("finds the closest recent same-view look, never asks, replays or stale ones", () => {
-    const close = entry({ fingerprint: { ...fpA, hash: "0000000000000003" }, title: "close" });
+    const close = entry({ fingerprint: { ...fpA, gray: encodeGray(shifted(texA, 2, 2)) }, title: "close" });
     const exact = entry({ fingerprint: fpA, title: "exact" });
     const entries = [
       entry({ mode: "ask", fingerprint: fpA, title: "ask" }),

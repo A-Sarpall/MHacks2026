@@ -71,7 +71,8 @@ export function findSameView(entries: Entry[], fp: Fingerprint, now = Date.now()
     if (now - e.at > CACHE_MAX_AGE_MS) continue;
     if (!sameView(e.fingerprint, fp)) continue;
     const s = similarity(e.fingerprint, fp);
-    if (s > bestScore) {
+    if (s >= bestScore) {
+      // ties go to the newest look
       best = e;
       bestScore = s;
     }

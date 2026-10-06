@@ -12,7 +12,8 @@
     "hub": "tsx server/hub.ts",
     "typecheck:server": "tsc -p server/tsconfig.json",
     "voice": "tsx server/voice-cli.ts",
-    "mock-ring": "node scripts/mock-ring.mjs"
+    "mock-ring": "node scripts/mock-ring.mjs",
+    "e2e": "node scripts/e2e.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",

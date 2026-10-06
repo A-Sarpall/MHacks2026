@@ -35,3 +35,4 @@ server/voice.json
 
 # Cloned-voice audio (a real person's voice): regenerate with `npm run voice -- reactions`
 public/reactions/
+e2e-screenshot*.png

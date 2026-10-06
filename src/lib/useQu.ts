@@ -95,6 +95,7 @@ export function useQu(deps: QuDeps) {
    */
   const answer = async (id: string, req: LookBody, opts: { silent?: boolean; seq: number; t0: number }) => {
     const parser = new AnswerStream();
+    const signal = abortRef.current?.signal;
     let firstAt = -1;
     const speakAll = (sentences: string[]) => {
       if (opts.silent || opts.seq !== seqRef.current) return;
@@ -112,7 +113,7 @@ export function useQu(deps: QuDeps) {
           const r = parser.result();
           if (!opts.silent && r.headline) patch(id, { headline: r.headline, detail: r.detail });
         },
-        abortRef.current?.signal
+        signal
       );
       speakAll(parser.end());
       const r = parser.result();
@@ -130,7 +131,12 @@ export function useQu(deps: QuDeps) {
       if (opts.seq === seqRef.current && !speaker.busy()) setPhase("idle");
       return final;
     } catch (err) {
-      if (abortRef.current?.signal.aborted && opts.seq !== seqRef.current) return null;
+      if (signal?.aborted) {
+        // a newer press interrupted this answer: keep what arrived
+        const r = parser.result();
+        if (!opts.silent) patch(id, r.headline ? { headline: r.headline, detail: r.detail, status: "done", title: r.meta?.title || r.headline.split(/\s+/).slice(0, 3).join(" ") } : { headline: "Interrupted", status: "error" });
+        return null;
+      }
       const offline = err instanceof HubUnavailable;
       console.warn("[qu] answer failed:", (err as Error).message);
       if (!opts.silent) {
