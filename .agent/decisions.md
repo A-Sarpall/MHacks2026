@@ -112,3 +112,24 @@ Prior art (MIT EyeRing / FingerReader, Sony Ring Camera 2026) shows finger camer
 **Consequence**
 
 AAC features, the 637-label vocabulary, SigLIP, MediaPipe, Photon/iMessage messaging, QR, contacts and "I need help" are deleted. `FrameSource` / `ButtonInput` and the hub's ring relay are unchanged. `ANTHROPIC_API_KEY` goes in `server/.env.local`; without it the hub runs `/look` in mock mode (`LOOK_MOCK=1`, also used by tests) so the loop is demoable. Supersedes "Communication and information only" (2026-10-04).
+
+---
+
+### 2026-10-06 — Clicks are sent on release; "double" follows
+
+**Decision**
+
+The ring firmware (and the phone stand-in) sends `click` the moment the button is released and `double` if a second press follows within 300 ms. The app's `more` waits for the look that the first click started and answers about that photo.
+
+**Reason**
+
+Deciding click vs double on the board means every click waits out the double-press window (250-300 ms), about 15 % of the 2 s press-to-first-word budget, to serve the rarer gesture. With click-first the look's capture starts immediately; a double costs nothing extra because "more" reuses that capture (the look's own answer is cut off before it speaks).
+
+**Alternatives considered**
+
+- Board-side disambiguation (`CLICK_FIRST 0` in the sketch): simpler protocol, slower clicks.
+- Hold for "more": hold is "ask", which needs the microphone.
+
+**Consequence**
+
+`useQu.more()` must keep handling a double that arrives while the click's photo is still in flight (`capturingLookRef`); `scripts/e2e.mjs` covers it through the fake ring.

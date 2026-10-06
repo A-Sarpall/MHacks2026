@@ -306,6 +306,22 @@ async function main() {
   await page.waitForFunction((n) => window.__spoken.some((s, i) => i >= n && s.text.startsWith("Mock detail")), before, { timeout: 10_000 });
   check("ring: double on the board -> more", true);
 
+  // The firmware sends "click" on release and "double" right after a second press: more must use the new look's photo.
+  await sleep(1500);
+  ring.stdin.write("n keys-01.jpg\n");
+  await sleep(200);
+  before = (await spoken()).length;
+  const nBeforeDouble = await entries();
+  ring.stdin.write("c\n");
+  await sleep(120); // second press arrives while the click's burst is still in flight
+  ring.stdin.write("d\n");
+  await page.waitForFunction((n) => window.__spoken.some((s, i) => i >= n && s.text.startsWith("Mock detail")), before, { timeout: 10_000 });
+  await sleep(500);
+  said = (await spoken()).slice(before);
+  const latest = await page.evaluate(() => JSON.parse(localStorage.getItem("qu.notebook.v1") ?? "[]").slice(-2).map((e) => ({ mode: e.mode, thumb: e.thumb?.length ?? 0 })));
+  check("ring: click-then-double gives more about the new look", latest[0]?.mode === "look" && latest[1]?.mode === "more" && (await entries()) === nBeforeDouble + 2, JSON.stringify(latest));
+  check("ring: click-then-double doesn't say 'point at something first'", !said.some((s) => s.startsWith("Point at")), said.join(" | "));
+
   const errors = logs.filter((l) => l.startsWith("pageerror"));
   check("no page errors", errors.length === 0, errors.join(" | "));
   const timing = logs.filter((l) => l.startsWith("[qu]"));

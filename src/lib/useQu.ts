@@ -56,6 +56,9 @@ export function useQu(deps: QuDeps) {
   const seqRef = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
   const retryingRef = useRef(false);
+  /** A look still taking its picture. The ring sends "click" at once and "double" only if a second press follows,
+   *  so a double-press arrives while the click's look is capturing: "more" waits for it and uses that photo. */
+  const capturingLookRef = useRef<Promise<Entry | null> | null>(null);
 
   useEffect(() => saveNotebook(entries), [entries]);
   useEffect(() => {
@@ -176,15 +179,22 @@ export function useQu(deps: QuDeps) {
     const seq = begin();
     const t0 = performance.now();
     depsRef.current.feedback("captured");
+    let settle: (e: Entry | null) => void = () => {};
+    const capturing = new Promise<Entry | null>((r) => (settle = r));
+    capturingLookRef.current = capturing;
+    const done = (e: Entry | null) => {
+      settle(e);
+      if (capturingLookRef.current === capturing) capturingLookRef.current = null;
+    };
     const got = await shoot(seq);
-    if (!got) return;
+    if (!got) return done(null);
     const { shot, quality } = got;
     if (quality.problem) {
       depsRef.current.feedback("error");
       say(PROBLEM_TEXT[quality.problem]);
       setNotice(`${PROBLEM_TEXT[quality.problem]} (sharpness ${Math.round(quality.sharpness)}, light ${Math.round(quality.brightness)})`);
       setPhase("idle");
-      return;
+      return done(null);
     }
     const fp = fingerprint(shot.image);
     const image = jpegBase64(shot.image);
@@ -192,7 +202,9 @@ export function useQu(deps: QuDeps) {
     const hit = findSameView(entriesRef.current, fp);
     if (hit) {
       // Instant replay, then check it's still right in the background.
-      add({ ...entry, headline: hit.headline, detail: hit.detail, title: hit.title, place: hit.place, kind: hit.kind, cachedFrom: hit.id, ttftMs: Math.round(performance.now() - t0) });
+      const replay: Entry = { ...entry, headline: hit.headline, detail: hit.detail, title: hit.title, place: hit.place, kind: hit.kind, cachedFrom: hit.id, ttftMs: Math.round(performance.now() - t0) };
+      add(replay);
+      done(replay);
       depsRef.current.feedback("highlight");
       say(hit.headline);
       const fresh = await answer(entry.id, body("look", { image }), { silent: true, seq, t0 });
@@ -209,6 +221,7 @@ export function useQu(deps: QuDeps) {
       return;
     }
     add(entry);
+    done(entry);
     await answer(entry.id, body("look", { image }), { seq, t0 });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -261,6 +274,8 @@ export function useQu(deps: QuDeps) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const more = useCallback(async () => {
+    const capturing = capturingLookRef.current;
+    if (capturing && !(await capturing)) return; // that look already said what went wrong (dark, blurry, no picture)
     // double-pressing while Qu is still answering means "more about this", so in-progress looks count too
     const last = [...entriesRef.current].reverse().find((e) => e.image && (e.status === "done" || e.status === "answering") && e.mode !== "more");
     const seq = begin();

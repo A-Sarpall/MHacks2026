@@ -33,8 +33,8 @@ or open `http://localhost:5173/?source=ws&url=ws://localhost:8787/ring&mode=stil
 
 | Gesture | Sent | Qu does |
 |---|---|---|
-| press | `click` (after a 250 ms double-press window) | look |
-| press twice | `double` | more about the last look |
+| press | `click` (the moment you let go) | look |
+| press twice | `click`, then `double` | look, then more about it (the app reuses the first press's photo) |
 | hold 0.55 s | `hold` (while still held) | ask: speak your question |
 
 ## Notes
@@ -44,6 +44,7 @@ or open `http://localhost:5173/?source=ws&url=ws://localhost:8787/ring&mode=stil
 - **Light.** If the first frame of a burst is tiny (dark scenes compress well), the flash LED switches on and the frame
   is retaken. Tune `LOW_LIGHT_JPEG_BYTES` from the sizes printed on the serial console.
 - **Latency.** The camera stays on between presses and Wi-Fi power save is off, so a capture is one frame time plus
-  upload. The 250 ms double-press window delays every click; lower `DOUBLE_GAP_MS` if you rarely double-press.
+  upload. Clicks are sent on release without waiting for a possible second press (`CLICK_FIRST`); set it to 0 for
+  firmware-side click/double disambiguation at the cost of `DOUBLE_GAP_MS` on every click.
 - **Power.** Always-on camera and Wi-Fi draw roughly 150-250 mA. Fine for a tethered prototype; a battery ring would
   need light sleep between presses (costing wake-up time on the first frame).

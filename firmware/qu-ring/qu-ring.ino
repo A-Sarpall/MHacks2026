@@ -50,7 +50,11 @@
 #define FRAME_SIZE FRAMESIZE_SVGA
 #define JPEG_QUALITY 12          // 0-63, lower is better quality
 #define HOLD_MS 550              // pressed this long = "hold" (sent while still held)
-#define DOUBLE_GAP_MS 250        // a second press within this = "double"; also the delay before a click is sent
+#define DOUBLE_GAP_MS 300        // a second press within this = "double"
+// 1: send "click" the moment the button is released, then "double" if a second press follows. The app starts looking
+//    immediately and "more" picks up that look, so no press waits for the double-press window.
+// 0: wait DOUBLE_GAP_MS after a release to decide between click and double (adds that delay to every click).
+#define CLICK_FIRST 1
 #define DEBOUNCE_MS 25
 #define MAX_BURST 5
 // Heuristic: in the dark the OV2640's JPEGs get very small. If the first frame of a burst is smaller than this,
@@ -176,8 +180,8 @@ void onWs(WStype_t type, uint8_t *payload, size_t length) {
 }
 
 // ---------- button gestures ----------
-// click: released before HOLD_MS and no second press within DOUBLE_GAP_MS
-// double: second press within DOUBLE_GAP_MS of the first release
+// click: released before HOLD_MS (sent at once with CLICK_FIRST, else after the double-press window)
+// double: second press within DOUBLE_GAP_MS of the first release (with CLICK_FIRST, a "click" was already sent)
 // hold: still pressed at HOLD_MS (sent immediately, so "ask" starts listening while you hold)
 enum State { IDLE, DOWN, WAIT_SECOND, SECOND_DOWN, HELD };
 State state = IDLE;
@@ -211,12 +215,19 @@ void pollButton() {
       if (p) { state = DOWN; since = now; }
       break;
     case DOWN:
-      if (!p) { state = WAIT_SECOND; since = now; }
+      if (!p) {
+        if (CLICK_FIRST) send("click");
+        state = WAIT_SECOND;
+        since = now;
+      }
       else if (now - since >= HOLD_MS) { send("hold"); state = HELD; }
       break;
     case WAIT_SECOND:
       if (p) { state = SECOND_DOWN; since = now; }
-      else if (now - since >= DOUBLE_GAP_MS) { send("click"); state = IDLE; }
+      else if (now - since >= DOUBLE_GAP_MS) {
+        if (!CLICK_FIRST) send("click");
+        state = IDLE;
+      }
       break;
     case SECOND_DOWN:
       if (!p) { send("double"); state = IDLE; }
