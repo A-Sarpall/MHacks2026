@@ -107,8 +107,15 @@ export default function App() {
 
   const onAction = useCallback(
     (action: InputAction) => {
-      // A second press while listening ends the question early.
-      if (listenRef.current && action === "click") return listenRef.current.stop();
+      // A press while listening ends the question early; any other gesture abandons it.
+      if (listenRef.current) {
+        if (action === "click") return listenRef.current.stop();
+        listenRef.current.cancel();
+      }
+      if (typedWaiter.current) {
+        typedWaiter.current("");
+        typedWaiter.current = null;
+      }
       if (action === "click") void qu.look();
       else if (action === "double") void qu.more();
       else void qu.ask(getQuestion);

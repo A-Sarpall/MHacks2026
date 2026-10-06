@@ -196,13 +196,15 @@ export function useQu(deps: QuDeps) {
       depsRef.current.feedback("highlight");
       say(hit.headline);
       const fresh = await answer(entry.id, body("look", { image }), { silent: true, seq, t0 });
-      if (seq !== seqRef.current) return;
+      const current = seq === seqRef.current;
       if (fresh && !sameAnswer(fresh.headline, hit.headline)) {
-        say(`Correction: ${fresh.headline}`);
+        if (current) say(`Correction: ${fresh.headline}`);
         patch(entry.id, { ...fresh, status: "done", cachedFrom: undefined });
       } else {
+        // the replayed answer stands (also when a newer press cut the re-check short)
         patch(entry.id, { status: "done", ms: Math.round(performance.now() - t0) });
       }
+      if (!current) return;
       if (!speaker.busy()) setPhase("idle");
       return;
     }

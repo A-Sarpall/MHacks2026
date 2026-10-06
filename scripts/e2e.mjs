@@ -163,6 +163,13 @@ async function main() {
   check("different view: not replayed", said[0]?.startsWith("Mock answer: a "), said[0]);
   check("different view: notebook sent as context", said[0]?.includes("look number 3"), said[0]);
 
+  // 3b. Replay, then press again before the background re-check finishes
+  await sleep(1500);
+  await page.keyboard.press("Space");
+  await sleep(80);
+  await page.keyboard.press("Space");
+  await sleep(2500);
+
   // 4. Fingerprint separation on the test images (same image vs different images)
   const fp = await page.evaluate(async () => {
     const { fingerprint, similarity, colourDistance } = await import("/src/lib/fingerprint.ts");
@@ -266,6 +273,8 @@ async function main() {
 
   const failedEntries = await page.evaluate(() => JSON.parse(localStorage.getItem("qu.notebook.v1") ?? "[]").filter((e) => e.status === "error" && e.headline !== "Interrupted").map((e) => e.headline));
   check("interrupted answers are kept, not marked failed", failedEntries.length === 0, failedEntries.join(" | "));
+  const stuck = await page.evaluate(() => JSON.parse(localStorage.getItem("qu.notebook.v1") ?? "[]").filter((e) => e.status === "answering").length);
+  check("no entry left 'answering' after interruptions", stuck === 0, `${stuck} stuck`);
   // 12. Persistence across reload, and End session
   const nBefore = await entries();
   await page.reload();
